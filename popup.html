@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container" tabindex="-1" autofocus>
+    <div class="header-buttons">
+        <button id="settingsBtn" type="button" class="exit-btn" title="设置">⚙️</button>
+        <button id="resetBtn" type="button" class="exit-btn" title="重置任务">✕</button>
+    </div>
+    <div class="header">
+      <div class="header-content">
+        <img src="icons/icon48.png" alt="石墨文档导出工具" class="header-icon">
+        <h2>石墨文档导出工具</h2>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="exportType">导出格式:</label>
+      <select id="exportType">
+        <option value="md">Markdown (.md)</option>
+        <option value="pdf">PDF (.pdf)</option>
+        <option value="docx">Word (.docx)</option>
+        <option value="jpg">图片 (.jpg)</option>
+      </select>
+    </div>
+
+    <div id="fileInfo" class="file-info" >
+      <p><strong>文件总数:</strong> <span id="totalFiles">0</span></p>
+      <!-- 可以根据需要添加更多信息，例如文件夹数量 -->
+    </div>
+    
+    <div class="form-group">
+      <button id="getInfo" type="button" class="btn btn-primary">获取文件信息</button>
+    </div>
+    
+    <div class="form-group action-buttons">
+      <button id="startExport" type="button" class="btn btn-start">开始导出</button>
+      <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;">暂停导出</button>
+    </div>
+
+    <div id="retrySection" style="display:none;" class="form-group">
+      <button id="retryFailedBtn" type="button" class="btn btn-retry">重试失败的文件</button>
+      <div id="failedList"></div>
+    </div>
+    
+    <div class="progress-bar" id="progressBar" style="display: none;">
+      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-text" id="progressText"></div>
+    </div>
+    
+    <div id="status" class="status" style="display: none;"></div>
+    
+    <div class="log-container" id="logContainer">
+      <div class="log-placeholder">
+        <p>👏👏👏</p>
+        <p>欢迎使用石墨文档导出工具！</p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html> 
