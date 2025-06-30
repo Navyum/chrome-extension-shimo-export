@@ -484,6 +484,7 @@ async function exportFiles() {
     const failedCount = exportState.fileList.filter(f => f.status === 'failed').length;
     if (failedCount > 0) {
       sendLog(`导出流程完成，但有 ${failedCount} 个文件失败。`);
+      sendLog(`请通过设置->性能监控->下载详情（文件树）查看失败文件，并手动重试下载`);
     } else {
       sendLog('所有文件均已成功导出！');
     }

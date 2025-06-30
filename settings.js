@@ -56,24 +56,117 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         });
     });
+
+    // --- File Tree Controls ---
+    setupFileTreeControls();
 });
 
-function loadPerformanceData() {
-    chrome.runtime.sendMessage({ action: 'getUiState' }, response => {
-        if (response && response.success && response.data && response.data.fileList.length > 0) {
-            const fileList = response.data.fileList;
-            renderFileTree(fileList, response.data.exportType);
-            renderSlowestFiles(fileList);
-        } else {
-            document.getElementById('file-tree-container').innerHTML = '<p>没有可用的性能数据。</p>';
-            document.getElementById('slowest-files-container').innerHTML = '<p>沒有可用的性能數據。</p>';
+// 全局变量存储当前文件数据
+let currentFileList = [];
+let currentExportType = '';
+let currentFilterStatus = 'all';
+
+function setupFileTreeControls() {
+    // 状态筛选按钮
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 更新按钮状态
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // 应用筛选
+            currentFilterStatus = btn.dataset.status;
+            applyFileTreeFilter();
+        });
+    });
+
+    // 刷新按钮
+    const refreshBtn = document.getElementById('refreshTreeBtn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            refreshFileTree();
+        });
+    }
+}
+
+function refreshFileTree() {
+    const refreshBtn = document.getElementById('refreshTreeBtn');
+    if (refreshBtn) {
+        refreshBtn.classList.add('loading');
+        refreshBtn.disabled = true;
+    }
+
+    // 重新加载数据
+    loadPerformanceData().finally(() => {
+        if (refreshBtn) {
+            refreshBtn.classList.remove('loading');
+            refreshBtn.disabled = false;
         }
     });
+}
+
+function loadPerformanceData() {
+    return new Promise((resolve) => {
+        chrome.runtime.sendMessage({ action: 'getUiState' }, response => {
+            if (response && response.success && response.data && response.data.fileList.length > 0) {
+                currentFileList = response.data.fileList;
+                currentExportType = response.data.exportType || 'md';
+                renderFileTree(currentFileList, currentExportType);
+                renderSlowestFiles(currentFileList);
+            } else {
+                currentFileList = [];
+                currentExportType = '';
+                document.getElementById('file-tree-container').innerHTML = '<p>没有可用的性能数据。</p>';
+                document.getElementById('slowest-files-container').innerHTML = '<p>没有可用的性能数据。</p>';
+            }
+            resolve();
+        });
+    });
+}
+
+function applyFileTreeFilter() {
+    if (currentFileList.length === 0) return;
+
+    let filteredFiles = currentFileList;
+    
+    // 根据状态筛选文件
+    if (currentFilterStatus !== 'all') {
+        filteredFiles = currentFileList.filter(file => file.status === currentFilterStatus);
+    }
+
+    // 重新渲染文件树
+    renderFileTree(filteredFiles, currentExportType);
+    
+    // 更新文件计数
+    updateFileCount(filteredFiles.length, currentFileList.length);
+}
+
+function updateFileCount(filteredCount, totalCount) {
+    const container = document.getElementById('file-tree-container');
+    const existingCount = container.querySelector('.file-count');
+    
+    if (existingCount) {
+        existingCount.remove();
+    }
+    
+    if (currentFilterStatus !== 'all') {
+        const countDiv = document.createElement('div');
+        countDiv.className = 'file-count';
+        countDiv.style.cssText = 'margin-bottom: 12px; font-size: 0.9rem; color: var(--text-secondary);';
+        countDiv.textContent = `显示 ${filteredCount} 个文件 (共 ${totalCount} 个)`;
+        container.insertBefore(countDiv, container.firstChild);
+    }
 }
 
 function renderFileTree(fileList, exportType) {
     const container = document.getElementById('file-tree-container');
     container.innerHTML = ''; // Clear previous content
+
+    if (fileList.length === 0) {
+        container.innerHTML = '<p>没有符合条件的文件。</p>';
+        return;
+    }
 
     const tree = {};
     fileList.forEach(file => {
@@ -104,6 +197,9 @@ function renderFileTree(fileList, exportType) {
             el.parentElement.classList.toggle('collapsed');
         });
     });
+
+    // 更新文件计数
+    updateFileCount(fileList.length, currentFileList.length);
 }
 
 function createTreeHtml(node, exportType) {
