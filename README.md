@@ -41,8 +41,8 @@
 
 1. **下载项目**
    ```bash
-   git clone https://github.com/Navyum/shimoExporter.git
-   cd shimoExporter/chrome-extension-shimo-export
+   git clone https://github.com/Navyum/chrome-extension-shimo-export.git
+   cd chrome-extension-shimo-export
    ```
 
 2. **打开Chrome扩展页面**
