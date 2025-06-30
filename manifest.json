@@ -6,14 +6,10 @@
   "permissions": [
     "cookies",
     "storage",
-    "downloads",
-    "activeTab",
-    "scripting",
-    "power"
+    "downloads"
   ],
   "host_permissions": [
-    "https://*.shimo.im/*",
-    "https://*.shimonote.com/*"
+    "https://*.shimo.im/*"
   ],
   "background": {
     "service_worker": "background.js"
