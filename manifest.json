@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "石墨文档导出工具",
-  "version": "1.0.0",
-  "description": "从石墨文档全量导出文件到本地，支持导出格式md、docx、pdf、jpg",
+  "name": "石墨文档导出工具|石墨Markdown",
+  "version": "1.0.1",
+  "description": "从石墨文档全量导出文件到本地，多类型导出格式md、docx、pdf、jpg。文件夹层级保留",
   "permissions": [
     "cookies",
     "storage",

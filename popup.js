@@ -8,7 +8,7 @@ let totalFiles = 0; // 缓存文件总数
 let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, startBtn, pauseBtn, 
     retrySection, retryFailedBtn, failedList, progressBar, 
     progressFill, progressText, statusDiv, logContainer, resetBtn,
-    settingsBtn;
+    settingsBtn, loginBtn;
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async function() {
@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', async function() {
   progressText = document.getElementById('progressText');
   statusDiv = document.getElementById('status');
   logContainer = document.getElementById('logContainer');
-  resetBtn = document.getElementById('resetBtn');
-  settingsBtn = document.getElementById('settingsBtn');
+  resetBtn = document.getElementById('reset-btn');
+  settingsBtn = document.getElementById('settings-btn');
+  loginBtn = document.getElementById('login-btn');
 
   // 从存储中恢复UI设置和状态
   try {
@@ -54,9 +55,15 @@ document.addEventListener('DOMContentLoaded', async function() {
   settingsBtn.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
   });
+  loginBtn.addEventListener('click', () => {
+    chrome.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
+  });
   if (retryFailedBtn) {
     retryFailedBtn.addEventListener('click', handleRetryFailed);
   }
+  
+  // 增强下拉框交互效果
+  enhanceSelectInteraction();
 });
 
 function syncUiWithState(state) {
@@ -349,5 +356,53 @@ function updateProgress(exported, total) {
 function saveSettings() {
   chrome.storage.local.set({
     exportType: exportTypeSelect.value
+  });
+}
+
+// 增强下拉框交互效果
+function enhanceSelectInteraction() {
+  const selectContainer = document.querySelector('.select-container');
+  const select = document.getElementById('exportType');
+  
+  if (!selectContainer || !select) return;
+  
+  // 添加选中状态的视觉反馈
+  function updateSelectionState() {
+    if (select.value) {
+      selectContainer.classList.add('has-selection');
+    } else {
+      selectContainer.classList.remove('has-selection');
+    }
+  }
+  
+  // 初始化状态
+  updateSelectionState();
+  
+  // 监听选择变化
+  select.addEventListener('change', function() {
+    updateSelectionState();
+    
+    // 添加选择动画效果
+    selectContainer.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      selectContainer.style.transform = '';
+    }, 200);
+  });
+  
+  // 添加焦点动画
+  select.addEventListener('focus', function() {
+    selectContainer.style.transform = 'scale(1.02)';
+  });
+  
+  select.addEventListener('blur', function() {
+    selectContainer.style.transform = '';
+  });
+  
+  // 添加键盘导航支持
+  select.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      select.focus();
+    }
   });
 } 
