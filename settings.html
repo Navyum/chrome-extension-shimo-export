@@ -2,30 +2,36 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>导出工具设置</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石墨文档导出工具 - 设置</title>
     <link rel="stylesheet" href="settings.css">
 </head>
 <body>
     <div class="wrapper">
         <aside class="sidebar">
             <header class="sidebar-header">
-                <img src="icons/icon48.png" alt="icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;">
-                石墨文档导出工具
+                <img src="icons/icon48.png" alt="icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;border-radius:6px;background:rgba(255,255,255,0.9);padding:4px;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(10px);">
+                <span>石墨文档导出工具</span>
             </header>
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active" data-section="general">
-                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
+                    </svg>
                     <span>通用设置</span>
                 </a>
                 <a href="#" class="nav-item" data-section="performance">
-                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m14 10-2 2-2-2"/><path d="m12 14 2-2 2 2"/></svg>
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                        <path d="m14 10-2 2-2-2"/>
+                        <path d="m12 14 2-2 2 2"/>
+                    </svg>
                     <span>性能监控</span>
                 </a>
                 <a href="#" class="nav-item" data-section="about">
-                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 8v4M12 16h.01"/></svg>
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 8v4M12 16h.01"/>
+                    </svg>
                     <span>关于</span>
                 </a>
             </nav>
@@ -33,17 +39,17 @@
         <main class="main-content">
             <section id="general" class="content-section active">
                 <header class="section-header">
-                    <h2>通用</h2>
-                    <p>管理扩展的常规设置。</p>
+                    <h2>通用设置</h2>
+                    <p>管理扩展的常规设置和基本配置选项。</p>
                 </header>
                 <div class="form-card">
                     <div class="form-group">
-                        <label for="subfolder">下载子文件夹</label>
+                        <label for="subfolder">📁 下载子文件夹</label>
                         <p class="description">
                             文件将保存到您浏览器"下载"目录下的指定子文件夹中。如果留空，则保存到"下载"目录。
                         </p>
                         <input type="text" id="subfolder" placeholder="例如: 我的石墨文档">
-                        <div id="status" class="status">设置已保存!</div>
+                        <div id="status" class="status">✅ 设置已保存!</div>
                     </div>
                 </div>
             </section>
@@ -54,11 +60,11 @@
                 </header>
                 <div class="form-card">
                     <div class="file-tree-header">
-                        <h3>下载详情 (文件树)</h3>
+                        <h3>🌳 下载详情 (文件树)</h3>
                         <div class="file-tree-controls">
                             <div class="status-filter">
                                 <span class="filter-label">状态筛选:</span>
-                                <button class="filter-btn active" data-status="all">全部</button>
+                                <button class="filter-btn active" data-status="all">📋 全部</button>
                                 <button class="filter-btn" data-status="success">✅ 成功</button>
                                 <button class="filter-btn" data-status="failed">❌ 失败</button>
                                 <button class="filter-btn" data-status="pending">⏳ 处理中</button>
@@ -67,7 +73,7 @@
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M23 4v6h-6M1 20v-6h6M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
                                 </svg>
-                                刷新
+                                🔄 刷新
                             </button>
                         </div>
                     </div>
@@ -77,28 +83,28 @@
                     </div>
                 </div>
                 <div class="form-card">
-                    <h3>下载最慢的 10 个文件</h3>
-                    <p class="description">仅显示成功下载的文件。</p>
+                    <h3>🐌 下载最慢的 10 个文件</h3>
+                    <p class="description">仅显示成功下载的文件，帮助您了解网络性能瓶颈。</p>
                     <div id="slowest-files-container">
-                        <p>没有可用的性能数据。</p>
+                        <p>📊 没有可用的性能数据。</p>
                     </div>
                 </div>
             </section>
             <section id="about" class="content-section">
                 <header class="section-header">
                     <h2>关于石墨文档导出工具</h2>
-                    <p>感谢您使用本工具，请勿做商用。</p>
+                    <p>感谢您使用本工具，请勿做商用。如有问题或建议，欢迎反馈。</p>
                 </header>
                 <div class="form-card">
-                    <h3>项目说明</h3>
+                    <h3>📖 项目说明</h3>
                     <p>本扩展旨在帮助用户方便地从石墨文档（shimo.im）批量导出文件，并完整保留原始的文件夹结构。您可以选择多种导出格式，如 Markdown, PDF, Word 等。</p>
                     <p>如果您在日常工作或学习中频繁使用石墨文档，并有备份或迁移数据的需求，这个工具将为您节省大量手动操作的时间。</p>
                     
-                    <h3 style="margin-top: 32px;">支持与鼓励</h3>
+                    <h3 style="margin-top: 32px;">💝 支持与鼓励</h3>
                     <p>如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。</p>
                     <div class="reward-container">
                         <img src="https://raw.staticdn.net/Navyum/imgbed/pic/IMG/d55ddcb88afc284ec63d69543fe87e36.jpeg" alt="打赏二维码">
-                        <p>（请使用微信扫描）</p>
+                        <p>☕️ 请使用微信扫描二维码</p>
                     </div>
                 </div>
             </section>
