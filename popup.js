@@ -8,7 +8,7 @@ let totalFiles = 0; // 缓存文件总数
 let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, startBtn, pauseBtn, 
     retrySection, retryFailedBtn, failedList, progressBar, 
     progressFill, progressText, statusDiv, logContainer, resetBtn,
-    settingsBtn, loginBtn;
+    settingsBtn, loginBtn, sponsorBtn, sponsorModal, sponsorModalClose, mainContainer;
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async function() {
@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   resetBtn = document.getElementById('reset-btn');
   settingsBtn = document.getElementById('settings-btn');
   loginBtn = document.getElementById('login-btn');
+  sponsorBtn = document.getElementById('sponsor-btn');
+  sponsorModal = document.getElementById('sponsorModal');
+  sponsorModalClose = document.getElementById('sponsorModalClose');
+  mainContainer = document.querySelector('.container');
 
   // 从存储中恢复UI设置和状态
   try {
@@ -58,9 +62,27 @@ document.addEventListener('DOMContentLoaded', async function() {
   loginBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
   });
+  if (sponsorBtn) {
+    sponsorBtn.addEventListener('click', () => toggleSponsorModal(true));
+  }
+  if (sponsorModalClose) {
+    sponsorModalClose.addEventListener('click', () => toggleSponsorModal(false));
+  }
+  if (sponsorModal) {
+    sponsorModal.addEventListener('click', (event) => {
+      if (event.target === sponsorModal) {
+        toggleSponsorModal(false);
+      }
+    });
+  }
   if (retryFailedBtn) {
     retryFailedBtn.addEventListener('click', handleRetryFailed);
   }
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && sponsorModal && sponsorModal.classList.contains('is-visible')) {
+      toggleSponsorModal(false);
+    }
+  });
   
   // 增强下拉框交互效果
   enhanceSelectInteraction();
@@ -357,6 +379,34 @@ function saveSettings() {
   chrome.storage.local.set({
     exportType: exportTypeSelect.value
   });
+}
+
+function toggleSponsorModal(shouldShow) {
+  if (!sponsorModal) return;
+  if (shouldShow) {
+    sponsorModal.classList.add('is-visible');
+    sponsorModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    if (mainContainer) {
+      mainContainer.setAttribute('inert', '');
+    }
+    setTimeout(() => {
+      sponsorModalClose?.focus();
+    }, 0);
+  } else {
+    if (mainContainer) {
+      mainContainer.removeAttribute('inert');
+    }
+    document.body.classList.remove('modal-open');
+    if (sponsorBtn) {
+      sponsorBtn.focus();
+    } else if (mainContainer) {
+      mainContainer.focus();
+    }
+    sponsorModal.classList.remove('is-visible');
+    sponsorModal.setAttribute('aria-hidden', 'true');
+    sponsorModalClose?.blur();
+  }
 }
 
 // 增强下拉框交互效果
