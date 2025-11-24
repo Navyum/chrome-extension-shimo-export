@@ -28,7 +28,11 @@ jobs:
       run: |
         # 如果有package.json，安装依赖
         if [ -f "package.json" ]; then
-          npm ci
+          if [ -f "package-lock.json" ] || [ -f "npm-shrinkwrap.json" ] || [ -f "yarn.lock" ]; then
+            npm ci
+          else
+            npm install
+          fi
         fi
 
     - name: Validate manifest.json
