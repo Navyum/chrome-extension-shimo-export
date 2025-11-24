@@ -37,7 +37,17 @@
 
 ## 🛠️ 安装方法
 
-### 方法一：开发者模式安装（推荐）
+
+### 方法一：从Chrome Web Store安装
+
+[直达地址](https://chromewebstore.google.com/detail/jdipfhjpijkdjbefbaehnimligdldhdp)
+
+1. 访问Chrome Web Store
+2. 搜索"石墨文档导出工具"
+3. 点击"添加至Chrome"
+
+
+### 方法二：开发者模式安装（推荐）
 
 1. **下载项目**
    ```bash
@@ -56,12 +66,6 @@
    - 点击"加载已解压的扩展程序"
    - 选择项目文件夹
    - 安装完成！
-
-### 方法二：从Chrome Web Store安装（待发布）
-
-1. 访问Chrome Web Store
-2. 搜索"石墨文档导出工具"
-3. 点击"添加至Chrome"
 
 ## 📖 使用指南
 
@@ -207,7 +211,11 @@ chrome-extension-shimo-export/
 
 ## 📝 更新日志
 
-### v1.0.0 (2024-01-XX)
+### v1.0.0 (2025-11-20)
+- 🎉 更新自动化构建
+- 主界面添加sponers入口
+
+### v1.0.0 (2025-07-06)
 - 🎉 初始版本发布
 - ✨ 支持自动获取用户认证
 - 📁 支持多种导出格式
@@ -217,6 +225,10 @@ chrome-extension-shimo-export/
 - 📈 性能监控功能
 - 🎨 现代化UI设计
 - 🚀 优化的代码架构
+
+
+## TODO:
+- 支持团队空间文档导出（待开发）
 
 ## 📄 许可证
 
