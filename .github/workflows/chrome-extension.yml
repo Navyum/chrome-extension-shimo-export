@@ -23,7 +23,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
 
     - name: Install dependencies
       run: |
@@ -34,8 +33,7 @@ jobs:
 
     - name: Validate manifest.json
       run: |
-        cd chrome-extension-shimo-export
-        # 检查manifest.json语法
+        # 检查 manifest.json 语法
         if ! python3 -m json.tool manifest.json > /dev/null; then
           echo "❌ manifest.json 语法错误"
           exit 1
@@ -44,7 +42,6 @@ jobs:
 
     - name: Check required files
       run: |
-        cd chrome-extension-shimo-export
         required_files=("manifest.json" "popup.html" "popup.js" "background.js" "settings.html" "settings.js")
         for file in "${required_files[@]}"; do
           if [ ! -f "$file" ]; then
@@ -56,8 +53,7 @@ jobs:
 
     - name: Validate HTML files
       run: |
-        cd chrome-extension-shimo-export
-        # 简单的HTML验证
+        # 简单的 HTML 验证
         for html_file in popup.html settings.html; do
           if ! grep -q "<!DOCTYPE html>" "$html_file"; then
             echo "❌ $html_file 缺少 DOCTYPE 声明"
@@ -68,9 +64,8 @@ jobs:
 
     - name: Create extension package
       run: |
-        cd chrome-extension-shimo-export
         # 创建发布包
-        zip -r ../chrome-extension.zip . -x "*.DS_Store" "*.git*" "README.md" "INSTALL.md"
+        zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "INSTALL.md"
         echo "✅ Chrome 扩展打包完成"
 
     - name: Upload build artifacts
