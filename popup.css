@@ -150,6 +150,15 @@ body {
   filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.5));
 }
 
+/* 禁用赞助按钮和关闭按钮的选中态 */
+.sponsor-btn:focus,
+.sponsor-btn:focus-visible,
+.sponsor-modal-close:focus,
+.sponsor-modal-close:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
 /* 设置按钮样式 */
 .settings-btn {
   right: 48px; /* 留出空间给退出按钮 */
@@ -288,7 +297,7 @@ body {
   transition: transform 0.2s ease;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.9);
-  padding: 4px;
+  padding: 2px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
 }
