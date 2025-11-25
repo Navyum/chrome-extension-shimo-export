@@ -2,6 +2,7 @@
 const SHIMO_API = {
   ROOT: 'https://shimo.im/lizard-api/files',
   LIST: 'https://shimo.im/lizard-api/files?folder=%s',
+  SPACE: 'https://shimo.im/panda-api/file/spaces?orderBy=updatedAt',
   EXPORT: 'https://shimo.im/lizard-api/office-gw/files/export?fileGuid=%s&type=%s',
   QUERY: 'https://shimo.im/lizard-api/office-gw/files/export/progress?taskId=%s'
 };
@@ -303,6 +304,33 @@ async function handleTogglePause(data) {
 // 获取所有文件列表
 async function getAllFiles() {
   const allFiles = [];
+  const teamSpacePrefix = '团队空间';
+  
+  async function getTeamSpaces() {
+    const spaces = [];
+    let nextUrl = SHIMO_API.SPACE;
+
+    while (nextUrl) {
+      const response = await makeRequest(nextUrl);
+
+      if (!response.ok) {
+        throw new Error(`获取团队空间列表失败: HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (Array.isArray(data.spaces)) {
+        spaces.push(...data.spaces);
+      }
+
+      if (data.next) {
+        nextUrl = data.next.startsWith('http') ? data.next : `https://shimo.im${data.next}`;
+      } else {
+        nextUrl = '';
+      }
+    }
+
+    return spaces;
+  }
   
   async function fetchFiles(folderId = '', currentPath = '') {
     const url = folderId 
@@ -349,7 +377,24 @@ async function getAllFiles() {
     }
   }
 
+  // 先获取个人空间
+  sendLog('开始获取个人空间文件列表...');
   await fetchFiles();
+  sendLog('个人空间文件列表获取完成。');
+
+  // 再获取团队空间
+  sendLog('开始获取团队空间列表...');
+  const teamSpaces = await getTeamSpaces();
+  sendLog(`共检测到 ${teamSpaces.length} 个团队空间。`);
+
+  for (const space of teamSpaces) {
+    const sanitizedSpaceName = sanitizePathComponent(space.name) || space.guid || '团队空间';
+    const basePath = `${teamSpacePrefix}/${sanitizedSpaceName}`;
+    sendLog(`开始获取团队空间 (${space.name || space.guid}) 的文件...`);
+    await fetchFiles(space.guid, basePath);
+    sendLog(`团队空间 (${space.name || space.guid}) 文件获取完成。`);
+  }
+
   return allFiles;
 }
 

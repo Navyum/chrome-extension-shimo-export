@@ -3,12 +3,16 @@ let isExporting = false;
 let isPaused = false;
 let fileInfo = null; // 存储从后台获取的文件信息
 let totalFiles = 0; // 缓存文件总数
+const START_BUTTON_DEFAULT_TEXT = '🚀 开始导出';
+const START_BUTTON_DONE_TEXT = '🎉导出完成';
 
 // DOM 元素 (在 DOMContentLoaded 中分配)
-let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, startBtn, pauseBtn, 
+let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, teamFilesSpan, startBtn, pauseBtn, 
     retrySection, retryFailedBtn, failedList, progressBar, 
     progressFill, progressText, statusDiv, logContainer, resetBtn,
     settingsBtn, loginBtn, sponsorBtn, sponsorModal, sponsorModalClose, mainContainer;
+let statusHideTimer = null;
+let sponsorHoverTimeout = null;
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async function() {
@@ -17,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   getInfoBtn = document.getElementById('getInfo');
   fileInfoDiv = document.getElementById('fileInfo');
   totalFilesSpan = document.getElementById('totalFiles');
+  teamFilesSpan = document.getElementById('teamFiles');
   startBtn = document.getElementById('startExport');
   pauseBtn = document.getElementById('pauseExport');
   retrySection = document.getElementById('retrySection');
@@ -34,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   sponsorModal = document.getElementById('sponsorModal');
   sponsorModalClose = document.getElementById('sponsorModalClose');
   mainContainer = document.querySelector('.container');
+  setStartButtonLabel(START_BUTTON_DEFAULT_TEXT);
 
   // 从存储中恢复UI设置和状态
   try {
@@ -64,6 +70,8 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
   if (sponsorBtn) {
     sponsorBtn.addEventListener('click', () => toggleSponsorModal(true));
+    sponsorBtn.addEventListener('mouseenter', handleSponsorHoverEnter);
+    sponsorBtn.addEventListener('mouseleave', handleSponsorHoverLeave);
   }
   if (sponsorModalClose) {
     sponsorModalClose.addEventListener('click', () => toggleSponsorModal(false));
@@ -74,6 +82,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         toggleSponsorModal(false);
       }
     });
+    sponsorModal.addEventListener('mouseenter', clearSponsorHoverTimeout);
+    sponsorModal.addEventListener('mouseleave', handleSponsorHoverLeave);
   }
   if (retryFailedBtn) {
     retryFailedBtn.addEventListener('click', handleRetryFailed);
@@ -98,9 +108,11 @@ function syncUiWithState(state) {
   if (state.fileList && state.fileList.length > 0) {
     fileInfo = { totalFiles: state.totalFiles, fileList: state.fileList };
     totalFilesSpan.textContent = state.totalFiles;
+    updateTeamFilesCount(state.fileList);
     fileInfoDiv.style.display = 'block';
   } else {
     fileInfo = null;
+    updateTeamFilesCount([]);
     fileInfoDiv.style.display = 'none';
   }
   
@@ -173,6 +185,7 @@ async function handleGetFileInfo() {
       showStatus('文件信息获取成功！', 'success');
       addLog(`成功找到 ${response.data.totalFiles} 个文件。`);
       syncUiWithState({ ...response.data, isExporting: false, isPaused: false });
+      setStartButtonLabel(START_BUTTON_DEFAULT_TEXT);
       // 恢复按钮
       getInfoBtn.textContent = '获取文件信息';
       getInfoBtn.disabled = false;
@@ -277,6 +290,33 @@ function setButtonState(button, text, className) {
     button.classList.add(className);
 }
 
+function setStartButtonLabel(text = START_BUTTON_DEFAULT_TEXT) {
+  if (!startBtn) return;
+  const labelSpan = startBtn.querySelector('span');
+  if (labelSpan) {
+    labelSpan.textContent = text;
+  }
+}
+
+function handleSponsorHoverEnter() {
+  clearSponsorHoverTimeout();
+  toggleSponsorModal(true);
+}
+
+function handleSponsorHoverLeave() {
+  clearSponsorHoverTimeout();
+  sponsorHoverTimeout = setTimeout(() => {
+    toggleSponsorModal(false);
+  }, 200);
+}
+
+function clearSponsorHoverTimeout() {
+  if (sponsorHoverTimeout) {
+    clearTimeout(sponsorHoverTimeout);
+    sponsorHoverTimeout = null;
+  }
+}
+
 // 新增：处理重试失败文件的点击事件
 async function handleRetryFailed() {
   if (!retryFailedBtn) return; // 安全卫士
@@ -305,13 +345,32 @@ async function handleRetryFailed() {
 
 // 显示状态信息
 function showStatus(message, type) {
-  statusDiv.textContent = message;
-  statusDiv.className = `status ${type}`;
-  statusDiv.style.display = 'block';
+  if (!statusDiv) return;
   
-  // 3秒后自动隐藏
-  setTimeout(() => {
-    statusDiv.style.display = 'none';
+  const icons = {
+    success: '🎉',
+    error: '⚠️',
+    info: 'ℹ️'
+  };
+  const icon = icons[type] || icons.info;
+
+  statusDiv.textContent = `${icon} ${message}`;
+  statusDiv.className = `status status-toast ${type || 'info'}`;
+  statusDiv.style.display = 'block';
+
+  requestAnimationFrame(() => {
+    statusDiv.classList.add('is-visible');
+  });
+
+  if (statusHideTimer) {
+    clearTimeout(statusHideTimer);
+  }
+
+  statusHideTimer = setTimeout(() => {
+    statusDiv.classList.remove('is-visible');
+    setTimeout(() => {
+      statusDiv.style.display = 'none';
+    }, 300);
   }, 3000);
 }
 
@@ -345,6 +404,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case 'exportComplete':
       addLog('导出流程完成。');
       showStatus('导出完成！', 'success');
+      setStartButtonLabel(START_BUTTON_DONE_TEXT);
       isExporting = false;
       // 从后台获取最终状态，以显示可能的失败文件
       chrome.runtime.sendMessage({ action: 'getUiState' }).then(response => {
@@ -372,6 +432,16 @@ function updateProgress(exported, total) {
     progressFill.style.width = `${percentage}%`;
     progressText.textContent = `${exported}/${total}`; // 更新居中的文本
   }
+}
+
+function updateTeamFilesCount(fileList = []) {
+  if (!teamFilesSpan) return;
+  const list = Array.isArray(fileList) ? fileList : [];
+  const teamCount = list.filter(file => {
+    const folderPath = file && typeof file.folderPath === 'string' ? file.folderPath : '';
+    return folderPath.startsWith('团队空间');
+  }).length;
+  teamFilesSpan.textContent = teamCount;
 }
 
 // 保存设置和状态到存储
