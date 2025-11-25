@@ -122,8 +122,8 @@ body {
 }
 
 .login-icon {
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   filter: brightness(0.7) sepia(1) saturate(5) hue-rotate(180deg); /* 蓝色调 */
   transition: all 0.3s ease;
 }
@@ -139,8 +139,8 @@ body {
 }
 
 .sponsor-icon {
-  width: 24px;
-  height: 24px;
+  width: 23px;
+  height: 23px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -157,8 +157,8 @@ body {
 }
 
 .settings-icon {
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   transition: all 0.3s ease;
   filter: brightness(0.3);
 }
@@ -653,33 +653,55 @@ select option:checked {
 
 /* 状态消息样式 */
 .status {
-  margin: 16px 0;
-  padding: 12px 16px;
-  border-radius: var(--radius-md);
+  position: fixed;
+  top: 72px;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  min-width: 260px;
+  max-width: 360px;
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   border: 1px solid transparent;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
   opacity: 0;
-  animation: fadeInUp 0.5s ease-out 0.6s forwards;
+  pointer-events: none;
+  z-index: 2000;
+  text-align: center;
+  letter-spacing: 0.3px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: none;
+  backdrop-filter: blur(12px);
 }
 
-.status.success {
-  background: rgba(16, 185, 129, 0.1);
+.status.status-toast {
+  background: rgba(26, 26, 46, 0.95);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: var(--text-primary);
+}
+
+.status.status-toast.success {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(15, 23, 42, 0.95);
   color: var(--success-color);
-  border-color: rgba(16, 185, 129, 0.3);
 }
 
-.status.error {
-  background: rgba(239, 68, 68, 0.1);
+.status.status-toast.error {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(31, 16, 16, 0.95);
   color: var(--danger-color);
-  border-color: rgba(239, 68, 68, 0.3);
 }
 
-.status.info {
-  background: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
-  border-color: rgba(59, 130, 246, 0.3);
+.status.status-toast.info {
+  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(15, 23, 42, 0.95);
+  color: #93c5fd;
+}
+
+.status.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 /* 日志容器样式 */
@@ -728,13 +750,13 @@ select option:checked {
 .log-placeholder {
   color: var(--text-secondary);
   text-align: center;
-  padding-top: 60px;
+  padding-top: 0px;
   font-size: 14px;
   font-weight: 500;
 }
 
 .log-placeholder p {
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 .log-entry {
@@ -907,7 +929,7 @@ body.modal-open .container {
   }
   
   .container {
-    margin: 6px;
+    margin: 0px;
     padding: 16px;
   }
   
