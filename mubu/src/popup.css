@@ -1,4 +1,4 @@
-/* 现代化石墨文档导出插件样式 */
+/* 现代化幕布导出插件样式 */
 
 /* 重置和基础样式 */
 * {
@@ -244,7 +244,7 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--border-secondary);
   box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.1);
   opacity: 0;
@@ -416,14 +416,6 @@ select option:checked {
   padding-left: 64px;
 }
 
-.select-container:not(.has-icon) select {
-  padding-left: 16px;
-}
-
-.select-container:not(.has-icon) .select-trigger {
-  padding-left: 16px;
-}
-
 .select-container.is-open {
   z-index: 200;
 }
@@ -442,7 +434,6 @@ select option:checked {
   transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
   z-index: 3;
-  object-fit: contain;
 }
 
 .select-icon.is-visible {
@@ -543,9 +534,7 @@ select option:checked {
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  object-fit: contain;
-  background: transparent;
-  padding: 0;
+  object-fit: cover;
 }
 
 .select-option-item.is-active .select-option-button,
@@ -568,7 +557,6 @@ select option:checked {
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.7;
-  z-index: 3;
 }
 
 .select-container:hover::after {
@@ -929,6 +917,10 @@ select option:checked {
 
 .log-placeholder p {
   margin: 4px 0;
+}
+
+.log-placeholder .log-tip {
+  text-align: center;
 }
 
 .log-entry {

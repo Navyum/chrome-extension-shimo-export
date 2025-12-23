@@ -31,91 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Settings Logic ---
     const subfolderInput = document.getElementById('subfolder');
     const statusDiv = document.getElementById('status');
-    const timeSourceRadios = document.querySelectorAll('input[name="timestampSource"]');
-    const timeSourceCaption = document.getElementById('timeSourceCaption');
-    const timestampFormatSelect = document.getElementById('timestampFormat');
-    const timestampStatus = document.getElementById('timestampStatus');
-    const timestampHint = document.getElementById('timestampFormatHint');
-    const TIMESTAMP_DEFAULT_FORMAT = 'YYYY-MM-DD_HH-mm';
-    const TIMESTAMP_PREVIEW = {
-        'YYYYMMDD-HHmm': '20231231-2359',
-        'YYYY-MM-DD_HH-mm': '2023-12-31_23-59',
-        'YYYY.MM.DD-HH.mm': '2023.12.31-23.59'
-    };
-    const STATE_CAPTIONS = {
-        'off': '关闭（文件名保持原样）',
-        'createdAt': '创建时间（将追加创建时间到文件名）',
-        'updatedAt': '修改时间（将追加修改时间到文件名）'
-    };
     let saveTimeout;
-    let timestampTimeout;
 
-    function updateTimestampHint(format) {
-        if (!timestampHint) return;
-        const preview = TIMESTAMP_PREVIEW[format] || TIMESTAMP_PREVIEW[TIMESTAMP_DEFAULT_FORMAT];
-        timestampHint.textContent = `示例：示例文档__${preview}`;
-    }
-
-    function updateTimeSourceCaption(state) {
-        if (!timeSourceCaption) return;
-        timeSourceCaption.textContent = `当前：${STATE_CAPTIONS[state] || STATE_CAPTIONS['off']}`;
-    }
-
-    function showTimestampStatus(message) {
-        if (!timestampStatus) return;
-        timestampStatus.textContent = `✅ ${message}`;
-        timestampStatus.style.opacity = '1';
-        clearTimeout(timestampTimeout);
-        timestampTimeout = setTimeout(() => {
-            timestampStatus.style.opacity = '0';
-        }, 2000);
-    }
-
-    function saveTimeSourceState(state) {
-        const isEnabled = state !== 'off';
-        const updates = {
-            preserveFileTimes: isEnabled,
-            fileTimeSource: state
-        };
-        if (isEnabled) {
-            updates.fileTimeFormat = timestampFormatSelect.value || TIMESTAMP_DEFAULT_FORMAT;
-        }
-        chrome.storage.local.set(updates, () => {
-            const messages = {
-                'off': '时间信息已关闭',
-                'createdAt': '将使用创建时间',
-                'updatedAt': '将使用修改时间'
-            };
-            showTimestampStatus(messages[state] || messages['off']);
-        });
-    }
-
-    // Load the saved settings
-    chrome.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource'], (result) => {
+    // Load the saved setting
+    chrome.storage.local.get(['subfolder'], (result) => {
         if (result.subfolder) {
             subfolderInput.value = result.subfolder;
-        }
-
-        if (timeSourceRadios.length > 0 && timestampFormatSelect) {
-            // Determine current state
-            let currentState = 'off';
-            if (result.preserveFileTimes) {
-                currentState = result.fileTimeSource || 'createdAt';
-            }
-
-            // Update radio buttons
-            timeSourceRadios.forEach(radio => {
-                radio.checked = radio.value === currentState;
-            });
-            updateTimeSourceCaption(currentState);
-
-            // Update format select
-            const savedFormat = result.fileTimeFormat || TIMESTAMP_DEFAULT_FORMAT;
-            const availableFormats = Array.from(timestampFormatSelect.options).map(option => option.value);
-            const formatToUse = availableFormats.includes(savedFormat) ? savedFormat : TIMESTAMP_DEFAULT_FORMAT;
-            timestampFormatSelect.value = formatToUse;
-            timestampFormatSelect.disabled = currentState === 'off';
-            updateTimestampHint(formatToUse);
         }
     });
 
@@ -135,32 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         });
     });
-
-    // Handle radio button changes
-    timeSourceRadios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            if (!radio.checked) return;
-            const selectedState = radio.value;
-            
-            updateTimeSourceCaption(selectedState);
-            timestampFormatSelect.disabled = selectedState === 'off';
-            updateTimestampHint(timestampFormatSelect.value || TIMESTAMP_DEFAULT_FORMAT);
-            
-            saveTimeSourceState(selectedState);
-        });
-    });
-
-    // Handle format select change
-    if (timestampFormatSelect) {
-        timestampFormatSelect.addEventListener('change', () => {
-            if (timestampFormatSelect.disabled) return;
-            const format = timestampFormatSelect.value || TIMESTAMP_DEFAULT_FORMAT;
-            chrome.storage.local.set({ fileTimeFormat: format }, () => {
-                updateTimestampHint(format);
-                showTimestampStatus('时间格式已更新');
-            });
-        });
-    }
 
     // --- File Tree Controls ---
     setupFileTreeControls();
@@ -317,10 +212,13 @@ function createTreeHtml(node, exportType) {
                 const statusIcon = file.status === 'success' ? '✅' : (file.status === 'failed' ? '❌' : '⏳');
                 const duration = file.duration ? `${(file.duration / 1000).toFixed(2)}s` : '-';
 
-                const suggestedFilename = `${file.title}.${exportType}`;
+                const filename = file.localPath ? file.localPath.split('/').pop() : `${file.title}.${exportType}`;
                 const downloadLink = file.downloadUrl 
-                    ? `<a href="${file.downloadUrl}" download="${suggestedFilename}" target="_blank" rel="noopener noreferrer">点击直接下载</a>` 
+                    ? `<a href="${file.downloadUrl}" download="${filename}" target="_blank" rel="noopener noreferrer">点击直接下载</a>` 
                     : 'N/A';
+                const localPathInfo = file.localPath 
+                    ? `<div><strong>本地路径:</strong> <span class="path-text">${file.localPath}</span></div>` 
+                    : '';
                 
                 li.innerHTML = `
                     <div class="file-tree-file">
@@ -331,8 +229,7 @@ function createTreeHtml(node, exportType) {
                         </span>
                     </div>
                     <div class="file-link">
-                        <div><strong>Export URL:</strong> <span class="url-text">${file.exportUrl || 'N/A'}</span></div>
-                        <div><strong>Download URL:</strong> ${downloadLink}</div>
+                        ${localPathInfo}
                     </div>
                 `;
                 ul.appendChild(li);
@@ -374,7 +271,7 @@ function renderSlowestFiles(fileList) {
             ${slowest.map(file => `
                 <tr>
                     <td>${file.title}</td>
-                    <td>${file.folderPath || '/'}</td>
+                    <td>${file.localPath || file.folderPath || '/'}</td>
                     <td>${(file.duration / 1000).toFixed(2)}</td>
                 </tr>
             `).join('')}
