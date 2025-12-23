@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>石墨文档导出工具 - 设置</title>
+    <title>幕布导出工具 - 设置</title>
     <link rel="stylesheet" href="settings.css">
 </head>
 <body>
     <div class="wrapper">
         <aside class="sidebar">
             <header class="sidebar-header">
-                <img src="icons/icon48.png" alt="icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;border-radius:6px;background:rgba(255,255,255,0.9);padding:4px;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(10px);">
-                <span>石墨文档导出工具</span>
+                <img src="../icons/icon48.png" alt="icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;border-radius:6px;background:rgba(255,255,255,0.9);padding:4px;border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(10px);">
+                <span>幕布导出工具</span>
             </header>
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active" data-section="general">
@@ -48,44 +48,11 @@
                         <p class="description">
                             文件将保存到您浏览器"下载"目录下的指定子文件夹中。如果留空，则保存到"下载"目录。
                         </p>
-                        <input type="text" id="subfolder" placeholder="例如: 我的石墨文档">
+                        <input type="text" id="subfolder" placeholder="例如: 我的幕布备份">
                         <div id="status" class="status">✅ 设置已保存!</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="filenameTimestampToggle">🕒 文件时间信息</label>
-                        <p class="description">
-                            需要在本地保留石墨文档的创建时间与最后修改时间时，可开启此项。导出的文件名会自动追加两个时间戳，方便后续追溯。
+                        <p class="description" style="margin-top:12px;">
+                            提示：只要保持登录 <code>https://mubu.com</code>，扩展会自动读取浏览器 Cookie 中的 Jwt-Token 完成鉴权，无需手动配置。
                         </p>
-                        <div class="timestamp-source-row">
-                            <span class="inline-label">时间模式</span>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="timestampSource" value="off" checked>
-                                    <span>关闭</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="timestampSource" value="createdAt">
-                                    <span>创建时间</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="timestampSource" value="updatedAt">
-                                    <span>修改时间</span>
-                                </label>
-                            </div>
-                            <p id="timeSourceCaption" class="description subtle">当前：关闭（文件名保持原样）</p>
-                        </div>
-                        <div class="timestamp-format-row">
-                            <label for="timestampFormat" class="inline-label">时间格式</label>
-                            <select id="timestampFormat" disabled>
-                                <option value="YYYY-MM-DD_HH-mm">2023-12-31_23-59 (YYYY-MM-DD_HH-mm)</option>
-                                <option value="YYYYMMDD-HHmm">20231231-2359 (YYYYMMDD-HHmm)</option>
-                                <option value="YYYY.MM.DD-HH.mm">2023.12.31-23.59 (YYYY.MM.DD-HH.mm)</option>
-                            </select>
-                            <p id="timestampFormatHint" class="description subtle">
-                                示例：示例文档__2023-12-31_23-59
-                            </p>
-                        </div>
-                        <div id="timestampStatus" class="status">✅ 设置已保存!</div>
                     </div>
                 </div>
             </section>
@@ -128,19 +95,19 @@
             </section>
             <section id="about" class="content-section">
                 <header class="section-header">
-                    <h2>关于石墨文档导出工具</h2>
+                    <h2>关于幕布导出工具</h2>
                     <p>感谢您使用本工具，请勿做商用。如有问题或建议，欢迎反馈。</p>
                 </header>
                 <div class="form-card">
                     <h3>📖 项目说明</h3>
-                    <p>本扩展旨在帮助用户方便地从石墨文档（shimo.im）批量导出文件，并完整保留原始的文件夹结构。您可以选择多种导出格式，如 Markdown, PDF, Word 等。</p>
-                    <p>如果您在日常工作或学习中频繁使用石墨文档，并有备份或迁移数据的需求，这个工具将为您节省大量手动操作的时间。</p>
+                    <p>本扩展旨在帮助用户方便地从幕布（mubu.com）批量导出文件，并完整保留原始的文件夹结构。您可以选择多种导出格式，如 Markdown、OPML、JSON 等。</p>
+                    <p>如果您在日常工作或学习中频繁使用幕布，并有备份或迁移数据的需求，这个工具将为您节省大量手动操作的时间。</p>
                     
                     <h3 style="margin-top: 32px;">💝 支持与鼓励</h3>
                     <p>如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。</p>
                     <div class="reward-container">
                         <p>☕️ 请使用微信扫描二维码</p>
-                        <img src="asserts/sp.jpeg" alt="打赏二维码">
+                        <img src="../asserts/sp.jpeg" alt="打赏二维码">
                     </div>
                 </div>
             </section>

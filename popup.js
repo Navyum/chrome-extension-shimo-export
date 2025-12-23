@@ -480,49 +480,230 @@ function toggleSponsorModal(shouldShow) {
 }
 
 // 增强下拉框交互效果
+let customSelectInitialized = false;
+
 function enhanceSelectInteraction() {
   const selectContainer = document.querySelector('.select-container');
   const select = document.getElementById('exportType');
+  const selectTrigger = document.getElementById('exportTypeTrigger');
+  const selectOptionsList = document.getElementById('exportTypeOptions');
+  const selectIcon = document.getElementById('exportTypeIcon');
+  const selectLabel = document.getElementById('exportTypeLabel');
   
   if (!selectContainer || !select) return;
-  
-  // 添加选中状态的视觉反馈
-  function updateSelectionState() {
+
+  const updateSelectionState = () => {
     if (select.value) {
       selectContainer.classList.add('has-selection');
     } else {
       selectContainer.classList.remove('has-selection');
     }
-  }
-  
-  // 初始化状态
-  updateSelectionState();
-  
-  // 监听选择变化
-  select.addEventListener('change', function() {
-    updateSelectionState();
-    
-    // 添加选择动画效果
-    selectContainer.style.transform = 'scale(1.05)';
-    setTimeout(() => {
-      selectContainer.style.transform = '';
-    }, 200);
-  });
-  
-  // 添加焦点动画
-  select.addEventListener('focus', function() {
-    selectContainer.style.transform = 'scale(1.02)';
-  });
-  
-  select.addEventListener('blur', function() {
-    selectContainer.style.transform = '';
-  });
-  
-  // 添加键盘导航支持
-  select.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      select.focus();
+    updateExportTypeIcon();
+  };
+
+  const updateExportTypeIcon = () => {
+    if (!select) return;
+    const selectedOption = select.selectedOptions?.[0] || select.options[select.selectedIndex];
+    const iconSrc = selectedOption?.dataset?.icon;
+    const optionText = selectedOption?.textContent?.trim() || '导出格式';
+
+    if (selectIcon) {
+      if (iconSrc) {
+        selectIcon.src = iconSrc;
+        selectIcon.alt = `${optionText} 图标`;
+        selectIcon.classList.add('is-visible');
+        selectIcon.style.display = '';
+      } else {
+        selectIcon.classList.remove('is-visible');
+        selectIcon.style.display = 'none';
+      }
     }
+
+    if (selectContainer) {
+      selectContainer.classList.toggle('has-icon', Boolean(iconSrc));
+    }
+
+    if (selectLabel && selectedOption) {
+      selectLabel.textContent = optionText;
+    }
+
+    updateCustomOptionsState();
+  };
+
+  const updateCustomOptionsState = () => {
+    if (!selectOptionsList || !select) return;
+    const currentValue = select.value;
+    selectOptionsList.querySelectorAll('.select-option-item').forEach(item => {
+      const isActive = item.dataset.value === currentValue;
+      item.classList.toggle('is-active', isActive);
+      const button = item.querySelector('.select-option-button');
+      if (button) {
+        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      }
+    });
+  };
+
+  const buildCustomSelectOptions = () => {
+    if (!select || !selectOptionsList) return;
+    selectOptionsList.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+
+    Array.from(select.options).forEach(option => {
+      const li = document.createElement('li');
+      li.className = 'select-option-item';
+      li.dataset.value = option.value;
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'select-option-button';
+      button.dataset.value = option.value;
+      button.setAttribute('role', 'option');
+      button.tabIndex = -1;
+
+      if (option.dataset.icon) {
+        const img = document.createElement('img');
+        img.src = option.dataset.icon;
+        img.alt = '';
+        img.setAttribute('aria-hidden', 'true');
+        img.onerror = function() {
+          this.style.display = 'none';
+        };
+        button.appendChild(img);
+      }
+
+      const text = document.createElement('span');
+      text.textContent = option.textContent.trim();
+      button.appendChild(text);
+
+      button.addEventListener('click', () => {
+        if (select.value !== option.value) {
+          select.value = option.value;
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+        } else {
+          updateExportTypeIcon();
+        }
+        closeCustomDropdown({ restoreFocus: true });
+      });
+
+      li.appendChild(button);
+      fragment.appendChild(li);
+    });
+
+    selectOptionsList.appendChild(fragment);
+    updateCustomOptionsState();
+  };
+
+  const toggleCustomDropdown = () => {
+    if (!selectContainer) return;
+    if (selectContainer.classList.contains('is-open')) {
+      closeCustomDropdown({ restoreFocus: true });
+    } else {
+      openCustomDropdown();
+    }
+  };
+
+  const openCustomDropdown = () => {
+    if (!selectContainer || !selectTrigger || !selectOptionsList) return;
+    if (selectContainer.classList.contains('is-open')) return;
+    selectContainer.classList.add('is-open');
+    selectContainer.closest('.form-group')?.classList.add('is-select-open');
+    selectTrigger.setAttribute('aria-expanded', 'true');
+    const activeBtn =
+      selectOptionsList.querySelector('.select-option-item.is-active .select-option-button') ||
+      selectOptionsList.querySelector('.select-option-button');
+    setTimeout(() => {
+      activeBtn?.focus();
+    }, 0);
+  };
+
+  const closeCustomDropdown = ({ restoreFocus = false } = {}) => {
+    if (!selectContainer || !selectTrigger) return;
+    const wasOpen = selectContainer.classList.contains('is-open');
+    selectContainer.classList.remove('is-open');
+    selectContainer.closest('.form-group')?.classList.remove('is-select-open');
+    selectTrigger.setAttribute('aria-expanded', 'false');
+    if (restoreFocus && wasOpen) {
+      selectTrigger.focus();
+    }
+  };
+
+  const handleSelectOutsideClick = (event) => {
+    if (!selectContainer?.classList.contains('is-open')) return;
+    if (!selectContainer.contains(event.target)) {
+      closeCustomDropdown();
+    }
+  };
+
+  const handleTriggerKeydown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleCustomDropdown();
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      openCustomDropdown();
+      focusRelativeOption(event.key === 'ArrowDown' ? 1 : -1);
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      closeCustomDropdown({ restoreFocus: true });
+    }
+  };
+
+  const handleOptionsKeydown = (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeCustomDropdown({ restoreFocus: true });
+      return;
+    }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      focusRelativeOption(event.key === 'ArrowDown' ? 1 : -1);
+    }
+  };
+
+  const focusRelativeOption = (step) => {
+    if (!selectOptionsList) return;
+    const buttons = Array.from(selectOptionsList.querySelectorAll('.select-option-button'));
+    if (!buttons.length) return;
+    const focusedIndex = buttons.indexOf(document.activeElement);
+    let nextIndex = focusedIndex;
+    if (nextIndex === -1) {
+      const active =
+        selectOptionsList.querySelector('.select-option-item.is-active .select-option-button') || buttons[0];
+      nextIndex = buttons.indexOf(active);
+    }
+    nextIndex = (nextIndex + step + buttons.length) % buttons.length;
+    buttons[nextIndex].focus();
+  };
+
+  if (!selectTrigger || !selectOptionsList) {
+    updateSelectionState();
+    return;
+  }
+
+  if (customSelectInitialized) {
+    updateSelectionState();
+    updateCustomOptionsState();
+    return;
+  }
+  customSelectInitialized = true;
+
+  selectTrigger.removeAttribute('hidden');
+  selectOptionsList.removeAttribute('hidden');
+  selectContainer.classList.add('is-enhanced');
+
+  updateSelectionState();
+  buildCustomSelectOptions();
+
+  selectTrigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleCustomDropdown();
+  });
+  selectTrigger.addEventListener('keydown', handleTriggerKeydown);
+  selectOptionsList.addEventListener('keydown', handleOptionsKeydown);
+  document.addEventListener('click', handleSelectOutsideClick);
+
+  select.addEventListener('change', () => {
+    updateSelectionState();
+    closeCustomDropdown();
   });
 } 

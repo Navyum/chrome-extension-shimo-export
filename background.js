@@ -7,6 +7,8 @@ const SHIMO_API = {
   QUERY: 'https://shimo.im/lizard-api/office-gw/files/export/progress?taskId=%s'
 };
 
+const DEFAULT_TIMESTAMP_FORMAT = 'YYYY-MM-DD_HH-mm';
+
 // 通用请求函数，添加必要的头部
 async function makeRequest(url, shimoSid, options = {}) {
   // 模拟真实浏览器的请求头
@@ -41,6 +43,9 @@ let exportState = {
   fileList: [], // Each file will now have a 'status' property: pending, in_progress, success, failed
   exportType: 'md',
   subfolder: '',
+  preserveFileTimes: false,
+  fileTimeFormat: DEFAULT_TIMESTAMP_FORMAT,
+  fileTimeSource: 'createdAt',
   logs: [],
 };
 let abortController = new AbortController();
@@ -259,13 +264,19 @@ async function handleStartExport(data, sendResponse) {
     return;
   }
   
-  const settings = await chrome.storage.local.get(['subfolder']);
+  const settings = await chrome.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource']);
 
   exportState.isExporting = true;
   exportState.isPaused = false;
   exportState.currentFileIndex = 0;
   exportState.exportType = data.exportType;
   exportState.subfolder = settings.subfolder || '';
+  
+  // 处理时间设置：如果 fileTimeSource 是 'off'，则 preserveFileTimes 应该为 false
+  const fileTimeSource = settings.fileTimeSource || 'off';
+  exportState.preserveFileTimes = Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off';
+  exportState.fileTimeFormat = settings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;
+  exportState.fileTimeSource = fileTimeSource !== 'off' ? fileTimeSource : 'createdAt';
   exportState.logs = []; // 每次全新开始时清空日志
   
   // Reset statuses for a fresh start, ensuring all files are ready to be processed.
@@ -359,7 +370,9 @@ async function getAllFiles() {
             id: file.guid,
             title: file.name, // Keep original title for logs
             type: file.type,
-            folderPath: currentPath // Store the path of the containing folder
+            folderPath: currentPath, // Store the path of the containing folder
+            createdAt: file.createdAt || null,
+            updatedAt: file.updatedAt || null
           });
         }
       }
@@ -405,6 +418,24 @@ function sanitizePathComponent(name) {
   const sanitized = name.replace(/[\\/<>:"|?*]/g, '_');
   // 移除所有首尾空格和点
   return sanitized.trim().replace(/^\.+|\.+$/g, '');
+}
+
+function formatFileTimestamp(timestamp, format = DEFAULT_TIMESTAMP_FORMAT) {
+  if (timestamp === undefined || timestamp === null) return '';
+  const date = new Date(timestamp);
+  if (Number.isNaN(date.getTime())) return '';
+
+  const pad = (value) => String(value).padStart(2, '0');
+  const tokens = {
+    'YYYY': String(date.getFullYear()),
+    'MM': pad(date.getMonth() + 1),
+    'DD': pad(date.getDate()),
+    'HH': pad(date.getHours()),
+    'mm': pad(date.getMinutes()),
+    'ss': pad(date.getSeconds())
+  };
+
+  return format.replace(/YYYY|MM|DD|HH|mm|ss/g, (token) => tokens[token] || token);
 }
 
 // 导出文件
@@ -642,8 +673,20 @@ async function waitForExportComplete(taskId, file) {
 // 下载文件
 async function downloadFile(downloadUrl, file) {
   try {
-    let fileName = sanitizePathComponent(file.title) || '无标题';
-    fileName = `${fileName}.${exportState.exportType}`;
+    let baseName = sanitizePathComponent(file.title) || '无标题';
+    const extension = exportState.exportType;
+
+    if (exportState.preserveFileTimes && exportState.fileTimeSource && exportState.fileTimeSource !== 'off') {
+      const format = exportState.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;
+      const sourceKey = exportState.fileTimeSource;
+      const formatted = formatFileTimestamp(file[sourceKey], format);
+
+      if (formatted) {
+        baseName = `${baseName}__${formatted}`;
+      }
+    }
+
+    const fileName = `${baseName}.${extension}`;
 
     const rootSubfolder = exportState.subfolder ? exportState.subfolder.replace(/[<>:"|?*]/g, '_') : '';
     const relativeFolderPath = file.folderPath || '';
@@ -770,7 +813,14 @@ async function handleRetryFailedFiles(sendResponse) {
     exportState.isExporting = true;
     exportState.isPaused = false;
     exportState.currentFileIndex = 0; // Start from the beginning
-    exportState.subfolder = (await chrome.storage.local.get('subfolder')).subfolder || '';
+    const generalSettings = await chrome.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource']);
+    exportState.subfolder = generalSettings.subfolder || '';
+    
+    // 处理时间设置：如果 fileTimeSource 是 'off'，则 preserveFileTimes 应该为 false
+    const fileTimeSource = generalSettings.fileTimeSource || 'off';
+    exportState.preserveFileTimes = Boolean(generalSettings.preserveFileTimes) && fileTimeSource !== 'off';
+    exportState.fileTimeFormat = generalSettings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;
+    exportState.fileTimeSource = fileTimeSource !== 'off' ? fileTimeSource : 'createdAt';
     exportState.logs = []; // 为重试运行清空日志
     
     // Create a new AbortController for the new export session
