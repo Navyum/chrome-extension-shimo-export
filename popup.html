@@ -3,7 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=400, height=600, user-scalable=no">
-  <title>石墨文档导出工具</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>石墨文档导出工具 | 一键批量导出到本地</title>
+  <meta name="title" content="石墨文档导出工具 | 一键批量导出到本地">
+  <meta name="description" content="从石墨文档全量导出文件到本地，支持多种导出格式（Markdown、PDF、Word、JPG），保留文件夹层级结构，批量导出所有文件。">
+  <meta name="keywords" content="石墨文档,导出工具,批量导出,Markdown导出,PDF导出,Word导出,Chrome扩展,文档备份">
+  <meta name="author" content="石墨文档导出工具">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="石墨文档导出工具 | 一键批量导出到本地">
+  <meta property="og:description" content="从石墨文档全量导出文件到本地，支持多种导出格式，保留文件夹层级结构。">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#8b5cf6">
+  
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -11,46 +27,46 @@
   <div class="container" tabindex="-1" autofocus>
     <!-- 登录按钮 -->
   <button id="login-btn" class="top-right-btn login-btn" title="前往登录">
-    <img src="asserts/login.svg" alt="登录" class="login-icon">
+    <img src="assets/login.svg" alt="登录" class="login-icon">
   </button>
 
   <!-- 赞助按钮 -->
   <button id="sponsor-btn" class="top-right-btn sponsor-btn" title="赞助支持">
-    <img src="asserts/sponsors.png" alt="赞助" class="sponsor-icon">
+    <img src="assets/sponsors.png" alt="赞助" class="sponsor-icon">
   </button>
 
   
   <!-- 设置按钮 -->
   <button id="settings-btn" class="top-right-btn settings-btn" title="打开设置">
-    <img src="asserts/setting.svg" alt="设置" class="settings-icon">
+    <img src="assets/setting.svg" alt="设置" class="settings-icon">
   </button>
 
   <!-- 重置按钮 -->
   <button id="reset-btn" class="top-right-btn settings-btn" title="退出">
-    <img src="asserts/exit.svg" alt="退出" class="settings-icon">
+    <img src="assets/exit.svg" alt="退出" class="settings-icon">
   </button>
   
-    <div class="header">
+    <header class="header" role="banner">
       <div class="header-content">
-        <img src="icons/icon48.png" alt="石墨文档导出工具" class="header-icon">
+        <img src="icons/icon48.png" alt="石墨文档导出工具图标" class="header-icon" width="48" height="48">
         <h2>石墨文档导出工具</h2>
       </div>
-    </div>
+    </header>
     
-    <div class="form-group select-group">
-      <label for="exportType">📄 导出格式:</label>
+    <section class="form-group select-group" aria-labelledby="exportTypeLabel">
+      <label for="exportType" id="exportTypeLabel">📄 导出格式:</label>
       <div class="select-container has-icon has-selection">
         <img
           id="exportTypeIcon"
           class="select-icon is-visible"
-          src="asserts/markdown.svg"
+          src="assets/markdown.svg"
           alt="导出格式图标"
         />
         <select id="exportType">
-          <option value="md" data-icon="asserts/markdown.svg">Markdown (.md)</option>
-          <option value="pdf" data-icon="asserts/pdf.svg">PDF (.pdf)</option>
-          <option value="docx" data-icon="asserts/word.svg">Word (.docx)</option>
-          <option value="jpg" data-icon="asserts/jpg.svg">图片 (.jpg)</option>
+          <option value="md" data-icon="assets/markdown.svg">Markdown (.md)</option>
+          <option value="pdf" data-icon="assets/pdf.svg">PDF (.pdf)</option>
+          <option value="docx" data-icon="assets/word.svg">Word (.docx)</option>
+          <option value="jpg" data-icon="assets/jpg.svg">图片 (.jpg)</option>
         </select>
         <button
           type="button"
@@ -65,61 +81,61 @@
         </button>
         <ul id="exportTypeOptions" class="select-options" role="listbox" hidden></ul>
       </div>
-    </div>
+    </section>
 
-    <div id="fileInfo" class="file-info">
+    <section id="fileInfo" class="file-info" aria-live="polite" aria-atomic="true">
       <p>
         <strong>📁 文件总数:</strong> 
-        <span id="totalFiles">0</span>
+        <span id="totalFiles" aria-label="文件总数">0</span>
         <span class="team-files">
-          （团队空间：<span id="teamFiles">0</span>）
+          （团队空间：<span id="teamFiles" aria-label="团队空间文件数">0</span>）
         </span>
       </p>
-    </div>
+    </section>
     
-    <div class="form-group">
-      <button id="getInfo" type="button" class="btn btn-primary">
+    <section class="form-group">
+      <button id="getInfo" type="button" class="btn btn-primary" aria-label="获取石墨文档文件信息">
         <span>🔍 获取文件信息</span>
       </button>
-    </div>
+    </section>
     
-    <div class="form-group action-buttons">
-      <button id="startExport" type="button" class="btn btn-start">
+    <section class="form-group action-buttons">
+      <button id="startExport" type="button" class="btn btn-start" aria-label="开始导出文件">
         <span>🚀 开始导出</span>
       </button>
-      <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;">
+      <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;" aria-label="暂停导出">
         <span>⏸️ 暂停导出</span>
       </button>
-    </div>
-
-    <div id="retrySection" style="display:none;" class="form-group">
-      <button id="retryFailedBtn" type="button" class="btn btn-retry">
+    </section>
+    
+    <section id="retrySection" style="display:none;" class="form-group" aria-label="重试失败文件">
+      <button id="retryFailedBtn" type="button" class="btn btn-retry" aria-label="重试失败的文件">
         <span>🔄 重试失败的文件</span>
       </button>
-      <div id="failedList"></div>
-    </div>
+      <div id="failedList" role="list" aria-label="失败文件列表"></div>
+    </section>
     
-    <div class="progress-bar" id="progressBar" style="display: none;">
+    <div class="progress-bar" id="progressBar" style="display: none;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="导出进度">
       <div class="progress-fill" id="progressFill"></div>
-      <div class="progress-text" id="progressText"></div>
+      <div class="progress-text" id="progressText" aria-live="polite">0/0</div>
     </div>
     
-    <div id="status" class="status" style="display: none;"></div>
+    <div id="status" class="status" style="display: none;" role="status" aria-live="polite" aria-atomic="true"></div>
     
-    <div class="log-container" id="logContainer">
+    <section class="log-container" id="logContainer" aria-label="操作日志">
       <div class="log-placeholder">
         <p>👏👏👏</p>
         <p>欢迎使用石墨文档导出工具！</p>
-        <p>✨ 请先 <img src="asserts/login.svg" style="width: 16px; height: 16px;background-color: aliceblue;border-radius: 50%;" alt="登录" class="login-icon"> 前往登录</p>
+        <p>✨ 请先 <img src="assets/login.svg" style="width: 16px; height: 16px;background-color: aliceblue;border-radius: 50%;" alt="登录" class="login-icon"> 前往登录</p>
         <p>✨ 点击获取文件信息按钮开始导出</p>
         <p>✨ Tips：点击 ⚙️ 可以设置导出文件夹</p>
-        <p>✨ Tips：点击 <img src="asserts/sponsors.png" style="width: 16px; height: 16px;" alt="赞助" class="sponsor-icon"> 可以赞助支持我</p>
+        <p>✨ Tips：点击 <img src="assets/sponsors.png" style="width: 16px; height: 16px;" alt="赞助" class="sponsor-icon" width="16" height="16"> 可以赞助支持我</p>
       </div>
-    </div>
+    </section>
   </div>
   
   <!-- 赞助模态框 -->
-  <div id="sponsorModal" class="sponsor-modal" aria-hidden="true">
+  <aside id="sponsorModal" class="sponsor-modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="sponsor-modal-card" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
       <button id="sponsorModalClose" class="sponsor-modal-close" aria-label="关闭赞助二维码">&times;</button>
       <div class="sponsor-modal-header">
@@ -127,10 +143,10 @@
         <p>如果这个工具帮到了你，欢迎小额赞助支持我继续维护。</p>
       </div>
       <div class="sponsor-modal-body">
-        <img src="asserts/sp.jpeg" alt="赞助二维码" class="sponsor-qr">
+        <img src="assets/sp.jpeg" alt="微信支付赞助二维码" class="sponsor-qr" width="200" height="200">
         <p class="sponsor-tip">长按或扫描二维码，金额随意，感谢支持！</p>
       </div>
-    </div>
+    </aside>
   </div>
   
   <script src="popup.js"></script>

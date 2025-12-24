@@ -1,0 +1,24 @@
+{
+  "name": "chrome-extension-shimo-export",
+  "version": "1.0.5",
+  "description": "从石墨文档全量导出文件到本地，多类型导出格式md、docx、pdf、jpg。文件夹层级保留",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "chrome-extension",
+    "shimo",
+    "export"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "copy-webpack-plugin": "^11.0.0",
+    "clean-webpack-plugin": "^4.0.0"
+  }
+}
+

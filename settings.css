@@ -89,12 +89,20 @@ body {
 }
 
 .sidebar-header {
+    display: flex;
+    align-items: center;
     padding: 24px;
     font-size: 1.2rem;
     font-weight: 600;
     border-bottom: 1px solid var(--border-secondary);
     color: var(--text-primary);
     background: var(--bg-hover);
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .sidebar-nav {

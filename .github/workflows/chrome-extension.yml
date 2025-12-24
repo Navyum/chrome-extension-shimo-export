@@ -35,10 +35,23 @@ jobs:
           fi
         fi
 
+    - name: Build extension
+      run: |
+        if [ -f "package.json" ]; then
+          npm run build
+          echo "✅ 构建完成"
+        else
+          echo "⚠️ 未找到 package.json，跳过构建步骤"
+        fi
+
     - name: Validate manifest.json
       run: |
-        # 检查 manifest.json 语法
-        if ! python3 -m json.tool manifest.json > /dev/null; then
+        # 检查 manifest.json 语法（优先检查 dist 目录）
+        manifest_file="dist/manifest.json"
+        if [ ! -f "$manifest_file" ]; then
+          manifest_file="manifest.json"
+        fi
+        if ! python3 -m json.tool "$manifest_file" > /dev/null; then
           echo "❌ manifest.json 语法错误"
           exit 1
         fi
@@ -46,7 +59,12 @@ jobs:
 
     - name: Check required files
       run: |
-        required_files=("manifest.json" "popup.html" "popup.js" "background.js" "settings.html" "settings.js")
+        # 检查构建后的文件（优先检查 dist 目录）
+        if [ -d "dist" ]; then
+          required_files=("dist/manifest.json" "dist/popup.html" "dist/popup.js" "dist/background.js" "dist/settings.html" "dist/settings.js")
+        else
+          required_files=("manifest.json" "popup.html" "popup.js" "background.js" "settings.html" "settings.js")
+        fi
         for file in "${required_files[@]}"; do
           if [ ! -f "$file" ]; then
             echo "❌ 缺少必需文件: $file"
@@ -57,8 +75,13 @@ jobs:
 
     - name: Validate HTML files
       run: |
-        # 简单的 HTML 验证
-        for html_file in popup.html settings.html; do
+        # 简单的 HTML 验证（优先检查 dist 目录）
+        if [ -d "dist" ]; then
+          html_files=("dist/popup.html" "dist/settings.html")
+        else
+          html_files=("popup.html" "settings.html")
+        fi
+        for html_file in "${html_files[@]}"; do
           if ! grep -q "<!DOCTYPE html>" "$html_file"; then
             echo "❌ $html_file 缺少 DOCTYPE 声明"
             exit 1
@@ -68,8 +91,14 @@ jobs:
 
     - name: Create extension package
       run: |
-        # 创建发布包
-        zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "INSTALL.md"
+        # 创建发布包（优先从 dist 目录打包）
+        if [ -d "dist" ]; then
+          cd dist
+          zip -r ../chrome-extension.zip . -x "*.DS_Store"
+          cd ..
+        else
+          zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "INSTALL.md" "node_modules/*" "dist/*"
+        fi
         echo "✅ Chrome 扩展打包完成"
 
     - name: Upload build artifacts
@@ -88,11 +117,33 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        if [ -f "package.json" ]; then
+          if [ -f "package-lock.json" ] || [ -f "npm-shrinkwrap.json" ] || [ -f "yarn.lock" ]; then
+            npm ci
+          else
+            npm install
+          fi
+        fi
+
+    - name: Build extension
+      run: |
+        if [ -f "package.json" ]; then
+          npm run build
+          echo "✅ 构建完成"
+        fi
+
     - name: Download build artifacts
       uses: actions/download-artifact@v4
       with:
         name: chrome-extension
-        path: .
+        path: ./artifacts
 
     - name: Extract version from tag
       id: get_version
@@ -168,6 +219,20 @@ jobs:
           **注意**: 使用本工具时请遵守石墨文档的使用条款。
         draft: false
         prerelease: false
+
+    - name: Prepare release package
+      run: |
+        # 使用构建后的 dist 目录或下载的 artifacts
+        if [ -d "dist" ]; then
+          cd dist
+          zip -r ../chrome-extension.zip . -x "*.DS_Store"
+          cd ..
+        elif [ -f "artifacts/chrome-extension.zip" ]; then
+          cp artifacts/chrome-extension.zip chrome-extension.zip
+        else
+          # 回退到从源代码打包
+          zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "node_modules/*" "dist/*"
+        fi
 
     - name: Upload Chrome Extension
       uses: actions/upload-release-asset@v1

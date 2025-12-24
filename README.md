@@ -27,13 +27,13 @@
 ## 📸 界面截图
 
 ### 主界面
-![主界面](asserts/main.png)
+![主界面](assets/main.png)
 
 ### 设置页面
-![设置页面](asserts/setting1.png)
+![设置页面](assets/setting1.png)
 
 ### 性能监控
-![性能监控](asserts/setting2.png)
+![性能监控](assets/setting2.png)
 
 ## 🛠️ 安装方法
 
