@@ -437,32 +437,75 @@ select:disabled {
 
 .reward-container {
     text-align: center;
-    margin-top: 20px;
-    padding: 24px;
-    background: var(--bg-hover);
-    border-radius: var(--radius-md);
+    margin-top: 24px;
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(16, 185, 129, 0.08));
+    border-radius: var(--radius-xl);
     border: 1px solid var(--border-primary);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
 }
 
-.reward-container img {
-    max-width: 200px;
-    height: auto;
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
+.reward-container:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(16, 185, 129, 0.12));
+}
+
+.reward-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    z-index: 5;
+    white-space: nowrap;
+}
+
+.reward-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+}
+
+.qr-code-wrapper {
+    display: inline-block;
     padding: 12px;
-    background: var(--bg-card);
-    transition: transform 0.3s ease;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.reward-container img:hover {
-    transform: scale(1.05);
+.reward-container:hover .qr-code-wrapper {
+    transform: scale(1.02) rotate(1deg);
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2);
 }
 
-.reward-container p {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    margin-top: 12px;
-    line-height: 1.5;
+.qr-code-wrapper img {
+    display: block;
+    max-width: 180px;
+    height: auto;
+    border-radius: var(--radius-sm);
+    filter: contrast(1.1);
+}
+
+.reward-footer {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+    margin-top: 0 !important;
+    font-style: italic;
 }
 
 /* Performance Section Styles */

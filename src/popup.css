@@ -1014,14 +1014,44 @@ body.modal-open .container {
   text-align: center;
 }
 
+.qr-code-wrapper {
+  display: inline-block;
+  padding: 10px;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.qr-code-wrapper:hover {
+  transform: scale(1.02) rotate(1deg);
+  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2);
+}
+
+.reward-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  z-index: 5;
+  white-space: nowrap;
+}
+
 .sponsor-qr {
-  width: 220px;
-  height: 220px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
   object-fit: cover;
-  background: var(--bg-secondary);
+  filter: contrast(1.05);
 }
 
 .sponsor-tip {
