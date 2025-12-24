@@ -298,9 +298,58 @@ function setStartButtonLabel(text = START_BUTTON_DEFAULT_TEXT) {
   }
 }
 
-function handleSponsorHoverEnter() {
+// 检查是否可以弹出悬浮弹窗（一天最多2次）
+async function canShowHoverPopup() {
+  try {
+    const today = new Date().toISOString().split('T')[0]; // 格式：YYYY-MM-DD
+    const result = await chrome.storage.local.get(['sponsorHoverPopup']);
+    
+    if (!result.sponsorHoverPopup || result.sponsorHoverPopup.date !== today) {
+      // 新的一天，重置计数
+      await chrome.storage.local.set({
+        sponsorHoverPopup: { date: today, count: 0 }
+      });
+      return true;
+    }
+    
+    // 检查今天的弹出次数
+    return result.sponsorHoverPopup.count < 2;
+  } catch (error) {
+    return false; // 出错时不允许弹出，避免影响用户体验
+  }
+}
+
+// 增加悬浮弹窗计数
+async function incrementHoverPopupCount() {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const result = await chrome.storage.local.get(['sponsorHoverPopup']);
+    
+    if (!result.sponsorHoverPopup || result.sponsorHoverPopup.date !== today) {
+      await chrome.storage.local.set({
+        sponsorHoverPopup: { date: today, count: 1 }
+      });
+    } else {
+      await chrome.storage.local.set({
+        sponsorHoverPopup: { 
+          date: today, 
+          count: result.sponsorHoverPopup.count + 1 
+        }
+      });
+    }
+  } catch (error) {
+    console.error('更新悬浮弹窗计数失败:', error);
+  }
+}
+
+async function handleSponsorHoverEnter() {
   clearSponsorHoverTimeout();
-  toggleSponsorModal(true);
+  // 检查是否可以弹出悬浮弹窗
+  const canShow = await canShowHoverPopup();
+  if (canShow) {
+    toggleSponsorModal(true);
+    await incrementHoverPopupCount();
+  }
 }
 
 function handleSponsorHoverLeave() {
