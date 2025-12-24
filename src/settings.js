@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const subfolderInput = document.getElementById('subfolder');
     const statusDiv = document.getElementById('status');
     const timeSourceRadios = document.querySelectorAll('input[name="timestampSource"]');
-    const timeSourceCaption = document.getElementById('timeSourceCaption');
     const timestampFormatSelect = document.getElementById('timestampFormat');
     const timestampStatus = document.getElementById('timestampStatus');
     const timestampHint = document.getElementById('timestampFormatHint');
@@ -59,10 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         timestampHint.textContent = `示例：示例文档__${preview}`;
     }
 
-    function updateTimeSourceCaption(state) {
-        if (!timeSourceCaption) return;
-        timeSourceCaption.textContent = `当前：${STATE_CAPTIONS[state] || STATE_CAPTIONS['off']}`;
-    }
 
     function showTimestampStatus(message) {
         if (!timestampStatus) return;
@@ -110,8 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             timeSourceRadios.forEach(radio => {
                 radio.checked = radio.value === currentState;
             });
-            updateTimeSourceCaption(currentState);
-
             // Update format select
             const savedFormat = result.fileTimeFormat || TIMESTAMP_DEFAULT_FORMAT;
             const availableFormats = Array.from(timestampFormatSelect.options).map(option => option.value);
@@ -145,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!radio.checked) return;
             const selectedState = radio.value;
             
-            updateTimeSourceCaption(selectedState);
             timestampFormatSelect.disabled = selectedState === 'off';
             updateTimestampHint(timestampFormatSelect.value || TIMESTAMP_DEFAULT_FORMAT);
             
@@ -167,7 +159,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- File Tree Controls ---
     setupFileTreeControls();
+
+    // --- Feedback Button ---
+    setupFeedbackButton();
 });
+
+// 设置反馈按钮
+function setupFeedbackButton() {
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackStatus = document.getElementById('feedbackStatus');
+    
+    if (!feedbackBtn) return;
+
+    feedbackBtn.addEventListener('click', async () => {
+        try {
+            feedbackBtn.disabled = true;
+            feedbackBtn.classList.add('loading');
+            
+            // 获取 shimo_sid
+            let shimoSid = '';
+            try {
+                const sidCookie = await browser.cookies.get({ url: 'https://shimo.im', name: 'shimo_sid' });
+                if (sidCookie && sidCookie.value) {
+                    shimoSid = sidCookie.value;
+                } else {
+                    shimoSid = '未找到 shimo_sid（可能未登录）';
+                }
+            } catch (error) {
+                shimoSid = `获取 shimo_sid 失败: ${error.message}`;
+            }
+
+            // 获取日志信息
+            let logs = [];
+            try {
+                const response = await browser.runtime.sendMessage({ action: 'getUiState' });
+                if (response && response.success && response.data && response.data.logs) {
+                    logs = response.data.logs;
+                } else {
+                    logs = ['暂无日志信息'];
+                }
+            } catch (error) {
+                logs = [`获取日志失败: ${error.message}`];
+            }
+
+            // 组装反馈信息
+            const feedbackText = [
+                '=== 石墨文档导出工具反馈信息 ===',
+                '',
+                '--- shimo_sid ---',
+                shimoSid,
+                '',
+                '--- 日志信息 ---',
+                ...logs,
+                '',
+                '=== 反馈信息结束 ==='
+            ].join('\n');
+
+            // 复制到剪切板
+            await navigator.clipboard.writeText(feedbackText);
+            
+            // 显示成功提示
+            if (feedbackStatus) {
+                feedbackStatus.textContent = '✅ 反馈信息已复制到剪切板！';
+                feedbackStatus.style.display = 'block';
+                feedbackStatus.style.opacity = '1';
+                setTimeout(() => {
+                    feedbackStatus.style.opacity = '0';
+                    setTimeout(() => {
+                        feedbackStatus.style.display = 'none';
+                    }, 300);
+                }, 3000);
+            }
+        } catch (error) {
+            console.error('复制反馈信息失败:', error);
+            if (feedbackStatus) {
+                feedbackStatus.textContent = `❌ 复制失败: ${error.message}`;
+                feedbackStatus.style.display = 'block';
+                feedbackStatus.style.opacity = '1';
+                setTimeout(() => {
+                    feedbackStatus.style.opacity = '0';
+                    setTimeout(() => {
+                        feedbackStatus.style.display = 'none';
+                    }, 300);
+                }, 3000);
+            }
+        } finally {
+            feedbackBtn.disabled = false;
+            feedbackBtn.classList.remove('loading');
+        }
+    });
+}
 
 // 全局变量存储当前文件数据
 let currentFileList = [];
