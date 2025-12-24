@@ -5,6 +5,8 @@ yarn.lock
 
 # Build output
 dist/
+build/
+.build-temp/
 *.zip
 
 # IDE

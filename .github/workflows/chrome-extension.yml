@@ -1,4 +1,4 @@
-name: Build and Release Chrome Extension
+name: Build and Release Extension
 
 on:
   push:
@@ -12,8 +12,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test:
+  build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout code
@@ -22,251 +24,49 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
+        cache: 'npm'
 
     - name: Install dependencies
-      run: |
-        # 如果有package.json，安装依赖
-        if [ -f "package.json" ]; then
-          if [ -f "package-lock.json" ] || [ -f "npm-shrinkwrap.json" ] || [ -f "yarn.lock" ]; then
-            npm ci
-          else
-            npm install
-          fi
-        fi
+      run: npm ci || npm install
 
-    - name: Build extension
-      run: |
-        if [ -f "package.json" ]; then
-          npm run build
-          echo "✅ 构建完成"
-        else
-          echo "⚠️ 未找到 package.json，跳过构建步骤"
-        fi
+    - name: Build and Pack All Versions
+      run: npm run pack:all
 
-    - name: Validate manifest.json
-      run: |
-        # 检查 manifest.json 语法（优先检查 dist 目录）
-        manifest_file="dist/manifest.json"
-        if [ ! -f "$manifest_file" ]; then
-          manifest_file="manifest.json"
-        fi
-        if ! python3 -m json.tool "$manifest_file" > /dev/null; then
-          echo "❌ manifest.json 语法错误"
-          exit 1
-        fi
-        echo "✅ manifest.json 语法正确"
-
-    - name: Check required files
-      run: |
-        # 检查构建后的文件（优先检查 dist 目录）
-        if [ -d "dist" ]; then
-          required_files=("dist/manifest.json" "dist/popup.html" "dist/popup.js" "dist/background.js" "dist/settings.html" "dist/settings.js")
-        else
-          required_files=("manifest.json" "popup.html" "popup.js" "background.js" "settings.html" "settings.js")
-        fi
-        for file in "${required_files[@]}"; do
-          if [ ! -f "$file" ]; then
-            echo "❌ 缺少必需文件: $file"
-            exit 1
-          fi
-        done
-        echo "✅ 所有必需文件都存在"
-
-    - name: Validate HTML files
-      run: |
-        # 简单的 HTML 验证（优先检查 dist 目录）
-        if [ -d "dist" ]; then
-          html_files=("dist/popup.html" "dist/settings.html")
-        else
-          html_files=("popup.html" "settings.html")
-        fi
-        for html_file in "${html_files[@]}"; do
-          if ! grep -q "<!DOCTYPE html>" "$html_file"; then
-            echo "❌ $html_file 缺少 DOCTYPE 声明"
-            exit 1
-          fi
-        done
-        echo "✅ HTML 文件格式正确"
-
-    - name: Create extension package
-      run: |
-        # 创建发布包（优先从 dist 目录打包）
-        if [ -d "dist" ]; then
-          cd dist
-          zip -r ../chrome-extension.zip . -x "*.DS_Store"
-          cd ..
-        else
-          zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "INSTALL.md" "node_modules/*" "dist/*"
-        fi
-        echo "✅ Chrome 扩展打包完成"
-
-    - name: Upload build artifacts
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: chrome-extension
-        path: chrome-extension.zip
+        name: extension-packages
+        path: build/*.zip
         retention-days: 30
 
-  release:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: |
-        if [ -f "package.json" ]; then
-          if [ -f "package-lock.json" ] || [ -f "npm-shrinkwrap.json" ] || [ -f "yarn.lock" ]; then
-            npm ci
-          else
-            npm install
-          fi
-        fi
-
-    - name: Build extension
-      run: |
-        if [ -f "package.json" ]; then
-          npm run build
-          echo "✅ 构建完成"
-        fi
-
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: chrome-extension
-        path: ./artifacts
-
-    - name: Extract version from tag
-      id: get_version
-      run: |
-        VERSION=${GITHUB_REF#refs/tags/}
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        echo "version_number=${VERSION#v}" >> $GITHUB_OUTPUT
-
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Chrome Extension ${{ steps.get_version.outputs.version }}
+        files: build/*.zip
+        name: Release ${{ github.ref_name }}
         body: |
-          ## 🎉 Chrome 扩展发布
+          ## 🚀 石墨文档导出工具发布
           
-          ### 版本: ${{ steps.get_version.outputs.version }}
-          
-          ### 📦 安装方法
-          
-          #### 方法一：开发者模式安装
-          1. 下载 `chrome-extension.zip` 文件
-          2. 解压到本地文件夹
-          3. 打开 Chrome 浏览器，进入 `chrome://extensions/`
-          4. 开启"开发者模式"
-          5. 点击"加载已解压的扩展程序"
-          6. 选择解压后的文件夹
-          
-          #### 方法二：打包安装
-          1. 下载 `chrome-extension.zip` 文件
-          2. 解压到本地文件夹
-          3. 在 `chrome://extensions/` 页面点击"打包扩展程序"
-          4. 选择解压后的文件夹
-          5. 生成 `.crx` 文件后拖拽安装
+          ### 📦 下载安装包
+          - [Chrome 版本] (shimo-export-chrome.zip)
+          - [Firefox 版本] (shimo-export-firefox.zip)
+          - [Edge 版本] (shimo-export-edge.zip)
           
           ### 🔧 主要功能
-          - ✅ 自动获取用户认证
-          - ✅ 支持多种导出格式 (MD, PDF, DOCX, JPG)
-          - ✅ 批量导出所有文件
-          - ✅ 保留原始文件夹结构
-          - ✅ 实时进度显示
-          - ✅ 暂停/继续功能
-          - ✅ 失败重试机制
-          - ✅ 性能监控
+          - ✅ 跨浏览器支持 (Chrome, Firefox, Edge)
+          - ✅ 一键批量导出石墨文档
+          - ✅ 支持多种格式: Markdown, PDF, Word, JPG
+          - ✅ 保留原始文件夹层级结构
+          - ✅ 实时进度显示与导出性能监控
           
-          ### 📝 更新内容
-          - 优化了代码结构，移除了不必要的 content script
-          - 改进了错误处理和用户提示
-          - 增强了性能监控功能
-          - 优化了UI界面设计
-          
-          ### 🚀 使用方法
-          1. 确保已登录 [石墨文档](https://shimo.im)
-          2. 点击浏览器工具栏中的扩展图标
-          3. 选择导出格式
-          4. 点击"获取文件信息"
-          5. 点击"开始导出"
-          
-          ### 📋 系统要求
-          - Chrome 浏览器 88+
-          - 已登录石墨文档账号
-          
-          ### 🔒 安全说明
-          - 所有操作在本地进行，不上传任何数据
-          - 使用 Chrome 原生 API，安全可靠
-          - 仅用于个人学习和合法用途
+          ### 📝 更新说明
+          见提交历史记录。
           
           ---
-          
-          **注意**: 使用本工具时请遵守石墨文档的使用条款。
+          **注意**: 请根据您的浏览器下载对应的安装包，并在浏览器扩展管理页面开启开发者模式后“加载已解压的扩展程序”。
         draft: false
         prerelease: false
-
-    - name: Prepare release package
-      run: |
-        # 使用构建后的 dist 目录或下载的 artifacts
-        if [ -d "dist" ]; then
-          cd dist
-          zip -r ../chrome-extension.zip . -x "*.DS_Store"
-          cd ..
-        elif [ -f "artifacts/chrome-extension.zip" ]; then
-          cp artifacts/chrome-extension.zip chrome-extension.zip
-        else
-          # 回退到从源代码打包
-          zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "node_modules/*" "dist/*"
-        fi
-
-    - name: Upload Chrome Extension
-      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: chrome-extension.zip
-        asset_name: chrome-extension-${{ steps.get_version.outputs.version_number }}.zip
-        asset_content_type: application/zip
-
-    - name: Create source code archive
-      run: |
-        # 创建源代码压缩包
-        git archive --format=zip --output=source-code-${{ steps.get_version.outputs.version_number }}.zip HEAD
-
-    - name: Upload Source Code
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: source-code-${{ steps.get_version.outputs.version_number }}.zip
-        asset_name: source-code-${{ steps.get_version.outputs.version_number }}.zip
-        asset_content_type: application/zip
-
-  notify:
-    needs: release
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    
-    steps:
-    - name: Notify release
-      run: |
-        echo "🎉 Chrome 扩展已成功发布到 GitHub Releases!"
-        echo "版本: ${{ github.ref_name }}"
-        echo "下载地址: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" 

@@ -3,9 +3,18 @@
   "version": "1.0.5",
   "description": "从石墨文档全量导出文件到本地，多类型导出格式md、docx、pdf、jpg。文件夹层级保留",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "npm run build:chrome",
+    "build:base": "webpack --mode production --config webpack.config.js",
+    "build:chrome": "npm run build:base && mkdir -p dist/chrome && cp -r .build-temp/* dist/chrome/ && cp manifest/manifest-chrome.json dist/chrome/manifest.json",
+    "build:firefox": "npm run build:base && mkdir -p dist/firefox && cp -r .build-temp/* dist/firefox/ && cp manifest/manifest-firefox.json dist/firefox/manifest.json",
+    "build:edge": "npm run build:base && mkdir -p dist/edge && cp -r .build-temp/* dist/edge/ && cp manifest/manifest-edge.json dist/edge/manifest.json",
+    "build:all": "npm run clean && npm run build:base && mkdir -p dist/chrome dist/firefox dist/edge && cp -r .build-temp/* dist/chrome/ && cp manifest/manifest-chrome.json dist/chrome/manifest.json && cp -r .build-temp/* dist/firefox/ && cp manifest/manifest-firefox.json dist/firefox/manifest.json && cp -r .build-temp/* dist/edge/ && cp manifest/manifest-edge.json dist/edge/manifest.json && rm -rf .build-temp",
+    "pack:chrome": "mkdir -p build && cd dist/chrome && zip -r ../../build/shimo-export-chrome.zip *",
+    "pack:firefox": "mkdir -p build && cd dist/firefox && zip -r ../../build/shimo-export-firefox.zip *",
+    "pack:edge": "mkdir -p build && cd dist/edge && zip -r ../../build/shimo-export-edge.zip *",
+    "pack:all": "npm run build:all && npm run pack:chrome && npm run pack:firefox && npm run pack:edge",
     "dev": "webpack --mode development --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist .build-temp build"
   },
   "keywords": [
     "chrome-extension",
@@ -21,4 +30,3 @@
     "clean-webpack-plugin": "^4.0.0"
   }
 }
-

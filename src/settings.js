@@ -1,3 +1,6 @@
+// 引入浏览器兼容层
+const browser = browserCompat;
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Section Navigation ---
     const navItems = document.querySelectorAll('.nav-item');
@@ -80,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isEnabled) {
             updates.fileTimeFormat = timestampFormatSelect.value || TIMESTAMP_DEFAULT_FORMAT;
         }
-        chrome.storage.local.set(updates, () => {
+        browser.storage.local.set(updates).then(() => {
             const messages = {
                 'off': '时间信息已关闭',
                 'createdAt': '将使用创建时间',
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load the saved settings
-    chrome.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource'], (result) => {
+    browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource']).then((result) => {
         if (result.subfolder) {
             subfolderInput.value = result.subfolder;
         }
@@ -122,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save the setting on input
     subfolderInput.addEventListener('input', () => {
         const subfolder = subfolderInput.value.trim();
-        chrome.storage.local.set({ subfolder }, () => {
+        browser.storage.local.set({ subfolder }).then(() => {
             // Show saved status message
             statusDiv.style.opacity = '1';
 
@@ -155,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         timestampFormatSelect.addEventListener('change', () => {
             if (timestampFormatSelect.disabled) return;
             const format = timestampFormatSelect.value || TIMESTAMP_DEFAULT_FORMAT;
-            chrome.storage.local.set({ fileTimeFormat: format }, () => {
+            browser.storage.local.set({ fileTimeFormat: format }).then(() => {
                 updateTimestampHint(format);
                 showTimestampStatus('时间格式已更新');
             });
@@ -213,7 +216,7 @@ function refreshFileTree() {
 
 function loadPerformanceData() {
     return new Promise((resolve) => {
-        chrome.runtime.sendMessage({ action: 'getUiState' }, response => {
+        browser.runtime.sendMessage({ action: 'getUiState' }).then(response => {
             if (response && response.success && response.data && response.data.fileList.length > 0) {
                 currentFileList = response.data.fileList;
                 currentExportType = response.data.exportType || 'md';
@@ -225,6 +228,8 @@ function loadPerformanceData() {
                 document.getElementById('file-tree-container').innerHTML = '<p>没有可用的性能数据。</p>';
                 document.getElementById('slowest-files-container').innerHTML = '<p>没有可用的性能数据。</p>';
             }
+            resolve();
+        }).catch(() => {
             resolve();
         });
     });
