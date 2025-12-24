@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     addLog('恢复之前的状态失败，请重新获取文件信息。');
   }
 
+
   // 绑定事件
   getInfoBtn.addEventListener('click', handleGetFileInfo);
   startBtn.addEventListener('click', handleStart);
@@ -68,8 +69,18 @@ document.addEventListener('DOMContentLoaded', async function() {
   settingsBtn.addEventListener('click', () => {
     browser.runtime.openOptionsPage();
   });
-  loginBtn.addEventListener('click', () => {
-    browser.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
+  loginBtn.addEventListener('click', async () => {
+    // 如果已登录，可以跳转到石墨首页；否则跳转到登录页
+    try {
+      const response = await browser.runtime.sendMessage({ action: 'getUserInfo' });
+      if (response && response.success) {
+        browser.tabs.create({ url: 'https://shimo.im' });
+      } else {
+        browser.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
+      }
+    } catch (error) {
+      browser.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
+    }
   });
   if (sponsorBtn) {
     sponsorBtn.addEventListener('click', () => toggleSponsorModal(true));
@@ -194,6 +205,7 @@ async function handleGetFileInfo() {
       getInfoBtn.disabled = false;
       getInfoBtn.onclick = null;
       getInfoBtn.removeAttribute('data-login');
+
     } else {
       throw new Error(response ? response.error : '未知错误');
     }
@@ -201,11 +213,12 @@ async function handleGetFileInfo() {
     showStatus(`获取信息失败: ${error.message}`, 'error');
     addLog(`错误: ${error.message}`);
     // 检查特定错误
-    if (error.message.includes('请确保已登录石墨')) {
+    if (error.message.includes('请确保已登录石墨') || error.message.includes('登录')) {
       getInfoBtn.textContent = '点击跳转登录石墨文档';
       getInfoBtn.disabled = false;
       getInfoBtn.onclick = () => { window.open('https://shimo.im', '_blank'); };
       getInfoBtn.setAttribute('data-login', 'true');
+
     } else {
       getInfoBtn.textContent = '获取文件信息';
       getInfoBtn.disabled = false;
@@ -496,6 +509,7 @@ function updateTeamFilesCount(fileList = []) {
   teamFilesSpan.textContent = teamCount;
 }
 
+
 // 保存设置和状态到存储
 function saveSettings() {
   browser.storage.local.set({
@@ -540,7 +554,7 @@ function enhanceSelectInteraction() {
   const selectTrigger = document.getElementById('exportTypeTrigger');
   const selectOptionsList = document.getElementById('exportTypeOptions');
   const selectIcon = document.getElementById('exportTypeIcon');
-  const selectLabel = document.getElementById('exportTypeLabel');
+  const selectLabel = document.getElementById('exportTypeSelectedValue');
   
   if (!selectContainer || !select) return;
 

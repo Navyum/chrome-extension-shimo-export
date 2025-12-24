@@ -31,6 +31,10 @@ var browserCompat = {
       set: (items) => {
         if (isFirefox) return api.storage.local.set(items);
         return new Promise(resolve => api.storage.local.set(items, resolve));
+      },
+      remove: (keys) => {
+        if (isFirefox) return api.storage.local.remove(keys);
+        return new Promise(resolve => api.storage.local.remove(keys, resolve));
       }
     }
   },

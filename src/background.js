@@ -11,6 +11,7 @@ const SHIMO_API = {
   ROOT: 'https://shimo.im/lizard-api/files',
   LIST: 'https://shimo.im/lizard-api/files?folder=%s',
   SPACE: 'https://shimo.im/panda-api/file/spaces?orderBy=updatedAt',
+  PINNED_SPACE: 'https://shimo.im/panda-api/file/pinned_spaces',
   EXPORT: 'https://shimo.im/lizard-api/office-gw/files/export?fileGuid=%s&type=%s',
   QUERY: 'https://shimo.im/lizard-api/office-gw/files/export/progress?taskId=%s'
 };
@@ -110,6 +111,28 @@ browser.downloads.onDeterminingFilename.addListener((downloadItem) => {
   }
 });
 
+// 获取用户信息
+async function getUserInfo() {
+  try {
+    const response = await makeRequest('https://shimo.im/lizard-api/users/me');
+    if (!response.ok) {
+      return { success: false, error: `HTTP ${response.status}` };
+    }
+    const userData = await response.json();
+    
+    return {
+      success: true,
+      data: {
+        id: userData.id,
+        name: userData.name,
+        email: userData.email
+      }
+    };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
 // 监听来自 popup 的消息
 browser.runtime.onMessage.addListener((message, sender) => {
   switch (message.action) {
@@ -131,6 +154,8 @@ browser.runtime.onMessage.addListener((message, sender) => {
     case 'resetExport':
       sendLog('后台收到 resetExport 请求');
       return handleResetExport();
+    case 'getUserInfo':
+      return getUserInfo();
     default:
       return { success: false, error: 'Unknown action' };
   }
@@ -281,17 +306,56 @@ async function getAllFiles() {
   const teamSpacePrefix = '团队空间';
   
   async function getTeamSpaces() {
-    const spaces = [];
+    const spacesMap = new Map(); // 使用 Map 来去重，key 为 guid
+    
+    // 1. 获取普通团队空间列表
     let nextUrl = SHIMO_API.SPACE;
-
     while (nextUrl) {
-      const response = await makeRequest(nextUrl);
-      if (!response.ok) throw new Error(`获取团队空间列表失败: HTTP ${response.status}`);
-      const data = await response.json();
-      if (Array.isArray(data.spaces)) spaces.push(...data.spaces);
-      nextUrl = data.next ? (data.next.startsWith('http') ? data.next : `https://shimo.im${data.next}`) : '';
+      try {
+        const response = await makeRequest(nextUrl);
+        if (!response.ok) {
+          sendLog(`获取团队空间列表失败: HTTP ${response.status}，继续尝试获取置顶空间...`);
+          break;
+        }
+        const data = await response.json();
+        if (Array.isArray(data.spaces)) {
+          data.spaces.forEach(space => {
+            if (space.guid) {
+              spacesMap.set(space.guid, space);
+            }
+          });
+        }
+        nextUrl = data.next ? (data.next.startsWith('http') ? data.next : `https://shimo.im${data.next}`) : '';
+      } catch (error) {
+        sendLog(`获取团队空间列表时出错: ${error.message}，继续尝试获取置顶空间...`);
+        break;
+      }
     }
-    return spaces;
+    
+    // 2. 获取置顶团队空间列表
+    try {
+      const pinnedResponse = await makeRequest(SHIMO_API.PINNED_SPACE);
+      if (pinnedResponse.ok) {
+        const pinnedData = await pinnedResponse.json();
+        if (Array.isArray(pinnedData.spaces)) {
+          pinnedData.spaces.forEach(space => {
+            if (space.guid) {
+              spacesMap.set(space.guid, space);
+            }
+          });
+          sendLog(`从置顶空间接口获取到 ${pinnedData.spaces.length} 个空间`);
+        }
+      } else {
+        sendLog(`获取置顶空间列表失败: HTTP ${pinnedResponse.status}`);
+      }
+    } catch (error) {
+      sendLog(`获取置顶空间列表时出错: ${error.message}`);
+    }
+    
+    // 3. 返回去重后的空间列表
+    const uniqueSpaces = Array.from(spacesMap.values());
+    sendLog(`合并后共获取到 ${uniqueSpaces.length} 个团队空间（已去重）`);
+    return uniqueSpaces;
   }
   
   async function fetchFiles(folderId = '', currentPath = '') {

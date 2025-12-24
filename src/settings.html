@@ -88,7 +88,6 @@
                                     <span>修改时间</span>
                                 </label>
                             </div>
-                            <p id="timeSourceCaption" class="description subtle">当前：关闭（文件名保持原样）</p>
                         </div>
                         <div class="timestamp-format-row">
                             <label for="timestampFormat" class="inline-label">时间格式</label>
@@ -102,6 +101,20 @@
                             </p>
                         </div>
                         <div id="timestampStatus" class="status" role="status" aria-live="polite">✅ 设置已保存!</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackBtn">📋 反馈信息</label>
+                        <p class="description">
+                            一键复制登录凭证和操作日志，将遇到的问题反馈给开发者。
+                        </p>
+                        <button id="feedbackBtn" class="feedback-btn" type="button" aria-label="复制反馈信息">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8"></path>
+                                <path d="M18 2h4v4M18 18v-8h8"></path>
+                            </svg>
+                            <span>复制反馈信息到剪切板</span>
+                        </button>
+                        <div id="feedbackStatus" class="status feedback-status" role="status" aria-live="polite" style="display: none;"></div>
                     </div>
                 </article>
             </section>
@@ -148,11 +161,11 @@
                     <p>感谢您使用本工具，请勿做商用。如有问题或建议，欢迎反馈。</p>
                 </header>
                 <article class="form-card">
-                    <h3>📖 项目说明</h3>
+                    <h2>📖 项目说明</h2>
                     <p>本扩展旨在帮助用户方便地从石墨文档（shimo.im）批量导出文件，并完整保留原始的文件夹结构。您可以选择多种导出格式，如 Markdown, PDF, Word 等。</p>
                     <p>如果您在日常工作或学习中频繁使用石墨文档，并有备份或迁移数据的需求，这个工具将为您节省大量手动操作的时间。</p>
                     
-                    <h3 style="margin-top: 32px;">💝 支持与鼓励</h3>
+                    <h2 style="margin-top: 32px;">💝 支持与鼓励</h2>
                     <p>如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。</p>
                     <div class="reward-container">
                         <p class="reward-text">☕️ 请使用微信扫描下方二维码进行赞助</p>
