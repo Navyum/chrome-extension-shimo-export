@@ -1,3 +1,6 @@
+// 引入浏览器兼容层
+const browser = browserCompat;
+
 // 全局变量
 let isExporting = false;
 let isPaused = false;
@@ -43,12 +46,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // 从存储中恢复UI设置和状态
   try {
-    const result = await chrome.storage.local.get(['exportType']);
+    const result = await browser.storage.local.get(['exportType']);
     if (result.exportType) {
       exportTypeSelect.value = result.exportType;
     }
     
-    const response = await chrome.runtime.sendMessage({ action: 'getUiState' });
+    const response = await browser.runtime.sendMessage({ action: 'getUiState' });
     if (response && response.success) {
       syncUiWithState(response.data);
     }
@@ -63,10 +66,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   exportTypeSelect.addEventListener('change', saveSettings);
   resetBtn.addEventListener('click', handleReset);
   settingsBtn.addEventListener('click', () => {
-    chrome.runtime.openOptionsPage();
+    browser.runtime.openOptionsPage();
   });
   loginBtn.addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
+    browser.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
   });
   if (sponsorBtn) {
     sponsorBtn.addEventListener('click', () => toggleSponsorModal(true));
@@ -180,7 +183,7 @@ async function handleGetFileInfo() {
   addLog('开始获取文件信息...');
 
   try {
-    const response = await chrome.runtime.sendMessage({ action: 'getFileInfo' });
+    const response = await browser.runtime.sendMessage({ action: 'getFileInfo' });
     if (response && response.success) {
       showStatus('文件信息获取成功！', 'success');
       addLog(`成功找到 ${response.data.totalFiles} 个文件。`);
@@ -222,7 +225,7 @@ async function handleStart() {
   addLog('开始导出石墨文档...');
   
   try {
-    const response = await chrome.runtime.sendMessage({
+    const response = await browser.runtime.sendMessage({
       action: 'startExport',
       data: { 
         exportType: exportTypeSelect.value
@@ -230,7 +233,7 @@ async function handleStart() {
     });
     if (!response.success) throw new Error(response.error);
     
-    const uiState = await chrome.runtime.sendMessage({ action: 'getUiState' });
+    const uiState = await browser.runtime.sendMessage({ action: 'getUiState' });
     if (uiState.success) syncUiWithState(uiState.data);
 
   } catch (error) {
@@ -249,7 +252,7 @@ async function handlePause() {
     setButtonState(pauseBtn, '暂停导出', 'btn-pause');
   }
 
-  chrome.runtime.sendMessage({
+  browser.runtime.sendMessage({
     action: 'togglePause',
     data: { isPaused: isPaused }
   });
@@ -269,7 +272,7 @@ function resetUiToIdle() {
 async function handleReset() {
   addLog('正在请求重置任务...');
   try {
-    const response = await chrome.runtime.sendMessage({ action: 'resetExport' });
+    const response = await browser.runtime.sendMessage({ action: 'resetExport' });
     if (response && response.success) {
       await new Promise(resolve => setTimeout(resolve, 2000));
       window.close();
@@ -302,11 +305,11 @@ function setStartButtonLabel(text = START_BUTTON_DEFAULT_TEXT) {
 async function canShowHoverPopup() {
   try {
     const today = new Date().toISOString().split('T')[0]; // 格式：YYYY-MM-DD
-    const result = await chrome.storage.local.get(['sponsorHoverPopup']);
+    const result = await browser.storage.local.get(['sponsorHoverPopup']);
     
     if (!result.sponsorHoverPopup || result.sponsorHoverPopup.date !== today) {
       // 新的一天，重置计数
-      await chrome.storage.local.set({
+      await browser.storage.local.set({
         sponsorHoverPopup: { date: today, count: 0 }
       });
       return true;
@@ -323,14 +326,14 @@ async function canShowHoverPopup() {
 async function incrementHoverPopupCount() {
   try {
     const today = new Date().toISOString().split('T')[0];
-    const result = await chrome.storage.local.get(['sponsorHoverPopup']);
+    const result = await browser.storage.local.get(['sponsorHoverPopup']);
     
     if (!result.sponsorHoverPopup || result.sponsorHoverPopup.date !== today) {
-      await chrome.storage.local.set({
+      await browser.storage.local.set({
         sponsorHoverPopup: { date: today, count: 1 }
       });
     } else {
-      await chrome.storage.local.set({
+      await browser.storage.local.set({
         sponsorHoverPopup: { 
           date: today, 
           count: result.sponsorHoverPopup.count + 1 
@@ -441,7 +444,7 @@ function addLog(message) {
 }
 
 // 监听来自 background script 的消息
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.action) {
     case 'exportProgress':
       const exportedFiles = message.data.exportedFiles;
@@ -456,7 +459,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       setStartButtonLabel(START_BUTTON_DONE_TEXT);
       isExporting = false;
       // 从后台获取最终状态，以显示可能的失败文件
-      chrome.runtime.sendMessage({ action: 'getUiState' }).then(response => {
+      browser.runtime.sendMessage({ action: 'getUiState' }).then(response => {
         if (response && response.success) {
           syncUiWithState(response.data);
         }
@@ -495,7 +498,7 @@ function updateTeamFilesCount(fileList = []) {
 
 // 保存设置和状态到存储
 function saveSettings() {
-  chrome.storage.local.set({
+  browser.storage.local.set({
     exportType: exportTypeSelect.value
   });
 }
