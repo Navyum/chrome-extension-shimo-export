@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const timestampFormatSelect = document.getElementById('timestampFormat');
     const timestampStatus = document.getElementById('timestampStatus');
     const timestampHint = document.getElementById('timestampFormatHint');
+    const exportSettingsStatus = document.getElementById('exportSettingsStatus');
+    const typeExportSettings = document.querySelectorAll('.type-export-setting');
     const TIMESTAMP_DEFAULT_FORMAT = 'YYYY-MM-DD_HH-mm';
     const TIMESTAMP_PREVIEW = {
         'YYYYMMDD-HHmm': '20231231-2359',
@@ -89,9 +91,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Load the saved settings
-    browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource']).then((result) => {
+    browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']).then((result) => {
         if (result.subfolder) {
             subfolderInput.value = result.subfolder;
+        }
+
+        if (result.typeExportSettings) {
+            typeExportSettings.forEach(select => {
+                const type = select.dataset.type;
+                if (result.typeExportSettings[type]) {
+                    select.value = result.typeExportSettings[type];
+                }
+            });
         }
 
         if (timeSourceRadios.length > 0 && timestampFormatSelect) {
@@ -154,6 +165,250 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateTimestampHint(format);
                 showTimestampStatus('时间格式已更新');
             });
+        });
+    }
+
+    // Handle type-specific export settings change
+    typeExportSettings.forEach(select => {
+        select.addEventListener('change', () => {
+            const settings = {};
+            typeExportSettings.forEach(s => {
+                settings[s.dataset.type] = s.value;
+            });
+            browser.storage.local.set({ typeExportSettings: settings }).then(() => {
+                showExportSettingsStatus('设置已保存');
+            });
+        });
+        
+        // 为每个 select 初始化增强交互
+        enhanceSelectInteraction(select);
+    });
+
+    function showExportSettingsStatus(message) {
+        if (!exportSettingsStatus) return;
+        exportSettingsStatus.textContent = `✅ ${message}`;
+        exportSettingsStatus.style.opacity = '1';
+        setTimeout(() => {
+            exportSettingsStatus.style.opacity = '0';
+        }, 2000);
+    }
+
+    // --- 增强下拉框交互效果 (通用版) ---
+    function enhanceSelectInteraction(select) {
+        const selectContainer = select.closest('.select-container');
+        const selectTrigger = selectContainer?.querySelector('.select-trigger');
+        const selectOptionsList = selectContainer?.querySelector('.select-options');
+        const selectIcon = selectContainer?.querySelector('.select-icon');
+        const selectLabel = selectContainer?.querySelector('.select-trigger-text');
+        
+        if (!selectContainer || !select || !selectTrigger || !selectOptionsList) return;
+
+        const updateSelectionState = () => {
+            if (select.value) {
+                selectContainer.classList.add('has-selection');
+            } else {
+                selectContainer.classList.remove('has-selection');
+            }
+            updateExportTypeIcon();
+        };
+
+        const updateExportTypeIcon = () => {
+            const selectedOption = select.selectedOptions?.[0] || select.options[select.selectedIndex];
+            const iconSrc = selectedOption?.dataset?.icon;
+            const optionText = selectedOption?.textContent?.trim() || '导出格式';
+
+            if (selectIcon) {
+                if (iconSrc) {
+                    selectIcon.src = iconSrc;
+                    selectIcon.alt = `${optionText} 图标`;
+                    selectIcon.classList.add('is-visible');
+                    selectIcon.style.display = '';
+                } else {
+                    selectIcon.classList.remove('is-visible');
+                    selectIcon.style.display = 'none';
+                }
+            }
+
+            if (selectContainer) {
+                selectContainer.classList.toggle('has-icon', Boolean(iconSrc));
+            }
+
+            if (selectLabel && selectedOption) {
+                selectLabel.textContent = optionText;
+            }
+
+            updateCustomOptionsState();
+        };
+
+        const updateCustomOptionsState = () => {
+            const currentValue = select.value;
+            selectOptionsList.querySelectorAll('.select-option-item').forEach(item => {
+                const isActive = item.dataset.value === currentValue;
+                item.classList.toggle('is-active', isActive);
+                const button = item.querySelector('.select-option-button');
+                if (button) {
+                    button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                }
+            });
+        };
+
+        const buildCustomSelectOptions = () => {
+            selectOptionsList.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+
+            Array.from(select.options).forEach(option => {
+                const li = document.createElement('li');
+                li.className = 'select-option-item';
+                li.dataset.value = option.value;
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'select-option-button';
+                button.dataset.value = option.value;
+                button.setAttribute('role', 'option');
+                button.tabIndex = -1;
+
+                if (option.dataset.icon) {
+                    const img = document.createElement('img');
+                    img.src = option.dataset.icon;
+                    img.alt = '';
+                    img.setAttribute('aria-hidden', 'true');
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                    };
+                    button.appendChild(img);
+                }
+
+                const text = document.createElement('span');
+                text.textContent = option.textContent.trim();
+                button.appendChild(text);
+
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (select.value !== option.value) {
+                        select.value = option.value;
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+                    } else {
+                        updateExportTypeIcon();
+                    }
+                    closeCustomDropdown({ restoreFocus: true });
+                });
+
+                li.appendChild(button);
+                fragment.appendChild(li);
+            });
+
+            selectOptionsList.appendChild(fragment);
+            updateCustomOptionsState();
+        };
+
+        const toggleCustomDropdown = () => {
+            if (selectContainer.classList.contains('is-open')) {
+                closeCustomDropdown({ restoreFocus: true });
+            } else {
+                openCustomDropdown();
+            }
+        };
+
+        const openCustomDropdown = () => {
+            if (selectContainer.classList.contains('is-open')) return;
+            
+            // 关闭页面上其他可能打开的下拉框
+            document.querySelectorAll('.select-container.is-open').forEach(container => {
+                if (container !== selectContainer) {
+                    container.classList.remove('is-open');
+                    container.closest('.form-group')?.classList.remove('is-select-open');
+                    container.querySelector('.select-trigger')?.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            selectContainer.classList.add('is-open');
+            selectContainer.closest('.form-group')?.classList.add('is-select-open');
+            selectTrigger.setAttribute('aria-expanded', 'true');
+            const activeBtn =
+                selectOptionsList.querySelector('.select-option-item.is-active .select-option-button') ||
+                selectOptionsList.querySelector('.select-option-button');
+            setTimeout(() => {
+                activeBtn?.focus();
+            }, 0);
+        };
+
+        const closeCustomDropdown = ({ restoreFocus = false } = {}) => {
+            const wasOpen = selectContainer.classList.contains('is-open');
+            selectContainer.classList.remove('is-open');
+            selectContainer.closest('.form-group')?.classList.remove('is-select-open');
+            selectTrigger.setAttribute('aria-expanded', 'false');
+            if (restoreFocus && wasOpen) {
+                selectTrigger.focus();
+            }
+        };
+
+        const handleSelectOutsideClick = (event) => {
+            if (!selectContainer.classList.contains('is-open')) return;
+            if (!selectContainer.contains(event.target)) {
+                closeCustomDropdown();
+            }
+        };
+
+        const handleTriggerKeydown = (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleCustomDropdown();
+            } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                event.preventDefault();
+                openCustomDropdown();
+                focusRelativeOption(event.key === 'ArrowDown' ? 1 : -1);
+            } else if (event.key === 'Escape') {
+                event.preventDefault();
+                closeCustomDropdown({ restoreFocus: true });
+            }
+        };
+
+        const handleOptionsKeydown = (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeCustomDropdown({ restoreFocus: true });
+                return;
+            }
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                event.preventDefault();
+                focusRelativeOption(event.key === 'ArrowDown' ? 1 : -1);
+            }
+        };
+
+        const focusRelativeOption = (step) => {
+            const buttons = Array.from(selectOptionsList.querySelectorAll('.select-option-button'));
+            if (!buttons.length) return;
+            const focusedIndex = buttons.indexOf(document.activeElement);
+            let nextIndex = focusedIndex;
+            if (nextIndex === -1) {
+                const active =
+                    selectOptionsList.querySelector('.select-option-item.is-active .select-option-button') || buttons[0];
+                nextIndex = buttons.indexOf(active);
+            }
+            nextIndex = (nextIndex + step + buttons.length) % buttons.length;
+            buttons[nextIndex].focus();
+        };
+
+        selectTrigger.removeAttribute('hidden');
+        selectOptionsList.removeAttribute('hidden');
+        selectContainer.classList.add('is-enhanced');
+
+        buildCustomSelectOptions();
+        updateSelectionState();
+
+        selectTrigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleCustomDropdown();
+        });
+        selectTrigger.addEventListener('keydown', handleTriggerKeydown);
+        selectOptionsList.addEventListener('keydown', handleOptionsKeydown);
+        document.addEventListener('click', handleSelectOutsideClick);
+
+        select.addEventListener('change', () => {
+            updateSelectionState();
+            closeCustomDropdown();
         });
     }
 
@@ -403,7 +658,8 @@ function createTreeHtml(node, exportType) {
                 const statusIcon = file.status === 'success' ? '✅' : (file.status === 'failed' ? '❌' : '⏳');
                 const duration = file.duration ? `${(file.duration / 1000).toFixed(2)}s` : '-';
 
-                const suggestedFilename = `${file.title}.${exportType}`;
+                const actualExt = file.actualExportType || (exportType !== 'auto' ? exportType : null);
+                const suggestedFilename = actualExt ? `${file.title}.${actualExt}` : file.title;
                 const downloadLink = file.downloadUrl 
                     ? `<a href="${file.downloadUrl}" download="${suggestedFilename}" target="_blank" rel="noopener noreferrer">点击直接下载</a>` 
                     : 'N/A';

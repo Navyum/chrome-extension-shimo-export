@@ -36,6 +36,14 @@
                     </svg>
                     <span>通用设置</span>
                 </a>
+                <a href="#export-settings" class="nav-item" data-section="export-settings" aria-label="导出设置" role="button" tabindex="0">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>导出设置</span>
+                </a>
                 <a href="#performance" class="nav-item" data-section="performance" aria-label="性能监控" role="button" tabindex="0">
                     <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
@@ -60,7 +68,7 @@
                 </header>
                 <article class="form-card">
                     <div class="form-group">
-                        <label for="subfolder">📁 下载子文件夹</label>
+                        <label>下载子文件夹</label>
                         <p class="description">
                             文件将保存到您浏览器"下载"目录下的指定子文件夹中。如果留空，则保存到"下载"目录。
                         </p>
@@ -68,7 +76,7 @@
                         <div id="status" class="status" role="status" aria-live="polite">✅ 设置已保存!</div>
                     </div>
                     <div class="form-group">
-                        <label for="filenameTimestampToggle">🕒 文件时间信息</label>
+                        <label>文件时间信息</label>
                         <p class="description">
                             需要在本地保留石墨文档的创建时间与最后修改时间时，可开启此项。导出的文件名会自动追加两个时间戳，方便后续追溯。
                         </p>
@@ -103,7 +111,7 @@
                         <div id="timestampStatus" class="status" role="status" aria-live="polite">✅ 设置已保存!</div>
                     </div>
                     <div class="form-group">
-                        <label for="feedbackBtn">📋 反馈信息</label>
+                        <label>反馈信息</label>
                         <p class="description">
                             一键复制登录凭证和操作日志，将遇到的问题反馈给开发者。
                         </p>
@@ -118,6 +126,152 @@
                     </div>
                 </article>
             </section>
+            <section id="export-settings" class="content-section" aria-labelledby="export-settings-heading">
+                <header class="section-header">
+                    <h2 id="export-settings-heading">导出设置</h2>
+                    <p>针对不同类型的文档设置默认的导出格式。</p>
+                </header>
+                <article class="form-card">
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/newdoc.png" class="label-icon" alt="" />
+                            <span>文档 (newdoc)</span>
+                        </label>
+                        <p class="description">新版文档，支持 Markdown、图片、Word、PDF。</p>
+                        <div class="select-container has-icon has-selection">
+                            <img class="select-icon is-visible" src="assets/markdown.svg" alt="图标" />
+                            <select class="type-export-setting" data-type="newdoc">
+                                <option value="md" data-icon="assets/markdown.svg">Markdown (.md)</option>
+                                <option value="jpg" data-icon="assets/jpg.svg">图片 (.jpg)</option>
+                                <option value="docx" data-icon="assets/word.svg">Word (.docx)</option>
+                                <option value="pdf" data-icon="assets/pdf.svg">PDF (.pdf)</option>
+                            </select>
+                            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false" hidden>
+                                <span class="select-trigger-text">Markdown (.md)</span>
+                            </button>
+                            <ul class="select-options" role="listbox" hidden></ul>
+                        </div>
+                    </div>
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/modoc.png" class="label-icon" alt="" />
+                            <span>传统文档 (modoc)</span>
+                        </label>
+                        <p class="description">传统文档，支持 WPS、PDF、Word。</p>
+                        <div class="select-container has-icon has-selection">
+                            <img class="select-icon is-visible" src="assets/word.svg" alt="图标" />
+                            <select class="type-export-setting" data-type="modoc">
+                                <option value="docx" data-icon="assets/word.svg">Word (.docx)</option>
+                                <option value="wps" data-icon="assets/wps.svg">WPS (.wps)</option>
+                                <option value="pdf" data-icon="assets/pdf.svg">PDF (.pdf)</option>
+                            </select>
+                            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false" hidden>
+                                <span class="select-trigger-text">Word (.docx)</span>
+                            </button>
+                            <ul class="select-options" role="listbox" hidden></ul>
+                        </div>
+                    </div>
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/mosheet.png" class="label-icon" alt="" />
+                            <span>表格 (mosheet)</span>
+                        </label>
+                        <p class="description">石墨表格，仅支持 Excel。</p>
+                        <div class="select-container has-icon has-selection">
+                            <img class="select-icon is-visible" src="assets/excel.svg" alt="图标" />
+                            <select class="type-export-setting" data-type="mosheet">
+                                <option value="xlsx" data-icon="assets/excel.svg">Excel (.xlsx)</option>
+                            </select>
+                            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false" hidden>
+                                <span class="select-trigger-text">Excel (.xlsx)</span>
+                            </button>
+                            <ul class="select-options" role="listbox" hidden></ul>
+                        </div>
+                    </div>
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/presentation.png" class="label-icon" alt="" />
+                            <span>幻灯片 (presentation)</span>
+                        </label>
+                        <p class="description">石墨幻灯片，支持 PPTX、PDF。</p>
+                        <div class="select-container has-icon has-selection">
+                            <img class="select-icon is-visible" src="assets/ppt.svg" alt="图标" />
+                            <select class="type-export-setting" data-type="presentation">
+                                <option value="pptx" data-icon="assets/ppt.svg">PPTX (.pptx)</option>
+                                <option value="pdf" data-icon="assets/pdf.svg">PDF (.pdf)</option>
+                            </select>
+                            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false" hidden>
+                                <span class="select-trigger-text">PPTX (.pptx)</span>
+                            </button>
+                            <ul class="select-options" role="listbox" hidden></ul>
+                        </div>
+                    </div>
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/mindmap.png" class="label-icon" alt="" />
+                            <span>思维导图 (mindmap)</span>
+                        </label>
+                        <p class="description">思维导图，支持图片、XMind。</p>
+                        <div class="select-container has-icon has-selection">
+                            <img class="select-icon is-visible" src="assets/xmind.svg" alt="图标" />
+                            <select class="type-export-setting" data-type="mindmap">
+                                <option value="xmind" data-icon="assets/xmind.svg">XMind (.xmind)</option>
+                                <option value="jpg" data-icon="assets/jpg.svg">图片 (.jpg)</option>
+                            </select>
+                            <button type="button" class="select-trigger" aria-haspopup="listbox" aria-expanded="false" hidden>
+                                <span class="select-trigger-text">XMind (.xmind)</span>
+                            </button>
+                            <ul class="select-options" role="listbox" hidden></ul>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="form-group">
+                        <label>不支持导出的类型</label>
+                        <p class="description">以下类型目前石墨官方接口暂不支持导出：</p>
+                    </div>
+
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/table.png" class="label-icon" alt="" />
+                            <span>应用表格 (table)</span>
+                        </label>
+                        <div class="select-container has-icon has-selection is-unsupported">
+                            <img class="select-icon is-visible" src="assets/soon.svg" alt="图标" />
+                            <div class="select-trigger">
+                                <span class="select-trigger-text">不支持导出</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/board.png" class="label-icon" alt="" />
+                            <span>白板 (board)</span>
+                        </label>
+                        <div class="select-container has-icon has-selection is-unsupported">
+                            <img class="select-icon is-visible" src="assets/soon.svg" alt="图标" />
+                            <div class="select-trigger">
+                                <span class="select-trigger-text">不支持导出</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group select-group">
+                        <label>
+                            <img src="assets/shimo/form.png" class="label-icon" alt="" />
+                            <span>表单 (form)</span>
+                        </label>
+                        <div class="select-container has-icon has-selection is-unsupported">
+                            <img class="select-icon is-visible" src="assets/soon.svg" alt="图标" />
+                            <div class="select-trigger">
+                                <span class="select-trigger-text">不支持导出</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="exportSettingsStatus" class="status" role="status" aria-live="polite">设置已保存!</div>
+                </article>
+            </section>
             <section id="performance" class="content-section" aria-labelledby="performance-heading">
                 <header class="section-header">
                     <h2 id="performance-heading">性能监控</h2>
@@ -125,14 +279,14 @@
                 </header>
                 <article class="form-card">
                     <div class="file-tree-header">
-                        <h3>🌳 下载详情 (文件树)</h3>
+                        <h3>下载详情 (文件树)</h3>
                         <div class="file-tree-controls">
                             <div class="status-filter">
                                 <span class="filter-label">状态筛选:</span>
-                                <button class="filter-btn active" data-status="all">📋 全部</button>
-                                <button class="filter-btn" data-status="success">✅ 成功</button>
-                                <button class="filter-btn" data-status="failed">❌ 失败</button>
-                                <button class="filter-btn" data-status="pending">⏳ 处理中</button>
+                                <button class="filter-btn active" data-status="all">全部</button>
+                                <button class="filter-btn" data-status="success">成功</button>
+                                <button class="filter-btn" data-status="failed">失败</button>
+                                <button class="filter-btn" data-status="pending">处理中</button>
                             </div>
                             <button id="refreshTreeBtn" class="refresh-btn" title="刷新文件树" aria-label="刷新文件树数据">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -148,10 +302,10 @@
                     </div>
                 </article>
                 <article class="form-card">
-                    <h3>🐌 下载最慢的 10 个文件</h3>
+                    <h3>下载最慢的 10 个文件</h3>
                     <p class="description">仅显示成功下载的文件，帮助您了解网络性能瓶颈。</p>
                     <div id="slowest-files-container" role="list" aria-label="下载最慢的文件列表">
-                        <p>📊 没有可用的性能数据。</p>
+                        <p>没有可用的性能数据。</p>
                     </div>
                 </article>
             </section>

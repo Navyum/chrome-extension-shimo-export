@@ -59,10 +59,11 @@
         <img
           id="exportTypeIcon"
           class="select-icon is-visible"
-          src="assets/markdown.svg"
+          src="assets/shimo/newdoc.png"
           alt="导出格式图标"
         />
         <select id="exportType">
+          <option value="auto" data-icon="assets/auto.svg">自动检测</option>
           <option value="md" data-icon="assets/markdown.svg">Markdown (.md)</option>
           <option value="pdf" data-icon="assets/pdf.svg">PDF (.pdf)</option>
           <option value="docx" data-icon="assets/word.svg">Word (.docx)</option>
@@ -77,7 +78,7 @@
           aria-expanded="false"
           hidden
         >
-          <span id="exportTypeSelectedValue" class="select-trigger-text">📝 Markdown (.md)</span>
+          <span id="exportTypeSelectedValue" class="select-trigger-text">✨ Auto</span>
         </button>
         <ul id="exportTypeOptions" class="select-options" role="listbox" hidden></ul>
       </div>
