@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     const result = await browser.storage.local.get(['exportType']);
     if (result.exportType) {
       exportTypeSelect.value = result.exportType;
+    } else {
+      exportTypeSelect.value = 'auto';
     }
     
     const response = await browser.runtime.sendMessage({ action: 'getUiState' });

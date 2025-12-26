@@ -70,7 +70,7 @@
 ---
 
 **📥 插件下载地址：**
-[下载地址](https://chromewebstore.google.com/detail/jdipfhjpijkdjbefbaehnimligdldhdp)
+[下载地址](https://chromewebstore.google.com/detail/jdipfhjpijkdjbefbaehnimligdldhdp?utm_source=github)
 
 **💻 源码开源：**
 [github](https://github.com/Navyum/chrome-extension-shimo-export)

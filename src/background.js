@@ -18,6 +18,17 @@ const SHIMO_API = {
 
 const DEFAULT_TIMESTAMP_FORMAT = 'YYYY-MM-DD_HH-mm';
 
+// 石墨文档导出支持矩阵
+const EXPORT_SUPPORT_MATRIX = {
+  newdoc: ['md', 'jpg', 'docx', 'pdf'],
+  modoc: ['docx', 'wps', 'pdf'],
+  mosheet: ['xlsx'],
+  presentation: ['pptx', 'pdf'],
+  mindmap: ['xmind', 'jpg']
+};
+
+const UNSUPPORTED_TYPES = ['table', 'board', 'form'];
+
 // 通用请求函数，添加必要的头部
 async function makeRequest(url, options = {}) {
   // 模拟真实浏览器的请求头
@@ -49,7 +60,8 @@ let exportState = {
   totalFiles: 0,
   currentFileIndex: 0,
   fileList: [], // Each file will now have a 'status' property: pending, in_progress, success, failed
-  exportType: 'md',
+  exportType: 'auto',
+  typeExportSettings: {},
   subfolder: '',
   preserveFileTimes: false,
   fileTimeFormat: DEFAULT_TIMESTAMP_FORMAT,
@@ -263,12 +275,13 @@ async function handleStartExport(data) {
     return { success: false, error: '文件列表为空，请先获取文件信息。' };
   }
   
-  const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource']);
+  const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']);
 
   exportState.isExporting = true;
   exportState.isPaused = false;
   exportState.currentFileIndex = 0;
   exportState.exportType = data.exportType;
+  exportState.typeExportSettings = settings.typeExportSettings || {};
   exportState.subfolder = settings.subfolder || '';
   
   const fileTimeSource = settings.fileTimeSource || 'off';
@@ -443,6 +456,16 @@ async function exportFiles() {
       sendLog(`(进度 ${i + 1}/${totalCount}) 开始处理: ${file.title}`);
 
       try {
+        const type = getFileExportType(file);
+        if (!type) {
+          file.status = 'success';
+          const fullPath = file.folderPath ? `${file.folderPath}/${file.title}` : file.title;
+          sendLog(`跳过不支持导出的文件类型 (${file.type}): ${fullPath}`);
+          sendProgress();
+          await saveState();
+          continue;
+        }
+
         const MAX_RETRIES = 1;
         let success = false;
         for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
@@ -502,13 +525,72 @@ async function exportFiles() {
 }
 
 async function getExportTaskId(file) {
-  const url = SHIMO_API.EXPORT.replace('%s', file.id).replace('%s', exportState.exportType);
+  const type = getFileExportType(file);
+  const url = SHIMO_API.EXPORT.replace('%s', file.id).replace('%s', type);
   file.exportUrl = url;
+  file.actualExportType = type; // 保存实际使用的导出类型用于下载
   const response = await makeRequest(url);
   if (!response.ok) throw new Error(`获取导出任务失败: HTTP ${response.status}`);
   const data = await response.json();
   if (!data.taskId) throw new Error('未获取到导出任务ID');
   return data.taskId;
+}
+
+// 获取文件最终导出的类型
+function getFileExportType(file) {
+  let fileType = file.type;
+  
+  // 统一映射到矩阵键名，确保与设置页面 data-type 一致
+  if (fileType === 'ppt' || fileType === 'pptx') fileType = 'presentation';
+  if (fileType === 'sheet') fileType = 'mosheet';
+
+  // 如果是不支持的类型，直接返回 null
+  if (UNSUPPORTED_TYPES.includes(fileType)) {
+    return null;
+  }
+
+  let supportedFormats = EXPORT_SUPPORT_MATRIX[fileType];
+  
+  // 兜底逻辑：如果没有匹配到矩阵，尝试一些常见的映射
+  if (!supportedFormats) {
+    if (fileType.includes('sheet')) supportedFormats = EXPORT_SUPPORT_MATRIX.mosheet;
+    else if (fileType.includes('ppt') || fileType.includes('pptx') || fileType.includes('presentation')) supportedFormats = EXPORT_SUPPORT_MATRIX.presentation;
+    else if (fileType.includes('doc')) supportedFormats = EXPORT_SUPPORT_MATRIX.newdoc;
+    else if (fileType.includes('mind')) supportedFormats = EXPORT_SUPPORT_MATRIX.mindmap;
+  }
+
+  if (!supportedFormats || supportedFormats.length === 0) {
+    // 最后的兜底：如果是 auto 模式返回 md，否则返回用户选择的类型
+    const fallback = exportState.exportType === 'auto' ? 'md' : exportState.exportType;
+    return fallback === 'auto' ? 'md' : fallback;
+  }
+
+  // 获取设置中的类型，并确保它在支持列表中
+  const getSetting = (type) => {
+    const setting = exportState.typeExportSettings[type];
+    return (setting && supportedFormats.includes(setting)) ? setting : null;
+  };
+
+  // 1. 如果全局选择 Auto
+  if (exportState.exportType === 'auto') {
+    // 优先使用设置中的 per-type 设置
+    const setting = getSetting(fileType);
+    if (setting) return setting;
+    
+    // 否则使用矩阵中的第一个
+    return supportedFormats[0];
+  }
+
+  // 2. 如果全局选择特定格式 (仅对 newdoc 生效，其他类型依然走 Auto 逻辑)
+  if (fileType === 'newdoc') {
+    return supportedFormats.includes(exportState.exportType) ? exportState.exportType : supportedFormats[0];
+  } else {
+    // 非 newdoc 类型，按照设置中的类型导出，如果没有设置则取支持列表第一个
+    const setting = getSetting(fileType);
+    if (setting) return setting;
+    
+    return supportedFormats[0];
+  }
 }
 
 async function waitForExportComplete(taskId, file) {
@@ -551,7 +633,14 @@ async function downloadFile(downloadUrl, file) {
       if (formatted) baseName = `${baseName}__${formatted}`;
     }
 
-    const fileName = `${baseName}.${exportState.exportType}`;
+    let type = file.actualExportType;
+    if (!type || type === 'auto') {
+      type = exportState.exportType === 'auto' ? 'md' : exportState.exportType;
+    }
+    // 确保 type 绝对不会是 'auto'
+    if (type === 'auto') type = 'md';
+
+    const fileName = `${baseName}.${type}`;
     const relativeFolderPath = file.folderPath || '';
     const rootSubfolder = exportState.subfolder ? exportState.subfolder.replace(/[<>:"|?*]/g, '_') : '';
 
@@ -627,8 +716,9 @@ async function handleRetryFailedFiles() {
     exportState.isPaused = false;
     exportState.currentFileIndex = 0;
     
-    const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource']);
+    const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']);
     exportState.subfolder = settings.subfolder || '';
+    exportState.typeExportSettings = settings.typeExportSettings || {};
     const fileTimeSource = settings.fileTimeSource || 'off';
     exportState.preserveFileTimes = Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off';
     exportState.fileTimeFormat = settings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;
