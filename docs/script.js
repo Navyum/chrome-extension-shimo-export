@@ -151,11 +151,12 @@ function renderCards() {
         if (card.classList.contains('dropping') || card.classList.contains('slide-back')) return;
 
         // Sample-inspired physics values
+        const isMobile = window.innerWidth < 640;
         let zIndex = 20 - offset;
         let opacity = offset === 0 ? 1 : offset === 1 ? 0.8 : offset === 2 ? 0.7 : offset === 3 ? 0.6 : 0.5;
-        let x = offset * 60;
-        let y = offset * -70;
-        let z = offset * -150;
+        let x = offset * (isMobile ? 30 : 60);
+        let y = offset * (isMobile ? -40 : -70);
+        let z = offset * (isMobile ? -100 : -150);
         let skewY = 6;
         let filter = offset === 0 ? 'none' : `blur(${offset * 0.8}px)`;
         let visibility = offset > 4 ? 'hidden' : 'visible';
