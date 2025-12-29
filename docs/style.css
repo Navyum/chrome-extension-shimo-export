@@ -1646,6 +1646,15 @@ html, body {
 @media (max-width: 640px) {
     .hero-title { font-size: 2.2rem; }
     .features-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .magic-bento-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 32px 24px;
+    }
+    .magic-bento-card .feature-content {
+        align-items: center;
+    }
     .nav-center { display: none; }
     .hero-actions {
         flex-direction: column;
