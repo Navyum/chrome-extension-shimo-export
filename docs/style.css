@@ -569,22 +569,22 @@ html, body {
         z-index: 100;
     }
     20% {
-        transform: translate3d(-50%, calc(-50% + 200px), -500px) skewY(6deg) scale(0.85);
+        transform: translate3d(-50%, calc(-50% + 200px), -400px) skewY(6deg) scale(0.85);
         z-index: 1;
         opacity: 0.6;
     }
-    /* 70%: 处于目标位置下方，开始轻盈回升 */
+    /* 75%: 处于目标位置下方，开始轻盈回升 */
     75% {
-        transform: translate3d(calc(-50% + 80px), calc(-50% - 100px), -340px) skewY(6.5deg) scale(0.98);
+        transform: translate3d(calc(-50% + 60px), calc(-50% - 75px), -255px) skewY(6.5deg) scale(0.98);
         opacity: 0.9;
     }
     /* 88%: 轻盈入位：稍微越过目标点，配合极小的弹性 */
     94% {
-        transform: translate3d(calc(-50% + 80px), calc(-50% - 122px), -315px) skewY(5.8deg) scale(1.005);
+        transform: translate3d(calc(-50% + 60px), calc(-50% - 92px), -235px) skewY(5.8deg) scale(1.005);
         opacity: 1;
     }
     100% {
-        transform: translate3d(calc(-50% + 80px), calc(-50% - 120px), -320px) skewY(6deg) scale(1);
+        transform: translate3d(calc(-50% + 60px), calc(-50% - 90px), -240px) skewY(6deg) scale(1);
         opacity: 1;
         z-index: 1;
     }
@@ -598,21 +598,21 @@ html, body {
             z-index: 100;
         }
         20% {
-            transform: translate3d(-50%, calc(-50% + 230px), -650px) skewY(6deg) scale(0.82);
+            transform: translate3d(-50%, calc(-50% + 230px), -500px) skewY(6deg) scale(0.82);
             z-index: 1;
             opacity: 0.55;
         }
         /* 平滑回升 */
         75% {
-            transform: translate3d(calc(-50% + 160px), calc(-50% - 180px), -500px) skewY(6.5deg) scale(0.98);
+            transform: translate3d(calc(-50% + 120px), calc(-50% - 135px), -380px) skewY(6.5deg) scale(0.98);
             opacity: 0.9;
         }
         94% {
-            transform: translate3d(calc(-50% + 160px), calc(-50% - 205px), -475px) skewY(5.8deg) scale(1.005);
+            transform: translate3d(calc(-50% + 120px), calc(-50% - 155px), -355px) skewY(5.8deg) scale(1.005);
             opacity: 1;
         }
         100% {
-            transform: translate3d(calc(-50% + 160px), calc(-50% - 200px), -480px) skewY(6deg) scale(1);
+            transform: translate3d(calc(-50% + 120px), calc(-50% - 150px), -360px) skewY(6deg) scale(1);
             opacity: 1;
             z-index: 1;
         }
@@ -627,21 +627,21 @@ html, body {
             z-index: 100;
         }
         20% {
-            transform: translate3d(-50%, calc(-50% + 260px), -800px) skewY(6deg) scale(0.8);
+            transform: translate3d(-50%, calc(-50% + 260px), -600px) skewY(6deg) scale(0.8);
             z-index: 1;
             opacity: 0.5;
         }
         /* 桌面端：更大幅度的轻盈归位 */
         75% {
-            transform: translate3d(calc(-50% + 240px), calc(-50% - 240px), -640px) skewY(6.5deg) scale(0.98);
+            transform: translate3d(calc(-50% + 180px), calc(-50% - 180px), -480px) skewY(6.5deg) scale(0.98);
             opacity: 0.9;
         }
         94% {
-            transform: translate3d(calc(-50% + 240px), calc(-50% - 285px), -595px) skewY(5.8deg) scale(1.005);
+            transform: translate3d(calc(-50% + 180px), calc(-50% - 215px), -445px) skewY(5.8deg) scale(1.005);
             opacity: 1;
         }
         100% {
-            transform: translate3d(calc(-50% + 240px), calc(-50% - 280px), -600px) skewY(6deg) scale(1);
+            transform: translate3d(calc(-50% + 180px), calc(-50% - 210px), -450px) skewY(6deg) scale(1);
             opacity: 1;
             z-index: 1;
         }
@@ -652,19 +652,29 @@ html, body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 16px;
-    /* 优化点 4：使用实色背景替代超低透明度背景 */
-    background: #1a1a20; 
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 20px;
+    background: linear-gradient(to right, rgba(89, 101, 238, 0.4), rgba(170, 112, 241, 0.4));
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
     flex-shrink: 0;
+    transform: translateZ(0);
+    backface-visibility: hidden;
     position: relative;
     z-index: 2;
-    transform: translateZ(0);
 }
 
-.CardSwap_windowIcon__mOIYe { font-size: 1.1rem; display: flex; align-items: center; }
+.CardSwap_windowIcon__mOIYe {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
 .CardSwap_windowTitle__Q1Asa {
     font-size: 0.85rem;
     color: hsla(0, 0%, 100%, 0.9);
@@ -685,6 +695,7 @@ html, body {
     inset: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .CardSwap_cardImage__HhGOd img {
@@ -748,8 +759,8 @@ html, body {
 }
 
 .magic-bento-card {
-    background: #060010;
-    border: 1px solid var(--border-color);
+    background: rgba(6, 0, 16, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     padding: 40px;
     position: relative;
@@ -758,8 +769,9 @@ html, body {
     flex-direction: row;
     align-items: flex-start;
     gap: 24px;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
     height: 100%;
+    backdrop-filter: blur(10px);
 }
 
 .feature-badge {
@@ -775,13 +787,16 @@ html, body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-    z-index: 10;
+    z-index: 12;
 }
 
 .magic-bento-card:hover {
     transform: translateY(-5px);
+    background: rgba(6, 0, 16, 0.7);
     border-color: rgba(var(--glow-color), 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(var(--glow-color), 0.15);
 }
 
 /* Subtle background glow on hover */
@@ -789,10 +804,15 @@ html, body {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(600px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color), 0.08), transparent 40%);
+    background: radial-gradient(
+        600px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.15),
+        transparent 80%
+    );
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
+    z-index: 1;
 }
 
 /* Glowing border on hover */
@@ -800,19 +820,31 @@ html, body {
     content: "";
     position: absolute;
     inset: 0;
-    padding: 1px;
-    background: radial-gradient(300px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color), 0.5), transparent 70%);
+    padding: 3px; /* 进一步加宽边框区域，使激光效果更明显 */
+    background: radial-gradient(
+        300px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.2) 60%,
+        transparent 100%
+    );
     border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
+    z-index: 10;
 }
 
 .magic-bento-card:hover::before,
 .magic-bento-card:hover::after { opacity: 1; }
+
+.feature-content, .feature-icon-wrapper {
+    position: relative;
+    z-index: 5;
+}
 
 .feature-content {
     flex: 1;
@@ -845,6 +877,14 @@ html, body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.magic-bento-card:hover .feature-icon-wrapper {
+    background: rgba(var(--glow-color), 0.2);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(var(--glow-color), 0.4);
+    transform: scale(1.05);
 }
 
 /* Remove Custom Grid Spans */
@@ -1342,12 +1382,25 @@ html, body {
     max-height: 600px;
     padding: 0;
     border: 1px solid #392e4e;
-    background-color: rgba(6, 0, 16, 0.85);
+    background-color: rgba(6, 0, 16, 0.8);
     backdrop-filter: blur(20px) saturate(180%);
     overflow: hidden;
     height: auto;
     gap: 0;
-    transition: all 0.5s ease;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.update-notification-bento .magic-bento-card:hover {
+    background-color: rgba(6, 0, 16, 0.9);
+    border-color: rgba(var(--glow-color), 0.3);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(var(--glow-color), 0.2);
+}
+.update-notification-bento-header,
+.update-notification-bento-content,
+.update-notification-bento-footer {
+    position: relative;
+    z-index: 5;
 }
 .update-notification-bento-header {
     display: flex;
@@ -1356,7 +1409,6 @@ html, body {
     gap: 12px;
     padding: 20px;
     border-bottom: 1px solid rgba(57, 46, 78, 0.6);
-    position: relative;
     transition: padding 0.3s ease;
 }
 .update-notification-bento-title-section {

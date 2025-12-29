@@ -131,9 +131,9 @@ function initCards() {
                 <div class="CardSwap_windowIcon__mOIYe">${data.icon}</div>
                 <div class="CardSwap_windowTitle__Q1Asa"><span>${data.title}</span></div>
             </div>
-            <div class="CardSwap_cardContent__OWUTy" style="flex: 1; position: relative; width: 100%; background: rgba(0, 0, 0, 0.2);">
-                <div class="CardSwap_cardImage__HhGOd" style="position: absolute; inset: 0; width: 100%; height: 100%;">
-                    <img src="${data.img}" alt="${data.title}" draggable="false" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="CardSwap_cardContent__OWUTy">
+                <div class="CardSwap_cardImage__HhGOd">
+                    <img src="${data.img}" alt="${data.title}" draggable="false">
                 </div>
             </div>
         `;
