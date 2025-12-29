@@ -229,11 +229,61 @@ html, body {
     font-size: 14px;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    --glow-color: 102, 126, 234;
+}
+
+.nav-cta-button > * {
+    position: relative;
+    z-index: 3;
+}
+
+.nav-cta-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        400px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.2),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nav-cta-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: radial-gradient(
+        200px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.3) 60%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
 }
 
 .nav-cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.nav-cta-button:hover::before,
+.nav-cta-button:hover::after {
+    opacity: 1;
 }
 
 /* Hero Section */
@@ -361,11 +411,61 @@ html, body {
     font-size: 1.1rem;
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    --glow-color: 102, 126, 234;
+}
+
+.hero-primary-button > * {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-primary-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        500px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.2),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-primary-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2.5px;
+    background: radial-gradient(
+        250px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.3) 60%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
 }
 
 .hero-primary-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+}
+
+.hero-primary-button:hover::before,
+.hero-primary-button:hover::after {
+    opacity: 1;
 }
 
 .hero-secondary-button {
@@ -379,11 +479,61 @@ html, body {
     font-size: 1.1rem;
     backdrop-filter: blur(5px);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    --glow-color: 102, 126, 234;
+}
+
+.hero-secondary-button > * {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-secondary-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        500px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.15),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-secondary-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2.5px;
+    background: radial-gradient(
+        250px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.3) 60%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
 }
 
 .hero-secondary-button:hover {
     background: rgba(17, 0, 41, 0.6);
     border-color: rgba(102, 126, 234, 0.8);
+}
+
+.hero-secondary-button:hover::before,
+.hero-secondary-button:hover::after {
+    opacity: 1;
 }
 
 .hero-features {
@@ -445,8 +595,8 @@ html, body {
 
 @media (max-width: 640px) {
     .CardSwap_cardSwapContainer__UAZtT {
-        height: 280px;
-        max-width: 320px;
+        height: 360px;
+        max-width: 360px;
     }
 }
 
@@ -484,8 +634,8 @@ html, body {
 
 @media (max-width: 640px) {
     .CardSwap_card__HvzWu {
-        width: 280px;
-        height: 200px;
+        width: 340px;
+        height: 260px;
     }
 }
 
@@ -662,6 +812,13 @@ html, body {
     z-index: 2;
 }
 
+@media (max-width: 640px) {
+    .CardSwap_windowHeader__pAaBr {
+        padding: 10px 16px;
+        gap: 10px;
+    }
+}
+
 .CardSwap_windowIcon__mOIYe {
     width: 28px;
     height: 28px;
@@ -675,11 +832,27 @@ html, body {
     font-size: 1.1rem;
 }
 
+@media (max-width: 640px) {
+    .CardSwap_windowIcon__mOIYe {
+        width: 24px;
+        height: 24px;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+}
+
 .CardSwap_windowTitle__Q1Asa {
     font-size: 0.85rem;
     color: hsla(0, 0%, 100%, 0.9);
     font-weight: 600;
     letter-spacing: 0.3px;
+}
+
+@media (max-width: 640px) {
+    .CardSwap_windowTitle__Q1Asa {
+        font-size: 0.8rem;
+        letter-spacing: 0.2px;
+    }
 }
 
 .CardSwap_cardContent__OWUTy {
@@ -1043,6 +1216,51 @@ html, body {
     font-size: 1.15rem;
     transition: all 0.3s ease;
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+    --glow-color: 102, 126, 234;
+}
+
+.cta-button > * {
+    position: relative;
+    z-index: 3;
+}
+
+.cta-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        500px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.2),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.cta-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2.5px;
+    background: radial-gradient(
+        250px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.3) 60%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
 }
 
 @media (max-width: 640px) {
@@ -1054,6 +1272,11 @@ html, body {
 .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+}
+
+.cta-button:hover::before,
+.cta-button:hover::after {
+    opacity: 1;
 }
 
 /* Privacy Policy Page Specific */
@@ -1459,12 +1682,62 @@ html, body {
     justify-content: center;
     transition: all 0.2s ease;
     z-index: 100;
+    overflow: hidden;
+    --glow-color: 132, 0, 255;
 }
+
+.update-notification-bento-close > * {
+    position: relative;
+    z-index: 3;
+}
+
+.update-notification-bento-close::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        150px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.3),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.update-notification-bento-close::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    background: radial-gradient(
+        100px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.3) 60%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
 .update-notification-bento-close:hover {
     background: rgba(57, 46, 78, 0.6);
     border-color: rgba(57, 46, 78, 0.8);
     color: #fff;
     transform: rotate(90deg);
+}
+
+.update-notification-bento-close:hover::before,
+.update-notification-bento-close:hover::after {
+    opacity: 1;
 }
 .update-notification-bento-content {
     padding: 16px 20px;
@@ -1608,11 +1881,62 @@ html, body {
     justify-content: center;
     line-height: 1;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    --glow-color: 132, 0, 255;
 }
+
+.update-notification-bento-button > * {
+    position: relative;
+    z-index: 3;
+}
+
+.update-notification-bento-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        300px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        rgba(var(--glow-color), 0.2),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.update-notification-bento-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: radial-gradient(
+        180px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+        #ffffff 0%,
+        rgba(var(--glow-color), 1) 30%,
+        rgba(var(--glow-color), 0.3) 60%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
 .update-notification-bento-button:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-1px);
+}
+
+.update-notification-bento-button:hover::before,
+.update-notification-bento-button:hover::after {
+    opacity: 1;
 }
 .update-notification-bento-content::-webkit-scrollbar {
     width: 6px;
