@@ -68,7 +68,10 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-window.addEventListener('resize', initDots);
+window.addEventListener('resize', () => {
+    initDots();
+    renderCards();
+});
 window.addEventListener('mousemove', e => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
@@ -76,7 +79,8 @@ window.addEventListener('mousemove', e => {
 
 // --- BENTO CARD GLOW EFFECT ---
 function initBentoGlow() {
-    document.querySelectorAll('.magic-bento-card').forEach(card => {
+    const cards = document.querySelectorAll('.magic-bento-card');
+    cards.forEach(card => {
         card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -90,24 +94,29 @@ function initBentoGlow() {
 // --- AUTHENTIC CARD SWAP LOGIC ---
 const cardData = [
     { 
-        title: '批量导出', 
-        img: './images/feat1.png', 
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' 
+        title: 'Cloud Integration', 
+        img: './images/1-5.png', 
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a3.5 3.5 0 0 1-7 0c0-.18.01-.36.03-.53A3.501 3.501 0 0 1 7 12c0-1.93 1.57-3.5 3.5-3.5.18 0 .36.01.53.03A5.5 5.5 0 0 1 21 12c0 2.12-1.19 3.96-2.96 4.93.31.33.46.77.46 1.07 0 1.1-.9 2-2 2Z"/></svg>' 
     },
     { 
-        title: '保留层级', 
-        img: './images/feat2.png', 
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>' 
+        title: 'QR Generation', 
+        img: './images/1-1.png', 
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v.01"/></svg>' 
     },
     { 
-        title: '多格式支持', 
-        img: './images/feat3.png', 
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>' 
+        title: 'Right click', 
+        img: './images/1-2.png', 
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="7"/><path d="M12 6v4"/></svg>' 
     },
     { 
-        title: '安全稳定', 
-        img: './images/feat4.png', 
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>' 
+        title: 'Artistic Tuning', 
+        img: './images/1-4.png', 
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.6 1.5-1.5 0-.4-.1-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.9-4.5-9-10-9z"/></svg>' 
+    },
+    { 
+        title: 'Intelligent Scan', 
+        img: './images/1-3.png', 
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/><path d="M12 7v10"/></svg>' 
     }
 ];
 
@@ -115,7 +124,7 @@ const cardStack = document.getElementById('cardStack');
 let currentIdx = 0;
 let isTransitioning = false;
 let cardElements = [];
-const UPDATE_BENTO_KEY = 'shimo_export_update_bento_v2025_01';
+const UPDATE_BENTO_KEY = 'pixelqr_update_bento_v2025_01';
 
 function initCards() {
     if (!cardStack) return;
@@ -131,9 +140,9 @@ function initCards() {
                 <div class="CardSwap_windowIcon__mOIYe">${data.icon}</div>
                 <div class="CardSwap_windowTitle__Q1Asa"><span>${data.title}</span></div>
             </div>
-            <div class="CardSwap_cardContent__OWUTy" style="flex: 1; position: relative; width: 100%; background: rgba(0, 0, 0, 0.2);">
-                <div class="CardSwap_cardImage__HhGOd" style="position: absolute; inset: 0; width: 100%; height: 100%;">
-                    <img src="${data.img}" alt="${data.title}" draggable="false" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div class="CardSwap_cardContent__OWUTy">
+                <div class="CardSwap_cardImage__HhGOd">
+                    <img src="${data.img}" alt="${data.title}" draggable="false">
                 </div>
             </div>
         `;
