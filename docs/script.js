@@ -87,26 +87,50 @@ function initBentoGlow() {
     });
 }
 
+// --- BUTTON GLOW EFFECT ---
+function initButtonGlow() {
+    const buttonSelectors = [
+        '.nav-cta-button',
+        '.hero-primary-button',
+        '.hero-secondary-button',
+        '.cta-button',
+        '.update-notification-bento-button',
+        '.update-notification-bento-close'
+    ];
+    
+    buttonSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(button => {
+            button.addEventListener('mousemove', e => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                button.style.setProperty('--glow-x', `${x}px`);
+                button.style.setProperty('--glow-y', `${y}px`);
+            });
+        });
+    });
+}
+
 // --- AUTHENTIC CARD SWAP LOGIC ---
 const cardData = [
     { 
         title: '批量导出', 
-        img: './images/feat1.png', 
+        img: './images/feat1.webp', 
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' 
     },
     { 
         title: '保留层级', 
-        img: './images/feat2.png', 
+        img: './images/feat2.webp', 
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>' 
     },
     { 
         title: '多格式支持', 
-        img: './images/feat3.png', 
+        img: './images/feat3.webp', 
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>' 
     },
     { 
         title: '安全稳定', 
-        img: './images/feat4.png', 
+        img: './images/feat4.webp', 
         icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>' 
     }
 ];
@@ -286,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDots();
     animate();
     initBentoGlow();
+    initButtonGlow();
     initCards(); // Use initCards for efficient management
     setInterval(cycleCards, 5000);
     initUpdateNotificationBento();
