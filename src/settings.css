@@ -756,6 +756,39 @@ select:disabled {
     opacity: 1;
 }
 
+.settings-link {
+    display: inline-block;
+    margin-top: 4px;
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.settings-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* FAQ Link Styles */
+.settings-link-text {
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.settings-link-text:hover {
+    color: var(--primary-hover);
+    background: var(--bg-hover);
+}
+
 .reward-container {
     text-align: center;
     margin-top: 24px;
@@ -827,6 +860,42 @@ select:disabled {
     color: var(--text-muted) !important;
     margin-top: 0 !important;
     font-style: italic;
+}
+
+/* FAQ Styles */
+.faq-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.faq-item h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.faq-item p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.faq-item strong {
+    color: var(--primary-color);
 }
 
 /* Performance Section Styles */
@@ -1153,4 +1222,4 @@ table.perf-table {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-} 
+}

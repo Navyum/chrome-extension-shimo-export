@@ -76,6 +76,26 @@
                         <div id="status" class="status" role="status" aria-live="polite">✅ 设置已保存!</div>
                     </div>
                     <div class="form-group">
+                        <label>
+                            系统批量下载每次询问
+                        </label>
+                        <p class="description">
+                            如果导出时总是弹出保存对话框，是因为 <span class="browser-name">Chrome</span> 开启了"下载前询问每个文件的保存位置"。
+                            <br>
+                            请前往 <strong><span class="browser-name">Chrome</span> 设置 </strong> -> 下载内容 关闭该选项以实现全自动批量导出。
+                        </p>
+                        <a href="#" id="openDownloadsBtn" class="feedback-btn" style="text-decoration: none; display: inline-flex; width: auto; margin-top: 0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                            打开下载设置
+                        </a>
+                        <!-- 预留状态栏位置，保持布局一致性 -->
+                        <div id="downloadSettingsStatus" class="status" role="status" aria-live="polite" style="opacity: 0;">&nbsp;</div>
+                    </div>
+                    <div class="form-group">
                         <label>文件时间信息</label>
                         <p class="description">
                             需要在本地保留石墨文档的创建时间与最后修改时间时，可开启此项。导出的文件名会自动追加两个时间戳，方便后续追溯。
@@ -328,6 +348,22 @@
                             <img src="assets/sp.jpeg" alt="微信支付打赏二维码" width="180" height="180">
                         </div>
                         <p class="reward-footer">您的每一份支持，都将让这个工具变得更好</p>
+                    </div>
+
+                    <h2 style="margin-top: 32px;">❓ 常见问题 (FAQ)</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <h3>1. 为什么导出时每次都需要点击保存位置和确认保存？</h3>
+                            <p>这是因为您的 <span class="browser-name">Chrome</span> 浏览器开启了<strong>"下载前询问每个文件的保存位置"</strong>选项。请前往 <strong><a href="#" class="settings-link-text">设置</a> -> 下载内容</strong> 关闭该选项，即可实现自动保存。</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>2. 为什么有些类型的文件无法导出？</h3>
+                            <p>目前石墨文档官方接口限制了部分类型（如应用表格、白板、表单）的导出。我们会持续关注官方更新，一旦支持将立即跟进。</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>3. 我的数据是否会被上传到云端？</h3>
+                            <p>不会。本工具所有数据处理均在您的浏览器本地完成，只与石墨文档官方接口通信以获取数据，不会将您的文档上传到任何第三方服务器。</p>
+                        </div>
                     </div>
                 </article>
             </section>
