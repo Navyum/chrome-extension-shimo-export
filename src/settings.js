@@ -40,6 +40,84 @@ document.addEventListener('DOMContentLoaded', () => {
     const timestampHint = document.getElementById('timestampFormatHint');
     const exportSettingsStatus = document.getElementById('exportSettingsStatus');
     const typeExportSettings = document.querySelectorAll('.type-export-setting');
+    const downloadSettingsStatus = document.getElementById('downloadSettingsStatus');
+    let downloadSettingsTimeout;
+
+    function showDownloadSettingsStatus(message, isError = false) {
+        if (!downloadSettingsStatus) return;
+        downloadSettingsStatus.textContent = message;
+        
+        if (isError) {
+             downloadSettingsStatus.style.color = 'var(--danger-color)';
+             downloadSettingsStatus.style.borderColor = 'var(--danger-color)';
+             downloadSettingsStatus.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+        } else {
+             downloadSettingsStatus.style.removeProperty('color');
+             downloadSettingsStatus.style.removeProperty('border-color');
+             downloadSettingsStatus.style.removeProperty('background-color');
+        }
+        
+        downloadSettingsStatus.style.opacity = '1';
+        clearTimeout(downloadSettingsTimeout);
+        downloadSettingsTimeout = setTimeout(() => {
+            downloadSettingsStatus.style.opacity = '0';
+        }, 5000);
+    }
+    
+    // --- Browser Specific Logic ---
+    const browserName = browser.browserType === 'firefox' ? 'Firefox' : (browser.browserType === 'edge' ? 'Edge' : 'Chrome');
+    const settingsUrl = browser.browserType === 'firefox' ? 'about:preferences' : (browser.browserType === 'edge' ? 'edge://settings/downloads' : 'chrome://settings/downloads');
+
+    // 更新页面上所有的浏览器名称占位符
+    document.querySelectorAll('.browser-name').forEach(el => {
+        el.textContent = browserName;
+    });
+
+    // 绑定设置跳转逻辑 (打开下载设置按钮)
+    const openDownloadsBtn = document.getElementById('openDownloadsBtn');
+    
+    function handleSettingsNavigation(e) {
+        e.preventDefault();
+
+        // 通用兜底逻辑：复制地址并提示
+        const fallbackToCopy = () => {
+            navigator.clipboard.writeText(settingsUrl).then(() => {
+                showDownloadSettingsStatus(`✅ 地址 "${settingsUrl}" 已复制！请在地址栏粘贴并回车。`);
+                // 如果是从 FAQ 点击的，滚动到状态栏位置让用户看到
+                if (e.target !== openDownloadsBtn) {
+                    downloadSettingsStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }).catch(() => {
+                showDownloadSettingsStatus(`❌ 无法复制地址，请手动输入: ${settingsUrl}`, true);
+                if (e.target !== openDownloadsBtn) {
+                    downloadSettingsStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        };
+
+        if (browser.browserType === 'firefox') {
+            // Firefox 限制扩展直接打开 about: 页面，直接使用兜底方案
+            fallbackToCopy();
+        } else {
+            // 其他浏览器尝试直接打开，失败则兜底
+            browser.tabs.create({ url: settingsUrl }).catch((err) => {
+                fallbackToCopy();
+            });
+        }
+    }
+
+    if (openDownloadsBtn) {
+        // 更新 href 作为 fallback
+        openDownloadsBtn.setAttribute('href', settingsUrl);
+        openDownloadsBtn.addEventListener('click', handleSettingsNavigation);
+    }
+
+    // 绑定 FAQ 中的"设置"文字点击跳转
+    document.querySelectorAll('.settings-link-text').forEach(link => {
+        link.setAttribute('href', settingsUrl);
+        link.addEventListener('click', handleSettingsNavigation);
+    });
+
     const TIMESTAMP_DEFAULT_FORMAT = 'YYYY-MM-DD_HH-mm';
     const TIMESTAMP_PREVIEW = {
         'YYYYMMDD-HHmm': '20231231-2359',
