@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://shimo.camscanner.top/sitemap.xml
+Sitemap: https://shimo.toolab.top/sitemap.xml
 

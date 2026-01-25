@@ -1,0 +1,1452 @@
+/* 博客通用样式 - 基于SEO最佳实践 */
+
+/* 顶部导航栏 */
+.blog-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(6, 11, 34, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.blog-navbar-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blog-navbar-left {
+    flex-shrink: 0;
+}
+
+.blog-navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: opacity 0.2s;
+}
+
+.blog-navbar-logo:hover {
+    opacity: 0.8;
+}
+
+.blog-navbar-logo img {
+    border-radius: 6px;
+}
+
+.blog-navbar-center {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.blog-navbar-link {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.blog-navbar-link:hover {
+    color: #fff;
+}
+
+.blog-navbar-link.active {
+    color: #667eea;
+}
+
+.blog-navbar-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -0.8rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #667eea;
+}
+
+.blog-navbar-right {
+    flex-shrink: 0;
+}
+
+.blog-navbar-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.blog-navbar-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
+/* 移动端导航 */
+@media (max-width: 768px) {
+    .blog-navbar-content {
+        padding: 0.8rem 1rem;
+    }
+
+    .blog-navbar-center {
+        display: none;
+    }
+
+    .blog-navbar-logo span {
+        display: none;
+    }
+}
+
+/* 顶部导航栏 - DEPRECATED: Now using .homepage-nav from style.css */
+/* .blog-navbar { ... } - Keeping for reference or removal */
+
+/* 整体布局 - 左侧目录、中间正文、右侧CTA */
+.blog-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr 280px;
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-top: 100px;
+    /* Add padding for fixed navbar */
+    min-height: calc(100vh - 60px);
+}
+
+/* Base Styles Update */
+html,
+body {
+    height: auto !important;
+    overflow-y: visible !important;
+}
+
+body {
+    /* Use variables from style.css if available, fallback otherwise */
+    background-color: var(--bg-color, #060010);
+    color: var(--text-color, #ffffff);
+    font-family: 'Figtree', 'Inter', sans-serif;
+}
+
+/* Navbar Override for Blog Pages */
+/* style.css defines .homepage-nav as transparent for the hero section.
+   In blog pages, we need it to be solid/glassmorphism from the start. */
+.homepage-nav {
+    background: rgba(6, 11, 34, 0.95) !important;
+    backdrop-filter: blur(10px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Footer Fixes if needed - ensure it has top border and padding matches main site */
+.homepage-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(6, 11, 34, 0.95);
+}
+
+/* Optimize Footer for Blog Context */
+.homepage-footer .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.homepage-footer .footer-grid {
+    gap: 40px;
+    /* Reduce gap from 60px */
+}
+
+.homepage-footer .footer-column {
+    align-items: flex-start;
+    /* Ensure left alignment */
+}
+
+/* Ensure links stack correctly */
+.homepage-footer .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+/* 平板端适配 */
+@media (max-width: 1200px) and (min-width: 769px) {
+    .blog-layout {
+        grid-template-columns: 200px 1fr;
+        gap: 2rem;
+    }
+
+    .blog-sidebar-right {
+        display: none;
+    }
+}
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+    .blog-layout {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        padding-top: 80px;
+    }
+
+    .blog-sidebar-left,
+    .blog-sidebar-right {
+        display: none;
+    }
+
+    .blog-sidebar-left.mobile-show {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        background: rgba(6, 11, 34, 0.98);
+        z-index: 1001;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        padding: 2rem 1rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .blog-sidebar-left.mobile-show.active {
+        left: 0;
+    }
+}
+
+/* 左侧目录导航 */
+.blog-sidebar-left {
+    position: sticky;
+    top: 5rem;
+    /* 考虑导航栏高度 */
+    height: fit-content;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+}
+
+.toc-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.2rem;
+}
+
+.toc-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #667eea;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toc-title::before {
+    content: '📑';
+    font-size: 1.1rem;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list li {
+    margin-bottom: 0.5rem;
+}
+
+.toc-list a {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+}
+
+.toc-list a:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.08);
+    border-left-color: #667eea;
+    transform: translateX(2px);
+}
+
+.toc-list a.active {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.15);
+    font-weight: 500;
+    border-left-color: #667eea;
+}
+
+.toc-list li.toc-h3 {
+    margin-left: 1rem;
+}
+
+/* 移动端目录按钮 */
+.mobile-toc-toggle {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    left: 1rem;
+    width: 50px;
+    height: 50px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+    transition: transform 0.2s;
+}
+
+.mobile-toc-toggle:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .mobile-toc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+}
+
+/* 中间正文区域 */
+.blog-main-content {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 3rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .blog-main-content {
+        padding: 1.5rem;
+    }
+}
+
+/* 文章头部 */
+.article-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.article-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+    .article-title {
+        font-size: 1.8rem;
+    }
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: #888;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.article-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.article-meta-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* 文章内容样式 */
+.article-content h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+    scroll-margin-top: 2rem;
+}
+
+.article-content h3 {
+    font-size: 1.4rem;
+    color: #ddd;
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    scroll-margin-top: 2rem;
+}
+
+.article-content p {
+    color: #ccc;
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.article-content ul,
+.article-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #ccc;
+}
+
+.article-content li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+.article-content a {
+    color: #667eea;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+    transition: border-color 0.2s;
+}
+
+.article-content a:hover {
+    border-bottom-color: #667eea;
+}
+
+/* 图片样式 */
+.article-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.article-image-caption {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* 提示框样式 */
+.tip-box,
+.warning-box,
+.info-box {
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    border-left: 4px solid;
+}
+
+.tip-box {
+    background: rgba(132, 0, 255, 0.08);
+    border-color: #8400ff;
+}
+
+.warning-box {
+    background: rgba(255, 193, 7, 0.08);
+    border-color: #ffc107;
+}
+
+.info-box {
+    background: rgba(102, 126, 234, 0.08);
+    border-color: #667eea;
+}
+
+.tip-box h4,
+.warning-box h4,
+.info-box h4 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.tip-box h4 {
+    color: #8400ff;
+}
+
+.warning-box h4 {
+    color: #ffc107;
+}
+
+.info-box h4 {
+    color: #667eea;
+}
+
+/* 右侧CTA区域 */
+.blog-sidebar-right {
+    position: sticky;
+    top: 5rem;
+    /* 考虑导航栏高度 */
+    height: fit-content;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    margin-bottom: 2rem;
+}
+
+.cta-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+}
+
+.cta-icon-img {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    display: block;
+    border-radius: 12px;
+}
+
+.cta-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+}
+
+.cta-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: white;
+    color: #667eea;
+    padding: 0.9rem 1.6rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    background: #f8f9fa;
+}
+
+/* 功能轮播图 */
+.feature-carousel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.feature-carousel-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feature-carousel-title::before {
+    content: '🎬';
+    font-size: 1.1rem;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-slides {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 1rem;
+    font-size: 0.85rem;
+    text-align: center;
+    border-radius: 0 0 6px 6px;
+}
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background: rgba(102, 126, 234, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-prev {
+    left: 0.5rem;
+}
+
+.carousel-next {
+    right: 0.5rem;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.indicator.active {
+    background: #667eea;
+    width: 24px;
+    border-radius: 4px;
+    border-color: #667eea;
+}
+
+/* 相关文章推荐 */
+.related-posts {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.related-posts-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.related-post-item {
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+}
+
+.related-post-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: #667eea;
+}
+
+.related-post-item:last-child {
+    margin-bottom: 0;
+}
+
+.related-post-link {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.related-post-link:hover {
+    color: #667eea;
+}
+
+/* 文章底部 */
+.article-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.article-tag {
+    display: inline-block;
+    background: rgba(102, 126, 234, 0.15);
+    color: #667eea;
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.article-tag:hover {
+    background: rgba(102, 126, 234, 0.25);
+    transform: translateY(-1px);
+}
+
+.article-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.article-nav-link {
+    flex: 1;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.article-nav-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #667eea;
+}
+
+.nav-link-label {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-link-title {
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+/* 返回顶部按钮 */
+.back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+    transition: all 0.2s;
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+.back-to-top.visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 代码块样式 */
+.article-content pre {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.article-content code {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.article-content :not(pre)>code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: #fff;
+}
+
+/* 表格样式 */
+.article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.article-content th,
+.article-content td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.article-content th {
+    background: rgba(102, 126, 234, 0.15);
+    color: #fff;
+    font-weight: 600;
+}
+
+.article-content tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* 引用样式 */
+.article-content blockquote {
+    border-left: 4px solid #667eea;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    color: #ccc;
+    font-style: italic;
+}
+
+/* 底部Footer */
+.blog-footer {
+    background: rgba(6, 11, 34, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 4rem;
+    padding: 2rem 0;
+}
+
+.blog-footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #667eea;
+}
+
+.footer-links .separator {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.footer-copyright {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.footer-copyright p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .blog-footer-content {
+        padding: 0 1rem;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .footer-links .separator {
+        display: none;
+    }
+}
+
+/* 滚动条样式 */
+.blog-sidebar-left::-webkit-scrollbar,
+.blog-main-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.blog-sidebar-left::-webkit-scrollbar-track,
+.blog-main-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.blog-sidebar-left::-webkit-scrollbar-thumb,
+.blog-main-content::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 3px;
+}
+
+
+.blog-sidebar-left::-webkit-scrollbar-thumb:hover,
+.blog-main-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.7);
+}
+
+/* =========================================
+   SEO Optimization Styles (AEO, EEAT, Clusters)
+   ========================================= */
+
+/* AEO: Quick Summary / Direct Answer Box */
+.aeo-summary {
+    background: linear-gradient(to right, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.aeo-summary-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.aeo-summary-title::before {
+    content: '⚡';
+    font-size: 1.2rem;
+}
+
+.aeo-summary-content {
+    color: #ddd;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.aeo-summary-content ul {
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+}
+
+.aeo-summary-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* EEAT: Author Bio */
+.author-bio {
+    display: flex;
+    align-items: start;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.author-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+}
+
+.author-info {
+    flex: 1;
+}
+
+.author-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.author-badge {
+    background: rgba(102, 126, 234, 0.2);
+    color: #667eea;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-weight: normal;
+}
+
+.author-desc {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.author-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.author-social a {
+    color: #888;
+    transition: color 0.2s;
+}
+
+.author-social a:hover {
+    color: #667eea;
+}
+
+@media (max-width: 600px) {
+    .author-bio {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+}
+
+/* EEAT: Expert Note / Real World Experience */
+.expert-tip {
+    position: relative;
+    background: rgba(16, 185, 129, 0.05);
+    /* Greenish tint for positive advice */
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.expert-tip::before {
+    content: '💡 专家建议';
+    position: absolute;
+    top: -12px;
+    left: 1rem;
+    background: #0f172a;
+    /* Match background color */
+    color: #10b981;
+    padding: 0 0.5rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.expert-tip p {
+    margin-bottom: 0;
+    color: #ccc;
+}
+
+/* Topic Clusters: Internal Link Card */
+.internal-link-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 2rem 0;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    /* Override default link styles */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.internal-link-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #667eea;
+    border-bottom-color: #667eea !important;
+    transform: translateX(5px);
+}
+
+.internal-link-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.internal-link-content {
+    flex: 1;
+}
+
+.internal-link-title {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.internal-link-desc {
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* =========================================
+   HubSpot Style Homepage Layout
+   ========================================= */
+
+/* Hero Container */
+.hubspot-hero-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+/* Main Feature (Left Column) */
+.hubspot-main-feature {
+    background: rgba(255, 255, 255, 0.03);
+    /* Keep dark theme feel but card-like */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.hubspot-main-feature:hover {
+    transform: translateY(-5px);
+    border-color: #667eea;
+}
+
+.hubspot-main-feature img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+}
+
+.hubspot-main-feature-content {
+    padding: 2.5rem;
+}
+
+.hubspot-main-feature-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hubspot-main-feature-title a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hubspot-main-feature-title a:hover {
+    color: #667eea;
+}
+
+.hubspot-main-feature-desc {
+    color: #ccc;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.hubspot-meta {
+    font-size: 0.95rem;
+    color: #888;
+    font-weight: 500;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Featured List (Right Column) */
+.hubspot-featured-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hubspot-section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.hubspot-list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hubspot-list-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.hubspot-list-category {
+    font-size: 0.8rem;
+    color: #ff7a59;
+    /* HubSpot Orange accent */
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.hubspot-list-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.hubspot-list-title a {
+    color: #eee;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hubspot-list-title a:hover {
+    color: #667eea;
+}
+
+/* 4-Column Grid for Latest Posts */
+.hubspot-grid-section {
+    max-width: 1400px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.hubspot-grid-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hubspot-grid-title {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+.hubspot-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.hubspot-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.hubspot-card:hover {
+    transform: translateY(-5px);
+    border-color: #667eea;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hubspot-card-img-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio */
+    overflow: hidden;
+}
+
+.hubspot-card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hubspot-card:hover .hubspot-card-img {
+    transform: scale(1.05);
+}
+
+.hubspot-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.hubspot-card-category {
+    color: #ff7a59;
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hubspot-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.hubspot-card-title a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.hubspot-card-title a:hover {
+    color: #667eea;
+}
+
+.hubspot-card-meta {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hubspot-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hubspot-hero-container {
+        grid-template-columns: 1fr;
+    }
+
+    .hubspot-main-feature img {
+        height: 300px;
+    }
+
+    .hubspot-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            font-family: 'Google Sans', 'Inter', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Abstract Background Shapes */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        .shape-md {
+            width: 500px;
+            height: 500px;
+            background: #24292e;
+            /* GitHub/Markdown Black */
+            top: -150px;
+            left: -150px;
+        }
+
+        .shape-pdf {
+            width: 300px;
+            height: 300px;
+            background: #EA4335;
+            /* Google/PDF Red */
+            bottom: -50px;
+            right: 250px;
+        }
+
+        .shape-word {
+            width: 400px;
+            height: 400px;
+            background: #4285F4;
+            /* Word Blue */
+            top: 50px;
+            right: -100px;
+        }
+
+        .scene {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            z-index: 10;
+            transform: translateY(10px);
+        }
+
+        .card {
+            width: 220px;
+            height: 300px;
+            background: #fff;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(60, 64, 67, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid #f1f3f4;
+            overflow: hidden;
+        }
+
+        /* Card Header (File Ear) */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-width: 0 40px 40px 0;
+            border-style: solid;
+            border-color: #f1f3f4 #fff;
+            box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 1. Markdown Card */
+        .card-md {
+            transform: rotate(-5deg) translateY(10px);
+            z-index: 2;
+        }
+
+        .icon-md {
+            margin-top: 60px;
+            font-size: 80px;
+            color: #24292e;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .label-md {
+            margin-top: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #24292e;
+        }
+
+        .tag-md {
+            margin-top: 10px;
+            background: #f6f8fa;
+            color: #24292e;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+
+        /* 2. PDF Card (Center) */
+        .card-pdf {
+            width: 260px;
+            /* Hero card */
+            height: 340px;
+            transform: translateY(-20px);
+            z-index: 3;
+            box-shadow: 0 25px 50px rgba(234, 67, 53, 0.15);
+            border: 2px solid rgba(234, 67, 53, 0.2);
+        }
+
+        .card-pdf::before {
+            border-color: #fce8e6 #fff;
+        }
+
+        .icon-pdf {
+            margin-top: 70px;
+            font-size: 100px;
+            color: #EA4335;
+        }
+
+        .label-pdf {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #EA4335;
+        }
+
+        .tag-pdf {
+            margin-top: 15px;
+            background: #fce8e6;
+            color: #c5221f;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* 3. Word Card */
+        .card-word {
+            transform: rotate(5deg) translateY(10px);
+            z-index: 1;
+        }
+
+        .icon-word {
+            margin-top: 60px;
+            font-size: 80px;
+            color: #4285F4;
+            font-family: serif;
+            font-weight: bold;
+        }
+
+        .label-word {
+            margin-top: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #4285F4;
+        }
+
+        .tag-word {
+            margin-top: 10px;
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        /* VS Badges */
+        .vs {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #9aa0a6;
+            position: absolute;
+            top: 50%;
+            z-index: 0;
+        }
+
+        .vs-left {
+            left: 320px;
+        }
+
+        .vs-right {
+            right: 320px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-shape shape-md"></div>
+    <div class="bg-shape shape-pdf"></div>
+    <div class="bg-shape shape-word"></div>
+
+    <div class="vs vs-left">VS</div>
+    <div class="vs vs-right">VS</div>
+
+    <div class="scene">
+        <!-- Markdown -->
+        <div class="card card-md">
+            <div class="icon-md">M↓</div>
+            <div class="label-md">Markdown</div>
+            <div class="tag-md">Code & Tech</div>
+        </div>
+
+        <!-- PDF -->
+        <div class="card card-pdf">
+            <div class="icon-pdf">PDF</div>
+            <div class="label-pdf">PDF</div>
+            <div class="tag-pdf">Final & Print</div>
+        </div>
+
+        <!-- Word -->
+        <div class="card card-word">
+            <div class="icon-word">W</div>
+            <div class="label-word">Word</div>
+            <div class="tag-word">Office & Team</div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档导出工具深度对比：官方手动导出 vs GitHub脚本 vs 浏览器扩展。哪种方式最适合批量备份和迁移？本文为您揭晓答案。">
+    <meta name="keywords" content="石墨文档导出工具,石墨文档批量导出,石墨文档备份,导出工具对比,石墨文档脚本,浏览器扩展">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-export-tools-comparison.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2025年石墨文档导出工具深度评测：脚本 vs 插件 vs 官方">
+    <meta property="og:description" content="想把几百个石墨文档导出到本地？别再手动一个一个点了。本文评测了市面上主流的导出方案，帮你找到最快的方法。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-export-tools-comparison.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="../images/hubspot-team.png">
+    <meta property="article:published_time" content="2025-01-25T10:00:00+08:00">
+
+    <title>2025年石墨文档导出工具深度评测：脚本 vs 插件 vs 官方 | 导出指南</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <!-- 通用组件脚本 - 必须在其他脚本之前加载 -->
+    <script src="blog-components.js"></script>
+
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">2025年石墨文档导出工具深度评测：脚本 vs 插件 vs 官方</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">10</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y1="10" />
+                            </svg>
+                            2025年1月25日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <!-- Hero Image -->
+                    <img src="../images/shimo-export-comparison-hero.png" alt="导出工具对比" class="article-image"
+                        style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <!-- AEO: Quick Answer / Summary -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">快速结论：哪种工具适合你？</div>
+                        <div class="aeo-summary-content">
+                            <ol style="padding-left: 1.2rem;">
+                                <li><strong>官方手动导出</strong>：适合偶尔导出单个文件，无需安装任何软件。</li>
+                                <li><strong>GitHub开源脚本</strong>：适合懂技术的开发者，需要配置Python/Node环境，完全免费。</li>
+                                <li><strong>浏览器扩展插件</strong>：<span
+                                        style="color: #667eea; font-weight: bold;">最佳推荐</span>。无需代码，一键安装，可视化操作，支持批量导出和团队空间，适合所有用户。
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <p>当你的石墨文档积累到几百上千份时，"如何把它们安全地备份到本地"就成了一个大问题。市面上虽然有一些解决方案，但良莠不齐。今天我们实测了三种主流的导出方式，看看哪种最适合你。</p>
+
+                    <h2 id="method-1">方式一：官方手动导出</h2>
+                    <p>这是最基础、最安全的方式，直接使用石墨文档网页版提供的"导出"功能。</p>
+
+                    <h3 id="method-1-pros">优点</h3>
+                    <ul>
+                        <li><strong>无需额外工具</strong>：任何浏览器都能直接用。</li>
+                        <li><strong>官方支持</strong>：格式转换最准确，兼容性最好。</li>
+                    </ul>
+
+                    <h3 id="method-1-cons">缺点</h3>
+                    <ul>
+                        <li><strong>效率极低</strong>：只能一个文件一个文件地点开、下载，无法批量操作。</li>
+                        <li><strong>容易遗漏</strong>：如果文件分散在几十个文件夹里，很容易点漏。</li>
+                        <li><strong>丢失目录结构</strong>：下载下来都是一个个散文件，还得自己手动重建文件夹归档。</li>
+                    </ul>
+
+                    <h2 id="method-2">方式二：开源脚本/命令行工具 (CLI)</h2>
+                    <p>在 GitHub 上，有不少热心的开发者分享了自己写的工具。以下是几个比较有代表性的项目：</p>
+
+                    <div class="tool-list" style="margin-bottom: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">1. shimo (by yangkghjh)</h4>
+                        <p>一个基于 Node.js 的批量导出工具，支持导出为 Word 和 Markdown。</p>
+                        <p><a href="https://github.com/yangkghjh/shimo" target="_blank" rel="noopener">项目地址 (GitHub)</a>
+                        </p>
+
+                        <h4 style="margin-bottom: 1rem; margin-top: 1.5rem;">2. ShimoExporter (by iccfish)</h4>
+                        <p>主打"一键备份"的个人项目，适合有 Python 基础的用户。</p>
+                        <p><a href="https://github.com/iccfish/ShimoExporter" target="_blank" rel="noopener">项目地址
+                                (GitHub)</a></p>
+                    </div>
+
+                    <h3 id="method-2-pros">优点</h3>
+                    <ul>
+                        <li><strong>批量处理</strong>：支持一次性导出大量文件。</li>
+                        <li><strong>开源免费</strong>：代码公开，没有隐藏收费。</li>
+                    </ul>
+
+                    <h3 id="method-2-cons">缺点</h3>
+                    <ul>
+                        <li><strong>配置复杂</strong>：例如 `yangkghjh/shimo` 需要你安装 Node.js 环境，并手动在浏览器控制台(F12)中抓取 Cookie 填入
+                            `config.json` 文件。</li>
+                        <li><strong>维护不稳定</strong>：个人项目更新频率低，一旦石墨官方接口变动，工具可能随时失效。</li>
+                        <li><strong>安全隐患</strong>：需要将敏感的 Cookie/Token 明文保存在配置文件中，存在泄露风险。</li>
+                    </ul>
+
+                    <h2 id="method-3">方式三：浏览器扩展插件 (推荐)</h2>
+                    <p>这是目前体验最好的方案。通过 Chrome/Edge 扩展程序，直接在浏览器里运行，既有脚本的强大，又有图形界面的简单。</p>
+
+                    <div class="info-box">
+                        <h4>为什么推荐扩展程序？</h4>
+                        <p>因为它解决了"不仅要批量，还要简单"的问题。你不需要懂代码，只要会点鼠标就能用。</p>
+                    </div>
+
+                    <h3 id="method-3-pros">优点</h3>
+                    <ul>
+                        <li><strong>零门槛</strong>：就像安装去广告插件一样简单，无需配置环境。</li>
+                        <li><strong>自动认证</strong>：直接复用你当前浏览器的登录状态，<strong>不需要手动抓包 Token</strong>。</li>
+                        <li><strong>保留目录结构</strong>：这是杀手级功能。它能把你的石墨文件夹结构完整地复刻到本地硬盘里。</li>
+                        <li><strong>支持团队空间</strong>：不仅能导出个人文档，还能导出公司/团队的空间文档。</li>
+                        <li><strong>全图片备份</strong>：文档里的图片会被自动下载并替换链接，离线也能看图。</li>
+                    </ul>
+
+                    <h3 id="method-3-cons">缺点</h3>
+                    <ul>
+                        <li>需要安装浏览器插件（目前支持 Chrome, Edge, Firefox）。</li>
+                    </ul>
+
+                    <h2 id="comparison">核心功能对比表</h2>
+
+                    <figure style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin: 2rem 0; color: #ccc;">
+                            <thead>
+                                <tr style="background: rgba(102, 126, 234, 0.1);">
+                                    <th
+                                        style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
+                                        功能特性</th>
+                                    <th
+                                        style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
+                                        官方导出</th>
+                                    <th
+                                        style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
+                                        脚本/CLI</th>
+                                    <th
+                                        style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">
+                                        浏览器插件</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">批量导出</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">不支持</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">支持</td>
+                                    <td
+                                        style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">
+                                        支持</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">使用难度</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">简单</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">困难 (需代码基础)</td>
+                                    <td
+                                        style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">
+                                        简单 (可视化)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">保留目录结构</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">无</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">部分支持</td>
+                                    <td
+                                        style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">
+                                        完美支持</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">手动获取Token</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">不需要</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">需要 (繁琐)</td>
+                                    <td
+                                        style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">
+                                        不需要 (自动)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">团队空间</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">支持</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">视脚本而定</td>
+                                    <td
+                                        style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">
+                                        支持</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </figure>
+
+                    <h2 id="conclusion">总结建议</h2>
+                    <p>如果你的需求是：</p>
+                    <ul>
+                        <li><strong>只要导出 1-2 个重要文件</strong>：请直接用官方导出，不用折腾任何工具。</li>
+                        <li><strong>你是极客，喜欢在服务器上定时跑任务</strong>：可以尝试去 GitHub 找找 Python 脚本。</li>
+                        <li><strong>你要备份整个文件夹、团队库，且不想写代码</strong>：<strong>浏览器插件是你的唯一选择。</strong></li>
+                    </ul>
+
+                    <!-- 文章正文结束 -->
+                </div>
+
+                <!-- 文章底部 -->
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">导出工具</a>
+                        <a href="index.html" class="article-tag">工具评测</a>
+                        <a href="index.html" class="article-tag">效率提升</a>
+                        <a href="index.html" class="article-tag">数据迁移</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="data-migration-guide.html" class="nav-link">
+                            <div class="nav-link-label">← 上一篇</div>
+                            <div class="nav-link-title">从云文档迁移到本地：完整指南</div>
+                        </a>
+                        <a href="#" class="nav-link" style="visibility: hidden;">
+                            <div class="nav-link-label">下一篇 →</div>
+                            <div class="nav-link-title"></div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- CTA内容由blog-components.js自动插入 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+
+</html>

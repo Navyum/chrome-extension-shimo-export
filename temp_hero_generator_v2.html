@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            /* Clean white background */
+            font-family: 'Google Sans', 'Inter', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Abstract Background Shapes - Nano Banana/Google Style */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .shape-1 {
+            width: 600px;
+            height: 600px;
+            background: #4285F4;
+            /* Google Blue */
+            top: -200px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #F4B400;
+            /* Google Yellow */
+            bottom: -100px;
+            right: -50px;
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            background: #0F9D58;
+            /* Google Green */
+            top: 50px;
+            right: 150px;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            /* Organic shape */
+        }
+
+        .scene {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .card {
+            width: 240px;
+            height: 320px;
+            background: #fff;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(60, 64, 67, 0.1);
+            /* Soft Google-like shadow */
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid #f1f3f4;
+        }
+
+        /* Comparison Logic */
+        .vs-badge {
+            width: 40px;
+            height: 40px;
+            background: #f1f3f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+        }
+
+        .vs-1 {
+            right: -50px;
+        }
+
+        .vs-2 {
+            right: -50px;
+        }
+
+        /* Card 1: Manual (Slow) */
+        .card-manual {
+            background: #F8F9FA;
+        }
+
+        .icon-manual {
+            font-size: 80px;
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+
+        .label {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #3c4043;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 12px;
+            background: #e8eaed;
+            color: #5f6368;
+        }
+
+        /* Card 2: Extension (Hero) */
+        .card-extension {
+            width: 280px;
+            /* Slightly larger */
+            height: 380px;
+            border: 2px solid #4285F4;
+            box-shadow: 0 30px 60px rgba(66, 133, 244, 0.15);
+            transform: translateY(-10px);
+        }
+
+        /* Browser Window Illustration */
+        .browser-window {
+            width: 180px;
+            height: 140px;
+            background: #fff;
+            border: 2px solid #4285F4;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .browser-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 24px;
+            background: #4285F4;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+        }
+
+        /* Extension Puzzle Piece */
+        .puzzle-piece {
+            font-size: 60px;
+            color: #4285F4;
+            filter: drop-shadow(0 4px 8px rgba(66, 133, 244, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .label-hero {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #4285F4;
+        }
+
+        .status-hero {
+            margin-top: 12px;
+            font-size: 14px;
+            padding: 6px 16px;
+            border-radius: 16px;
+            background: #e8f0fe;
+            color: #1967d2;
+            font-weight: 600;
+        }
+
+        /* Checkmark Badge */
+        .check-badge {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            background: #34A853;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(52, 168, 83, 0.3);
+        }
+
+        /* Card 3: Script (Complex) */
+        .card-script {
+            background: #202124;
+            /* Dark mode terminal */
+        }
+
+        .terminal-window {
+            width: 160px;
+            background: #3c4043;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .code-line {
+            height: 6px;
+            border-radius: 3px;
+            background: #5f6368;
+            width: 80%;
+        }
+
+        .code-line.short {
+            width: 40%;
+        }
+
+        .code-line.green {
+            background: #34A853;
+            width: 60%;
+        }
+
+        .label-script {
+            margin-top: 20px;
+            color: #e8eaed;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .status-script {
+            margin-top: 10px;
+            background: #3c4043;
+            color: #9aa0a6;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <div class="scene">
+        <!-- Manual -->
+        <div class="card card-manual">
+            <div class="icon-manual">🖱️</div>
+            <div class="label">Manual</div>
+            <div class="status">Slow & Tedious</div>
+            <div class="vs-badge vs-1">VS</div>
+        </div>
+
+        <!-- Extension (Winner) - Center Stage -->
+        <div class="card card-extension">
+            <div class="check-badge">✓</div>
+            <div class="browser-window">
+                <div class="browser-header">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="puzzle-piece">🧩</div>
+            </div>
+            <div class="label-hero">Browser Plugin</div>
+            <div class="status-hero">Fast & Easy</div>
+        </div>
+
+        <!-- Script -->
+        <div class="card card-script">
+            <div class="terminal-window">
+                <div class="code-line green"></div>
+                <div class="code-line"></div>
+                <div class="code-line short"></div>
+                <div class="code-line"></div>
+            </div>
+            <div class="label-script">Script Tools</div>
+            <div class="status-script">Complex Config</div>
+            <div class="vs-badge vs-2" style="left: -20px; right: auto;">VS</div>
+        </div>
+    </div>
+</body>
+
+</html>
