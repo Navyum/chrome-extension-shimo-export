@@ -17,6 +17,7 @@ const SHIMO_API = {
 };
 
 const DEFAULT_TIMESTAMP_FORMAT = 'YYYY-MM-DD_HH-mm';
+const DEFAULT_SUBFOLDER = '我的石墨文档';
 
 // 石墨文档导出支持矩阵
 const EXPORT_SUPPORT_MATRIX = {
@@ -62,16 +63,17 @@ let exportState = {
   fileList: [], // Each file will now have a 'status' property: pending, in_progress, success, failed
   exportType: 'auto',
   typeExportSettings: {},
-  subfolder: '',
+  subfolder: DEFAULT_SUBFOLDER,
   preserveFileTimes: false,
   fileTimeFormat: DEFAULT_TIMESTAMP_FORMAT,
   fileTimeSource: 'createdAt',
+  activeDownloadIds: [],
   logs: [],
 };
 let abortController = new AbortController();
-
-// Map to store desired filenames for pending downloads
-const pendingRenames = new Map();
+const pendingDownloadPathsByUrl = new Map();
+const downloadFilenameOverrides = new Map();
+const activeDownloadWaiters = new Map();
 
 const defaultState = JSON.parse(JSON.stringify(exportState));
 
@@ -108,19 +110,45 @@ async function loadState() {
 // 初始化
 (async () => {
   await loadState();
+  await recoverInterruptedDownloadState();
   if (exportState.isExporting && !exportState.isPaused) {
     sendLog('检测到中断的导出任务，正在恢复...');
     exportFiles();
   }
 })();
 
-// Listen for download filename suggestions
-browser.downloads.onDeterminingFilename.addListener((downloadItem) => {
-  if (pendingRenames.has(downloadItem.id)) {
-    const filename = pendingRenames.get(downloadItem.id);
-    pendingRenames.delete(downloadItem.id);
-    return { filename: filename, conflictAction: 'uniquify' };
+browser.downloads.onChanged.addListener((delta) => {
+  const waiter = activeDownloadWaiters.get(delta.id);
+  if (delta.error?.current || delta.state?.current === 'interrupted' || delta.state?.current === 'complete') {
+    downloadFilenameOverrides.delete(delta.id);
   }
+  if (!waiter) return;
+
+  if (delta.error?.current || delta.state?.current === 'interrupted') {
+    activeDownloadWaiters.delete(delta.id);
+    waiter?.cleanup?.();
+    waiter?.reject(new Error(delta.error?.current || '下载被中断'));
+    return;
+  }
+
+  if (delta.state?.current === 'complete') {
+    activeDownloadWaiters.delete(delta.id);
+    waiter?.cleanup?.();
+    waiter?.resolve();
+  }
+});
+
+browser.downloads.onCreated.addListener((downloadItem) => {
+  const targetPath = consumePendingDownloadPath(downloadItem.url);
+  if (!targetPath) return;
+  downloadFilenameOverrides.set(downloadItem.id, targetPath);
+});
+
+browser.downloads.onDeterminingFilename.addListener((downloadItem) => {
+  const targetPath = downloadFilenameOverrides.get(downloadItem.id);
+  if (!targetPath) return undefined;
+  downloadFilenameOverrides.delete(downloadItem.id);
+  return { filename: targetPath, conflictAction: 'uniquify' };
 });
 
 // 获取用户信息
@@ -131,6 +159,13 @@ async function getUserInfo() {
       return { success: false, error: `HTTP ${response.status}` };
     }
     const userData = await response.json();
+
+    if (userData.errorCode && Number(userData.errorCode) !== 0) {
+      return {
+        success: false,
+        error: userData.error || `业务错误: ${userData.errorCode}`
+      };
+    }
     
     return {
       success: true,
@@ -182,8 +217,15 @@ async function handleResetExport() {
   
   abortController.abort();
   abortController = new AbortController();
+  await cancelTrackedDownloads();
+  pendingDownloadPathsByUrl.clear();
+  downloadFilenameOverrides.clear();
+  for (const [downloadId, waiter] of activeDownloadWaiters.entries()) {
+    waiter.cleanup?.();
+    waiter.reject(new Error(`下载已取消 (ID: ${downloadId})`));
+  }
+  activeDownloadWaiters.clear();
 
-  pendingRenames.clear();
   exportState = JSON.parse(JSON.stringify(defaultState));
   await browser.storage.local.set({ exportState });
   
@@ -282,7 +324,8 @@ async function handleStartExport(data) {
   exportState.currentFileIndex = 0;
   exportState.exportType = data.exportType;
   exportState.typeExportSettings = settings.typeExportSettings || {};
-  exportState.subfolder = settings.subfolder || '';
+  exportState.subfolder = typeof settings.subfolder === 'string' ? settings.subfolder : DEFAULT_SUBFOLDER;
+  exportState.activeDownloadIds = [];
   
   const fileTimeSource = settings.fileTimeSource || 'off';
   exportState.preserveFileTimes = Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off';
@@ -483,7 +526,7 @@ async function exportFiles() {
             file.status = 'success';
             file.endTime = Date.now();
             file.duration = file.endTime - file.startTime;
-            sendLog(`下载完成: ${file.title} (耗时: ${(file.duration/1000).toFixed(2)}s)`);
+            sendLog(`下载任务已提交: ${file.title} (耗时: ${(file.duration/1000).toFixed(2)}s)`);
             sendProgress();
             success = true;
             break;
@@ -626,6 +669,8 @@ async function waitForExportComplete(taskId, file) {
 
 // 下载文件
 async function downloadFile(downloadUrl, file) {
+  let finalDownloadPath = '';
+  let downloadId = null;
   try {
     let baseName = sanitizePathComponent(file.title) || '无标题';
     if (exportState.preserveFileTimes && exportState.fileTimeSource !== 'off') {
@@ -642,29 +687,192 @@ async function downloadFile(downloadUrl, file) {
 
     const fileName = `${baseName}.${type}`;
     const relativeFolderPath = file.folderPath || '';
-    const rootSubfolder = exportState.subfolder ? exportState.subfolder.replace(/[<>:"|?*]/g, '_') : '';
+    const rootSubfolder = sanitizePathComponent(exportState.subfolder);
 
-    let finalDownloadPath = fileName;
+    finalDownloadPath = fileName;
     if (relativeFolderPath) finalDownloadPath = `${relativeFolderPath}/${finalDownloadPath}`;
     if (rootSubfolder) finalDownloadPath = `${rootSubfolder}/${finalDownloadPath}`;
     
     finalDownloadPath = finalDownloadPath.replace(/^[/\\]+/, '');
 
     sendLog(`开始下载: ${finalDownloadPath}`);
+    enqueuePendingDownloadPath(downloadUrl, finalDownloadPath);
 
-    // 直接调用，由 browser.js 处理差异
-    const downloadId = await browser.downloads.download({
+    downloadId = await browser.downloads.download({
       url: downloadUrl,
-      filename: finalDownloadPath, // 始终提供 filename，作为 Chrome 的默认或 Firefox 的回退
+      filename: finalDownloadPath,
+      conflictAction: 'uniquify',
       saveAs: false
     });
 
-    pendingRenames.set(downloadId, finalDownloadPath);
+    trackActiveDownloadId(downloadId);
+    await saveState();
     sendLog(`下载任务已创建 (ID: ${downloadId})`);
+    await waitForDownloadCompletion(downloadId);
+    untrackActiveDownloadId(downloadId);
+
+    const actualFilename = await getDownloadedFilename(downloadId);
+    sendLog(`下载已完成: ${actualFilename || finalDownloadPath}`);
 
   } catch (error) {
-    sendLog(`创建下载任务失败: ${error.message}`);
+    if (downloadUrl && finalDownloadPath) {
+      removePendingDownloadPath(downloadUrl, finalDownloadPath);
+    }
+    if (downloadId !== null) {
+      untrackActiveDownloadId(downloadId);
+    }
+    sendLog(`下载失败: ${error.message}`);
     throw error;
+  }
+}
+
+function enqueuePendingDownloadPath(url, filename) {
+  const queue = pendingDownloadPathsByUrl.get(url) || [];
+  queue.push(filename);
+  pendingDownloadPathsByUrl.set(url, queue);
+}
+
+function consumePendingDownloadPath(url) {
+  const queue = pendingDownloadPathsByUrl.get(url);
+  if (!queue || queue.length === 0) return '';
+
+  const filename = queue.shift() || '';
+  if (queue.length === 0) {
+    pendingDownloadPathsByUrl.delete(url);
+  } else {
+    pendingDownloadPathsByUrl.set(url, queue);
+  }
+  return filename;
+}
+
+function removePendingDownloadPath(url, filename) {
+  const queue = pendingDownloadPathsByUrl.get(url);
+  if (!queue || queue.length === 0) return;
+
+  const index = queue.indexOf(filename);
+  if (index >= 0) {
+    queue.splice(index, 1);
+  }
+
+  if (queue.length === 0) {
+    pendingDownloadPathsByUrl.delete(url);
+  } else {
+    pendingDownloadPathsByUrl.set(url, queue);
+  }
+}
+
+function waitForDownloadCompletion(downloadId) {
+  return new Promise((resolve, reject) => {
+    const signal = abortController.signal;
+    const settle = (fn, value) => {
+      const waiter = activeDownloadWaiters.get(downloadId);
+      if (!waiter) return;
+      activeDownloadWaiters.delete(downloadId);
+      waiter.cleanup?.();
+      fn(value);
+    };
+    const handleAbort = () => {
+      settle(reject, new Error(`下载已取消 (ID: ${downloadId})`));
+    };
+
+    if (signal.aborted) {
+      reject(new Error(`下载已取消 (ID: ${downloadId})`));
+      return;
+    }
+
+    signal.addEventListener('abort', handleAbort, { once: true });
+    activeDownloadWaiters.set(downloadId, {
+      resolve,
+      reject,
+      cleanup: () => signal.removeEventListener('abort', handleAbort)
+    });
+
+    browser.downloads.search({ id: downloadId }).then((items) => {
+      const item = items && items[0];
+      if (!item) return;
+      if (item.error || item.state === 'interrupted') {
+        settle(reject, new Error(item.error || '下载被中断'));
+        return;
+      }
+      if (item.state === 'complete') {
+        settle(resolve);
+      }
+    }).catch(() => {
+      // Ignore search errors and wait for onChanged.
+    });
+  });
+}
+
+function trackActiveDownloadId(downloadId) {
+  if (!Array.isArray(exportState.activeDownloadIds)) {
+    exportState.activeDownloadIds = [];
+  }
+  if (!exportState.activeDownloadIds.includes(downloadId)) {
+    exportState.activeDownloadIds.push(downloadId);
+  }
+}
+
+function untrackActiveDownloadId(downloadId) {
+  if (!Array.isArray(exportState.activeDownloadIds)) {
+    exportState.activeDownloadIds = [];
+    return;
+  }
+  exportState.activeDownloadIds = exportState.activeDownloadIds.filter(id => id !== downloadId);
+}
+
+async function cancelTrackedDownloads() {
+  const downloadIds = new Set([
+    ...(Array.isArray(exportState.activeDownloadIds) ? exportState.activeDownloadIds : []),
+    ...activeDownloadWaiters.keys()
+  ]);
+
+  for (const downloadId of downloadIds) {
+    try {
+      const items = await browser.downloads.search({ id: downloadId });
+      const item = items && items[0];
+      if (item && item.state === 'in_progress') {
+        await browser.downloads.cancel(downloadId);
+      }
+    } catch (error) {
+      // Ignore missing/finished downloads during reset recovery.
+    }
+  }
+
+  exportState.activeDownloadIds = [];
+}
+
+async function recoverInterruptedDownloadState() {
+  let shouldSave = false;
+
+  if (Array.isArray(exportState.activeDownloadIds) && exportState.activeDownloadIds.length > 0) {
+    await cancelTrackedDownloads();
+    shouldSave = true;
+  }
+
+  if (Array.isArray(exportState.fileList)) {
+    exportState.fileList.forEach(file => {
+      if (file.status === 'in_progress') {
+        file.status = 'pending';
+        delete file.startTime;
+        delete file.endTime;
+        delete file.duration;
+        shouldSave = true;
+      }
+    });
+  }
+
+  if (shouldSave) {
+    await saveState();
+  }
+}
+
+async function getDownloadedFilename(downloadId) {
+  try {
+    const items = await browser.downloads.search({ id: downloadId });
+    const item = items && items[0];
+    return item?.filename || '';
+  } catch (error) {
+    return '';
   }
 }
 
@@ -717,8 +925,9 @@ async function handleRetryFailedFiles() {
     exportState.currentFileIndex = 0;
     
     const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']);
-    exportState.subfolder = settings.subfolder || '';
+    exportState.subfolder = typeof settings.subfolder === 'string' ? settings.subfolder : DEFAULT_SUBFOLDER;
     exportState.typeExportSettings = settings.typeExportSettings || {};
+    exportState.activeDownloadIds = [];
     const fileTimeSource = settings.fileTimeSource || 'off';
     exportState.preserveFileTimes = Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off';
     exportState.fileTimeFormat = settings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;

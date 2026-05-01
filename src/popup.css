@@ -720,6 +720,22 @@ select option:checked {
   transform: translateY(-3px);
 }
 
+/* 继续按钮 */
+.btn-continue {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-color: #10b981;
+  animation-delay: 0.3s;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-continue:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #10b981);
+  border-color: #059669;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
 /* 重试按钮 */
 .btn-retry {
   background: linear-gradient(135deg, var(--warning-color), #d97706);

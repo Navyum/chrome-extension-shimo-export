@@ -235,6 +235,17 @@ body {
     margin-top: 8px;
 }
 
+.feedback-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.feedback-actions .feedback-btn {
+    margin-top: 8px;
+}
+
 .feedback-btn:hover {
     background: var(--bg-hover);
     border-color: var(--primary-color);
@@ -272,6 +283,16 @@ body {
     border: 1px solid var(--border-primary);
     font-size: 0.9rem;
     transition: opacity 0.3s ease;
+}
+
+.feedback-section-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.feedback-section-link:hover {
+    text-decoration: underline;
 }
 
 label {

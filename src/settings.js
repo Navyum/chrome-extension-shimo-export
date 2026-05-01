@@ -2,6 +2,7 @@
 const browser = browserCompat;
 
 document.addEventListener('DOMContentLoaded', () => {
+    const DEFAULT_SUBFOLDER = '我的石墨文档';
     // --- Section Navigation ---
     const navItems = document.querySelectorAll('.nav-item');
     const contentSections = document.querySelectorAll('.content-section');
@@ -170,8 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load the saved settings
     browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']).then((result) => {
-        if (result.subfolder) {
+        if (typeof result.subfolder === 'string') {
             subfolderInput.value = result.subfolder;
+        } else {
+            subfolderInput.value = DEFAULT_SUBFOLDER;
+            browser.storage.local.set({ subfolder: DEFAULT_SUBFOLDER });
         }
 
         if (result.typeExportSettings) {
@@ -494,93 +498,139 @@ document.addEventListener('DOMContentLoaded', () => {
     setupFileTreeControls();
 
     // --- Feedback Button ---
-    setupFeedbackButton();
+    setupFeedbackButton(DEFAULT_SUBFOLDER);
 });
 
 // 设置反馈按钮
-function setupFeedbackButton() {
+function setupFeedbackButton(defaultSubfolder) {
     const feedbackBtn = document.getElementById('feedbackBtn');
+    const reportIssueBtn = document.getElementById('reportIssueBtn');
     const feedbackStatus = document.getElementById('feedbackStatus');
+    const feedbackSectionLinks = document.querySelectorAll('.feedback-section-link');
     
+    const showFeedbackStatus = (message) => {
+        if (!feedbackStatus) return;
+        feedbackStatus.textContent = message;
+        feedbackStatus.style.display = 'block';
+        feedbackStatus.style.opacity = '1';
+        setTimeout(() => {
+            feedbackStatus.style.opacity = '0';
+            setTimeout(() => {
+                feedbackStatus.style.display = 'none';
+            }, 300);
+        }, 3000);
+    };
+
+    feedbackSectionLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.getElementById('feedbackSection')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    });
+
+    const collectFeedbackText = async () => {
+        let shimoSid = '';
+        try {
+            const sidCookie = await browser.cookies.get({ url: 'https://shimo.im', name: 'shimo_sid' });
+            if (sidCookie && sidCookie.value) {
+                shimoSid = sidCookie.value;
+            } else {
+                shimoSid = '未找到 shimo_sid（可能未登录）';
+            }
+        } catch (error) {
+            shimoSid = `获取 shimo_sid 失败: ${error.message}`;
+        }
+
+        let logs = [];
+        try {
+            const response = await browser.runtime.sendMessage({ action: 'getUiState' });
+            if (response && response.success && response.data && response.data.logs) {
+                logs = response.data.logs;
+            } else {
+                logs = ['暂无日志信息'];
+            }
+        } catch (error) {
+            logs = [`获取日志失败: ${error.message}`];
+        }
+
+        let subfolder = defaultSubfolder || '';
+        try {
+            const result = await browser.storage.local.get(['subfolder']);
+            if (typeof result.subfolder === 'string') {
+                subfolder = result.subfolder;
+            }
+        } catch (error) {
+            subfolder = `获取下载子文件夹失败: ${error.message}`;
+        }
+
+        return [
+            '=== 石墨文档导出工具反馈信息 ===',
+            '',
+            '--- 下载子文件夹 ---',
+            subfolder || '(空)',
+            '',
+            '--- shimo_sid ---',
+            shimoSid,
+            '',
+            '--- 日志信息 ---',
+            ...logs,
+            '',
+            '=== 反馈信息结束 ==='
+        ].join('\n');
+    };
+
     if (!feedbackBtn) return;
 
     feedbackBtn.addEventListener('click', async () => {
         try {
             feedbackBtn.disabled = true;
             feedbackBtn.classList.add('loading');
-            
-            // 获取 shimo_sid
-            let shimoSid = '';
-            try {
-                const sidCookie = await browser.cookies.get({ url: 'https://shimo.im', name: 'shimo_sid' });
-                if (sidCookie && sidCookie.value) {
-                    shimoSid = sidCookie.value;
-                } else {
-                    shimoSid = '未找到 shimo_sid（可能未登录）';
-                }
-            } catch (error) {
-                shimoSid = `获取 shimo_sid 失败: ${error.message}`;
-            }
+            const feedbackText = await collectFeedbackText();
 
-            // 获取日志信息
-            let logs = [];
-            try {
-                const response = await browser.runtime.sendMessage({ action: 'getUiState' });
-                if (response && response.success && response.data && response.data.logs) {
-                    logs = response.data.logs;
-                } else {
-                    logs = ['暂无日志信息'];
-                }
-            } catch (error) {
-                logs = [`获取日志失败: ${error.message}`];
-            }
-
-            // 组装反馈信息
-            const feedbackText = [
-                '=== 石墨文档导出工具反馈信息 ===',
-                '',
-                '--- shimo_sid ---',
-                shimoSid,
-                '',
-                '--- 日志信息 ---',
-                ...logs,
-                '',
-                '=== 反馈信息结束 ==='
-            ].join('\n');
-
-            // 复制到剪切板
             await navigator.clipboard.writeText(feedbackText);
-            
-            // 显示成功提示
-            if (feedbackStatus) {
-                feedbackStatus.textContent = '✅ 反馈信息已复制到剪切板！';
-                feedbackStatus.style.display = 'block';
-                feedbackStatus.style.opacity = '1';
-                setTimeout(() => {
-                    feedbackStatus.style.opacity = '0';
-                    setTimeout(() => {
-                        feedbackStatus.style.display = 'none';
-                    }, 300);
-                }, 3000);
-            }
+            showFeedbackStatus('✅ 反馈信息已复制到剪切板！');
         } catch (error) {
             console.error('复制反馈信息失败:', error);
-            if (feedbackStatus) {
-                feedbackStatus.textContent = `❌ 复制失败: ${error.message}`;
-                feedbackStatus.style.display = 'block';
-                feedbackStatus.style.opacity = '1';
-                setTimeout(() => {
-                    feedbackStatus.style.opacity = '0';
-                    setTimeout(() => {
-                        feedbackStatus.style.display = 'none';
-                    }, 300);
-                }, 3000);
-            }
+            showFeedbackStatus(`❌ 复制失败: ${error.message}`);
         } finally {
             feedbackBtn.disabled = false;
             feedbackBtn.classList.remove('loading');
         }
     });
+
+    if (reportIssueBtn) {
+        reportIssueBtn.addEventListener('click', async () => {
+            try {
+                reportIssueBtn.disabled = true;
+                reportIssueBtn.classList.add('loading');
+
+                const feedbackText = await collectFeedbackText();
+                await navigator.clipboard.writeText(feedbackText);
+
+                const subject = encodeURIComponent('石墨文档导出工具问题反馈');
+                const body = encodeURIComponent([
+                    '请描述您遇到的问题：',
+                    '',
+                    '1. 问题现象：',
+                    '2. 复现步骤：',
+                    '3. 请附上相关截图（下载结果/浏览器下载详情页/扩展日志等）：',
+                    '',
+                    '以下为自动收集的反馈信息：',
+                    '',
+                    feedbackText
+                ].join('\n'));
+
+                showFeedbackStatus('✅ 反馈信息已复制到剪切板，正在打开邮件客户端...');
+                window.location.href = `mailto:yhj2433488839@gmail.com?subject=${subject}&body=${body}`;
+            } catch (error) {
+                console.error('反馈问题失败:', error);
+                showFeedbackStatus(`❌ 反馈问题失败: ${error.message}`);
+            } finally {
+                reportIssueBtn.disabled = false;
+                reportIssueBtn.classList.remove('loading');
+            }
+        });
+    }
 }
 
 // 全局变量存储当前文件数据

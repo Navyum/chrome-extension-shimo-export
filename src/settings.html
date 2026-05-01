@@ -131,17 +131,28 @@
                         <div id="timestampStatus" class="status" role="status" aria-live="polite">✅ 设置已保存!</div>
                     </div>
                     <div class="form-group">
+                        <div id="feedbackSection" aria-hidden="true"></div>
                         <label>反馈信息</label>
                         <p class="description">
                             一键复制登录凭证和操作日志，将遇到的问题反馈给开发者。
                         </p>
-                        <button id="feedbackBtn" class="feedback-btn" type="button" aria-label="复制反馈信息">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8"></path>
-                                <path d="M18 2h4v4M18 18v-8h8"></path>
-                            </svg>
-                            <span>复制反馈信息到剪切板</span>
-                        </button>
+                        <div class="feedback-actions">
+                            <button id="feedbackBtn" class="feedback-btn" type="button" aria-label="复制反馈信息">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8"></path>
+                                    <path d="M18 2h4v4M18 18v-8h8"></path>
+                                </svg>
+                                <span>复制反馈信息到剪切板</span>
+                            </button>
+                            <button id="reportIssueBtn" class="feedback-btn" type="button" aria-label="反馈问题">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                    <path d="M8 9h8"></path>
+                                    <path d="M8 13h5"></path>
+                                </svg>
+                                <span>反馈问题</span>
+                            </button>
+                        </div>
                         <div id="feedbackStatus" class="status feedback-status" role="status" aria-live="polite" style="display: none;"></div>
                     </div>
                 </article>
@@ -363,6 +374,10 @@
                         <div class="faq-item">
                             <h3>3. 我的数据是否会被上传到云端？</h3>
                             <p>不会。本工具所有数据处理均在您的浏览器本地完成，只与石墨文档官方接口通信以获取数据，不会将您的文档上传到任何第三方服务器。</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>4. 我下载的文件结构不对、下载失败了怎么办？</h3>
+                            <p>请先截图问题现象（例如下载结果、浏览器下载详情页、扩展日志），再前往 <a href="#feedbackSection" class="feedback-section-link">反馈信息</a> 区域，先点击<strong>“复制反馈信息到剪切板”</strong>，再点击<strong>“反馈问题”</strong> 联系作者，并把截图和复制内容一并发送，这样更容易定位目录结构异常、下载失败或遗漏文件的问题。</p>
                         </div>
                     </div>
                 </article>

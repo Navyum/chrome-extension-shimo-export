@@ -60,8 +60,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   } catch (error) {
     addLog('恢复之前的状态失败，请重新获取文件信息。');
   }
-
-
   // 绑定事件
   getInfoBtn.addEventListener('click', handleGetFileInfo);
   startBtn.addEventListener('click', handleStart);
@@ -72,7 +70,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     browser.runtime.openOptionsPage();
   });
   loginBtn.addEventListener('click', async () => {
-    // 如果已登录，可以跳转到石墨首页；否则跳转到登录页
     try {
       const response = await browser.runtime.sendMessage({ action: 'getUserInfo' });
       if (response && response.success) {
@@ -303,9 +300,14 @@ async function handleReset() {
 // 新增：设置按钮状态的辅助函数
 function setButtonState(button, text, className) {
     if (!button) return;
-    button.textContent = text;
     button.className = 'btn'; // Reset to base class first
     button.classList.add(className);
+    const labelSpan = button.querySelector('span');
+    if (labelSpan) {
+      labelSpan.textContent = text;
+    } else {
+      button.textContent = text;
+    }
 }
 
 function setStartButtonLabel(text = START_BUTTON_DEFAULT_TEXT) {

@@ -105,6 +105,24 @@ var browserCompat = {
         });
       });
     },
+
+    search: (query) => {
+      if (isFirefox) return api.downloads.search(query);
+      return new Promise(resolve => api.downloads.search(query, resolve));
+    },
+
+    cancel: (downloadId) => {
+      if (isFirefox) return api.downloads.cancel(downloadId);
+      return new Promise((resolve, reject) => {
+        api.downloads.cancel(downloadId, () => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+          } else {
+            resolve();
+          }
+        });
+      });
+    },
     
     /**
      * 统一文件名建议监听：
@@ -124,6 +142,20 @@ var browserCompat = {
             }
           }
         });
+      }
+    },
+
+    onCreated: {
+      addListener: (userCallback) => {
+        if (!api.downloads || !api.downloads.onCreated) return;
+        api.downloads.onCreated.addListener(userCallback);
+      }
+    },
+
+    onChanged: {
+      addListener: (userCallback) => {
+        if (!api.downloads || !api.downloads.onChanged) return;
+        api.downloads.onChanged.addListener(userCallback);
       }
     }
   },
