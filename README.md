@@ -70,6 +70,15 @@ npm run pack:all
 └── build/                 # 自动打包输出目录
 ```
 
+## 💖 赞助支持
+
+如果这个工具帮到了你，欢迎请作者喝杯咖啡：
+
+| 微信赞赏 | 支付宝 |
+| :---: | :---: |
+| <img src="src/assets/sponsors.png" width="200" alt="微信赞赏码"> | <img src="src/assets/alipay.png" width="200" alt="支付宝收款码"> |
+
+
 ## 📝 更新日志
 
 ### v1.0.5 (2025-12-24)
