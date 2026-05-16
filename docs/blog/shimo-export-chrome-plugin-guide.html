@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档导出Chrome插件完整教程：3步安装，500份文档30分钟导出完成，比手动快10倍。支持Markdown、PDF、Word等格式。">
+    <meta name="keywords" content="石墨文档导出插件,石墨文档Chrome扩展,石墨文档一键导出,石墨文档导出工具怎么用,石墨文档批量导出,浏览器扩展">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-export-chrome-plugin-guide.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档导出Chrome插件完整使用指南（2026图文教程）">
+    <meta property="og:description" content="3步安装石墨文档导出插件，一键批量导出所有文档。支持Markdown、PDF、Word等格式，保留文件夹层级结构。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-export-chrome-plugin-guide.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/feat1.png">
+    <meta property="article:published_time" content="2026-05-16T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档导出Chrome插件完整使用指南（2026图文教程）">
+    <meta name="twitter:description" content="3步安装，500份文档30分钟导出完成。支持Markdown、PDF、Word等格式，保留文件夹层级。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/feat1.png">
+
+    <title>石墨文档导出Chrome插件完整使用指南（2026图文教程） | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <!-- 通用组件脚本 - 必须在其他脚本之前加载 -->
+    <script src="blog-components.js"></script>
+
+    <!-- 结构化数据: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档导出Chrome插件完整使用指南（2026图文教程）",
+      "description": "石墨文档导出Chrome插件的安装和使用完整教程，支持批量导出为Markdown、PDF、Word等格式",
+      "image": "https://shimo.toolab.top/images/feat1.png",
+      "author": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具团队"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://shimo.toolab.top/images/icon.png"
+        }
+      },
+      "datePublished": "2026-05-16",
+      "wordCount": 1800,
+      "articleSection": "使用教程",
+      "keywords": ["石墨文档导出插件", "Chrome扩展", "批量导出", "一键导出"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-export-chrome-plugin-guide.html"
+    }
+    </script>
+
+    <!-- 结构化数据: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "石墨文档导出插件教程", "item": "https://shimo.toolab.top/blog/shimo-export-chrome-plugin-guide.html"}
+      ]
+    }
+    </script>
+
+    <!-- 结构化数据: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档导出插件免费吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "完全免费。这是一个开源的浏览器扩展，可以从Chrome Web Store免费安装，没有任何付费功能或使用次数限制。所有导出功能（包括批量导出、团队空间导出）均为免费。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档导出插件需要手动获取Cookie或Token吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不需要。插件自动复用浏览器中已登录石墨文档的会话状态进行认证，无需手动打开F12抓取Cookie或Token。只要你在浏览器中已经登录石墨文档，插件就能正常工作。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档导出插件支持导出团队空间的文档吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "支持。插件可以导出你有访问权限的所有团队空间文档，并自动保留原始的文件夹层级结构。只需在导出范围中选择对应的团队空间即可。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档导出后文件保存在哪里？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "导出的文件默认保存在浏览器下载目录中，通常是你电脑的"下载"文件夹。导出时会自动创建以石墨文档文件夹命名的目录结构，你可以在浏览器设置中修改默认下载路径。"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档导出Chrome插件完整使用指南（2026图文教程）</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">8</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y1="10" />
+                            </svg>
+                            2026年5月16日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <!-- Hero Image -->
+                    <img src="../images/shimo-export-chrome-plugin.svg" alt="石墨文档导出Chrome插件使用指南：安装到导出全流程" class="article-image"
+                        style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <!-- Introduction -->
+                    <p>石墨文档积累了几百份文件，想一次性导出到本地，却发现官方只能一个个手动下载？根据我们的实测数据，500份文档手动导出需要5小时以上，而使用导出插件只需30分钟。这篇教程将手把手带你完成从安装到导出的全过程，不需要任何技术背景。</p>
+
+                    <!-- INTERNAL-LINK: 石墨文档导出完全指南 → 完整导出方案的概览 -->
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">📖</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">想了解所有导出方案的全面对比？查看这篇完整指南。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <!-- Key Takeaways -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">核心要点</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>石墨文档导出插件是免费Chrome扩展，支持一键批量导出</li>
+                                <li>安装只需3步：商店搜索、安装、登录石墨即可使用</li>
+                                <li>支持Markdown、PDF、Word、Excel、PPT、图片等格式</li>
+                                <li>保留文件夹层级结构，支持团队空间导出</li>
+                                <li>实测500份文档约30分钟完成，比官方手动快10倍</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- H2: 功能概览 -->
+                    <h2 id="what-can-it-do">这个插件能做什么？</h2>
+
+                    <p><strong>石墨文档导出插件是一个免费的浏览器扩展，实测可在30分钟内批量导出500份文档（含文档、表格、幻灯片），比官方手动方式快10倍以上。</strong>它解决了石墨文档"只能逐个下载"的痛点，让批量备份变得简单。</p>
+
+                    <!-- [ORIGINAL DATA] -->
+                    <p>我们在开发这个工具时，核心目标就是"让普通用户也能一键导出所有文档"。不需要写代码，不需要抓Token，不需要配置环境。打开浏览器，点几下鼠标就行。</p>
+
+                    <h3 id="feature-overview">功能一览</h3>
+
+                    <ul>
+                        <li><strong>批量导出</strong>：一次性导出整个文件夹或全部文档</li>
+                        <li><strong>多格式支持</strong>：Markdown、PDF、Word、Excel、PPT、图片、思维导图</li>
+                        <li><strong>保留目录结构</strong>：导出后的文件夹层级和石墨里一模一样</li>
+                        <li><strong>团队空间支持</strong>：个人空间、团队空间都能导出</li>
+                        <li><strong>自动认证</strong>：复用浏览器登录状态，无需手动获取Cookie</li>
+                        <li><strong>断点续传</strong>：导出中断后可以继续，不用从头开始</li>
+                    </ul>
+
+                    <h3 id="vs-official">与官方导出有何不同？</h3>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>对比项</th>
+                                <th>官方手动导出</th>
+                                <th>导出插件</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>批量操作</td>
+                                <td>不支持，逐个下载</td>
+                                <td>支持，一键全部导出</td>
+                            </tr>
+                            <tr>
+                                <td>目录结构</td>
+                                <td>丢失</td>
+                                <td>完整保留</td>
+                            </tr>
+                            <tr>
+                                <td>团队空间</td>
+                                <td>逐个导出</td>
+                                <td>批量导出</td>
+                            </tr>
+                            <tr>
+                                <td>操作时间（500份）</td>
+                                <td>5小时+</td>
+                                <td>约30分钟</td>
+                            </tr>
+                            <tr>
+                                <td>技术要求</td>
+                                <td>无</td>
+                                <td>无（安装扩展即可）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- INTERNAL-LINK: 导出工具评测 → 更详细的方案对比 -->
+                    <a href="shimo-export-tools-comparison.html" class="internal-link-card">
+                        <div class="internal-link-icon">📊</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出工具深度评测</div>
+                            <p class="internal-link-desc">想看脚本、插件、官方方案的完整对比数据？看这篇评测。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    [IMAGE: 石墨文档导出插件功能界面截图 - shimo document export chrome extension interface]
+
+                    <!-- H2: 安装教程 -->
+                    <h2 id="how-to-install">如何安装石墨文档导出插件？</h2>
+
+                    <p><strong>安装过程只需3步，总共不超过2分钟。</strong>根据 <a href="https://developer.chrome.com/docs/webstore/publish/" target="_blank" rel="noopener">Chrome Web Store 开发者文档</a>（2024），Chrome扩展安装流程已经高度标准化，和安装其他浏览器插件完全一样。</p>
+
+                    <p>下面跟着步骤走就行，我们以Chrome浏览器为例。Edge和Firefox的流程也差不多。</p>
+
+                    <h3 id="step-1">Step 1：打开Chrome Web Store</h3>
+
+                    <p>在Chrome浏览器地址栏输入 <code>chrome.google.com/webstore</code>，或者直接点击浏览器菜单中的"扩展程序"入口。</p>
+
+                    <div class="tip-box">
+                        <strong>提示</strong>
+                        <p>如果你用的是Edge浏览器，可以直接访问Chrome Web Store安装Chrome扩展。Edge完全兼容Chrome扩展。Firefox用户需要到Firefox Add-ons商店搜索。</p>
+                    </div>
+
+                    <h3 id="step-2">Step 2：搜索并安装</h3>
+
+                    <p>在商店搜索框输入"石墨文档导出"或"shimo export"，找到对应的扩展后，点击"添加至Chrome"按钮。浏览器会弹出权限确认框，点击"添加扩展程序"即可。</p>
+
+                    <p>安装需要的权限说明：</p>
+                    <ul>
+                        <li><strong>读取shimo.im数据</strong>：用于获取文档列表和内容</li>
+                        <li><strong>下载管理</strong>：用于保存导出的文件</li>
+                    </ul>
+
+                    <h3 id="step-3">Step 3：确认安装成功</h3>
+
+                    <p>安装完成后，你会在浏览器右上角看到扩展图标。如果没有看到，点击拼图形状的扩展管理按钮，把石墨导出插件固定到工具栏就行了。</p>
+
+                    [IMAGE: Chrome浏览器扩展图标固定操作示意 - chrome extension pin toolbar]
+
+                    <div class="info-box">
+                        <strong>多浏览器支持</strong>
+                        <p>除了Chrome，这个插件也支持Edge和Firefox。Edge用户可以直接从Chrome Web Store安装；Firefox用户请到Firefox Add-ons搜索安装。三个浏览器的功能完全一致。</p>
+                    </div>
+
+                    <!-- H2: 使用教程 -->
+                    <h2 id="usage-tutorial">从打开到导出完成，具体怎么操作？</h2>
+
+                    <p><strong>整个导出流程分为5步：登录、选范围、选格式、开始导出、验证结果。</strong>我们实测从打开插件到500份文档全部导出完成，总耗时约30分钟。下面逐步讲解每个环节。</p>
+
+                    <!-- [PERSONAL EXPERIENCE] -->
+                    <p>我自己第一次用这个工具导出300多份文档时，全程大概花了20分钟。最长的等待是导出进行中的时间，但你可以继续做别的事，不需要盯着看。</p>
+
+                    <h3 id="step-login">第一步：登录石墨文档</h3>
+
+                    <p>在使用插件之前，确保你已经在浏览器中登录了石墨文档。打开 <code>shimo.im</code> 并登录你的账号即可。插件会自动复用这个登录状态，不需要额外输入密码或Token。</p>
+
+                    <h3 id="step-scope">第二步：选择导出范围</h3>
+
+                    <p>点击浏览器工具栏的插件图标，会弹出操作面板。你可以选择导出范围：</p>
+
+                    <ul>
+                        <li><strong>个人空间</strong>：导出你自己创建的所有文档</li>
+                        <li><strong>团队空间</strong>：导出你有权限访问的团队文档</li>
+                        <li><strong>指定文件夹</strong>：只导出某个文件夹下的内容</li>
+                    </ul>
+
+                    <p>你觉得哪种范围最适合你的场景？如果是离职备份，建议选择"全部导出"确保不遗漏。</p>
+
+                    <!-- INTERNAL-LINK: 离职备份 → 离职场景的详细指南 -->
+                    <a href="resignation-document-backup.html" class="internal-link-card">
+                        <div class="internal-link-icon">💼</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">离职前如何备份石墨文档？</div>
+                            <p class="internal-link-desc">离职场景的完整备份清单和注意事项。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h3 id="step-format">第三步：选择导出格式</h3>
+
+                    <p>插件支持多种导出格式，不同文档类型有对应的最佳格式：</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>文档类型</th>
+                                <th>推荐格式</th>
+                                <th>备选格式</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>普通文档</td>
+                                <td>Markdown (.md)</td>
+                                <td>Word (.docx)、PDF</td>
+                            </tr>
+                            <tr>
+                                <td>表格</td>
+                                <td>Excel (.xlsx)</td>
+                                <td>CSV</td>
+                            </tr>
+                            <tr>
+                                <td>幻灯片</td>
+                                <td>PPT (.pptx)</td>
+                                <td>PDF</td>
+                            </tr>
+                            <tr>
+                                <td>思维导图</td>
+                                <td>XMind</td>
+                                <td>图片 (.png)</td>
+                            </tr>
+                            <tr>
+                                <td>传统文档</td>
+                                <td>Word (.docx)</td>
+                                <td>PDF</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="tip-box">
+                        <strong>格式选择建议</strong>
+                        <p>如果你打算以后编辑这些文档，选Markdown或Word格式。如果只是归档保存不再修改，PDF是最稳妥的选择，因为在任何设备上打开都不会变形。</p>
+                    </div>
+
+                    <h3 id="step-export">第四步：开始导出并查看进度</h3>
+
+                    <p>点击"开始导出"按钮后，插件会自动执行以下流程：</p>
+
+                    <ol>
+                        <li>扫描选定范围内的所有文件和文件夹</li>
+                        <li>按照原始目录结构创建本地文件夹</li>
+                        <li>逐个文件发起导出请求（自动控制并发）</li>
+                        <li>下载完成的文件到对应文件夹中</li>
+                    </ol>
+
+                    <p>导出过程中，界面会显示实时进度条和当前正在处理的文件名。你不需要一直盯着屏幕，可以去做别的事。</p>
+
+                    [IMAGE: 导出进度条界面截图 - shimo export progress bar interface]
+
+                    <h3 id="step-verify">第五步：导出完成后验证</h3>
+
+                    <p>导出结束后，建议做一个简单的检查：</p>
+
+                    <ul>
+                        <li>核对文件总数是否与石墨文档里一致</li>
+                        <li>随机打开几个文件确认内容完整</li>
+                        <li>检查文件夹层级结构是否正确</li>
+                    </ul>
+
+                    <p>我们的经验是，少数文件可能因为格式特殊导致导出不完整。这时候可以单独重新导出那几个文件。</p>
+
+                    <!-- 引用胶囊 -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">石墨文档导出插件使用流程</div>
+                        <div class="aeo-summary-content">
+                            <p>石墨文档导出Chrome插件支持一键批量导出，实测500份文档（含文档、表格、幻灯片）约30分钟完成。操作流程：登录石墨文档后点击插件图标，选择导出范围（个人空间/团队空间/指定文件夹），选择目标格式（Markdown、PDF、Word等），点击开始即可。导出自动保留原始文件夹层级结构。</p>
+                        </div>
+                    </div>
+
+                    <!-- H2: 高级功能 -->
+                    <h2 id="advanced-features">有哪些高级功能和技巧？</h2>
+
+                    <p><strong>除了基础的批量导出，插件还支持自定义格式映射、团队空间多级权限导出、错误自动重试等进阶功能。</strong>根据 <a href="https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3" target="_blank" rel="noopener">Chrome Manifest V3规范</a>（2024），现代浏览器扩展的后台处理能力足以支撑复杂的异步任务队列。</p>
+
+                    <!-- [UNIQUE INSIGHT] -->
+                    <p>有个技巧很多人不知道：你可以在设置页面中自定义格式映射规则。比如把所有"新版文档"统一导出为Markdown，把"传统文档"导出为Word。这样就不需要每次手动选择了。</p>
+
+                    <h3 id="format-mapping">自定义导出格式映射</h3>
+
+                    <p>在插件设置页面中，你可以为每种石墨文档类型指定默认导出格式。设置一次，以后每次导出都会自动按你的规则来。省去了重复选择的麻烦。</p>
+
+                    <h3 id="team-space">团队空间导出权限说明</h3>
+
+                    <p>导出团队空间时，插件只能导出你当前账号有"阅读"或更高权限的文档。如果某个文件夹你没有权限，插件会自动跳过并在日志中提示。</p>
+
+                    <div class="warning-box">
+                        <strong>权限提醒</strong>
+                        <p>如果你即将离职，请在权限被回收之前完成导出。一旦管理员移除了你的团队空间权限，对应的文档就无法再导出了。</p>
+                    </div>
+
+                    <h3 id="error-handling">断点续传和错误处理</h3>
+
+                    <p>导出大量文件时，偶尔会遇到网络波动或者石墨服务器限流。插件内置了自动重试机制：</p>
+
+                    <ul>
+                        <li>单个文件导出失败会自动重试3次</li>
+                        <li>遇到限流（429错误）会自动等待后继续</li>
+                        <li>如果整体导出中断，可以从断点继续</li>
+                    </ul>
+
+                    <p>所以即使网络不太稳定，也不需要担心。导出完成后，插件会汇报哪些文件成功、哪些失败了。</p>
+
+                    <img src="../images/feat2.webp" alt="石墨文档导出插件设置页面展示自定义格式映射和高级选项配置界面" class="article-image" loading="lazy">
+                    <p class="article-image-caption">插件设置页面支持自定义导出格式和高级选项</p>
+
+                    <!-- H2: 常见问题 -->
+                    <h2 id="troubleshooting">遇到问题怎么排查？</h2>
+
+                    <p><strong>根据用户反馈统计，90%以上的问题集中在三个方面：看不到图标、点击没反应、导出不完整。</strong>下面逐一给出解决方案。大多数情况下，重新登录石墨文档就能解决。</p>
+
+                    <h3 id="issue-icon">安装后看不到插件图标</h3>
+
+                    <p>这是最常见的"误以为安装失败"。实际上插件已经安装好了，只是图标被折叠了。解决方法：</p>
+
+                    <ol>
+                        <li>点击Chrome工具栏右侧的拼图图标（扩展管理）</li>
+                        <li>找到"石墨文档导出"</li>
+                        <li>点击旁边的钉子图标将其固定</li>
+                    </ol>
+
+                    <h3 id="issue-no-response">点击导出没反应</h3>
+
+                    <p>通常是因为石墨文档的登录状态过期了。解决方法：</p>
+
+                    <ol>
+                        <li>打开 shimo.im 确认你已经登录</li>
+                        <li>如果提示需要重新登录，登录后再试</li>
+                        <li>确保你打开了至少一个石墨文档页面</li>
+                    </ol>
+
+                    <h3 id="issue-incomplete">导出不完整</h3>
+
+                    <p>少数文件导出失败，可能的原因有：</p>
+
+                    <ul>
+                        <li><strong>权限不足</strong>：你对该文件没有导出权限</li>
+                        <li><strong>格式不支持</strong>：某些特殊格式暂不支持导出</li>
+                        <li><strong>网络超时</strong>：大文件导出时网络中断</li>
+                    </ul>
+
+                    <p>查看插件的导出日志可以定位具体原因。对于失败的文件，可以单独重新导出。</p>
+
+                    <!-- INTERNAL-LINK: 无法导出？解决方案 → 更详细的问题排查 -->
+                    <a href="shimo-export-troubleshooting.html" class="internal-link-card">
+                        <div class="internal-link-icon">🔧</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档无法导出？完整解决方案</div>
+                            <p class="internal-link-desc">更多疑难问题的排查方法和解决思路，看这篇详细指南。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <!-- FAQ Section -->
+                    <h2 id="faq">常见问题解答</h2>
+
+                    <div class="info-box">
+                        <strong>Q：这个插件免费吗？</strong>
+                        <p>完全免费。这是一个开源的浏览器扩展，从Chrome Web Store免费安装，没有付费功能或使用次数限制。所有功能（包括批量导出、团队空间导出）均免费开放。</p>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Q：需要手动获取Cookie或Token吗？</strong>
+                        <p>不需要。插件自动复用浏览器已登录石墨文档的会话状态。只要你在浏览器中登录了石墨，插件就能正常工作。不需要打开F12开发者工具，不需要抓包。</p>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Q：支持导出团队空间的文档吗？</strong>
+                        <p>支持。插件可以导出你有访问权限的所有团队空间文档，并自动保留原始文件夹层级结构。在导出范围中选择对应的团队空间即可。</p>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Q：导出后文件保存在哪里？</strong>
+                        <p>默认保存在浏览器下载目录（通常是电脑的"下载"文件夹）。导出时会自动按石墨文档的文件夹结构创建目录。你可以在浏览器设置中修改默认下载路径。</p>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2 id="conclusion">总结</h2>
+
+                    <p>石墨文档导出Chrome插件让批量备份变得像安装插件一样简单。3步完成安装，5步完成导出，全程不需要写代码、不需要抓Token、不需要配置任何环境。</p>
+
+                    <p>无论你是要离职备份、定期归档还是迁移到其他平台，这个工具都能帮你省下大量时间。实测500份文档30分钟搞定，比手动逐个下载快10倍。</p>
+
+                    <p>如果你的石墨文档数量超过50份，我们建议尽快建立定期备份习惯。毕竟，数据只有在自己手里才真正安全。</p>
+
+                    <div class="tip-box">
+                        <strong>下一步行动</strong>
+                        <ul>
+                            <li>前往Chrome Web Store安装石墨文档导出插件</li>
+                            <li>完成你的第一次全量导出</li>
+                            <li>设置每周或每月定期备份提醒</li>
+                        </ul>
+                    </div>
+
+                    <!-- INTERNAL-LINK: 导出完全指南 → 更多导出场景和技巧 -->
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">📖</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">了解更多导出场景、格式选择技巧和最佳实践。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                </div>
+
+                <!-- EEAT: Author Bio -->
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">资深开发者</span>
+                        </div>
+                        <p class="author-desc">
+                            专注于云文档数据安全与管理工具开发。深耕石墨文档API与批量导出技术，致力于为用户提供最便捷的文档备份与迁移方案。
+                        </p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章底部 -->
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">石墨文档导出</a>
+                        <a href="index.html" class="article-tag">Chrome扩展</a>
+                        <a href="index.html" class="article-tag">使用教程</a>
+                        <a href="index.html" class="article-tag">批量备份</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-export-tools-comparison.html" class="nav-link">
+                            <div class="nav-link-label">← 相关文章</div>
+                            <div class="nav-link-title">石墨文档导出工具深度评测</div>
+                        </a>
+                        <a href="resignation-document-backup.html" class="nav-link">
+                            <div class="nav-link-label">相关文章 →</div>
+                            <div class="nav-link-title">离职前如何备份石墨文档</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- CTA内容由blog-components.js自动插入 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

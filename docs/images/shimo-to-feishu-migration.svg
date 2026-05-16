@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0f1e"/>
+  <rect width="1200" height="630" fill="url(#bgGrad)" opacity="0.8"/>
+
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="630">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="50%" stop-color="#0a0f1e"/>
+      <stop offset="100%" stop-color="#0d1b3e"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="40%" stop-color="#a78bfa"/>
+      <stop offset="60%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#4ade80"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="purpleGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#667eea" flood-opacity="0.3" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="colorBlur"/>
+      <feMerge>
+        <feMergeNode in="colorBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="blueGreenGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#38bdf8" flood-opacity="0.25" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="colorBlur"/>
+      <feMerge>
+        <feMergeNode in="colorBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Decorative grid dots -->
+  <g opacity="0.08">
+    <circle cx="50" cy="50" r="1.5" fill="#fff"/>
+    <circle cx="100" cy="50" r="1.5" fill="#fff"/>
+    <circle cx="150" cy="50" r="1.5" fill="#fff"/>
+    <circle cx="200" cy="50" r="1.5" fill="#fff"/>
+    <circle cx="50" cy="100" r="1.5" fill="#fff"/>
+    <circle cx="100" cy="100" r="1.5" fill="#fff"/>
+    <circle cx="150" cy="100" r="1.5" fill="#fff"/>
+    <circle cx="50" cy="150" r="1.5" fill="#fff"/>
+    <circle cx="100" cy="150" r="1.5" fill="#fff"/>
+    <circle cx="1000" cy="480" r="1.5" fill="#fff"/>
+    <circle cx="1050" cy="480" r="1.5" fill="#fff"/>
+    <circle cx="1100" cy="480" r="1.5" fill="#fff"/>
+    <circle cx="1150" cy="480" r="1.5" fill="#fff"/>
+    <circle cx="1000" cy="530" r="1.5" fill="#fff"/>
+    <circle cx="1050" cy="530" r="1.5" fill="#fff"/>
+    <circle cx="1100" cy="530" r="1.5" fill="#fff"/>
+    <circle cx="1150" cy="530" r="1.5" fill="#fff"/>
+  </g>
+
+  <!-- Left: Shimo (Source) Platform icon -->
+  <g transform="translate(120, 150)" filter="url(#purpleGlow)">
+    <!-- Platform container -->
+    <rect x="0" y="0" width="180" height="200" rx="16" fill="#0f172a" stroke="#667eea" stroke-width="2.5"/>
+    <!-- Shimo logo representation - stylized "S" document -->
+    <g transform="translate(50, 30)">
+      <!-- Document shape -->
+      <rect x="0" y="0" width="80" height="100" rx="8" fill="none" stroke="#667eea" stroke-width="2"/>
+      <!-- Stylized S curve inside -->
+      <path d="M25 25 C50 25 55 40 40 45 C25 50 30 65 55 65" fill="none" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
+      <!-- Lines representing content -->
+      <line x1="20" y1="78" x2="60" y2="78" stroke="#667eea" stroke-width="1.5" opacity="0.4"/>
+      <line x1="20" y1="86" x2="50" y2="86" stroke="#667eea" stroke-width="1.5" opacity="0.3"/>
+    </g>
+    <!-- Platform label -->
+    <text x="90" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#667eea" font-family="system-ui, sans-serif">石墨文档</text>
+    <text x="90" y="180" text-anchor="middle" font-size="11" fill="#94a3b8" font-family="system-ui, sans-serif">shimo.im</text>
+  </g>
+
+  <!-- Center: Transformation Arrow with format conversion -->
+  <g transform="translate(380, 180)">
+    <!-- Main arrow path -->
+    <path d="M0 80 C80 80 100 40 200 40 C300 40 320 80 440 80" fill="none" stroke="url(#arrowGrad)" stroke-width="3.5" opacity="0.8"/>
+    <!-- Arrow head -->
+    <polygon points="435,70 455,80 435,90" fill="#4ade80" opacity="0.9"/>
+
+    <!-- Format conversion boxes along the path -->
+    <!-- DOCX intermediate -->
+    <g transform="translate(140, 55)">
+      <rect x="0" y="0" width="55" height="28" rx="5" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5" opacity="0.9"/>
+      <text x="27" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#a78bfa" font-family="system-ui, sans-serif">.docx</text>
+    </g>
+    <!-- MD intermediate -->
+    <g transform="translate(210, 25)">
+      <rect x="0" y="0" width="45" height="28" rx="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" opacity="0.9"/>
+      <text x="22" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#38bdf8" font-family="system-ui, sans-serif">.md</text>
+    </g>
+    <!-- XLSX intermediate -->
+    <g transform="translate(270, 55)">
+      <rect x="0" y="0" width="50" height="28" rx="5" fill="#0f172a" stroke="#4ade80" stroke-width="1.5" opacity="0.9"/>
+      <text x="25" y="18" text-anchor="middle" font-size="10" font-weight="bold" fill="#4ade80" font-family="system-ui, sans-serif">.xlsx</text>
+    </g>
+
+    <!-- Conversion label -->
+    <text x="220" y="130" text-anchor="middle" font-size="12" fill="#94a3b8" font-family="system-ui, sans-serif" opacity="0.8">格式转换</text>
+
+    <!-- Small gear icons representing conversion process -->
+    <g transform="translate(85, 95)" opacity="0.5">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="3" fill="#a78bfa" opacity="0.4"/>
+    </g>
+    <g transform="translate(320, 95)" opacity="0.5">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="3" fill="#38bdf8" opacity="0.4"/>
+    </g>
+  </g>
+
+  <!-- Right: Target Platforms -->
+  <g transform="translate(870, 80)" filter="url(#blueGreenGlow)">
+    <!-- Feishu platform -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="160" height="90" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <!-- Feishu icon - stylized bird/paper plane -->
+      <g transform="translate(25, 15)">
+        <polygon points="25,5 45,25 35,25 45,45 5,25 15,25" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/>
+      </g>
+      <text x="100" y="35" font-size="14" font-weight="bold" fill="#38bdf8" font-family="system-ui, sans-serif">飞书</text>
+      <text x="100" y="52" font-size="10" fill="#94a3b8" font-family="system-ui, sans-serif">Feishu</text>
+      <!-- Checkmark -->
+      <polyline points="125,65 132,72 145,58" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    </g>
+
+    <!-- Yuque platform -->
+    <g transform="translate(0, 110)">
+      <rect x="0" y="0" width="160" height="90" rx="12" fill="#0f172a" stroke="#4ade80" stroke-width="2"/>
+      <!-- Yuque icon - stylized book/feather -->
+      <g transform="translate(25, 15)">
+        <path d="M10 40 C10 20 20 10 35 10 C45 10 50 20 45 30 C40 40 25 45 15 40" fill="none" stroke="#4ade80" stroke-width="2"/>
+        <line x1="20" y1="30" x2="40" y2="15" stroke="#4ade80" stroke-width="1.5"/>
+      </g>
+      <text x="100" y="35" font-size="14" font-weight="bold" fill="#4ade80" font-family="system-ui, sans-serif">语雀</text>
+      <text x="100" y="52" font-size="10" fill="#94a3b8" font-family="system-ui, sans-serif">Yuque</text>
+      <!-- Checkmark -->
+      <polyline points="125,65 132,72 145,58" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    </g>
+
+    <!-- Notion platform -->
+    <g transform="translate(0, 220)">
+      <rect x="0" y="0" width="160" height="90" rx="12" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+      <!-- Notion icon - stylized N -->
+      <g transform="translate(25, 15)">
+        <rect x="5" y="5" width="35" height="40" rx="3" fill="none" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="13" y1="15" x2="13" y2="35" stroke="#fbbf24" stroke-width="2.5"/>
+        <line x1="13" y1="15" x2="32" y2="35" stroke="#fbbf24" stroke-width="2"/>
+        <line x1="32" y1="15" x2="32" y2="35" stroke="#fbbf24" stroke-width="2.5"/>
+      </g>
+      <text x="100" y="35" font-size="14" font-weight="bold" fill="#fbbf24" font-family="system-ui, sans-serif">Notion</text>
+      <text x="100" y="52" font-size="10" fill="#94a3b8" font-family="system-ui, sans-serif">notion.so</text>
+      <!-- Checkmark -->
+      <polyline points="125,65 132,72 145,58" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    </g>
+  </g>
+
+  <!-- Branching arrows from main path to each target -->
+  <g opacity="0.6">
+    <path d="M840 260 C860 260 870 180 880 145" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M840 260 C860 260 870 260 880 235" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M840 260 C860 260 870 320 880 340" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4 3"/>
+  </g>
+
+  <!-- Migration stats -->
+  <g transform="translate(150, 410)">
+    <rect x="0" y="0" width="90" height="50" rx="8" fill="#0f172a" stroke="#667eea" stroke-width="1" opacity="0.8"/>
+    <text x="45" y="22" text-anchor="middle" font-size="18" font-weight="bold" fill="#667eea" font-family="system-ui, sans-serif">100%</text>
+    <text x="45" y="40" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">格式保留</text>
+  </g>
+  <g transform="translate(260, 410)">
+    <rect x="0" y="0" width="90" height="50" rx="8" fill="#0f172a" stroke="#4ade80" stroke-width="1" opacity="0.8"/>
+    <text x="45" y="22" text-anchor="middle" font-size="18" font-weight="bold" fill="#4ade80" font-family="system-ui, sans-serif">1-click</text>
+    <text x="45" y="40" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="system-ui, sans-serif">一键迁移</text>
+  </g>
+
+  <!-- Title text -->
+  <text x="600" y="565" text-anchor="middle" font-size="28" font-weight="bold" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif">跨平台文档迁移</text>
+  <text x="600" y="600" text-anchor="middle" font-size="16" fill="#94a3b8" font-family="system-ui, sans-serif">石墨 → 飞书 · 语雀 · Notion</text>
+
+  <!-- Subtle decorative circles -->
+  <circle cx="100" cy="500" r="80" fill="url(#purpleGrad)" opacity="0.03"/>
+  <circle cx="1100" cy="450" r="100" fill="url(#greenGrad)" opacity="0.03"/>
+</svg>

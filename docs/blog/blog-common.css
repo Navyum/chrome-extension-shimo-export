@@ -1,5 +1,38 @@
 /* 博客通用样式 - 基于SEO最佳实践 */
 
+/* 极光背景效果 - 与主站保持一致 */
+body {
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    --stripes: repeating-linear-gradient(100deg, rgba(102, 126, 234, 0.15), rgba(102, 126, 234, 0.15) 7%, transparent 10%, transparent 12%, rgba(102, 126, 234, 0.15) 16%);
+    --rainbow: repeating-linear-gradient(100deg, rgba(96, 165, 250, 0.2) 10%, rgba(232, 121, 249, 0.15) 15%, rgba(96, 165, 250, 0.2) 20%, rgba(94, 234, 212, 0.15) 25%, rgba(96, 165, 250, 0.2) 30%);
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+    filter: blur(10px) opacity(60%) saturate(200%);
+    mask-image: radial-gradient(ellipse at 50% 0, #000 40%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0, #000 40%, transparent 70%);
+    animation: blogAurora 15s linear infinite;
+}
+
+@keyframes blogAurora {
+    0% { background-position: 50% 50%, 50% 50%; }
+    100% { background-position: 350% 50%, 350% 50%; }
+}
+
+body > *:not(.dot-grid) {
+    position: relative;
+    z-index: 1;
+}
+
 /* 顶部导航栏 */
 .blog-navbar {
     position: sticky;

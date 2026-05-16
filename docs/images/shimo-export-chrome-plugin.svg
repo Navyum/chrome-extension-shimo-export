@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="50%" stop-color="#0a0f1e"/>
+      <stop offset="100%" stop-color="#0d1b3e"/>
+    </linearGradient>
+    <filter id="glow-green">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-purple">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-blue">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)"/>
+
+  <!-- Grid dots - top left -->
+  <g opacity="0.08">
+    <circle cx="30" cy="30" r="1.5" fill="white"/>
+    <circle cx="50" cy="30" r="1.5" fill="white"/>
+    <circle cx="70" cy="30" r="1.5" fill="white"/>
+    <circle cx="90" cy="30" r="1.5" fill="white"/>
+    <circle cx="110" cy="30" r="1.5" fill="white"/>
+    <circle cx="30" cy="50" r="1.5" fill="white"/>
+    <circle cx="50" cy="50" r="1.5" fill="white"/>
+    <circle cx="70" cy="50" r="1.5" fill="white"/>
+    <circle cx="90" cy="50" r="1.5" fill="white"/>
+    <circle cx="110" cy="50" r="1.5" fill="white"/>
+    <circle cx="30" cy="70" r="1.5" fill="white"/>
+    <circle cx="50" cy="70" r="1.5" fill="white"/>
+    <circle cx="70" cy="70" r="1.5" fill="white"/>
+    <circle cx="90" cy="70" r="1.5" fill="white"/>
+    <circle cx="110" cy="70" r="1.5" fill="white"/>
+    <circle cx="30" cy="90" r="1.5" fill="white"/>
+    <circle cx="50" cy="90" r="1.5" fill="white"/>
+    <circle cx="70" cy="90" r="1.5" fill="white"/>
+    <circle cx="90" cy="90" r="1.5" fill="white"/>
+    <circle cx="110" cy="90" r="1.5" fill="white"/>
+  </g>
+
+  <!-- Grid dots - top right -->
+  <g opacity="0.08">
+    <circle cx="1090" cy="30" r="1.5" fill="white"/>
+    <circle cx="1110" cy="30" r="1.5" fill="white"/>
+    <circle cx="1130" cy="30" r="1.5" fill="white"/>
+    <circle cx="1150" cy="30" r="1.5" fill="white"/>
+    <circle cx="1170" cy="30" r="1.5" fill="white"/>
+    <circle cx="1090" cy="50" r="1.5" fill="white"/>
+    <circle cx="1110" cy="50" r="1.5" fill="white"/>
+    <circle cx="1130" cy="50" r="1.5" fill="white"/>
+    <circle cx="1150" cy="50" r="1.5" fill="white"/>
+    <circle cx="1170" cy="50" r="1.5" fill="white"/>
+    <circle cx="1090" cy="70" r="1.5" fill="white"/>
+    <circle cx="1110" cy="70" r="1.5" fill="white"/>
+    <circle cx="1130" cy="70" r="1.5" fill="white"/>
+    <circle cx="1150" cy="70" r="1.5" fill="white"/>
+    <circle cx="1170" cy="70" r="1.5" fill="white"/>
+    <circle cx="1090" cy="90" r="1.5" fill="white"/>
+    <circle cx="1110" cy="90" r="1.5" fill="white"/>
+    <circle cx="1130" cy="90" r="1.5" fill="white"/>
+    <circle cx="1150" cy="90" r="1.5" fill="white"/>
+    <circle cx="1170" cy="90" r="1.5" fill="white"/>
+  </g>
+
+  <!-- Grid dots - bottom left -->
+  <g opacity="0.08">
+    <circle cx="30" cy="520" r="1.5" fill="white"/>
+    <circle cx="50" cy="520" r="1.5" fill="white"/>
+    <circle cx="70" cy="520" r="1.5" fill="white"/>
+    <circle cx="90" cy="520" r="1.5" fill="white"/>
+    <circle cx="110" cy="520" r="1.5" fill="white"/>
+    <circle cx="30" cy="540" r="1.5" fill="white"/>
+    <circle cx="50" cy="540" r="1.5" fill="white"/>
+    <circle cx="70" cy="540" r="1.5" fill="white"/>
+    <circle cx="90" cy="540" r="1.5" fill="white"/>
+    <circle cx="110" cy="540" r="1.5" fill="white"/>
+  </g>
+
+  <!-- Grid dots - bottom right -->
+  <g opacity="0.08">
+    <circle cx="1090" cy="520" r="1.5" fill="white"/>
+    <circle cx="1110" cy="520" r="1.5" fill="white"/>
+    <circle cx="1130" cy="520" r="1.5" fill="white"/>
+    <circle cx="1150" cy="520" r="1.5" fill="white"/>
+    <circle cx="1170" cy="520" r="1.5" fill="white"/>
+    <circle cx="1090" cy="540" r="1.5" fill="white"/>
+    <circle cx="1110" cy="540" r="1.5" fill="white"/>
+    <circle cx="1130" cy="540" r="1.5" fill="white"/>
+    <circle cx="1150" cy="540" r="1.5" fill="white"/>
+    <circle cx="1170" cy="540" r="1.5" fill="white"/>
+  </g>
+
+  <!-- Circular workflow path -->
+  <circle cx="600" cy="260" r="180" fill="none" stroke="#667eea" stroke-width="1" opacity="0.2" stroke-dasharray="8,6"/>
+
+  <!-- Center: Chrome icon (simplified) -->
+  <g filter="url(#glow-purple)" transform="translate(600, 260)">
+    <!-- Outer circle -->
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#667eea" stroke-width="2.5"/>
+    <!-- Inner circle (white center of Chrome) -->
+    <circle cx="0" cy="0" r="18" fill="#0a0f1e" stroke="#667eea" stroke-width="2"/>
+    <!-- Chrome color segments (simplified as arcs) -->
+    <path d="M0 -50 A50 50 0 0 1 43 25 L16 9 A18 18 0 0 0 0 -18 Z" fill="#f87171" opacity="0.5"/>
+    <path d="M43 25 A50 50 0 0 1 -43 25 L-16 9 A18 18 0 0 0 16 9 Z" fill="#4ade80" opacity="0.5"/>
+    <path d="M-43 25 A50 50 0 0 1 0 -50 L0 -18 A18 18 0 0 0 -16 9 Z" fill="#fbbf24" opacity="0.5"/>
+  </g>
+
+  <!-- Puzzle piece connecting to Chrome -->
+  <g filter="url(#glow-blue)" transform="translate(520, 190)">
+    <path d="M10 0 L30 0 L30 -5 C30 -12 40 -12 40 -5 L40 0 L60 0 L60 20 L65 20 C72 20 72 30 65 30 L60 30 L60 50 L0 50 L0 30 L-5 30 C-12 30 -12 20 -5 20 L0 20 Z" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.8"/>
+  </g>
+
+  <!-- Step 1: Install (top) -->
+  <g filter="url(#glow-green)" transform="translate(600, 60)">
+    <!-- Download/install icon -->
+    <rect x="-20" y="-15" width="40" height="30" rx="5" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+    <path d="M0 -8 L0 8 M-7 2 L0 9 L7 2" stroke="#4ade80" stroke-width="2" fill="none"/>
+    <line x1="-12" y1="12" x2="12" y2="12" stroke="#4ade80" stroke-width="2"/>
+    <!-- Label -->
+    <text x="0" y="32" font-family="system-ui" font-size="12" fill="#4ade80" text-anchor="middle" opacity="0.8">安装</text>
+    <!-- Checkmark -->
+    <circle cx="24" cy="-12" r="7" fill="#4ade80" opacity="0.3"/>
+    <path d="M20 -12 L23 -9 L28 -15" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Step 2: Login (right) -->
+  <g filter="url(#glow-green)" transform="translate(820, 260)">
+    <!-- User/lock icon -->
+    <circle cx="0" cy="-8" r="8" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+    <path d="M-14 12 Q-14 0 0 0 Q14 0 14 12 L14 15 L-14 15 Z" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+    <!-- Label -->
+    <text x="0" y="32" font-family="system-ui" font-size="12" fill="#4ade80" text-anchor="middle" opacity="0.8">登录</text>
+    <!-- Checkmark -->
+    <circle cx="18" cy="-14" r="7" fill="#4ade80" opacity="0.3"/>
+    <path d="M14 -14 L17 -11 L22 -17" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Step 3: Select (bottom) -->
+  <g filter="url(#glow-green)" transform="translate(600, 440)">
+    <!-- Checklist icon -->
+    <rect x="-18" y="-15" width="36" height="30" rx="4" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+    <path d="M-10 -6 L-6 -3 L-2 -9" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+    <line x1="2" y1="-6" x2="12" y2="-6" stroke="#4ade80" stroke-width="1.5"/>
+    <path d="M-10 4 L-6 7 L-2 1" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+    <line x1="2" y1="4" x2="12" y2="4" stroke="#4ade80" stroke-width="1.5"/>
+    <!-- Label -->
+    <text x="0" y="32" font-family="system-ui" font-size="12" fill="#4ade80" text-anchor="middle" opacity="0.8">选择</text>
+    <!-- Checkmark -->
+    <circle cx="22" cy="-12" r="7" fill="#4ade80" opacity="0.3"/>
+    <path d="M18 -12 L21 -9 L26 -15" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Step 4: Export (left) -->
+  <g filter="url(#glow-green)" transform="translate(380, 260)">
+    <!-- Export/share icon -->
+    <rect x="-18" y="-10" width="36" height="26" rx="4" fill="none" stroke="#4ade80" stroke-width="1.5"/>
+    <path d="M0 -18 L0 4 M-7 -12 L0 -19 L7 -12" stroke="#4ade80" stroke-width="2" fill="none"/>
+    <!-- Label -->
+    <text x="0" y="32" font-family="system-ui" font-size="12" fill="#4ade80" text-anchor="middle" opacity="0.8">导出</text>
+    <!-- Checkmark -->
+    <circle cx="22" cy="-14" r="7" fill="#4ade80" opacity="0.3"/>
+    <path d="M18 -14 L21 -11 L26 -17" stroke="#4ade80" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Connecting arrows between steps -->
+  <g stroke="#667eea" stroke-width="1.5" fill="none" opacity="0.4">
+    <!-- Top to right -->
+    <path d="M660 85 Q740 100 790 200"/>
+    <path d="M787 195 L790 200 L784 198" fill="#667eea" stroke="none" opacity="0.4"/>
+    <!-- Right to bottom -->
+    <path d="M790 310 Q740 390 660 420"/>
+    <path d="M663 418 L660 420 L664 415" fill="#667eea" stroke="none" opacity="0.4"/>
+    <!-- Bottom to left -->
+    <path d="M540 420 Q460 390 420 310"/>
+    <path d="M422 313 L420 310 L425 313" fill="#667eea" stroke="none" opacity="0.4"/>
+    <!-- Left to top -->
+    <path d="M410 200 Q460 100 540 85"/>
+    <path d="M537 87 L540 85 L538 90" fill="#667eea" stroke="none" opacity="0.4"/>
+  </g>
+
+  <!-- Decorative elements -->
+  <rect x="140" y="140" width="30" height="30" rx="3" fill="none" stroke="#667eea" stroke-width="1" opacity="0.12" transform="rotate(30, 155, 155)"/>
+  <rect x="1020" y="400" width="25" height="25" rx="3" fill="none" stroke="#4ade80" stroke-width="1" opacity="0.12" transform="rotate(15, 1032, 412)"/>
+  <circle cx="180" cy="420" r="15" fill="none" stroke="#38bdf8" stroke-width="1" opacity="0.1"/>
+  <circle cx="1040" cy="140" r="20" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.1"/>
+
+  <!-- Title -->
+  <text x="600" y="568" font-family="system-ui" font-size="27" fill="white" text-anchor="middle" font-weight="600">Chrome 插件使用指南</text>
+  <!-- Subtitle -->
+  <text x="600" y="600" font-family="system-ui" font-size="15" fill="#94a3b8" text-anchor="middle">一键安装 · 自动认证 · 批量导出 · 零门槛</text>
+</svg>

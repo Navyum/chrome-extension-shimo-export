@@ -18,8 +18,8 @@
                 </div>
                 <div class="nav-center">
                     <a href="../index.html#features" class="nav-link">功能特性</a>
+                    <a href="../index.html#faq" class="nav-link">常见问题</a>
                     <a href="index.html" class="nav-link" style="color: #fff;">博客</a>
-                    <a href="../index.html#privacy" class="nav-link">隐私保护</a>
                     <a href="../privacy.html" class="nav-link">隐私政策</a>
                 </div>
                 <div class="nav-right">

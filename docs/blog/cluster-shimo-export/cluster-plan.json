@@ -1,0 +1,148 @@
+{
+  "seed_keyword": "石墨文档导出",
+  "generated_at": "2026-05-16T14:00:00+08:00",
+  "existing_posts": [
+    {"id": "E1", "title": "云文档数据丢失怎么办？5个真实案例教你避坑", "file": "why-backup-cloud-documents.html", "primary_keyword": "云文档备份"},
+    {"id": "E2", "title": "从云文档迁移到本地：完整的数据迁移指南", "file": "data-migration-guide.html", "primary_keyword": "数据迁移指南"},
+    {"id": "E3", "title": "2025年石墨文档导出工具深度评测", "file": "shimo-export-tools-comparison.html", "primary_keyword": "石墨文档导出工具"},
+    {"id": "E4", "title": "石墨文档使用技巧：10个提高效率的隐藏功能", "file": "shimo-tips-and-tricks.html", "primary_keyword": "石墨文档使用技巧"},
+    {"id": "E5", "title": "Markdown vs PDF vs Word：文档格式选择指南", "file": "document-format-guide.html", "primary_keyword": "文档格式选择"},
+    {"id": "E6", "title": "团队文档管理最佳实践", "file": "team-document-management.html", "primary_keyword": "团队文档管理"}
+  ],
+  "pillar": {
+    "id": "P",
+    "title": "石墨文档导出完全指南：从入门到精通（2026版）",
+    "primary_keyword": "石墨文档导出",
+    "secondary_keywords": ["石墨文档怎么导出", "石墨文档批量导出", "石墨文档导出教程"],
+    "search_volume_estimate": "high",
+    "template": "pillar-page",
+    "word_count_target": 3500,
+    "cluster": "pillar",
+    "links_to": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1"],
+    "links_from": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1"]
+  },
+  "clusters": [
+    {
+      "name": "Cluster A: 问题排查与疑难解答",
+      "intent": "informational",
+      "color": "#ef4444",
+      "rationale": "搜索量中等但竞争极低，用户痛点强烈，转化率高",
+      "posts": [
+        {
+          "id": "A1",
+          "title": "石墨文档无法导出？6个常见原因和解决方案",
+          "primary_keyword": "石墨文档不能导出",
+          "secondary_keywords": ["石墨文档导出失败", "石墨文档只读权限导出", "石墨文档权限不足"],
+          "search_volume_estimate": "medium",
+          "template": "troubleshooting-guide",
+          "word_count_target": 1800,
+          "links_to": ["P", "A2", "E3"],
+          "links_from": ["P", "A2", "E3", "E4"]
+        },
+        {
+          "id": "A2",
+          "title": "石墨文档导出长图和整个文件夹的3种方法",
+          "primary_keyword": "石墨文档导出长图",
+          "secondary_keywords": ["石墨文档文件夹下载", "石墨文档如何下载文件夹", "石墨文档网页版导出图片"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 1500,
+          "links_to": ["P", "A1", "E3", "E5"],
+          "links_from": ["P", "A1", "E5"]
+        }
+      ]
+    },
+    {
+      "name": "Cluster B: 场景化备份指南",
+      "intent": "informational",
+      "color": "#f59e0b",
+      "rationale": "离职备份是强场景需求，转化路径短，竞争几乎为零",
+      "posts": [
+        {
+          "id": "B1",
+          "title": "离职前必做：如何一键备份所有石墨文档到本地",
+          "primary_keyword": "离职文档备份",
+          "secondary_keywords": ["离职前文档整理", "工作交接文档备份", "石墨文档离职导出"],
+          "search_volume_estimate": "medium",
+          "template": "scenario-guide",
+          "word_count_target": 1600,
+          "links_to": ["P", "B2", "E1", "E2"],
+          "links_from": ["P", "B2", "E1", "E6"]
+        },
+        {
+          "id": "B2",
+          "title": "石墨文档导出Chrome插件完整使用指南（图文教程）",
+          "primary_keyword": "石墨文档导出插件",
+          "secondary_keywords": ["石墨文档Chrome扩展", "石墨文档一键导出", "石墨文档导出工具怎么用"],
+          "search_volume_estimate": "medium",
+          "template": "product-tutorial",
+          "word_count_target": 1800,
+          "links_to": ["P", "B1", "A1", "E3"],
+          "links_from": ["P", "B1", "A1", "A2", "E3"]
+        }
+      ]
+    },
+    {
+      "name": "Cluster C: 跨平台迁移",
+      "intent": "commercial",
+      "color": "#3b82f6",
+      "rationale": "石墨→飞书/语雀迁移需求旺盛，用户有明确购买/使用工具意图",
+      "posts": [
+        {
+          "id": "C1",
+          "title": "石墨文档迁移到飞书/语雀/Notion完整教程（2026版）",
+          "primary_keyword": "石墨文档导出到飞书",
+          "secondary_keywords": ["石墨文档导入飞书", "石墨文档导出到语雀", "石墨迁移Notion"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 2000,
+          "links_to": ["P", "C2", "E2", "E5"],
+          "links_from": ["P", "C2", "E2"]
+        },
+        {
+          "id": "C2",
+          "title": "2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀）",
+          "primary_keyword": "在线文档批量导出工具",
+          "secondary_keywords": ["飞书文档导出", "腾讯文档批量下载", "文档批量下载工具对比"],
+          "search_volume_estimate": "high",
+          "template": "comparison-review",
+          "word_count_target": 2200,
+          "links_to": ["P", "C1", "E3", "E1"],
+          "links_from": ["P", "C1", "E3"]
+        }
+      ]
+    },
+    {
+      "name": "Cluster D: 平台对比与选型",
+      "intent": "commercial",
+      "color": "#8b5cf6",
+      "rationale": "对比类内容搜索量高，用户处于决策阶段，可引导使用备份工具",
+      "posts": [
+        {
+          "id": "D1",
+          "title": "2026年国产在线文档工具对比：石墨vs飞书vs腾讯vs语雀",
+          "primary_keyword": "石墨文档替代",
+          "secondary_keywords": ["石墨文档vs飞书", "在线文档工具对比", "国产协作文档对比2026"],
+          "search_volume_estimate": "high",
+          "template": "comparison-review",
+          "word_count_target": 2500,
+          "links_to": ["P", "C1", "C2", "E1", "E6"],
+          "links_from": ["P", "C1", "C2"]
+        }
+      ]
+    }
+  ],
+  "total_posts": 8,
+  "total_new_posts": 7,
+  "total_interlinks": 42,
+  "estimated_total_new_words": 13600,
+  "estimated_total_words_with_existing": 26000,
+  "execution_order": ["P", "A1", "B1", "C1", "A2", "B2", "C2", "D1"],
+  "quality_gates": {
+    "clusters": 4,
+    "min_incoming_links_per_post": 3,
+    "cannibalization_check": "pass - all primary keywords unique",
+    "intent_diversity": ["informational", "commercial"],
+    "template_diversity": ["pillar-page", "troubleshooting-guide", "how-to-guide", "scenario-guide", "product-tutorial", "comparison-review"]
+  }
+}

@@ -20,6 +20,13 @@
 </head>
 
 <body>
+    <!-- Background Layer: Dot Grid Canvas (与主站一致) -->
+    <div class="dot-grid">
+        <div class="dot-grid__wrap">
+            <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+        </div>
+    </div>
+
     <!-- 导航栏由blog-components.js自动插入 -->
 
     <!-- 返回顶部按钮 -->
@@ -29,23 +36,23 @@
 
     <!-- 1. Hero Section -->
     <div class="hubspot-hero-container">
-        <!-- Main Feature (Left) -->
+        <!-- Main Feature (Left) - Pillar Guide -->
         <article class="hubspot-main-feature">
-            <a href="why-backup-cloud-documents.html">
-                <img src="../images/hubspot-backup.png" alt="云文档备份Illustration">
+            <a href="shimo-export-complete-guide.html">
+                <img src="../images/shimo-export-complete-guide.svg" alt="石墨文档导出完全指南" style="width: 100%; display: block;">
             </a>
             <div class="hubspot-main-feature-content">
-                <div class="hubspot-list-category">数据安全</div>
+                <div class="hubspot-list-category">完全指南</div>
                 <h2 class="hubspot-main-feature-title">
-                    <a href="why-backup-cloud-documents.html">云文档数据丢失怎么办？5个真实案例教你避坑</a>
+                    <a href="shimo-export-complete-guide.html">石墨文档导出完全指南：从入门到精通（2026版）</a>
                 </h2>
                 <p class="hubspot-main-feature-desc">
-                    账户被封、误删文件、服务商停服...这些数据丢失的坑，你可能也会踩到。通过5个真实案例，了解云文档的潜在风险，以及如何建立3-2-1备份策略保护你的数据。
+                    涵盖所有导出格式、3种批量导出方法、常见问题排查、场景化策略。无论你是要备份、迁移还是归档，一篇解决所有石墨文档导出问题。
                 </p>
                 <div class="hubspot-meta">
                     <span>石墨文档导出工具团队</span>
                     <span>•</span>
-                    <span>2025-01-20</span>
+                    <span>2026-05-16</span>
                 </div>
             </div>
         </article>
@@ -88,106 +95,259 @@
         </aside>
     </div>
 
-    <!-- 2. Latest Grid Section -->
+    <!-- Latest Grid Section - 按时间倒序排列 -->
     <section class="hubspot-grid-section">
         <div class="hubspot-grid-header">
             <h2 class="hubspot-grid-title">最新文章</h2>
         </div>
 
         <div class="hubspot-grid">
-            <!-- Card 1 -->
-            <article class="hubspot-card">
-                <div class="hubspot-card-img-container">
-                    <a href="shimo-tips-and-tricks.html">
-                        <img src="../images/hubspot-tips.png" class="hubspot-card-img" alt="Tips Illustration">
-                    </a>
-                </div>
-                <div class="hubspot-card-content">
-                    <div class="hubspot-card-category">效率技巧</div>
-                    <h3 class="hubspot-card-title">
-                        <a href="shimo-tips-and-tricks.html">石墨文档使用技巧：10个隐藏功能</a>
-                    </h3>
-                    <div class="hubspot-card-meta">
-                        <span>2025-01-21</span>
-                        <span>12分钟阅读</span>
-                    </div>
-                </div>
-            </article>
 
-            <!-- Card 2 -->
+            <!-- 按时间倒序：2026-05 → 2026-04 → 2026-03 → 2026-02 → 2025-01 -->
+
+            <!-- 2026-05-14 -->
             <article class="hubspot-card">
                 <div class="hubspot-card-img-container">
-                    <a href="document-format-guide.html">
-                        <img src="../images/document-format-guide-hero.png" class="hubspot-card-img"
-                            alt="Format Illustration">
+                    <a href="chinese-document-tools-comparison-2026.html">
+                        <img src="../images/chinese-document-tools-comparison.svg" class="hubspot-card-img" alt="国产文档工具对比">
                     </a>
                 </div>
                 <div class="hubspot-card-content">
-                    <div class="hubspot-card-category">格式指南</div>
+                    <div class="hubspot-card-category">深度对比</div>
                     <h3 class="hubspot-card-title">
-                        <a href="document-format-guide.html">Markdown vs PDF vs Word 终极对比</a>
+                        <a href="chinese-document-tools-comparison-2026.html">2026国产文档工具对比：石墨vs飞书vs腾讯vs语雀</a>
                     </h3>
                     <div class="hubspot-card-meta">
-                        <span>2025-01-22</span>
+                        <span>2026-05-14</span>
                         <span>15分钟阅读</span>
                     </div>
                 </div>
             </article>
 
-            <!-- Card 3 -->
+            <!-- 2026-05-08 -->
             <article class="hubspot-card">
                 <div class="hubspot-card-img-container">
-                    <a href="team-document-management.html">
-                        <img src="../images/hubspot-team.png" class="hubspot-card-img" alt="Team Illustration">
-                    </a>
-                </div>
-                <div class="hubspot-card-content">
-                    <div class="hubspot-card-category">团队协作</div>
-                    <h3 class="hubspot-card-title">
-                        <a href="team-document-management.html">团队文档管理最佳实践</a>
-                    </h3>
-                    <div class="hubspot-card-meta">
-                        <span>2025-01-23</span>
-                        <span>18分钟阅读</span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card 4 -->
-            <article class="hubspot-card">
-                <div class="hubspot-card-img-container">
-                    <a href="data-migration-guide.html">
-                        <img src="../images/hubspot-migration.png" class="hubspot-card-img"
-                            alt="Migration Illustration">
-                    </a>
-                </div>
-                <div class="hubspot-card-content">
-                    <div class="hubspot-card-category">数据迁移</div>
-                    <h3 class="hubspot-card-title">
-                        <a href="data-migration-guide.html">云文档迁移本地完整指南</a>
-                    </h3>
-                    <div class="hubspot-card-meta">
-                        <span>2025-01-24</span>
-                        <span>20分钟阅读</span>
-                    </div>
-                </div>
-            </article>
-            <!-- Card 5 -->
-            <article class="hubspot-card">
-                <div class="hubspot-card-img-container">
-                    <a href="shimo-export-tools-comparison.html">
-                        <img src="../images/shimo-export-comparison-hero.png" class="hubspot-card-img"
-                            alt="Tools Comparison">
+                    <a href="online-document-export-tools-2026.html">
+                        <img src="../images/online-document-export-tools.svg" class="hubspot-card-img" alt="在线文档导出工具大全">
                     </a>
                 </div>
                 <div class="hubspot-card-content">
                     <div class="hubspot-card-category">工具评测</div>
                     <h3 class="hubspot-card-title">
-                        <a href="shimo-export-tools-comparison.html">2025年石墨文档导出工具深度评测</a>
+                        <a href="online-document-export-tools-2026.html">2026年在线文档批量导出工具大全</a>
                     </h3>
                     <div class="hubspot-card-meta">
-                        <span>2025-01-25</span>
+                        <span>2026-05-08</span>
+                        <span>12分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2026-04-25 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="shimo-to-feishu-migration.html">
+                        <img src="../images/shimo-to-feishu-migration.svg" class="hubspot-card-img" alt="石墨文档迁移到飞书语雀">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">跨平台迁移</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="shimo-to-feishu-migration.html">石墨文档迁移到飞书/语雀/Notion完整教程</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2026-04-25</span>
                         <span>10分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2026-04-12 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="shimo-export-chrome-plugin-guide.html">
+                        <img src="../images/shimo-export-chrome-plugin.svg" class="hubspot-card-img" alt="Chrome插件使用指南">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">产品教程</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="shimo-export-chrome-plugin-guide.html">石墨文档导出Chrome插件使用指南</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2026-04-12</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2026-03-28 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="resignation-document-backup.html">
+                        <img src="../images/resignation-document-backup.svg" class="hubspot-card-img" alt="离职文档备份指南">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">场景指南</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="resignation-document-backup.html">离职前必做：如何一键备份所有石墨文档</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2026-03-28</span>
+                        <span>7分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2026-03-10 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="shimo-export-troubleshooting.html">
+                        <img src="../images/shimo-export-troubleshooting.svg" class="hubspot-card-img" alt="石墨文档导出问题排查">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">问题排查</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="shimo-export-troubleshooting.html">石墨文档无法导出？6个常见原因和解决方案</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2026-03-10</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2026-02-18 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="shimo-export-long-image-folder.html">
+                        <img src="../images/shimo-export-long-image-folder.svg" class="hubspot-card-img" alt="导出长图和文件夹">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">操作教程</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="shimo-export-long-image-folder.html">石墨文档导出长图和文件夹的3种方法</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2026-02-18</span>
+                        <span>6分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2026-01-20 (更新) -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="why-backup-cloud-documents.html">
+                        <img src="../images/cloud-data-loss-cases.svg" class="hubspot-card-img" alt="云文档数据丢失案例">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">数据安全</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="why-backup-cloud-documents.html">云文档数据丢失怎么办？5个真实案例教你避坑</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2026-01-20</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2025-11-15 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="shimo-export-tools-comparison.html">
+                        <img src="../images/shimo-export-comparison-hero.png" class="hubspot-card-img" alt="导出工具评测">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">工具评测</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="shimo-export-tools-comparison.html">石墨文档导出工具深度评测：脚本vs插件vs官方</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2025-11-15</span>
+                        <span>10分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2025-09-22 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="data-migration-guide.html">
+                        <img src="../images/hubspot-migration.png" class="hubspot-card-img" alt="数据迁移指南">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">数据迁移</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="data-migration-guide.html">从云文档迁移到本地：零风险数据迁移完整指南</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2025-09-22</span>
+                        <span>20分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2025-07-10 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="team-document-management.html">
+                        <img src="../images/hubspot-team.png" class="hubspot-card-img" alt="团队文档管理">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">团队协作</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="team-document-management.html">团队文档管理最佳实践：从混乱到高效的7个步骤</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2025-07-10</span>
+                        <span>18分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2025-05-18 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="document-format-guide.html">
+                        <img src="../images/document-format-guide-hero.png" class="hubspot-card-img" alt="文档格式选择指南">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">格式指南</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="document-format-guide.html">Markdown vs PDF vs Word：如何选择最适合的文档格式？</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2025-05-18</span>
+                        <span>15分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2025-03-05 -->
+            <article class="hubspot-card">
+                <div class="hubspot-card-img-container">
+                    <a href="shimo-tips-and-tricks.html">
+                        <img src="../images/hubspot-tips.png" class="hubspot-card-img" alt="石墨文档使用技巧">
+                    </a>
+                </div>
+                <div class="hubspot-card-content">
+                    <div class="hubspot-card-category">效率技巧</div>
+                    <h3 class="hubspot-card-title">
+                        <a href="shimo-tips-and-tricks.html">石墨文档使用技巧：10个提高效率300%的隐藏功能</a>
+                    </h3>
+                    <div class="hubspot-card-meta">
+                        <span>2025-03-05</span>
+                        <span>12分钟阅读</span>
                     </div>
                 </div>
             </article>
@@ -197,6 +357,7 @@
     <!-- Footer由blog-components.js自动插入 -->
 
     <script src="blog-common.js"></script>
+    <script src="../script.js"></script>
 </body>
 
 </html>

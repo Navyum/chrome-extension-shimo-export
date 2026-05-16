@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Content Cluster Map: 石墨文档导出</title>
+<style>
+body { margin: 0; padding: 2rem; background: #0f172a; font-family: system-ui, -apple-system, sans-serif; color: #e2e8f0; }
+h1 { text-align: center; font-size: 1.5rem; margin-bottom: 0.5rem; }
+.subtitle { text-align: center; color: #94a3b8; font-size: 0.9rem; margin-bottom: 2rem; }
+.stats { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.stat { text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; min-width: 120px; }
+.stat-number { font-size: 1.8rem; font-weight: bold; color: #667eea; }
+.stat-label { font-size: 0.8rem; color: #94a3b8; margin-top: 4px; }
+.legend { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+.svg-container { display: flex; justify-content: center; overflow-x: auto; }
+svg text { font-family: system-ui, -apple-system, sans-serif; }
+.cluster-table { width: 100%; max-width: 900px; margin: 2rem auto; border-collapse: collapse; }
+.cluster-table th, .cluster-table td { padding: 0.75rem 1rem; border: 1px solid rgba(255,255,255,0.1); text-align: left; font-size: 0.85rem; }
+.cluster-table th { background: rgba(102,126,234,0.15); }
+.cluster-table tr:hover { background: rgba(255,255,255,0.03); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+.badge-new { background: rgba(74,222,128,0.2); color: #4ade80; }
+.badge-existing { background: rgba(148,163,184,0.2); color: #94a3b8; }
+.priority-high { color: #f87171; }
+.priority-medium { color: #fbbf24; }
+</style>
+</head>
+<body>
+<h1>Content Cluster Map: 石墨文档导出</h1>
+<p class="subtitle">Generated 2026-05-16 | Seed: 石墨文档导出 | 4 Clusters + 1 Pillar</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-number">14</div><div class="stat-label">Total Posts</div></div>
+  <div class="stat"><div class="stat-number">7</div><div class="stat-label">New Posts</div></div>
+  <div class="stat"><div class="stat-number">6</div><div class="stat-label">Existing Posts</div></div>
+  <div class="stat"><div class="stat-number">42</div><div class="stat-label">Internal Links</div></div>
+  <div class="stat"><div class="stat-number">~26K</div><div class="stat-label">Total Words</div></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#667eea;"></div>Pillar (Hub)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div>A: 问题排查</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div>B: 场景备份</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div>C: 跨平台迁移</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6;"></div>D: 平台对比</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#475569;"></div>Existing Posts</div>
+</div>
+
+<div class="svg-container">
+<svg viewBox="0 0 900 700" width="900" height="700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Link lines (behind nodes) -->
+  <!-- Pillar to Cluster A -->
+  <line x1="450" y1="320" x2="180" y2="180" stroke="#ef4444" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="320" x2="300" y2="120" stroke="#ef4444" stroke-width="1.5" opacity="0.3"/>
+  <!-- Pillar to Cluster B -->
+  <line x1="450" y1="320" x2="720" y2="160" stroke="#f59e0b" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="320" x2="780" y2="260" stroke="#f59e0b" stroke-width="1.5" opacity="0.3"/>
+  <!-- Pillar to Cluster C -->
+  <line x1="450" y1="320" x2="180" y2="480" stroke="#3b82f6" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="320" x2="300" y2="580" stroke="#3b82f6" stroke-width="1.5" opacity="0.3"/>
+  <!-- Pillar to Cluster D -->
+  <line x1="450" y1="320" x2="720" y2="520" stroke="#8b5cf6" stroke-width="1.5" opacity="0.3"/>
+  <!-- Pillar to Existing -->
+  <line x1="450" y1="320" x2="450" y2="620" stroke="#475569" stroke-width="1" opacity="0.2" stroke-dasharray="4 3"/>
+  <!-- Cross-cluster links -->
+  <line x1="180" y1="180" x2="300" y2="120" stroke="#ef4444" stroke-width="1" opacity="0.2"/>
+  <line x1="720" y1="160" x2="780" y2="260" stroke="#f59e0b" stroke-width="1" opacity="0.2"/>
+  <line x1="180" y1="480" x2="300" y2="580" stroke="#3b82f6" stroke-width="1" opacity="0.2"/>
+  <line x1="300" y1="580" x2="720" y2="520" stroke="#6366f1" stroke-width="1" opacity="0.2"/>
+  <!-- A1 to B2 -->
+  <line x1="180" y1="180" x2="780" y2="260" stroke="#94a3b8" stroke-width="0.8" opacity="0.15"/>
+
+  <!-- Pillar Node (center) -->
+  <circle cx="450" cy="320" r="48" fill="#667eea" opacity="0.15" stroke="#667eea" stroke-width="2.5"/>
+  <circle cx="450" cy="320" r="38" fill="#667eea" opacity="0.1"/>
+  <text x="450" y="312" text-anchor="middle" fill="#667eea" font-size="11" font-weight="bold">P: 石墨文档导出</text>
+  <text x="450" y="328" text-anchor="middle" fill="#667eea" font-size="10">完全指南</text>
+  <text x="450" y="344" text-anchor="middle" fill="#94a3b8" font-size="8">3500 words | pillar</text>
+
+  <!-- Cluster A: 问题排查 (top-left) -->
+  <circle cx="180" cy="180" r="32" fill="#ef4444" opacity="0.12" stroke="#ef4444" stroke-width="2"/>
+  <text x="180" y="173" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="bold">A1: 无法导出？</text>
+  <text x="180" y="187" text-anchor="middle" fill="#ef4444" font-size="8">6个原因和解决方案</text>
+  <text x="180" y="200" text-anchor="middle" fill="#94a3b8" font-size="7">1800w | NEW</text>
+  <title>A1: 石墨文档无法导出？6个常见原因和解决方案</title>
+
+  <circle cx="300" cy="120" r="30" fill="#ef4444" opacity="0.12" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="300" y="113" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="bold">A2: 导出长图</text>
+  <text x="300" y="127" text-anchor="middle" fill="#ef4444" font-size="8">&amp; 文件夹下载</text>
+  <text x="300" y="140" text-anchor="middle" fill="#94a3b8" font-size="7">1500w | NEW</text>
+  <title>A2: 石墨文档导出长图和整个文件夹的3种方法</title>
+
+  <!-- Cluster B: 场景备份 (top-right) -->
+  <circle cx="720" cy="160" r="32" fill="#f59e0b" opacity="0.12" stroke="#f59e0b" stroke-width="2"/>
+  <text x="720" y="153" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold">B1: 离职备份</text>
+  <text x="720" y="167" text-anchor="middle" fill="#f59e0b" font-size="8">一键备份所有文档</text>
+  <text x="720" y="180" text-anchor="middle" fill="#94a3b8" font-size="7">1600w | NEW</text>
+  <title>B1: 离职前必做：如何一键备份所有石墨文档到本地</title>
+
+  <circle cx="780" cy="260" r="30" fill="#f59e0b" opacity="0.12" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="780" y="253" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="bold">B2: 插件教程</text>
+  <text x="780" y="267" text-anchor="middle" fill="#f59e0b" font-size="8">Chrome扩展指南</text>
+  <text x="780" y="280" text-anchor="middle" fill="#94a3b8" font-size="7">1800w | NEW</text>
+  <title>B2: 石墨文档导出Chrome插件完整使用指南</title>
+
+  <!-- Cluster C: 跨平台迁移 (bottom-left) -->
+  <circle cx="180" cy="480" r="32" fill="#3b82f6" opacity="0.12" stroke="#3b82f6" stroke-width="2"/>
+  <text x="180" y="473" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold">C1: 迁移教程</text>
+  <text x="180" y="487" text-anchor="middle" fill="#3b82f6" font-size="8">石墨→飞书/语雀</text>
+  <text x="180" y="500" text-anchor="middle" fill="#94a3b8" font-size="7">2000w | NEW</text>
+  <title>C1: 石墨文档迁移到飞书/语雀/Notion完整教程</title>
+
+  <circle cx="300" cy="580" r="30" fill="#3b82f6" opacity="0.12" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="300" y="573" text-anchor="middle" fill="#3b82f6" font-size="9" font-weight="bold">C2: 工具大全</text>
+  <text x="300" y="587" text-anchor="middle" fill="#3b82f6" font-size="8">多平台导出对比</text>
+  <text x="300" y="600" text-anchor="middle" fill="#94a3b8" font-size="7">2200w | NEW</text>
+  <title>C2: 2026年在线文档批量导出工具大全</title>
+
+  <!-- Cluster D: 平台对比 (bottom-right) -->
+  <circle cx="720" cy="520" r="34" fill="#8b5cf6" opacity="0.12" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="720" y="513" text-anchor="middle" fill="#8b5cf6" font-size="9" font-weight="bold">D1: 平台对比</text>
+  <text x="720" y="527" text-anchor="middle" fill="#8b5cf6" font-size="8">石墨vs飞书vs腾讯</text>
+  <text x="720" y="540" text-anchor="middle" fill="#94a3b8" font-size="7">2500w | NEW</text>
+  <title>D1: 2026年国产在线文档工具对比</title>
+
+  <!-- Existing Posts (bottom center, smaller) -->
+  <g opacity="0.6">
+    <circle cx="380" cy="620" r="18" fill="#475569" opacity="0.15" stroke="#475569" stroke-width="1"/>
+    <text x="380" y="623" text-anchor="middle" fill="#94a3b8" font-size="7">E1:备份指南</text>
+    <circle cx="420" cy="660" r="18" fill="#475569" opacity="0.15" stroke="#475569" stroke-width="1"/>
+    <text x="420" y="663" text-anchor="middle" fill="#94a3b8" font-size="7">E2:迁移指南</text>
+    <circle cx="470" cy="620" r="18" fill="#475569" opacity="0.15" stroke="#475569" stroke-width="1"/>
+    <text x="470" y="623" text-anchor="middle" fill="#94a3b8" font-size="7">E3:工具评测</text>
+    <circle cx="520" cy="660" r="18" fill="#475569" opacity="0.15" stroke="#475569" stroke-width="1"/>
+    <text x="520" y="663" text-anchor="middle" fill="#94a3b8" font-size="7">E4:使用技巧</text>
+    <circle cx="560" cy="620" r="18" fill="#475569" opacity="0.15" stroke="#475569" stroke-width="1"/>
+    <text x="560" y="623" text-anchor="middle" fill="#94a3b8" font-size="7">E5:格式指南</text>
+    <circle cx="600" cy="660" r="18" fill="#475569" opacity="0.15" stroke="#475569" stroke-width="1"/>
+    <text x="600" y="663" text-anchor="middle" fill="#94a3b8" font-size="7">E6:团队管理</text>
+  </g>
+
+  <!-- Cluster Labels -->
+  <text x="200" y="70" fill="#ef4444" font-size="11" font-weight="bold" opacity="0.7">Cluster A: 问题排查</text>
+  <text x="650" y="100" fill="#f59e0b" font-size="11" font-weight="bold" opacity="0.7">Cluster B: 场景备份</text>
+  <text x="120" y="430" fill="#3b82f6" font-size="11" font-weight="bold" opacity="0.7">Cluster C: 跨平台迁移</text>
+  <text x="650" y="470" fill="#8b5cf6" font-size="11" font-weight="bold" opacity="0.7">Cluster D: 平台对比</text>
+</svg>
+</div>
+
+<h2 style="text-align:center; margin-top: 2rem; font-size: 1.2rem;">Execution Plan</h2>
+
+<table class="cluster-table">
+<thead>
+<tr>
+  <th>Order</th>
+  <th>ID</th>
+  <th>Title</th>
+  <th>Primary Keyword</th>
+  <th>Words</th>
+  <th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>P</td>
+  <td>石墨文档导出完全指南：从入门到精通（2026版）</td>
+  <td class="priority-high">石墨文档导出</td>
+  <td>3500</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>A1</td>
+  <td>石墨文档无法导出？6个常见原因和解决方案</td>
+  <td class="priority-high">石墨文档不能导出</td>
+  <td>1800</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>B1</td>
+  <td>离职前必做：如何一键备份所有石墨文档到本地</td>
+  <td class="priority-high">离职文档备份</td>
+  <td>1600</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>C1</td>
+  <td>石墨文档迁移到飞书/语雀/Notion完整教程</td>
+  <td class="priority-medium">石墨文档导出到飞书</td>
+  <td>2000</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>A2</td>
+  <td>石墨文档导出长图和整个文件夹的3种方法</td>
+  <td class="priority-medium">石墨文档导出长图</td>
+  <td>1500</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>B2</td>
+  <td>石墨文档导出Chrome插件完整使用指南</td>
+  <td class="priority-medium">石墨文档导出插件</td>
+  <td>1800</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>C2</td>
+  <td>2026年在线文档批量导出工具大全</td>
+  <td class="priority-medium">在线文档批量导出工具</td>
+  <td>2200</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>D1</td>
+  <td>2026年国产在线文档工具对比</td>
+  <td>石墨文档替代</td>
+  <td>2500</td>
+  <td><span class="badge badge-new">NEW</span></td>
+</tr>
+</tbody>
+</table>
+
+<p style="text-align:center; color:#94a3b8; font-size:0.8rem; margin-top:2rem;">
+  Generated by claude-blog cluster engine | Execution: <code>/blog cluster execute</code>
+</p>
+</body>
+</html>

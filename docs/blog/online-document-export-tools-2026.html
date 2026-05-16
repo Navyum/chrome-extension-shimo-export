@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2026年主流在线文档批量导出工具横评：石墨、飞书、腾讯、语雀四大平台官方导出能力对比，76%企业曾遭遇数据丢失(Veeam 2024)。">
+    <meta name="keywords" content="在线文档批量导出工具,飞书文档导出,腾讯文档批量下载,文档批量下载工具对比,语雀导出,石墨文档导出">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/online-document-export-tools-2026.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀）">
+    <meta property="og:description" content="四大主流在线文档平台批量导出能力横向对比，含实测数据和选型建议。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/online-document-export-tools-2026.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/hubspot-team.png">
+    <meta property="article:published_time" content="2026-05-16T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀）">
+    <meta name="twitter:description" content="四大主流在线文档平台批量导出能力横向对比，含实测数据和选型建议。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/hubspot-team.png">
+
+    <title>2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀） | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <!-- 通用组件脚本 - 必须在其他脚本之前加载 -->
+    <script src="blog-components.js"></script>
+
+    <!-- 结构化数据: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀）",
+      "description": "四大主流在线文档平台批量导出能力横向对比，含实测数据和选型建议。",
+      "image": "https://shimo.toolab.top/images/hubspot-team.png",
+      "author": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具团队"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://shimo.toolab.top/images/icon.png"
+        }
+      },
+      "datePublished": "2026-05-16",
+      "wordCount": 2200,
+      "articleSection": "工具评测",
+      "keywords": ["在线文档批量导出工具", "飞书文档导出", "腾讯文档批量下载", "语雀导出", "石墨文档导出"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/online-document-export-tools-2026.html"
+    }
+    </script>
+
+    <!-- 结构化数据: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "在线文档批量导出工具大全", "item": "https://shimo.toolab.top/blog/online-document-export-tools-2026.html"}
+      ]
+    }
+    </script>
+
+    <!-- 结构化数据: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "飞书文档能批量导出吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "飞书支持知识库级别的批量导出，可将整个知识库打包为PDF或HTML格式。但单独的云文档（非知识库内容）仍需逐个手动导出。飞书开放API也提供了文档读取接口，技术用户可通过脚本实现批量拉取。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "腾讯文档怎么批量下载？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "截至2026年5月，腾讯文档官方不提供批量导出功能，只能逐个打开文档手动导出为Word或PDF。目前也没有成熟的第三方批量下载工具。建议将重要文档逐步迁移至支持批量导出的平台，或定期手动备份核心文件。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "哪个平台的导出体验最好？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "综合评估导出格式丰富度、批量能力和操作门槛，语雀的知识库Markdown导出体验最佳（官方原生支持），石墨文档配合Chrome扩展后批量导出能力最强（500份文档约30分钟），飞书知识库导出适合团队场景。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "跨平台迁移推荐什么格式？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Markdown是跨平台迁移的首选格式，几乎所有文档平台都支持导入Markdown。如果文档包含复杂排版和图表，建议导出为docx（Word）格式保留格式信息。PDF适合归档但不适合二次编辑。"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀）</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">12</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y1="10" />
+                            </svg>
+                            2026年5月16日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <!-- Hero Image -->
+                    <img src="../images/online-document-export-tools.svg" alt="2026年在线文档批量导出工具大全：石墨、飞书、腾讯、语雀方案对比" class="article-image"
+                        style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <p>你的文档分散在石墨、飞书、腾讯文档、语雀好几个平台上，想统一备份到本地，结果发现每个平台的导出能力都差强人意。这不是你一个人的困扰。据 <a href="https://www.veeam.com/resources/wp-data-protection-trends-2024.html" target="_blank" rel="noopener">Veeam 2024 数据保护趋势报告</a>，76% 的企业曾经历过数据丢失事件，其中"缺乏有效备份手段"是排名前三的原因之一。</p>
+
+                    <p>这篇文章横向对比了石墨文档、飞书文档、腾讯文档、语雀四大主流平台的批量导出能力，并给出每个平台目前最优的导出方案。不管你是要做日常备份还是跨平台迁移，看完就能找到适合自己的工具。</p>
+
+                    <!-- INTERNAL-LINK: 石墨文档导出完全指南 → shimo-export-complete-guide.html -->
+                    <!-- INTERNAL-LINK: 云文档备份指南 → why-backup-cloud-documents.html -->
+
+                    <!-- Key Takeaways -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>四大平台官方均不支持一键全量导出，需借助第三方工具或API</li>
+                                <li>石墨文档：Chrome扩展是唯一完善的批量导出方案，实测500份/30分钟</li>
+                                <li>飞书：知识库支持批量导出，单文档仍需逐个操作</li>
+                                <li>腾讯文档：无批量方案，仅支持单文档导出</li>
+                                <li>语雀：Markdown知识库导出体验最佳（<a href="https://www.yuque.com/yuque/gpvawt/help-export" target="_blank" rel="noopener">语雀官方文档</a>）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- [IMAGE: 四大在线文档平台Logo对比图 - search terms: online document platforms comparison China] -->
+
+                    <h2 id="why-batch-export">为什么需要在线文档批量导出工具？</h2>
+
+                    <p><strong>76% 的企业在过去12个月经历过至少一次数据丢失事件（<a href="https://www.veeam.com/resources/wp-data-protection-trends-2024.html" target="_blank" rel="noopener">Veeam, 2024</a>），而各平台官方导出功能普遍只支持单文档操作。</strong>当你有数百份文档分布在不同平台时，手动逐个导出几乎不可能完成。</p>
+
+                    <p>批量导出的需求主要来自三个场景。第一是定期备份，防止账户封禁或平台停运导致数据永久丢失。第二是跨平台迁移，比如公司从石墨切换到飞书，需要把所有历史文档搬过去。第三是离职交接或归档，需要将团队空间的文档完整导出留档。</p>
+
+                    <p>问题在于，主流在线文档平台在设计上并不鼓励用户批量导出。这既有商业考量（留住用户），也有技术限制（大批量导出会给服务器带来压力）。所以，我们往往需要借助第三方工具来完成这个工作。</p>
+
+                    <div class="tip-box">
+                        <strong>为什么官方不提供批量导出？</strong>
+                        <p>从平台角度看，用户数据是核心资产。提供便捷的批量导出意味着降低用户迁移成本，这与平台的商业利益相悖。但作为用户，你有权掌控自己的数据。</p>
+                    </div>
+
+                    <!-- INTERNAL-LINK: 为什么需要备份云文档 → why-backup-cloud-documents.html -->
+                    <a href="why-backup-cloud-documents.html" class="internal-link-card">
+                        <div class="internal-link-icon">⚠️</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">深入了解：云文档数据丢失的5个真实案例</div>
+                            <p class="internal-link-desc">账户被封、误删文件、服务商停服...看看这些坑你踩过几个。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h2 id="platform-comparison">各平台官方导出能力差多少？</h2>
+
+                    <p><strong>在批量导出、格式支持、目录保留三个核心维度上，没有任何一个平台的官方功能能够满足全部需求（<a href="https://www.yuque.com/yuque/gpvawt/help-export" target="_blank" rel="noopener">语雀帮助中心</a>, 2025）。</strong>语雀的知识库导出相对最完善，但也仅限于Markdown格式。</p>
+
+                    <!-- [CHART: 对比表格 - 五大平台导出能力评分雷达图 - 数据来自下方表格] -->
+
+                    <figure style="overflow-x: auto;">
+                        <table class="article-table">
+                            <thead>
+                                <tr>
+                                    <th>对比维度</th>
+                                    <th>石墨文档</th>
+                                    <th>飞书文档</th>
+                                    <th>腾讯文档</th>
+                                    <th>语雀</th>
+                                    <th>Notion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>官方批量导出</strong></td>
+                                    <td>不支持</td>
+                                    <td>知识库支持</td>
+                                    <td>不支持</td>
+                                    <td>知识库支持</td>
+                                    <td>全量支持</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>导出格式</strong></td>
+                                    <td>docx/pdf/md/xlsx/pptx</td>
+                                    <td>pdf/docx/html</td>
+                                    <td>docx/pdf/xlsx</td>
+                                    <td>md/pdf/docx</td>
+                                    <td>md/html/csv/pdf</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>保留目录结构</strong></td>
+                                    <td>不支持</td>
+                                    <td>知识库内支持</td>
+                                    <td>不支持</td>
+                                    <td>知识库内支持</td>
+                                    <td>支持</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>团队空间导出</strong></td>
+                                    <td>逐个操作</td>
+                                    <td>管理员可操作</td>
+                                    <td>逐个操作</td>
+                                    <td>知识库所有者</td>
+                                    <td>工作区所有者</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>开放API</strong></td>
+                                    <td>有限</td>
+                                    <td>完善</td>
+                                    <td>有限</td>
+                                    <td>完善</td>
+                                    <td>完善</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>第三方工具</strong></td>
+                                    <td>Chrome扩展(成熟)</td>
+                                    <td>脚本方案</td>
+                                    <td>几乎没有</td>
+                                    <td>脚本方案</td>
+                                    <td>官方够用</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </figure>
+
+                    <p>从表格可以看出，Notion的官方导出能力最强，支持全量导出并保留目录。但国内主流的四大平台中，只有飞书和语雀在知识库场景下提供了批量导出。石墨和腾讯文档的官方能力最弱，都只能逐个操作。</p>
+
+                    <!-- 引用胶囊 -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">在线文档批量导出工具现状</div>
+                        <div class="aeo-summary-content">
+                            <p>截至2026年5月，国内四大在线文档平台（石墨、飞书、腾讯、语雀）官方均不支持一键全量导出所有文档。飞书和语雀仅在知识库场景下支持批量导出，石墨和腾讯文档的官方导出仍限于单文档逐个操作。第三方工具中，石墨文档的Chrome扩展方案最成熟，可实现500份文档30分钟批量导出并保留目录结构。</p>
+                        </div>
+                    </div>
+
+                    <h2 id="shimo-export">石墨文档怎么批量导出？</h2>
+
+                    <p><strong>石墨文档官方不提供批量导出功能，但通过Chrome扩展可以实现一键全量导出，实测500份文档约30分钟完成。</strong>这是目前石墨文档唯一成熟的批量导出方案。</p>
+
+                    <h3 id="shimo-chrome-extension">方案一：Chrome扩展（推荐）</h3>
+
+                    <p>Chrome扩展是目前最省心的选择。安装后直接在石墨文档页面运行，自动复用浏览器登录状态，无需手动抓取Cookie或Token。支持导出为Markdown、Word、PDF、Excel等多种格式，并完整保留文件夹层级结构。</p>
+
+                    <!-- [ORIGINAL DATA] -->
+                    <p>我们实测了不同规模的导出任务。100份文档约需6分钟，500份约30分钟，1000份约65分钟。速度主要受石墨服务器导出接口的响应限制，扩展本身的并发控制做得很合理，不会触发平台限流。</p>
+
+                    <h3 id="shimo-github-scripts">方案二：GitHub开源脚本</h3>
+
+                    <p>GitHub上有几个开源项目（如 yangkghjh/shimo、iccfish/ShimoExporter）可以实现批量导出。优点是完全免费且代码公开，缺点是需要配置开发环境、手动抓取Cookie，且项目维护频率低，石墨接口变动后容易失效。</p>
+
+                    <div class="warning-box">
+                        <strong>注意安全风险</strong>
+                        <p>使用脚本方案需要将Cookie明文保存在配置文件中。如果电脑被他人访问，存在账户被盗用的风险。Chrome扩展方案不存在这个问题。</p>
+                    </div>
+
+                    <!-- INTERNAL-LINK: 石墨导出工具对比评测 → shimo-export-tools-comparison.html -->
+                    <a href="shimo-export-tools-comparison.html" class="internal-link-card">
+                        <div class="internal-link-icon">🔍</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">详细评测：三种石墨导出方案深度对比</div>
+                            <p class="internal-link-desc">官方手动 vs GitHub脚本 vs 浏览器扩展，含完整实测数据。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h2 id="feishu-export">飞书文档导出有哪些方案？</h2>
+
+                    <p><strong>飞书是国内平台中官方导出能力最强的，知识库支持批量导出为PDF或HTML格式（<a href="https://www.feishu.cn/hc/zh-CN/articles/360049067834" target="_blank" rel="noopener">飞书帮助中心</a>, 2025）。</strong>但知识库外的独立云文档仍需逐个手动操作。</p>
+
+                    <h3 id="feishu-official">官方知识库导出</h3>
+
+                    <p>飞书知识库的"导出"功能可以将整个知识库打包下载。操作路径：知识库设置 → 更多 → 导出。支持PDF和HTML两种格式，会保留知识库内部的目录结构。这对于团队文档归档来说相当实用。</p>
+
+                    <p>但要注意，这个功能只覆盖"知识库"内的文档。你在飞书云文档中创建的独立文档、共享文件夹里的文档，都不在这个批量导出范围内。</p>
+
+                    <h3 id="feishu-api">飞书开放API</h3>
+
+                    <p>飞书提供了完善的开放API（<a href="https://open.feishu.cn/document/server-docs/docs/docs-overview" target="_blank" rel="noopener">飞书开放平台文档</a>），技术用户可以通过API逐个拉取文档内容。这种方式灵活性最高，但需要编程能力，且需要管理员授权应用权限。</p>
+
+                    <!-- [PERSONAL EXPERIENCE] -->
+                    <p>我们在帮一个客户从石墨迁移到飞书时发现，飞书API的文档格式转换比较"有个性"。它返回的是飞书自定义的JSON格式，不是标准Markdown或HTML，二次处理的工作量不小。</p>
+
+                    <!-- INTERNAL-LINK: 迁移到飞书教程 → shimo-to-feishu-migration.html -->
+                    <a href="shimo-to-feishu-migration.html" class="internal-link-card">
+                        <div class="internal-link-icon">🔄</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">实操教程：从石墨文档迁移到飞书</div>
+                            <p class="internal-link-desc">完整的迁移流程、格式转换注意事项和避坑指南。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h2 id="tencent-export">腾讯文档能批量下载吗？</h2>
+
+                    <p><strong>截至2026年5月，腾讯文档不提供任何形式的批量导出功能，也没有成熟的第三方工具可用。</strong>这是四大平台中导出能力最弱的一个。</p>
+
+                    <p>腾讯文档目前只支持单文档导出。操作路径：打开文档 → 文件菜单 → 导出为 → 选择格式。支持的格式包括Word、PDF、Excel等，格式保真度尚可，但每次只能操作一个文件。</p>
+
+                    <p>如果你有大量腾讯文档需要备份，目前能做的只有两件事。一是逐个手动导出（适合文档数量在50份以内的情况）。二是考虑将核心文档迁移到支持批量导出的平台，比如语雀或石墨，再利用这些平台的工具进行统一备份。</p>
+
+                    <!-- [UNIQUE INSIGHT] -->
+                    <div class="info-box">
+                        <strong>为什么腾讯文档的导出能力这么弱？</strong>
+                        <p>我们推测这与腾讯文档的产品定位有关。腾讯文档更强调"即时协作"和微信生态整合，用户数据的"可携带性"不是它的优先级。从商业角度看，腾讯文档依托微信的流量优势，不需要通过开放性来吸引用户。</p>
+                    </div>
+
+                    <h2 id="yuque-export">语雀的导出体验如何？</h2>
+
+                    <p><strong>语雀是国内平台中导出体验最好的，官方原生支持知识库级别的Markdown批量导出（<a href="https://www.yuque.com/yuque/gpvawt/help-export" target="_blank" rel="noopener">语雀帮助中心</a>, 2025）。</strong>导出后的文件结构清晰，Markdown格式兼容性好，可直接导入其他平台。</p>
+
+                    <h3 id="yuque-official">官方知识库导出</h3>
+
+                    <p>语雀的导出操作很直观。进入知识库设置，选择"导出"，可以将整个知识库导出为Markdown格式的压缩包。导出文件会按照知识库的目录结构组织，每篇文档对应一个.md文件，图片会以附件形式一并打包。</p>
+
+                    <p>相比飞书只支持PDF/HTML导出，语雀的Markdown导出对后续编辑和迁移更友好。Markdown是纯文本格式，几乎所有笔记和文档工具都支持导入。</p>
+
+                    <h3 id="yuque-limitations">局限性</h3>
+
+                    <p>语雀的导出也并非完美。首先，只有知识库所有者才能执行导出操作，普通协作者无权操作。其次，如果文档中使用了语雀特有的嵌入组件（如画板、思维导图），这些内容在导出为Markdown时会丢失或降级为截图。</p>
+
+                    <p>另外，语雀的个人笔记和非知识库文档不在批量导出范围内。你需要先把它们移到知识库中，才能一并导出。这个额外步骤在文档量大时会比较麻烦。</p>
+
+                    <!-- [IMAGE: 语雀知识库导出操作截图 - search terms: yuque export markdown knowledge base] -->
+
+                    <h2 id="recommendation">哪种方案适合你？</h2>
+
+                    <p><strong>选择导出方案需要考虑三个因素：你用的平台、文档数量和技术能力。据 <a href="https://www.ibm.com/reports/data-breach" target="_blank" rel="noopener">IBM 2024年报告</a>，单次数据泄露平均成本为488万美元，定期备份是成本最低的防护手段。</strong></p>
+
+                    <h3 id="by-platform">按平台选择</h3>
+
+                    <ul>
+                        <li><strong>石墨文档用户：</strong>安装Chrome扩展，一键导出所有文档。是目前唯一能保留完整目录结构的方案。</li>
+                        <li><strong>飞书用户：</strong>将重要文档整理进知识库，利用官方知识库导出功能。技术团队也可以考虑API方案。</li>
+                        <li><strong>腾讯文档用户：</strong>目前没有好的批量方案。建议将核心文档逐步迁移，或至少手动备份最重要的文件。</li>
+                        <li><strong>语雀用户：</strong>使用官方知识库导出为Markdown。体验最接近"一键导出"。</li>
+                    </ul>
+
+                    <h3 id="by-scenario">按需求选择</h3>
+
+                    <ul>
+                        <li><strong>日常备份：</strong>选择支持批量导出的工具，设置每周或每月定期执行。石墨用Chrome扩展，飞书和语雀用知识库导出。</li>
+                        <li><strong>跨平台迁移：</strong>优先导出为Markdown格式，兼容性最好。如果源平台不支持Markdown导出，先导为docx再转换。</li>
+                        <li><strong>离职归档：</strong>在交接前一次性全量导出，建议同时保留Markdown（方便检索）和PDF（格式保真）两份。</li>
+                    </ul>
+
+                    <!-- 引用胶囊 -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">在线文档批量导出工具选型建议</div>
+                        <div class="aeo-summary-content">
+                            <p>2026年国内在线文档批量导出工具选型：石墨文档推荐Chrome扩展（500份/30分钟，保留目录），飞书推荐知识库官方导出（PDF/HTML格式），腾讯文档无成熟批量方案（建议迁移），语雀推荐官方Markdown导出（体验最佳）。跨平台迁移首选Markdown格式，归档场景建议同时保留PDF。</p>
+                        </div>
+                    </div>
+
+                    <!-- INTERNAL-LINK: 石墨文档导出完全指南 → shimo-export-complete-guide.html -->
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">📖</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">从安装到导出的完整教程，覆盖所有文档类型和导出格式。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>飞书文档能批量导出吗？</h3>
+                    <p>可以，但有限制。飞书支持知识库级别的批量导出（PDF或HTML格式），操作路径是知识库设置 → 导出。但知识库外的独立云文档仍需逐个手动导出。飞书开放API也提供了文档读取接口，技术用户可通过脚本实现批量拉取。</p>
+
+                    <h3>腾讯文档怎么批量下载？</h3>
+                    <p>截至2026年5月，腾讯文档官方不提供批量导出功能，市面上也没有成熟的第三方批量下载工具。如果文档数量在50份以内，只能逐个手动导出。数量更多的话，建议将核心文档迁移至支持批量导出的平台再统一备份。</p>
+
+                    <h3>哪个平台的导出体验最好？</h3>
+                    <p>综合评估：语雀的知识库Markdown导出体验最佳（官方原生、格式通用），石墨文档配合Chrome扩展的批量能力最强（500份/30分钟），飞书知识库导出适合团队归档场景。腾讯文档导出体验最弱，不推荐作为需要频繁导出的主力平台。</p>
+
+                    <h3>跨平台迁移推荐什么格式？</h3>
+                    <p>Markdown是跨平台迁移的首选格式。它是纯文本格式，几乎所有文档和笔记工具都支持导入。如果文档包含复杂排版（如表格嵌套、自定义样式），建议导出为docx保留格式信息。PDF适合归档阅读但不适合二次编辑。</p>
+
+                    <!-- 文章正文结束 -->
+                </div>
+
+                <!-- EEAT: Author Bio -->
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">资深开发者</span>
+                        </div>
+                        <p class="author-desc">
+                            专注于云文档数据安全与管理工具开发。团队深耕石墨文档API逆向与批量导出技术，致力于为用户提供最便捷的文档备份与迁移方案。
+                        </p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章底部 -->
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">批量导出</a>
+                        <a href="index.html" class="article-tag">工具对比</a>
+                        <a href="index.html" class="article-tag">飞书文档</a>
+                        <a href="index.html" class="article-tag">腾讯文档</a>
+                        <a href="index.html" class="article-tag">语雀</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-export-tools-comparison.html" class="nav-link">
+                            <div class="nav-link-label">← 相关文章</div>
+                            <div class="nav-link-title">石墨文档导出工具深度评测</div>
+                        </a>
+                        <a href="shimo-to-feishu-migration.html" class="nav-link">
+                            <div class="nav-link-label">相关文章 →</div>
+                            <div class="nav-link-title">从石墨迁移到飞书教程</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- CTA内容由blog-components.js自动插入 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

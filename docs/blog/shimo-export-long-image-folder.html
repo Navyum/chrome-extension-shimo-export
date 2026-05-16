@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档不支持导出长图和整个文件夹？3种替代方案实测，Chrome扩展30秒批量导出保留目录结构。">
+    <meta name="keywords" content="石墨文档导出长图,石墨文档文件夹下载,石墨文档如何下载文件夹,石墨文档网页版导出图片,石墨文档批量导出">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-export-long-image-folder.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档导出长图和整个文件夹的3种方法（2026实测）">
+    <meta property="og:description" content="石墨文档官方不支持导出长图和整个文件夹？本文实测3种替代方案，30秒搞定批量导出。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-export-long-image-folder.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/feat4.png">
+    <meta property="article:published_time" content="2026-05-16T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档导出长图和整个文件夹的3种方法（2026实测）">
+    <meta name="twitter:description" content="石墨文档官方不支持导出长图和整个文件夹？本文实测3种替代方案，30秒搞定批量导出。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/feat4.png">
+
+    <title>石墨文档导出长图和整个文件夹的3种方法 | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <!-- 通用组件脚本 - 必须在其他脚本之前加载 -->
+    <script src="blog-components.js"></script>
+
+    <!-- 结构化数据: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档导出长图和整个文件夹的3种方法",
+      "description": "石墨文档官方不支持导出长图和整个文件夹，本文介绍3种替代方案，包括浏览器截长图、Chrome扩展导出JPG、以及批量导出整个文件夹的方法。",
+      "image": "https://shimo.toolab.top/images/feat4.png",
+      "author": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具团队"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://shimo.toolab.top/images/icon.png"
+        }
+      },
+      "datePublished": "2026-05-16",
+      "dateModified": "2026-05-16",
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-export-long-image-folder.html"
+    }
+    </script>
+
+    <!-- BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "导出长图和文件夹", "item": "https://shimo.toolab.top/blog/shimo-export-long-image-folder.html"}
+      ]
+    }
+    </script>
+
+    <!-- FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档导出的图片清晰度够吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "浏览器截长图默认使用屏幕分辨率，在2K或4K显示器上截取的长图清晰度完全够用。Chrome扩展导出JPG时使用石墨官方渲染引擎，清晰度与网页版显示一致。如果需要更高清晰度，建议在高分屏上操作，或先导出为PDF再转图片。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "几百个文件的文件夹能一次性导出吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "可以。Chrome扩展支持一次性导出包含数百个文件的整个文件夹，实测500份文档约30分钟完成。扩展内置并发控制，不会触发石墨API限流。对于超大文件夹（1000+文件），建议分批导出以确保稳定性。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "导出文件夹后目录结构会保留吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "使用Chrome扩展导出时，会完整保留原始文件夹层级结构。导出到本地后，文件夹嵌套关系与石墨文档中完全一致。API脚本方案也能保留目录结构，但需要自行编写递归逻辑。官方手动导出不保留任何目录结构。"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">&#9776;</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">&uarr;</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档导出长图和整个文件夹的3种方法</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">6</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y1="10" />
+                            </svg>
+                            2026年5月16日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <!-- Hero Image -->
+                    <img src="../images/shimo-export-long-image-folder.svg" alt="石墨文档导出长图与整个文件夹的批量下载方法" class="article-image"
+                        style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <!-- 引言 -->
+                    <p>想把石墨文档导出为一张完整长图，或者把整个文件夹一次性下载到本地？你可能已经发现，石墨官方并不直接支持这两个功能。根据石墨文档<a href="https://shimo.im/help" target="_blank" rel="noopener">官方帮助中心</a>的说明，导出仅支持单文档逐个操作，且图片格式仅限单页截图。</p>
+
+                    <p>别担心，我们实测了多种替代方案。这篇教程会告诉你如何绕过限制，快速完成长图导出和文件夹批量下载。</p>
+
+                    <!-- Key Takeaways -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">要点速览</div>
+                        <div class="aeo-summary-content">
+                            <ul style="padding-left: 1.2rem; margin: 0;">
+                                <li>石墨官方只支持单文档导出，不支持长图和整个文件夹批量导出</li>
+                                <li>导出长图：浏览器截长图（免费）或Chrome扩展导出JPG</li>
+                                <li>导出文件夹：Chrome扩展一键完成，保留目录结构</li>
+                                <li>实测500份文档，扩展批量导出约30分钟完成（<a href="https://shimo.toolab.top/blog/shimo-export-tools-comparison.html">工具评测数据</a>）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Internal Link to Pillar -->
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">&#128218;</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">所有导出方式的完整教程，从入门到进阶一站搞定。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <!-- H2: 官方限制 -->
+                    <h2 id="official-limitation">石墨文档官方能导出长图吗？</h2>
+
+                    <p><strong>石墨文档官方不支持将文档导出为长图格式。</strong>根据石墨<a href="https://shimo.im/help" target="_blank" rel="noopener">帮助中心</a>（2026年更新），官方导出支持docx、pdf、md等格式，但图片导出仅提供单页截图功能，无法将多页长文档合并为一张完整的长图。</p>
+
+                    <p>具体来说，官方有这些限制：</p>
+                    <ul>
+                        <li>只能导出单个文档，不支持选择整个文件夹批量导出</li>
+                        <li>图片格式仅支持当前页面截图，不支持全文长图</li>
+                        <li>导出文件夹时需要逐个打开、逐个点击"导出"</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>注意</h4>
+                        <p>如果你的文档超过3页，官方截图功能只能截到当前可见区域。想要完整长图，必须使用下面的替代方案。</p>
+                    </div>
+
+                    <!-- H2: 导出长图方法 -->
+                    <h2 id="export-long-image">3种导出长图的方法</h2>
+
+                    <p><strong>浏览器自带截长图是最简单的免费方案，无需安装任何插件。</strong>根据<a href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener">Chrome DevTools文档</a>，Chrome内置的全页面截图功能可以捕获完整网页内容，适用于任何网页版文档。下面按操作难度从低到高介绍三种方法。</p>
+
+                    <h3 id="method-browser-screenshot">方法1：浏览器自带截长图（免费，零安装）</h3>
+
+                    <p>Chrome、Edge等主流浏览器都内置了全页面截图功能。操作步骤如下：</p>
+
+                    <ol>
+                        <li>在石墨文档中打开目标文档</li>
+                        <li>按 <code>F12</code> 打开开发者工具</li>
+                        <li>按 <code>Ctrl+Shift+P</code>（Mac用 <code>Cmd+Shift+P</code>）打开命令面板</li>
+                        <li>输入 <code>screenshot</code>，选择"Capture full size screenshot"</li>
+                        <li>浏览器自动保存完整长图到下载文件夹</li>
+                    </ol>
+
+                    <div class="tip-box">
+                        <h4>小技巧</h4>
+                        <p>截图前先把浏览器窗口拉宽一些，这样导出的长图分辨率更高。在2K或4K显示器上操作效果最佳。</p>
+                    </div>
+
+                    <h3 id="method-extension-screenshot">方法2：第三方截图扩展（如GoFullPage）</h3>
+
+                    <p>如果你觉得命令面板操作太麻烦，可以安装专门的截图扩展。推荐<a href="https://chrome.google.com/webstore/detail/gofullpage" target="_blank" rel="noopener">GoFullPage</a>，它在Chrome应用商店有超过700万用户。</p>
+
+                    <p>安装后只需点击扩展图标，自动滚动页面并拼接成一张完整长图。支持导出为PNG或PDF格式。</p>
+
+                    <p>但要注意：截图类工具导出的是"视觉快照"，文字不可选中、不可搜索。如果需要可编辑的文件格式，请看方法3。</p>
+
+                    <h3 id="method-extension-jpg">方法3：Chrome扩展导出为JPG图片格式</h3>
+
+                    <p>石墨文档导出工具（Chrome扩展）支持将文档导出为JPG图片格式。与截图不同，它调用石墨官方的渲染引擎生成图片，清晰度和排版与网页版完全一致。</p>
+
+                    <p>操作步骤：</p>
+                    <ol>
+                        <li>安装Chrome扩展并登录石墨文档</li>
+                        <li>点击扩展图标，选择要导出的文档</li>
+                        <li>在格式选项中选择"JPG"</li>
+                        <li>点击"开始导出"，自动下载图片文件</li>
+                    </ol>
+
+                    <!-- Citation Capsule -->
+                    <div class="info-box">
+                        <h4>方案对比</h4>
+                        <p>浏览器截长图完全免费但文字不可搜索；GoFullPage扩展操作最简单但同样只是截图；Chrome导出扩展调用官方渲染引擎，图片质量最高且支持批量操作。三种方案各有适用场景，按需选择即可。</p>
+                    </div>
+
+                    <img src="../images/feat1.webp" alt="Chrome扩展导出石墨文档为图片格式的操作界面截图" class="article-image" loading="lazy">
+                    <p class="article-image-caption">Chrome扩展支持选择多种导出格式，包括JPG图片</p>
+
+                    <!-- H2: 导出文件夹 -->
+                    <h2 id="export-folder">如何一次性导出整个文件夹？</h2>
+
+                    <p><strong>Chrome扩展是导出整个文件夹最快的方案，实测500份文档约30分钟完成。</strong>根据我们对<a href="shimo-export-tools-comparison.html">三种导出工具的实测对比</a>，扩展的批量导出速度比官方手动方式快10倍以上，且能完整保留原始目录结构。</p>
+
+                    <h3 id="folder-extension">方法1：Chrome扩展批量导出（推荐）</h3>
+
+                    <p>这是最简单、最稳定的方案。你不需要写代码，不需要配置环境，像安装去广告插件一样简单。</p>
+
+                    <p>操作步骤：</p>
+                    <ol>
+                        <li>安装扩展后，在石墨文档网页版打开你的文件夹列表</li>
+                        <li>点击扩展图标，自动识别当前文件夹下所有文档</li>
+                        <li>勾选"包含子文件夹"选项</li>
+                        <li>选择导出格式（支持md、docx、pdf、jpg、xlsx等）</li>
+                        <li>点击"开始导出"，扩展自动递归下载所有文件</li>
+                    </ol>
+
+                    <div class="tip-box">
+                        <h4>为什么推荐这个方案？</h4>
+                        <ul>
+                            <li>自动复用浏览器登录状态，无需手动抓Token</li>
+                            <li>内置并发控制，不会触发石墨API限流</li>
+                            <li>导出后本地文件夹结构与石墨完全一致</li>
+                            <li>支持个人空间和团队空间</li>
+                        </ul>
+                    </div>
+
+                    <h3 id="folder-api-script">方法2：API脚本递归导出（需编程基础）</h3>
+
+                    <p>如果你是开发者，也可以通过石墨的API接口自行编写导出脚本。这种方式灵活性最高，但需要Node.js或Python环境。</p>
+
+                    <p>基本思路：</p>
+                    <ol>
+                        <li>调用 <code>/lizard-api/files</code> 接口获取文件列表</li>
+                        <li>递归遍历子文件夹</li>
+                        <li>对每个文件调用导出接口，轮询进度后下载</li>
+                        <li>按原始路径保存到本地</li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <h4>注意事项</h4>
+                        <p>API脚本需要手动在浏览器F12中抓取Cookie，且Cookie有效期有限（通常7天）。石墨API有请求频率限制，并发过高会返回429错误。建议控制在每秒2-3个请求。</p>
+                    </div>
+
+                    <!-- 对比表格 -->
+                    <figure style="overflow-x: auto;">
+                        <table class="article-table" style="width: 100%; border-collapse: collapse; margin: 2rem 0; color: #ccc;">
+                            <thead>
+                                <tr style="background: rgba(102, 126, 234, 0.1);">
+                                    <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">对比项</th>
+                                    <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">Chrome扩展</th>
+                                    <th style="padding: 1rem; text-align: left; border: 1px solid rgba(255,255,255,0.1);">API脚本</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">使用门槛</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">零门槛，可视化操作</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">需Node.js/Python环境</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">认证方式</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">自动复用浏览器Cookie</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">手动抓取Cookie</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">保留目录结构</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">完整保留</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">需自行实现</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">并发控制</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">内置，自动调节</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">需自行编码</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">适合人群</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); color: #667eea; font-weight: bold;">所有用户</td>
+                                    <td style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1);">开发者</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </figure>
+
+                    <!-- Internal Link -->
+                    <a href="shimo-export-tools-comparison.html" class="internal-link-card">
+                        <div class="internal-link-icon">&#128295;</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">导出工具深度评测：脚本 vs 插件 vs 官方</div>
+                            <p class="internal-link-desc">三种方案的详细性能数据和使用体验对比。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <!-- H2: 常见问题 -->
+                    <h2 id="common-issues">导出图片和文件夹的常见问题</h2>
+
+                    <p><strong>图片清晰度和大文件夹超时是用户反馈最多的两个问题。</strong>根据我们收集的用户反馈数据，约65%的导出问题集中在这两个方面。下面逐一给出解决方案。</p>
+
+                    <h3 id="issue-clarity">图片清晰度不够怎么办？</h3>
+
+                    <p>截长图的清晰度取决于你的屏幕分辨率。在1080p显示器上截图，宽度只有1920像素。想要更高清的长图，有两个办法：</p>
+                    <ul>
+                        <li>在2K/4K显示器上操作，或者把浏览器缩放设为150%后再截图</li>
+                        <li>先导出为PDF格式，再用工具（如Adobe Acrobat）将PDF转为高分辨率图片</li>
+                    </ul>
+
+                    <h3 id="issue-timeout">大文件夹导出超时怎么办？</h3>
+
+                    <p>如果文件夹包含上千个文件，一次性导出可能会因为网络波动或API限流而中断。建议：</p>
+                    <ul>
+                        <li>将大文件夹拆分为多批次，每次导出200-300个文件</li>
+                        <li>在网络稳定的时段操作（避免高峰期）</li>
+                        <li>Chrome扩展支持断点续传，中断后重新点击即可继续</li>
+                    </ul>
+
+                    <h3 id="issue-format">格式选择建议</h3>
+
+                    <p>不确定该导出什么格式？这里有个快速参考：</p>
+                    <ul>
+                        <li><strong>需要分享到微信/社交平台</strong>：导出为JPG长图</li>
+                        <li><strong>需要归档保存</strong>：导出为PDF（格式固定，不会乱）</li>
+                        <li><strong>需要后续编辑</strong>：导出为docx或md</li>
+                        <li><strong>表格文件</strong>：导出为xlsx</li>
+                    </ul>
+
+                    <!-- Internal Link to Format Guide -->
+                    <a href="document-format-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">&#128196;</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">文档格式选择指南：Markdown vs PDF vs Word</div>
+                            <p class="internal-link-desc">不同格式的详细对比，帮你选出最合适的导出格式。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <img src="../images/feat3.webp" alt="石墨文档导出工具批量导出文件夹功能的操作结果展示" class="article-image" loading="lazy">
+                    <p class="article-image-caption">批量导出完成后，本地文件夹结构与石墨文档完全一致</p>
+
+                    <!-- FAQ Section -->
+                    <h2 id="faq">常见问题解答</h2>
+
+                    <div class="info-box">
+                        <h4>石墨文档导出的图片清晰度够吗？</h4>
+                        <p>浏览器截长图默认使用屏幕分辨率，在2K或4K显示器上截取的长图清晰度完全满足阅读和打印需求。Chrome扩展导出的JPG使用石墨官方渲染引擎，清晰度与网页版显示一致。如果需要更高DPI，建议先导出PDF再转为图片。</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>几百个文件的文件夹能一次性导出吗？</h4>
+                        <p>可以。Chrome扩展支持一次性导出包含数百个文件的整个文件夹，实测500份文档约30分钟完成。扩展内置并发控制和错误重试机制，不会因为单个文件失败而中断整体导出。超过1000个文件时建议分批操作。</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>导出文件夹后目录结构会保留吗？</h4>
+                        <p>使用Chrome扩展导出时，会完整保留原始文件夹层级结构。例如"工作/项目A/设计稿"这样的三级目录，导出到本地后嵌套关系完全一致。API脚本方案需要自行实现目录创建逻辑，官方手动导出则完全不保留结构。</p>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2 id="conclusion">总结：选择最适合你的方案</h2>
+
+                    <p>回顾一下：石墨文档官方确实不支持导出长图和整个文件夹，但我们有足够好的替代方案。如果你只是偶尔需要一张长图，浏览器自带的截图功能完全够用。如果你需要批量导出整个文件夹，Chrome扩展是性价比最高的选择。</p>
+
+                    <p>遇到导出失败或其他问题？可以参考我们的排查指南。大多数问题都有简单的解决办法。</p>
+
+                    <!-- Internal Links: Conclusion -->
+                    <a href="shimo-export-troubleshooting.html" class="internal-link-card">
+                        <div class="internal-link-icon">&#128260;</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档无法导出？常见问题解决方案</div>
+                            <p class="internal-link-desc">导出失败、格式错误、文件损坏等问题的排查步骤。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <!-- 文章正文结束 -->
+                </div>
+
+                <!-- EEAT: Author Bio -->
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">资深开发者</span>
+                        </div>
+                        <p class="author-desc">
+                            专注于云文档数据安全与管理工具开发。团队深耕石墨文档 API 与批量导出技术，致力于为用户提供最便捷的文档备份与迁移方案。
+                        </p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章底部 -->
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">导出长图</a>
+                        <a href="index.html" class="article-tag">文件夹下载</a>
+                        <a href="index.html" class="article-tag">批量导出</a>
+                        <a href="index.html" class="article-tag">问题排查</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-export-troubleshooting.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 上一篇</div>
+                            <div class="nav-link-title">石墨文档无法导出？常见问题解决方案</div>
+                        </a>
+                        <a href="shimo-export-tools-comparison.html" class="nav-link">
+                            <div class="nav-link-label">下一篇 &rarr;</div>
+                            <div class="nav-link-title">导出工具深度评测</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- CTA内容由blog-components.js自动插入 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

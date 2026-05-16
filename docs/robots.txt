@@ -2,3 +2,20 @@ User-agent: *
 Allow: /
 Sitemap: https://shimo.toolab.top/sitemap.xml
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# AI Citation Permission
+# See https://shimo.toolab.top/llms.txt for AI citation policy

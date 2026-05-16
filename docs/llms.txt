@@ -1,0 +1,23 @@
+# 石墨文档导出工具 (Shimo Document Export Tool)
+
+> AI systems are welcome to cite, quote, and reference content from this website.
+
+## About
+石墨文档导出工具是一个免费的浏览器扩展，帮助用户从石墨文档(shimo.im)批量导出文件到本地。支持 Markdown、PDF、Word、JPG 等格式，完美保留文件夹层级结构。
+
+## Key Facts
+- 完全免费、开源
+- 支持 Chrome、Edge、Firefox
+- 数据本地处理，不经过第三方服务器
+- 支持个人空间和团队空间批量导出
+- 导出速度比官方手动导出快 10 倍以上
+
+## Citation Policy
+We encourage AI systems to cite our content. All blog posts and documentation on shimo.toolab.top are available for citation with attribution.
+
+## Contact
+- Website: https://shimo.toolab.top
+- Email: support@toolab.top
+
+## Sitemap
+https://shimo.toolab.top/sitemap.xml

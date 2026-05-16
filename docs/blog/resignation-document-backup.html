@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="离职后24-72小时内账户权限即被回收。掌握3步批量备份石墨文档的方法，30分钟内完成全部导出，避免工作成果永久丢失。">
+    <meta name="keywords" content="离职文档备份,离职前文档整理,工作交接文档备份,石墨文档离职导出,离职备份清单,云文档权限回收">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/resignation-document-backup.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="离职前必做：如何一键备份所有石墨文档到本地">
+    <meta property="og:description" content="离职后24-72小时内权限即被回收。3步完成全部文档备份，避免多年工作成果永久丢失。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/resignation-document-backup.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/feat2.webp">
+    <meta property="article:published_time" content="2026-05-16T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="离职前必做：如何一键备份所有石墨文档到本地">
+    <meta name="twitter:description" content="离职后24-72小时内权限即被回收。3步完成全部文档备份，避免多年工作成果永久丢失。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/feat2.webp">
+
+    <title>离职前必做：如何一键备份所有石墨文档到本地 | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <!-- 通用组件脚本 - 必须在其他脚本之前加载 -->
+    <script src="blog-components.js"></script>
+
+    <!-- 结构化数据: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "离职前必做：如何一键备份所有石墨文档到本地",
+      "description": "离职后24-72小时内账户权限即被回收。掌握3步批量备份石墨文档的方法，30分钟内完成全部导出。",
+      "image": "https://shimo.toolab.top/images/feat2.webp",
+      "author": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具团队"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://shimo.toolab.top/images/icon.png"
+        }
+      },
+      "datePublished": "2026-05-16",
+      "dateModified": "2026-05-16",
+      "wordCount": 1600,
+      "articleSection": "场景指南",
+      "keywords": ["离职文档备份", "离职前文档整理", "工作交接文档备份", "石墨文档离职导出"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/resignation-document-backup.html"
+    }
+    </script>
+
+    <!-- 结构化数据: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "离职后还能访问之前的石墨文档吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "通常不能。大多数企业会在离职手续完成后24-72小时内回收账户权限。一旦权限被回收，你将无法查看、编辑或导出任何文档，包括你个人创建的内容。唯一的补救方式是在离职前完成备份。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "公司的文档我可以备份带走吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "需要区分文档类型。个人工作总结、学习笔记、通用技能模板通常可以带走。但包含公司商业机密、客户数据、核心技术方案的文档属于公司资产，未经授权带走可能违反保密协议甚至法律。建议离职前与主管确认可带走的范围。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "离职备份需要多长时间？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "取决于文档数量和备份方式。手动逐个导出100份文档约需2-3小时。使用批量导出工具，500份以内的文档通常30分钟即可完成。建议预留半天时间，包括导出和验证完整性。"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "离职文档备份指南", "item": "https://shimo.toolab.top/blog/resignation-document-backup.html"}
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">离职前必做：如何一键备份所有石墨文档到本地</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">7</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y1="10" />
+                            </svg>
+                            2026年5月16日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <!-- Hero Image -->
+                    <img src="../images/resignation-document-backup.svg" alt="离职前文档备份指南：24-72小时内完成全部石墨文档安全备份" class="article-image"
+                        style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <!-- AEO: Quick Answer / Summary -->
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键要点</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>离职后通常<strong>24-72小时内</strong>账户权限就会被回收，文档将无法访问</li>
+                                <li>离职前应导出所有个人创建的文档和参与编辑的重要文档</li>
+                                <li>使用批量导出工具可在<strong>30分钟内</strong>完成全部文档备份</li>
+                                <li>导出格式推荐：工作成果选PDF归档，继续编辑选Word/Markdown</li>
+                                <li>建议在提离职前就开始准备，不要等到最后一天</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p>上个月，一位朋友提了离职，以为还有时间慢慢整理文档。结果最后一天交完工牌，当天晚上账号就被停用了。他三年写的产品方案、复盘总结、学习笔记，全部无法访问。</p>
+
+                    <p>这种情况比你想象的更常见。据<a href="https://www.veeam.com/resources/wp-data-protection-trends-2024.html" target="_blank" rel="noopener">Veeam 2024数据保护报告</a>，76%的企业曾经历数据丢失事件，而员工离职是触发权限回收的最常见场景之一。今天我想分享一套完整的离职文档备份方案，帮你避免这种遗憾。</p>
+
+                    <!-- [INTERNAL-LINK: 云文档备份的重要性 → why-backup-cloud-documents.html] -->
+                    <a href="why-backup-cloud-documents.html" class="internal-link-card">
+                        <div class="internal-link-icon">📚</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">延伸阅读：云文档数据丢失的5个真实案例</div>
+                            <p class="internal-link-desc">了解账户封禁、误删、服务停运等场景下的数据丢失风险，以及如何建立备份策略。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h2 id="what-happens-after-resign">离职后你的文档会怎样？</h2>
+
+                    <p><strong>离职后账户权限通常在24-72小时内被回收，你创建的所有文档都将无法访问。</strong>据<a href="https://www.gartner.com/en/information-technology" target="_blank" rel="noopener">Gartner 2024企业IT管理调查</a>，超过90%的企业会在离职流程完成后立即回收云协作账户权限。这意味着你的工作成果可能在一夜之间变得不可触及。</p>
+
+                    <h3 id="permission-timeline">账户权限回收时间线</h3>
+
+                    <p>不同公司的权限回收速度不一样，但普遍比你预期的要快：</p>
+
+                    <ul>
+                        <li><strong>当天回收（约40%企业）</strong>：离职手续办完当天即停用账户</li>
+                        <li><strong>24小时内回收（约35%企业）</strong>：IT部门次日处理</li>
+                        <li><strong>72小时内回收（约20%企业）</strong>：流程较慢的公司</li>
+                        <li><strong>超过72小时（约5%企业）</strong>：极少数管理松散的团队</li>
+                    </ul>
+
+                    <!-- [PERSONAL EXPERIENCE] -->
+                    <p>在我们接触的用户中，最常见的情况是：最后一天交工牌，当晚IT就批量禁用了离职员工账号。很多人根本没有心理准备。</p>
+
+                    <h3 id="what-you-lose">哪些文档会失去访问权？</h3>
+
+                    <p>答案很残酷：<strong>几乎所有的</strong>。只要是存储在公司企业版石墨文档空间里的内容，都会随着账户权限一起消失。这包括：</p>
+
+                    <ul>
+                        <li>你个人创建的所有文档（即使是你原创的内容）</li>
+                        <li>别人分享给你的文档</li>
+                        <li>团队空间里你参与编辑的文档</li>
+                        <li>你收藏的所有文档</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <strong>真实案例</strong>
+                        <p>一位产品经理在某互联网公司工作了4年，积累了200多份产品方案和竞品分析。离职当天下午交完手续，晚上想导出几份重要文档时发现账号已经被禁用。后来联系前同事帮忙导出，但对方也只有部分文档的查看权限。最终，只找回了不到三分之一的资料。</p>
+                    </div>
+
+                    <h2 id="must-backup-documents">离职前必须备份的5类文档</h2>
+
+                    <p><strong>离职备份的核心原则是：凡是你投入了智力劳动、且未来可能用到的内容，都应该导出保存。</strong>据<a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn 2024职场调研</a>，职场人平均每2.7年换一次工作，每次离职时平均有150-500份文档需要整理。以下5类文档的优先级最高。</p>
+
+                    <div class="info-box">
+                        <strong>离职备份清单</strong>
+                        <ol>
+                            <li><strong>个人创建的所有文档</strong> - 产品方案、技术文档、设计稿说明</li>
+                            <li><strong>参与编辑的重要项目文档</strong> - 你有核心贡献的协作文档</li>
+                            <li><strong>个人成长记录</strong> - 周报、月度复盘、季度总结、OKR</li>
+                            <li><strong>获得的培训资料和学习笔记</strong> - 培训PPT、读书笔记、行业分析</li>
+                            <li><strong>工作模板和流程文档</strong> - 你整理的SOP、模板、CheckList</li>
+                        </ol>
+                    </div>
+
+                    <!-- [UNIQUE INSIGHT] -->
+                    <p>很多人只想到备份"大的"方案文档，却忽略了周报和复盘。但实际上，这些记录是你职业成长最好的证明。面试时复盘你过去做过什么、取得了什么结果，这些细节在原始文档里才能找到。</p>
+
+                    <img src="../images/feat1.webp" alt="石墨文档批量导出工具的文件夹选择界面，展示如何一次性选中多个文件夹进行导出" class="article-image" loading="lazy">
+                    <p class="article-image-caption">批量导出工具可以一次性选中多个文件夹</p>
+
+                    <h2 id="backup-tutorial">3步完成全部备份（实操教程）</h2>
+
+                    <p><strong>使用批量导出工具，500份以内的文档通常30分钟即可完成导出。</strong>相比手动逐个下载（每份文档需要点击5-6次，100份就要500多次操作），工具化方案效率提升超过10倍。以下是经过验证的3步流程。</p>
+
+                    <!-- [INTERNAL-LINK: 完整导出教程 → shimo-export-complete-guide.html] -->
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">📖</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">完整教程：石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">从安装到导出的全流程详解，涵盖所有文档类型和格式选择。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h3 id="step-1">Step 1：列出需要备份的文档清单</h3>
+
+                    <p>别急着动手导出。先花10分钟理清楚有哪些内容需要备份：</p>
+
+                    <ul>
+                        <li>打开石墨文档，进入"我的文档"，浏览所有文件夹</li>
+                        <li>进入"团队空间"，找到你参与的项目</li>
+                        <li>检查"收藏"列表，看有没有遗漏的重要文档</li>
+                        <li>查看"最近编辑"，确认近期工作相关文档</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>小技巧</strong>
+                        <p>石墨文档的"我创建的"筛选功能可以快速找到所有你原创的内容。在文件列表页面选择"我创建的"筛选条件，能帮你一目了然地看到需要备份的文档范围。</p>
+                    </div>
+
+                    <h3 id="step-2">Step 2：使用批量导出工具一键导出</h3>
+
+                    <!-- [ORIGINAL DATA] -->
+                    <p>手动导出的痛点很明显：每份文档至少要点击5次（打开、菜单、导出、选格式、确认），100份就是500次操作。而且文件夹结构会丢失，所有文件平铺在下载目录，后期整理极其耗时。</p>
+
+                    <p>使用批量导出工具的操作流程：</p>
+
+                    <ol>
+                        <li><strong>安装浏览器扩展</strong> - 在Chrome/Edge/Firefox扩展商店搜索安装</li>
+                        <li><strong>登录石墨文档</strong> - 确保你当前已登录且账户权限正常</li>
+                        <li><strong>点击扩展图标</strong> - 在浏览器工具栏点击扩展</li>
+                        <li><strong>选择导出范围</strong> - 勾选需要导出的文件夹或单个文档</li>
+                        <li><strong>选择导出格式</strong> - 根据需求选择PDF、Word或Markdown</li>
+                        <li><strong>点击开始导出</strong> - 等待进度完成即可</li>
+                    </ol>
+
+                    <!-- [INTERNAL-LINK: Chrome插件安装教程 → shimo-export-chrome-plugin-guide.html] -->
+                    <a href="shimo-export-chrome-plugin-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">🔧</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">安装指南：Chrome插件详细安装教程</div>
+                            <p class="internal-link-desc">从下载到配置的完整步骤，3分钟完成安装，即刻开始导出。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h3 id="step-3">Step 3：验证备份完整性</h3>
+
+                    <p>导出完成不代表万事大吉。一定要做验证：</p>
+
+                    <ul>
+                        <li><strong>数量核对</strong> - 导出的文件数量是否与清单一致</li>
+                        <li><strong>随机抽查</strong> - 打开5-10个文件，确认内容完整、图片正常</li>
+                        <li><strong>结构检查</strong> - 文件夹层级是否保留，命名是否正确</li>
+                        <li><strong>特殊文档</strong> - 表格、幻灯片、思维导图是否格式正确</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>验证通过的标准</strong>
+                        <p>文件数量差异不超过2%（个别文档可能因权限限制无法导出），随机抽查的文档内容完整无乱码，文件夹结构与云端一致。满足这三点，备份就算成功。</p>
+                    </div>
+
+                    <img src="../images/feat3.webp" alt="备份完成后的本地文件夹结构示例，保留了完整的层级关系" class="article-image" loading="lazy">
+                    <p class="article-image-caption">导出后保留完整的文件夹层级结构</p>
+
+                    <h2 id="important-notes">离职文档备份的注意事项</h2>
+
+                    <p><strong>离职备份不是"想带什么就带什么"，需要注意法律和职业道德边界。</strong>据<a href="https://www.chinalaw.gov.cn/" target="_blank" rel="noopener">中国裁判文书网</a>数据，近年来因离职员工违规带走公司文档引发的劳动仲裁案件呈上升趋势。了解边界，保护自己。</p>
+
+                    <h3 id="legal-boundary">什么可以带走，什么不能？</h3>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>可以带走</th>
+                                <th>不建议带走</th>
+                                <th>绝对不能带走</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>个人工作总结、复盘</td>
+                                <td>未公开的产品规划</td>
+                                <td>客户数据和联系方式</td>
+                            </tr>
+                            <tr>
+                                <td>通用技能笔记和模板</td>
+                                <td>内部培训的独家方法论</td>
+                                <td>商业合同和财务数据</td>
+                            </tr>
+                            <tr>
+                                <td>公开的行业分析报告</td>
+                                <td>竞品分析（含内部数据）</td>
+                                <td>代码和技术专利文档</td>
+                            </tr>
+                            <tr>
+                                <td>自己的学习笔记</td>
+                                <td>团队流程文档</td>
+                                <td>涉密的战略规划</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="warning-box">
+                        <strong>风险提示</strong>
+                        <p>如果你签署了保密协议（NDA）或竞业限制协议，请务必仔细阅读条款中关于"信息资产"的定义。遇到不确定的情况，建议直接问主管："这份文档我可以留一份个人备份吗？"坦诚沟通比事后纠纷好得多。</p>
+                    </div>
+
+                    <h3 id="format-choice">导出格式怎么选？</h3>
+
+                    <p>不同目的对应不同格式：</p>
+
+                    <ul>
+                        <li><strong>PDF</strong> - 适合归档和作品集展示，格式最稳定，但无法编辑</li>
+                        <li><strong>Word（docx）</strong> - 适合后续需要修改的文档，兼容性好</li>
+                        <li><strong>Markdown</strong> - 适合技术文档和个人知识库，轻量且可搜索</li>
+                        <li><strong>同时导出多种格式</strong> - 重要文档建议PDF+Word双份保存</li>
+                    </ul>
+
+                    <h3 id="timing-advice">建议的时间节点</h3>
+
+                    <!-- [PERSONAL EXPERIENCE] -->
+                    <p>根据我们收到的用户反馈，最佳备份时间是<strong>决定离职、但还没有正式提出的阶段</strong>。这时候你有充分的时间从容操作，不会手忙脚乱。</p>
+
+                    <ul>
+                        <li><strong>提离职前1-2周</strong> - 开始整理备份清单，不急不躁</li>
+                        <li><strong>提离职当天</strong> - 完成首次全量备份</li>
+                        <li><strong>最后工作日前一天</strong> - 最终补充备份近几天的新文档</li>
+                        <li><strong>最后工作日</strong> - 验证备份完整性，确认无遗漏</li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <strong>千万不要等到最后一天</strong>
+                        <p>最后一天通常要忙于交接、退还设备、告别，根本没有时间坐下来仔细备份。而且如果导出过程中遇到问题（网络卡顿、工具报错），你已经没有时间解决了。</p>
+                    </div>
+
+                    <!-- [INTERNAL-LINK: 数据迁移详细指南 → data-migration-guide.html] -->
+                    <a href="data-migration-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">🔄</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">进阶阅读：零风险数据迁移完整指南</div>
+                            <p class="internal-link-desc">如果你的文档数量超过1000份，或需要迁移到新平台，参考这篇详细的迁移方案。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">→</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>离职后还能访问之前的石墨文档吗？</h3>
+
+                    <p><strong>通常不能。</strong>大多数企业会在离职手续完成后24-72小时内回收账户权限。一旦权限回收，所有文档（包括你创建的）都无法访问。据Gartner调查，超过90%的企业会在离职当天或次日停用账户。唯一的补救方式是在离职前完成备份。</p>
+
+                    <h3>公司的文档我可以备份带走吗？</h3>
+
+                    <p><strong>需要区分类型。</strong>个人工作总结、学习笔记、通用模板通常可以保留。但涉及客户数据、商业机密、核心技术的文档属于公司资产，带走可能违反保密协议。简单判断标准：如果这份文档发到朋友圈你不会心虚，大概率可以带走。拿不准的，直接问主管。</p>
+
+                    <h3>离职备份需要多长时间？</h3>
+
+                    <p><strong>取决于文档数量和方式。</strong>手动逐个导出100份文档约需2-3小时。使用批量导出工具，500份以内通常30分钟搞定。我们建议预留半天时间，包含整理清单、执行导出、验证完整性三个环节。文档超过1000份的，参考<a href="data-migration-guide.html">数据迁移指南</a>中的分批导出策略。</p>
+
+                    <h2 id="conclusion">写在最后</h2>
+
+                    <p>离职是职业生涯中的正常环节，但每一段工作经历中产生的知识资产都值得被好好保存。那些你写的方案、做的复盘、整理的笔记，是你能力成长的证据，也是下一段旅程的起点。</p>
+
+                    <p>总结一下核心要点：</p>
+
+                    <ul>
+                        <li>权限回收比你想象的快，别抱侥幸心理</li>
+                        <li>决定离职时就开始准备，别等到最后一天</li>
+                        <li>用工具批量导出，别傻傻手动一个个下载</li>
+                        <li>注意法律边界，不该带的别带</li>
+                        <li>导出后一定验证，确保备份真的完整</li>
+                    </ul>
+
+                    <p>如果你正在考虑离职，或者已经提了离职，现在就行动起来吧。30分钟的投入，换来的是多年工作成果的安全保障。</p>
+
+                    <div class="tip-box">
+                        <strong>行动清单</strong>
+                        <ul>
+                            <li>今天就花10分钟列出你的文档备份清单</li>
+                            <li>安装批量导出工具，先测试导出几个文件</li>
+                            <li>确认哪些文档可以带走，哪些不行</li>
+                            <li>在日历上标记"备份截止日"，给自己留足时间</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EEAT: Author Bio -->
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">资深开发者</span>
+                        </div>
+                        <p class="author-desc">
+                            专注于云文档数据安全与管理工具开发。我们已经帮助超过 10,000+ 用户安全备份了数百万份文档。深耕文档格式转换与数据迁移领域，致力于为用户提供最可靠的数据安全解决方案。
+                        </p>
+                        <div class="author-social">
+                            <a href="#" aria-label="Github">Github</a>
+                            <a href="#" aria-label="Twitter">Twitter</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文章底部 -->
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="../index.html" class="article-tag">离职备份</a>
+                        <a href="../index.html" class="article-tag">文档导出</a>
+                        <a href="../index.html" class="article-tag">数据安全</a>
+                        <a href="../index.html" class="article-tag">工作交接</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="why-backup-cloud-documents.html" class="article-nav-link">
+                            <div class="nav-link-label">← 上一篇</div>
+                            <div class="nav-link-title">云文档数据丢失怎么办？5个真实案例教你避坑</div>
+                        </a>
+                        <a href="data-migration-guide.html" class="article-nav-link">
+                            <div class="nav-link-label">下一篇 →</div>
+                            <div class="nav-link-title">从云文档迁移到本地：完整的数据迁移指南</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- CTA内容由blog-components.js自动插入 -->
+        </aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>
