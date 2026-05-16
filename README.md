@@ -76,7 +76,7 @@ npm run pack:all
 
 | 微信赞赏 | 支付宝 |
 | :---: | :---: |
-| <img src="src/assets/sponsors.png" width="200" alt="微信赞赏码"> | <img src="src/assets/alipay.png" width="200" alt="支付宝收款码"> |
+| <img src="images/sponsors.png" width="200" alt="微信赞赏码"> | <img src="images/alipay.png" width="200" alt="支付宝收款码"> |
 
 
 ## 📝 更新日志
