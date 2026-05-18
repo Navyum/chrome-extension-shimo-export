@@ -1,0 +1,102 @@
+
+博客插图生图 Prompt 设计
+========================
+风格统一：Google Corporate Memphis 扁平矢量插图风格，16:9比例，柔和渐变背景，
+融入英文关键词Typography，简洁明亮，无3D无写实阴影。
+生成工具：Midjourney v6 / DALL-E 3 / Ideogram
+提示：短单词用双引号括起来，成功率90%以上。偶尔拼错重新生成即可。
+
+======================================================================
+
+1. 石墨文档导出完全指南：从入门到精通（Hero主推）
+文件名：shimo-export-complete-guide.png
+关键词：EXPORT
+Prompt:
+A minimalist flat vector illustration in Google design style. A confident character standing beside a giant open guidebook. From the guidebook, colorful document icons (PDF, Word, Markdown, Excel) are flying outward in an organized arc. A large glowing neon sign on the guidebook cover clearly reads "EXPORT". A subtle progress bar at the bottom shows 100% complete. Soft gradient indigo-to-purple background. Corporate Memphis style, bright UI aesthetic. --ar 16:9 --no 3d, realistic, shading
+
+2. 2026国产文档工具对比：石墨vs飞书vs腾讯vs语雀
+文件名：chinese-document-tools-comparison.png
+关键词：VS
+Prompt:
+A minimalist flat vector illustration in Google design style. Four distinct colorful podiums arranged in a row, each holding a different stylized app icon (purple, blue, green, orange). A large bold floating "VS" typography is prominently displayed in the center. A character holding a clipboard with checkmarks is evaluating them. Sparkles and rating stars floating above. Soft lavender background. Comparison concept, clean flat vector. --ar 16:9 --no 3d, realistic, shadow
+
+3. 2026年在线文档批量导出工具大全
+文件名：online-document-export-tools.png
+关键词：TOOLS
+Prompt:
+A minimalist flat vector illustration in Google design style. A giant Swiss Army knife unfolding multiple digital tools: a download arrow, a folder icon, a conversion gear, and a cloud sync symbol. The bold word "TOOLS" is clearly engraved on the handle of the Swiss Army knife. Five small colorful platform badges float nearby. Soft warm peach background. Utility concept, Corporate Memphis. --ar 16:9 --no 3d, photorealistic
+
+4. 石墨文档迁移到飞书/语雀/Notion完整教程
+文件名：shimo-to-feishu-migration.png
+关键词：MIGRATE
+Prompt:
+A minimalist flat vector illustration in Google design style. A smooth colorful bridge connecting a purple island (source platform) to three smaller islands in blue, green, and amber (target platforms). A character is pushing a cart loaded with document folders across the bridge. A modern highway sign above the bridge clearly displays "MIGRATE". Floating format labels (.docx, .md) along the path. Soft sky-blue gradient background. --ar 16:9 --no 3d, realistic
+
+5. 石墨文档导出Chrome插件使用指南
+文件名：shimo-export-chrome-plugin.png
+关键词：PLUGIN
+Prompt:
+A minimalist flat vector illustration in Google design style. A giant Chrome browser window with a colorful puzzle piece extension snapping perfectly into place. From the extension, a waterfall of organized folders flows downward into a neat local storage box. The bold word "PLUGIN" is clearly printed on the puzzle piece. A character giving a thumbs-up. A floating badge says "1-Click". Soft mint green background. Installation concept. --ar 16:9 --no 3d, shadow
+
+6. 离职前必做：如何一键备份所有石墨文档
+文件名：resignation-document-backup.png
+关键词：SAVE
+Prompt:
+A minimalist flat vector illustration in Google design style. A character in business attire running with a briefcase toward a giant digital safe vault. Behind them, a countdown timer shows "72h" with an urgent amber glow. Documents are flying from a fading office building into the character's briefcase. The bold word "SAVE" is clearly written on the vault door. Soft warm amber-to-cream gradient background. Urgency concept. --ar 16:9 --no 3d, photorealistic
+
+7. 石墨文档无法导出？6个常见原因和解决方案
+文件名：shimo-export-troubleshooting.png
+关键词：FIX
+Prompt:
+A minimalist flat vector illustration in Google design style. A large monitor showing a red error popup with an X mark. A character wearing repair goggles is using a giant digital wrench to fix the screen. Six small diagnostic icons (lock, browser, wifi, file, size, checkmark) float in a semicircle above. The bold word "FIX" is clearly written on the wrench handle. Soft cyan-to-white background. Troubleshooting concept. --ar 16:9 --no 3d, realistic
+
+8. 石墨文档导出长图和文件夹的3种方法
+文件名：shimo-export-long-image-folder.png
+关键词：CAPTURE
+Prompt:
+A minimalist flat vector illustration in Google design style. A giant smartphone-shaped frame capturing an extra-long scrolling document that extends beyond the screen. Next to it, a nested folder tree structure with three levels glowing in green. A camera shutter icon connects both elements. The word "CAPTURE" is clearly displayed on the camera shutter. Soft coral pink background. Screenshot concept, flat lines. --ar 16:9 --no 3d, shading
+
+9. 云文档数据丢失怎么办？5个真实案例教你避坑
+文件名：cloud-data-loss-cases.png
+关键词：PROTECT
+Prompt:
+A minimalist flat vector illustration in Google design style. A giant protective shield standing guard over a stack of important documents. Behind the shield, five red warning lightning bolts are being deflected. The bold word "PROTECT" is clearly emblazoned on the front of the shield. A character peeking from behind the shield looks relieved. Soft steel-blue gradient background. Data safety concept. --ar 16:9 --no 3d, photorealistic
+
+10. 石墨文档导出工具深度评测：脚本vs插件vs官方
+文件名：shimo-export-tools-comparison.png
+关键词：TEST
+Prompt:
+A minimalist flat vector illustration in Google design style. A laboratory testing bench with three beakers in a row, each containing a different colored liquid (red for manual, yellow for script, green for extension). A character in a lab coat is examining them with a magnifying glass. A scoreboard behind shows star ratings. The bold word "TEST" is printed on the lab bench front panel. Soft cream-yellow background. Evaluation concept. --ar 16:9 --no 3d, realistic
+
+11. 从云文档迁移到本地：零风险数据迁移完整指南
+文件名：data-migration-guide.png
+关键词：SAFE
+Prompt:
+A minimalist flat vector illustration in Google design style. A smooth conveyor belt carrying document boxes from a floating cloud platform gently down into a solid local server rack. A green shield checkpoint scans each box as it passes. A character monitors progress on a dashboard showing "0 errors". The bold word "SAFE" is written on the checkpoint gate. Soft gradient teal background. Zero-risk concept. --ar 16:9 --no 3d, shadow
+
+12. 团队文档管理最佳实践：从混乱到高效的7个步骤
+文件名：team-document-management.png
+关键词：ORDER
+Prompt:
+A minimalist flat vector illustration in Google design style. Split-screen composition: left side shows scattered messy papers flying everywhere in red chaos. Right side shows perfectly organized color-coded folders in a sleek filing cabinet with green harmony. An arrow transitions between the two halves. The bold word "ORDER" is clearly written on the filing cabinet header. Three team members on the right side celebrating. Soft grey-to-white background. --ar 16:9 --no 3d, photorealistic
+
+13. Markdown vs PDF vs Word：如何选择最适合的文档格式？
+文件名：document-format-guide.png
+关键词：FORMAT
+Prompt:
+A minimalist flat vector illustration in Google design style. Three large stylized file icons standing side by side like trading cards: a blue ".MD" card, a red ".PDF" card, and a teal ".DOCX" card. Each card has a distinct visual pattern (code brackets, lock seal, edit pencil). A character is thoughtfully choosing between them. The bold word "FORMAT" is displayed on a floating decision banner above. Soft pale lilac background. Choice concept. --ar 16:9 --no 3d, realistic
+
+14. 石墨文档使用技巧：10个提高效率300%的隐藏功能
+文件名：shimo-tips-and-tricks.png
+关键词：BOOST
+Prompt:
+A minimalist flat vector illustration in Google design style. A character sitting at a modern desk with a laptop. From the laptop screen, ten colorful rocket-shaped icons are launching upward in a spectacular arc. A speedometer gauge on the side shows "300%". The bold word "BOOST" is clearly written on the largest rocket. Floating keyboard shortcut badges (Ctrl+B, /) scattered around. Soft energetic orange-to-yellow gradient background. Productivity concept. --ar 16:9 --no 3d, shading
+
+======================================================================
+使用说明：
+1. 直接复制英文 Prompt 部分到 AI 生图工具
+2. 生成后下载为 PNG，放入 docs/images/ 目录
+3. 文件命名参考每条的「文件名」字段
+4. 如果 Typography 文字拼写错误，直接 Reroll 重新生成
+5. 建议统一生成尺寸：1792x1024 (16:9) 或 1200x675
+6. 生成后替换 blog/index.html 中对应的 <img> src 即可
