@@ -4,11 +4,15 @@
   <!-- 主页 -->
   <url>
     <loc>https://shimo.toolab.top/</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/feat1.webp</image:loc>
+      <image:title>石墨文档导出工具批量导出功能</image:title>
+    </image:image>
   </url>
-  
+
   <!-- 隐私政策 -->
   <url>
     <loc>https://shimo.toolab.top/privacy.html</loc>
@@ -16,124 +20,92 @@
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
-  
+
   <!-- 博客首页 -->
   <url>
     <loc>https://shimo.toolab.top/blog/</loc>
-    <lastmod>2025-01-24</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
+  <!-- Pillar: 导出完全指南 -->
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-export-complete-guide.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-complete-guide.webp</image:loc>
+      <image:title>石墨文档导出完全指南</image:title>
+    </image:image>
+  </url>
+
   <!-- 博客文章 -->
   <url>
     <loc>https://shimo.toolab.top/blog/why-backup-cloud-documents.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat1.webp</image:loc>
-      <image:title>云文档备份示意图</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat2.webp</image:loc>
-      <image:title>文档备份策略</image:title>
+      <image:loc>https://shimo.toolab.top/images/shimo-cloud-data-loss-cases.webp</image:loc>
+      <image:title>5个云文档数据丢失真实案例</image:title>
     </image:image>
   </url>
-  
+
   <url>
     <loc>https://shimo.toolab.top/blog/shimo-tips-and-tricks.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat1.webp</image:loc>
-      <image:title>石墨文档快捷键使用</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat2.webp</image:loc>
-      <image:title>模板库功能展示</image:title>
+      <image:loc>https://shimo.toolab.top/images/shimo-tips-and-tricks.webp</image:loc>
+      <image:title>石墨文档10个效率技巧</image:title>
     </image:image>
   </url>
-  
+
   <url>
     <loc>https://shimo.toolab.top/blog/document-format-guide.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat1.webp</image:loc>
-      <image:title>Markdown文档编辑</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat2.webp</image:loc>
-      <image:title>文档格式转换</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat3.webp</image:loc>
-      <image:title>批量导出功能</image:title>
+      <image:loc>https://shimo.toolab.top/images/shimo-document-format-guide.webp</image:loc>
+      <image:title>Markdown vs PDF vs Word 文档格式选择指南</image:title>
     </image:image>
   </url>
-  
+
   <url>
     <loc>https://shimo.toolab.top/blog/team-document-management.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat4.webp</image:loc>
-      <image:title>团队文档管理</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat1.webp</image:loc>
-      <image:title>协作流程图</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat3.webp</image:loc>
-      <image:title>文档备份策略</image:title>
+      <image:loc>https://shimo.toolab.top/images/shimo-team-document-management.webp</image:loc>
+      <image:title>团队文档管理最佳实践</image:title>
     </image:image>
   </url>
-  
+
   <url>
     <loc>https://shimo.toolab.top/blog/data-migration-guide.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat2.webp</image:loc>
-      <image:title>数据迁移流程</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat1.webp</image:loc>
-      <image:title>批量导出工具</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat3.webp</image:loc>
-      <image:title>文档整理归档</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://shimo.toolab.top/images/feat4.webp</image:loc>
-      <image:title>完整迁移归档</image:title>
+      <image:loc>https://shimo.toolab.top/images/shimo-data-migration-guide.webp</image:loc>
+      <image:title>云文档迁移到本地完整指南</image:title>
     </image:image>
   </url>
 
   <url>
     <loc>https://shimo.toolab.top/blog/shimo-export-tools-comparison.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://shimo.toolab.top/images/hubspot-team.png</image:loc>
-      <image:title>导出工具对比评测</image:title>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-tools-comparison.webp</image:loc>
+      <image:title>石墨文档导出工具对比评测</image:title>
     </image:image>
-  </url>
-
-  <!-- 2026年新增文章 -->
-  <url>
-    <loc>https://shimo.toolab.top/blog/shimo-export-complete-guide.html</loc>
-    <lastmod>2026-05-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
 
   <url>
@@ -141,6 +113,10 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-troubleshooting.webp</image:loc>
+      <image:title>石墨文档导出常见问题排查</image:title>
+    </image:image>
   </url>
 
   <url>
@@ -148,6 +124,10 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-resignation-document-backup.webp</image:loc>
+      <image:title>离职文档备份指南</image:title>
+    </image:image>
   </url>
 
   <url>
@@ -155,6 +135,10 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-to-feishu-migration.webp</image:loc>
+      <image:title>石墨文档迁移到飞书语雀指南</image:title>
+    </image:image>
   </url>
 
   <url>
@@ -162,6 +146,10 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-long-image-folder.webp</image:loc>
+      <image:title>石墨文档导出长图和文件夹</image:title>
+    </image:image>
   </url>
 
   <url>
@@ -169,6 +157,10 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-chrome-plugin.webp</image:loc>
+      <image:title>石墨文档导出Chrome插件使用指南</image:title>
+    </image:image>
   </url>
 
   <url>
@@ -176,6 +168,10 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-online-document-export-tools.webp</image:loc>
+      <image:title>2026年在线文档批量导出工具大全</image:title>
+    </image:image>
   </url>
 
   <url>
@@ -183,5 +179,9 @@
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-chinese-document-tools-comparison.webp</image:loc>
+      <image:title>2026国产文档工具对比：石墨vs飞书vs腾讯vs语雀</image:title>
+    </image:image>
   </url>
 </urlset>

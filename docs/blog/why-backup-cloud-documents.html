@@ -31,6 +31,9 @@
     <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
     <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog-common.css">
 
@@ -111,38 +114,6 @@
             "@type": "Answer",
             "text": "会。当管理员清理离职员工权限时，可能误删该员工创建的共享文档。如果超过回收站保留期才发现，文档将无法恢复。建议在人员变动时先导出备份再清理权限。"
           }
-        }
-      ]
-    }
-    </script>
-
-    <!-- 结构化数据: HowTo -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": "如何备份云文档（3-2-1策略）",
-      "description": "使用3-2-1备份策略保护云端文档数据安全的完整步骤",
-      "step": [
-        {
-          "@type": "HowToStep",
-          "name": "遵循3-2-1备份原则",
-          "text": "保留3份数据副本，存储在2种不同介质（云端+本地硬盘），至少1份异地备份（移动硬盘或其他云存储）。"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "建立定期备份习惯",
-          "text": "重要项目文档每周备份一次，日常工作笔记每月备份，个人知识库每季度备份。在日历设置提醒确保执行。"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "选择合适的备份工具",
-          "text": "根据文档数量选择：50份以下可手动导出；大量文档使用批量导出工具（如石墨文档导出工具）；有技术背景可用API脚本定制。"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "验证备份完整性",
-          "text": "检查文件数量是否一致，随机打开文件确认内容完整，确认文件夹层级结构保留。发现问题立即重新备份。"
         }
       ]
     }

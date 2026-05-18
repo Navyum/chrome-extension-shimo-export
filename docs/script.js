@@ -72,7 +72,7 @@ window.addEventListener('resize', initDots);
 window.addEventListener('mousemove', e => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-});
+}, { passive: true });
 
 // --- BENTO CARD GLOW EFFECT ---
 function initBentoGlow() {
@@ -307,12 +307,19 @@ function initUpdateNotificationBento() {
 
 // Initialize after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    initDots();
-    animate();
     initBentoGlow();
     initButtonGlow();
-    initCards(); // Use initCards for efficient management
+    initCards();
     setInterval(cycleCards, 5000);
     initUpdateNotificationBento();
+});
+
+// Defer canvas animation to after page load for better LCP
+window.addEventListener('load', () => {
+    if (typeof requestIdleCallback === 'function') {
+        requestIdleCallback(() => { initDots(); animate(); });
+    } else {
+        setTimeout(() => { initDots(); animate(); }, 100);
+    }
 });
 
