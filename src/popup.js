@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   
   // 增强下拉框交互效果
   enhanceSelectInteraction();
+  initRatingModal();
 });
 
 function syncUiWithState(state) {
@@ -473,6 +474,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case 'exportComplete':
       addLog('导出流程完成。');
       showStatus('导出完成！', 'success');
+      showRatingModalAfterExport();
       setStartButtonLabel(START_BUTTON_DONE_TEXT);
       isExporting = false;
       // 从后台获取最终状态，以显示可能的失败文件
@@ -776,4 +778,88 @@ function enhanceSelectInteraction() {
     updateSelectionState();
     closeCustomDropdown();
   });
-} 
+}
+
+// ── Rating Modal ──
+
+const REVIEW_URL = 'https://chromewebstore.google.com/detail/jdipfhjpijkdjbefbaehnimligdldhdp/reviews';
+const RATING_SHOW_DELAY_MS = 2500;
+
+function showRatingModalAfterExport() {
+  setTimeout(async () => {
+    const { ratingDismissed } = await browser.storage.local.get('ratingDismissed');
+    if (ratingDismissed) return;
+    toggleRatingModal(true);
+  }, RATING_SHOW_DELAY_MS);
+}
+
+function initRatingModal() {
+  const ratingModal = document.getElementById('ratingModal');
+  const ratingModalClose = document.getElementById('ratingModalClose');
+  const ratingReviewBtn = document.getElementById('ratingReviewBtn');
+  const ratingDismissBtn = document.getElementById('ratingDismissBtn');
+  const ratingLaterBtn = document.getElementById('ratingLaterBtn');
+  const ratingSponsorLink = document.getElementById('ratingSponsorLink');
+
+  if (!ratingModal) return;
+
+  if (ratingReviewBtn) {
+    ratingReviewBtn.addEventListener('click', () => {
+      browser.tabs.create({ url: REVIEW_URL });
+      toggleRatingModal(false);
+    });
+  }
+
+  if (ratingDismissBtn) {
+    ratingDismissBtn.addEventListener('click', () => {
+      browser.storage.local.set({ ratingDismissed: true });
+      toggleRatingModal(false);
+    });
+  }
+
+  if (ratingLaterBtn) {
+    ratingLaterBtn.addEventListener('click', () => {
+      toggleRatingModal(false);
+    });
+  }
+
+  if (ratingModalClose) {
+    ratingModalClose.addEventListener('click', () => {
+      toggleRatingModal(false);
+    });
+  }
+
+  if (ratingSponsorLink) {
+    ratingSponsorLink.addEventListener('click', () => {
+      toggleRatingModal(false);
+      setTimeout(() => toggleSponsorModal(true), 350);
+    });
+  }
+
+  ratingModal.addEventListener('click', (e) => {
+    if (e.target === ratingModal) toggleRatingModal(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && ratingModal.classList.contains('is-visible')) {
+      toggleRatingModal(false);
+    }
+  });
+}
+
+function toggleRatingModal(shouldShow) {
+  const ratingModal = document.getElementById('ratingModal');
+  if (!ratingModal) return;
+
+  if (shouldShow) {
+    ratingModal.removeAttribute('inert');
+    ratingModal.classList.add('is-visible');
+    document.body.classList.add('modal-open');
+    if (mainContainer) mainContainer.setAttribute('inert', '');
+  } else {
+    if (mainContainer) mainContainer.removeAttribute('inert');
+    document.body.classList.remove('modal-open');
+    ratingModal.classList.remove('is-visible');
+    setTimeout(() => { ratingModal.setAttribute('inert', ''); }, 300);
+  }
+}

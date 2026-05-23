@@ -135,6 +135,38 @@
     </section>
   </div>
   
+  <!-- 五星好评模态框 -->
+  <div id="ratingModal" class="rating-modal" inert>
+    <div class="rating-modal-card" role="dialog" aria-modal="true" aria-labelledby="ratingTitle">
+      <button id="ratingModalClose" class="sponsor-modal-close" aria-label="关闭">&times;</button>
+      <div class="rating-modal-header">
+        <h3 id="ratingTitle">🎉 导出成功！</h3>
+        <p>如果觉得好用，给个五星好评吧</p>
+      </div>
+      <div class="rating-modal-body">
+        <div class="rating-stars">
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+        <button id="ratingReviewBtn" type="button" class="btn btn-primary rating-review-btn">
+          <span>⭐ 去评价</span>
+        </button>
+        <button id="ratingSponsorLink" type="button" class="rating-sponsor-btn">
+          <span class="rating-heart">❤️</span>
+          <span>赞助开发者</span>
+        </button>
+      </div>
+      <div class="rating-modal-footer">
+        <button id="ratingDismissBtn" type="button" class="rating-text-btn">不再提醒</button>
+        <span class="rating-sep">|</span>
+        <button id="ratingLaterBtn" type="button" class="rating-text-btn">下次再说</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 赞助模态框 -->
   <aside id="sponsorModal" class="sponsor-modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="sponsor-modal-card" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
