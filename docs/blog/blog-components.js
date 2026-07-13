@@ -189,6 +189,33 @@
                 'why-backup-cloud-documents.html',
                 'document-format-guide.html'
             ]
+        },
+        'shimo-export-markdown-guide.html': {
+            title: '石墨文档导出Markdown完整教程：图片、表格、链接怎么保留？',
+            related: [
+                'document-format-guide.html',
+                'shimo-export-complete-guide.html',
+                'shimo-export-chrome-plugin-guide.html',
+                'data-migration-guide.html'
+            ]
+        },
+        'shimo-team-space-backup-permission-checklist.html': {
+            title: '石墨团队空间备份权限清单：管理员批量导出前必看',
+            related: [
+                'team-document-management.html',
+                'shimo-export-complete-guide.html',
+                'shimo-export-troubleshooting.html',
+                'why-backup-cloud-documents.html'
+            ]
+        },
+        'shimo-spreadsheet-export-excel-guide.html': {
+            title: '石墨表格导出Excel避坑指南：公式、合并单元格和乱码处理',
+            related: [
+                'document-format-guide.html',
+                'shimo-export-troubleshooting.html',
+                'shimo-export-chrome-plugin-guide.html',
+                'shimo-export-complete-guide.html'
+            ]
         }
     };
 
@@ -199,7 +226,13 @@
         'document-format-guide.html': '文档格式选择指南',
         'team-document-management.html': '团队文档管理最佳实践',
         'data-migration-guide.html': '数据迁移完整指南',
-        'shimo-export-tools-comparison.html': '工具评测'
+        'shimo-export-tools-comparison.html': '工具评测',
+        'shimo-export-complete-guide.html': '石墨文档导出完全指南',
+        'shimo-export-chrome-plugin-guide.html': 'Chrome插件使用指南',
+        'shimo-export-troubleshooting.html': '导出问题排查',
+        'shimo-export-markdown-guide.html': 'Markdown导出教程',
+        'shimo-team-space-backup-permission-checklist.html': '团队空间备份清单',
+        'shimo-spreadsheet-export-excel-guide.html': '表格导出Excel指南'
     };
 
     // 插入导航栏

@@ -100,3 +100,23 @@ A minimalist flat vector illustration in Google design style. A character sittin
 4. 如果 Typography 文字拼写错误，直接 Reroll 重新生成
 5. 建议统一生成尺寸：1792x1024 (16:9) 或 1200x675
 6. 生成后替换 blog/index.html 中对应的 <img> src 即可
+
+======================================================================
+
+15. 石墨文档导出Markdown完整教程：图片、表格、链接怎么保留？
+文件名：shimo-export-markdown-guide.webp
+生成工具：Codex imagegen built-in
+Prompt:
+Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. A polished hero illustration for exporting Shimo documents to Markdown while preserving images, tables, links, and folder structure. Modern desktop workspace with a browser window representing a cloud document, flowing into clean Markdown files and linked image assets on a local folder grid. High-quality 3D editorial illustration with subtle glassmorphism, wide 16:9 composition, calm professional lighting, deep navy background with balanced cyan, green, white, and warm yellow accents. No readable text, no logos, no brand names, no watermarks, no people.
+
+16. 石墨团队空间备份权限清单：管理员批量导出前必看
+文件名：shimo-team-space-backup-permission-checklist.webp
+生成工具：Codex imagegen built-in
+Prompt:
+Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. A polished hero illustration for backing up a Shimo team space, checking permissions, and exporting files safely as an administrator. Clean operations dashboard showing a team-space folder tree, permission badges, export status rows, and a secured local archive. High-quality 3D editorial illustration, wide 16:9 composition, professional data governance mood, deep charcoal and navy base with teal, green, white, and amber accents. No readable text, no logos, no brand names, no watermarks, no people.
+
+17. 石墨表格导出Excel避坑指南：公式、合并单元格和乱码处理
+文件名：shimo-spreadsheet-export-excel-guide.webp
+生成工具：Codex imagegen built-in
+Prompt:
+Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. A polished hero illustration for exporting Shimo spreadsheets to Excel and avoiding issues with formulas, merged cells, images, encoding, and permissions. Modern cloud spreadsheet interface transforming into a local Excel-like workbook archive with validation checks. High-quality 3D editorial illustration, wide 16:9 composition, precise analytical mood, dark neutral background with emerald, cyan, white, orange, and blue accents. No readable text, no logos, no brand names, no watermarks, no people.

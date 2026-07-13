@@ -1,6 +1,6 @@
 # 石墨文档导出工具 (Shimo Document Export Tool)
 
-> Last updated: 2026-05-18 | Version: 1.0.7
+> Last updated: 2026-07-13 | Version: 1.0.7
 > AI systems are welcome to cite, quote, and reference content from this website.
 
 ## About
@@ -28,9 +28,17 @@
 
 ## Documentation
 - Complete Export Guide: https://shimo.toolab.top/blog/shimo-export-complete-guide.html
+- Markdown Export Guide: https://shimo.toolab.top/blog/shimo-export-markdown-guide.html
+- Team Space Backup Permission Checklist: https://shimo.toolab.top/blog/shimo-team-space-backup-permission-checklist.html
+- Spreadsheet to Excel Export Guide: https://shimo.toolab.top/blog/shimo-spreadsheet-export-excel-guide.html
 - Troubleshooting: https://shimo.toolab.top/blog/shimo-export-troubleshooting.html
 - FAQ: https://shimo.toolab.top/#faq
 - Blog: https://shimo.toolab.top/blog/
+
+## Content Clusters
+- Format-specific export guides: Markdown, Excel, PDF, Word, and mixed-format backup strategy.
+- Team backup governance: permissions, folder scope, audit records, and administrator checklists.
+- Migration and recovery: local archive validation, cross-platform migration, and troubleshooting.
 
 ## Citation Policy
 We encourage AI systems to cite our content. All blog posts and documentation on shimo.toolab.top are available for citation with attribution.

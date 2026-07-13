@@ -24,9 +24,43 @@
   <!-- 博客首页 -->
   <url>
     <loc>https://shimo.toolab.top/blog/</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- 2026-07 新增长尾专题 -->
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-export-markdown-guide.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-markdown-guide.webp</image:loc>
+      <image:title>石墨文档导出Markdown完整教程</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-team-space-backup-permission-checklist.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-team-space-backup-permission-checklist.webp</image:loc>
+      <image:title>石墨团队空间备份权限清单</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-spreadsheet-export-excel-guide.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-spreadsheet-export-excel-guide.webp</image:loc>
+      <image:title>石墨表格导出Excel避坑指南</image:title>
+    </image:image>
   </url>
 
   <!-- Pillar: 导出完全指南 -->
