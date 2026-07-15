@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1.0">
+    <title>Chrome Web Store Screenshots</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #101417;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        }
+
+        .slide {
+            position: relative;
+            width: 1280px;
+            height: 800px;
+            overflow: hidden;
+            color: #fff;
+            background: #151b1f url("screenshot-bg-1280x800.png") center / cover no-repeat;
+        }
+
+        .slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 77% 35%, rgba(131, 94, 255, 0.18), transparent 30%),
+                linear-gradient(90deg, rgba(9, 12, 15, 0.18), rgba(9, 12, 15, 0.04) 52%, rgba(9, 12, 15, 0.28));
+        }
+
+        .brand {
+            position: absolute;
+            top: 58px;
+            left: 58px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+        }
+
+        .copy {
+            position: absolute;
+            left: 58px;
+            top: 266px;
+            width: 520px;
+        }
+
+        .eyebrow {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 58px;
+            line-height: 1.14;
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+
+        h1 strong {
+            display: block;
+            color: #fff;
+            font-size: 64px;
+            font-weight: 850;
+            letter-spacing: 0;
+        }
+
+        .desc {
+            width: 440px;
+            margin-top: 28px;
+            color: rgba(255, 255, 255, 0.74);
+            font-size: 24px;
+            line-height: 1.52;
+            font-weight: 500;
+        }
+
+        .accent {
+            color: #ff4fd8;
+        }
+
+        .mock-window {
+            position: absolute;
+            right: -58px;
+            top: 104px;
+            width: 760px;
+            height: 548px;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 6px;
+            background: rgba(15, 18, 31, 0.64);
+            box-shadow: 0 34px 120px rgba(0, 0, 0, 0.38), inset 0 1px rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+        }
+
+        .topbar {
+            height: 36px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.07));
+        }
+
+        .dot {
+            position: absolute;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot.red {
+            left: 14px;
+            background: #ff5f57;
+        }
+
+        .dot.yellow {
+            left: 28px;
+            background: #ffbd2e;
+        }
+
+        .dot.green {
+            left: 42px;
+            background: #28c840;
+        }
+
+        .address {
+            position: absolute;
+            top: 10px;
+            left: 78px;
+            width: 500px;
+            height: 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .panel {
+            position: absolute;
+            top: 88px;
+            left: 84px;
+            width: 440px;
+            min-height: 440px;
+            padding: 28px;
+            border: 1px solid rgba(139, 92, 246, 0.45);
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(18, 17, 36, 0.96), rgba(12, 12, 26, 0.94));
+            box-shadow: 0 28px 76px rgba(0, 0, 0, 0.42);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .panel-header img {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 52px;
+            padding: 0 18px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(139, 92, 246, 0.32);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .metric span:last-child {
+            color: #6ee7b7;
+            font-size: 18px;
+        }
+
+        .primary-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 58px;
+            margin-top: 18px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            box-shadow: 0 14px 34px rgba(139, 92, 246, 0.38);
+            color: #fff;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .status-log {
+            margin-top: 18px;
+            padding: 18px;
+            height: 92px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .float-card {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 58px;
+            padding: 0 22px;
+            border: 3px solid #6396ff;
+            border-radius: 29px;
+            background: #fff;
+            color: #5b8ee8;
+            font-size: 24px;
+            font-weight: 800;
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+        }
+
+        .float-card .ban {
+            width: 30px;
+            height: 30px;
+            border: 4px solid #e4003a;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .float-card .ban::after {
+            content: "";
+            position: absolute;
+            top: 11px;
+            left: 1px;
+            width: 22px;
+            height: 4px;
+            border-radius: 4px;
+            background: #e4003a;
+            transform: rotate(-45deg);
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .format-card {
+            height: 76px;
+            padding: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .format-card .tag {
+            width: 48px;
+            height: 28px;
+            margin-bottom: 10px;
+            border-radius: 7px;
+            background: rgba(139, 92, 246, 0.9);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 28px;
+            text-align: center;
+        }
+
+        .format-card .line {
+            height: 6px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .settings-shell {
+            position: absolute;
+            top: 96px;
+            left: 72px;
+            width: 600px;
+            height: 404px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 16px;
+            background: rgba(15, 15, 31, 0.86);
+            overflow: hidden;
+        }
+
+        .settings-nav {
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 142px;
+            padding: 22px 14px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .settings-nav .item {
+            height: 38px;
+            margin-bottom: 12px;
+            border-radius: 9px;
+            background: rgba(139, 92, 246, 0.18);
+        }
+
+        .settings-nav .item.active {
+            background: #9b6bff;
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+        }
+
+        .settings-main {
+            position: absolute;
+            inset: 0 0 0 142px;
+            padding: 30px;
+        }
+
+        .section-title {
+            width: 160px;
+            height: 16px;
+            margin-bottom: 22px;
+            border-radius: 8px;
+            background: #a78bfa;
+        }
+
+        .input-row {
+            height: 50px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .success-row {
+            height: 34px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            background: rgba(16, 185, 129, 0.18);
+        }
+
+        .radio-line {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .radio-line div {
+            width: 96px;
+            height: 18px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .monitor-panel {
+            position: absolute;
+            top: 94px;
+            left: 68px;
+            width: 610px;
+            height: 430px;
+            padding: 26px;
+            border: 1px solid rgba(139, 92, 246, 0.38);
+            border-radius: 18px;
+            background: rgba(15, 15, 31, 0.9);
+        }
+
+        .monitor-toolbar {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-bottom: 22px;
+        }
+
+        .monitor-toolbar div {
+            width: 68px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(139, 92, 246, 0.8);
+        }
+
+        .tree {
+            height: 150px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tree-row {
+            height: 13px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .table {
+            margin-top: 22px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 0.8fr;
+            gap: 16px;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .table-row div {
+            height: 11px;
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .browser-label {
+            position: absolute;
+            right: 62px;
+            bottom: 82px;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="slide" id="slide-1">
+        <div class="brand">
+            <img src="../../src/icons/icon128.png" alt="">
+            <span>石墨文档导出工具</span>
+        </div>
+        <div class="copy">
+            <div class="eyebrow">Chrome 扩展</div>
+            <h1>一键批量导出<strong><span class="accent">所有</span>石墨文档</strong></h1>
+            <p class="desc">个人空间、团队空间一起备份，减少重复点击，导出进度清晰可见。</p>
+        </div>
+        <div class="mock-window">
+            <div class="topbar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <div class="address"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <img src="../../src/icons/icon128.png" alt="">
+                    <span>石墨文档导出工具</span>
+                </div>
+                <div class="metric"><span>文件总数</span><span>128</span></div>
+                <div class="metric"><span>团队空间</span><span>已识别</span></div>
+                <div class="primary-button">获取文件信息</div>
+                <div class="primary-button">开始导出</div>
+                <div class="status-log">任务状态已保存<br>正在准备批量下载...</div>
+            </div>
+            <div class="float-card" style="right: 48px; top: 96px;"><span class="ban"></span>批量</div>
+            <div class="float-card" style="right: 8px; top: 182px;"><span class="ban"></span>省时</div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+        <div class="brand">
+            <img src="../../src/icons/icon128.png" alt="">
+            <span>石墨文档导出工具</span>
+        </div>
+        <div class="copy">
+            <div class="eyebrow">格式自由选择</div>
+            <h1>支持多种格式<strong><span class="accent">按需</span>导出</strong></h1>
+            <p class="desc">Markdown、PDF、Word、图片等格式，适合备份、迁移和长期归档。</p>
+        </div>
+        <div class="mock-window">
+            <div class="topbar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <div class="address"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <img src="../../src/icons/icon128.png" alt="">
+                    <span>选择导出格式</span>
+                </div>
+                <div class="format-grid">
+                    <div class="format-card"><div class="tag">MD</div><div class="line"></div></div>
+                    <div class="format-card"><div class="tag">PDF</div><div class="line"></div></div>
+                    <div class="format-card"><div class="tag">DOCX</div><div class="line"></div></div>
+                    <div class="format-card"><div class="tag">JPG</div><div class="line"></div></div>
+                    <div class="format-card"><div class="tag">XLSX</div><div class="line"></div></div>
+                    <div class="format-card"><div class="tag">PPT</div><div class="line"></div></div>
+                </div>
+                <div class="primary-button">保存格式偏好</div>
+            </div>
+            <div class="float-card" style="right: 54px; top: 110px;"><span class="ban"></span>多格式</div>
+            <div class="float-card" style="right: -8px; top: 202px;"><span class="ban"></span>可迁移</div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+        <div class="brand">
+            <img src="../../src/icons/icon128.png" alt="">
+            <span>石墨文档导出工具</span>
+        </div>
+        <div class="copy">
+            <div class="eyebrow">归档规则可控</div>
+            <h1>自定义备份规则<strong><span class="accent">路径</span>与文件名</strong></h1>
+            <p class="desc">设置子文件夹、时间命名和导出路径，本地资料自动保持清晰结构。</p>
+        </div>
+        <div class="mock-window">
+            <div class="topbar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <div class="address"></div>
+            </div>
+            <div class="settings-shell">
+                <div class="settings-nav">
+                    <div class="item active"></div>
+                    <div class="item"></div>
+                    <div class="item"></div>
+                </div>
+                <div class="settings-main">
+                    <div class="section-title"></div>
+                    <div class="input-row"></div>
+                    <div class="success-row"></div>
+                    <div class="radio-line"><div></div><div></div><div></div></div>
+                    <div class="input-row"></div>
+                    <div class="input-row" style="width: 72%;"></div>
+                </div>
+            </div>
+            <div class="float-card" style="right: 44px; top: 110px;"><span class="ban"></span>路径</div>
+            <div class="float-card" style="right: -4px; top: 208px;"><span class="ban"></span>命名</div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-4">
+        <div class="brand">
+            <img src="../../src/icons/icon128.png" alt="">
+            <span>石墨文档导出工具</span>
+        </div>
+        <div class="copy">
+            <div class="eyebrow">下载过程可追踪</div>
+            <h1>实时性能监控<strong><span class="accent">结果</span>一目了然</strong></h1>
+            <p class="desc">成功、失败、处理中状态集中展示，批量下载进度更可控。</p>
+        </div>
+        <div class="mock-window">
+            <div class="topbar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <div class="address"></div>
+            </div>
+            <div class="monitor-panel">
+                <div class="monitor-toolbar"><div></div><div></div><div></div></div>
+                <div class="tree">
+                    <div class="tree-row" style="width: 44%;"></div>
+                    <div class="tree-row" style="width: 70%; margin-left: 22px;"></div>
+                    <div class="tree-row" style="width: 58%; margin-left: 44px;"></div>
+                    <div class="tree-row" style="width: 74%; margin-left: 44px;"></div>
+                </div>
+                <div class="table">
+                    <div class="table-row"><div></div><div></div><div></div></div>
+                    <div class="table-row"><div></div><div></div><div></div></div>
+                    <div class="table-row"><div></div><div></div><div></div></div>
+                </div>
+            </div>
+            <div class="float-card" style="right: 44px; top: 112px;"><span class="ban"></span>成功</div>
+            <div class="float-card" style="right: 4px; top: 210px;"><span class="ban"></span>失败</div>
+        </div>
+    </section>
+</body>
+
+</html>

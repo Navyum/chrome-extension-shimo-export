@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档迁移到Obsidian完整教程：批量导出Markdown，保留图片附件和文件夹结构，放入Vault后修复内部链接、标签和双链知识库。">
+    <meta name="keywords" content="石墨文档迁移到Obsidian,石墨文档导入Obsidian,石墨文档转Obsidian Markdown,石墨文档导出md到Obsidian,Obsidian双链知识库">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-to-obsidian-migration-guide.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档迁移到 Obsidian 完整教程：Markdown、图片和文件夹结构怎么保留？">
+    <meta property="og:description" content="从石墨批量导出Markdown到Obsidian Vault搭建，讲清图片附件、内部链接、标签、双链和迁移验收清单。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-to-obsidian-migration-guide.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-to-obsidian-migration-guide.webp">
+    <meta property="article:published_time" content="2026-07-15T10:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-15T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档迁移到 Obsidian 完整教程">
+    <meta name="twitter:description" content="批量导出Markdown，保留图片和目录结构，迁移到Obsidian并搭建双链知识库。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-to-obsidian-migration-guide.webp">
+
+    <title>石墨文档迁移到 Obsidian 完整教程：Markdown、图片和文件夹结构怎么保留？ | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档迁移到 Obsidian 完整教程：Markdown、图片和文件夹结构怎么保留？",
+      "description": "石墨文档迁移到Obsidian完整教程：批量导出Markdown，保留图片附件和文件夹结构，放入Vault后修复内部链接、标签和双链知识库。",
+      "image": "https://shimo.toolab.top/images/shimo-to-obsidian-migration-guide.webp",
+      "author": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具团队"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://shimo.toolab.top/images/icon.png"
+        }
+      },
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "wordCount": 3600,
+      "articleSection": "知识库迁移",
+      "keywords": ["石墨文档迁移到Obsidian", "石墨文档导入Obsidian", "石墨文档转Obsidian Markdown", "Obsidian双链知识库"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-to-obsidian-migration-guide.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "石墨迁移到Obsidian", "item": "https://shimo.toolab.top/blog/shimo-to-obsidian-migration-guide.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何把石墨文档迁移到 Obsidian",
+      "description": "从石墨批量导出Markdown，整理附件路径，放入Obsidian Vault，并重建双链知识库。",
+      "step": [
+        {"@type": "HowToStep", "name": "导出Markdown", "text": "从石墨文档按文件夹批量导出Markdown，并保留本地目录结构。"},
+        {"@type": "HowToStep", "name": "检查附件", "text": "确认图片、附件和表格资源已下载到本地，并使用相对路径引用。"},
+        {"@type": "HowToStep", "name": "导入Vault", "text": "把导出的目录放入Obsidian Vault，或直接用导出目录创建新Vault。"},
+        {"@type": "HowToStep", "name": "重建双链", "text": "把重要目录页、索引页和跨文档关系改造成Obsidian内部链接。"},
+        {"@type": "HowToStep", "name": "验收备份", "text": "抽查文件数量、图片显示、链接跳转、标签和备份同步状态。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档可以直接导入 Obsidian 吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Obsidian 不需要把文件上传到服务器。最稳妥的迁移方式是先把石墨文档批量导出为 Markdown，再把导出的文件夹放入 Obsidian Vault。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Obsidian 迁移石墨文档应该选 Markdown 还是 Word？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "迁移到 Obsidian 应优先选择 Markdown，因为 Obsidian 以本地 Markdown 文件为核心。Word 适合作为排版复杂文档的补充归档，不适合作为主要笔记格式。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档里的图片迁移到 Obsidian 后会丢吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "只要导出时同步下载图片资源，并确保 Markdown 中的图片路径指向本地附件目录，图片就可以在 Obsidian 中显示。迁移后应断网抽查含图文档。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档的评论、协作记录能迁移到 Obsidian 吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "通常不能完整迁移。评论、历史版本、协作记录和部分@提及属于平台协作信息，建议迁移前截图或单独导出关键记录。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "大量石墨文档迁移到 Obsidian 后怎么整理？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "建议先保留原文件夹结构，再为项目、主题或部门创建索引页。迁移初期不要急着重命名所有文件，先完成图片、链接和数量验收。"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档迁移到 Obsidian 完整教程：Markdown、图片和文件夹结构怎么保留？</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">13</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月15日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-to-obsidian-migration-guide.webp" alt="石墨文档迁移到 Obsidian：Markdown 文件、图片附件和文件夹结构进入本地双链知识库" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>石墨迁移到 Obsidian 的最佳中间格式是 Markdown，不是 Word 或 PDF</li>
+                                <li>先保留石墨原文件夹结构，再在 Obsidian 里逐步重建双链和索引页</li>
+                                <li>图片迁移的关键是本地附件目录和相对路径，不是只看正文是否导出</li>
+                                <li>评论、历史版本、协作记录通常无法迁移，需要迁移前单独留档</li>
+                                <li>迁移完成后要抽查数量、图片、链接、标签和备份同步五项</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>把石墨文档迁移到 Obsidian</strong>，推荐流程是：先用批量导出工具把石墨文档导出为 Markdown，并保留文件夹层级和图片附件；然后把导出的目录放入 Obsidian Vault；最后把重要目录页改造成索引页，用 <code>[[双链]]</code>、标签和反向链接重建知识结构。Obsidian 本质上读取本地 Markdown 文件，因此迁移重点不是“上传导入”，而是“本地目录、附件路径和内部链接整理”。</p>
+
+                    <p>这篇文章适合已经决定从石墨转向 Obsidian 的个人用户、研发团队、产品团队和知识库维护者。它不会重复讲所有导出格式，而是聚焦一个目标：把石墨里的资料变成可长期维护、可全文检索、可双链组织的本地知识库。</p>
+
+                    <div class="info-box">
+                        <h4>官方资料依据</h4>
+                        <p>Obsidian 官方说明，数据保存在设备上的本地文件夹中，这个文件夹称为 Vault；同时 Obsidian 支持 Markdown、图片和 PDF 等文件类型，也支持内部链接和反向链接。参考：<a href="https://obsidian.md/help/data-storage" target="_blank" rel="noopener">Obsidian 数据存储</a>、<a href="https://obsidian.md/help/file-formats" target="_blank" rel="noopener">支持的文件格式</a>、<a href="https://obsidian.md/help/links" target="_blank" rel="noopener">内部链接</a>、<a href="https://obsidian.md/help/plugins/backlinks" target="_blank" rel="noopener">反向链接</a>。</p>
+                    </div>
+
+                    <a href="shimo-export-markdown-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">MD</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出 Markdown 完整教程</div>
+                            <p class="internal-link-desc">迁移到 Obsidian 前，先确认 Markdown、图片和表格能正确导出。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="before-migration">迁移到 Obsidian 前先确认什么？</h2>
+
+                    <p>Obsidian 很适合长期知识管理，但不是所有石墨内容都适合原样迁移。迁移前先把资料分成三类：需要持续编辑的知识、需要归档留痕的定稿、需要保持表格能力的数据。</p>
+
+                    <h3>哪些石墨文档适合迁移到 Obsidian</h3>
+                    <p>适合迁移的内容通常有几个特点：以文字为主、标题层级清楚、需要长期检索、会被不断引用。比如产品方案、读书笔记、会议纪要、技术方案、项目复盘和个人知识库文章。</p>
+
+                    <p>不太适合只迁移为 Markdown 的内容包括：合同、报价单、审批记录、含大量合并单元格的表格、带复杂排版的宣传材料。这些内容可以放进 Obsidian 附件目录，但建议同时保留 PDF 或 Excel。</p>
+
+                    <h3>Markdown、PDF、Word 该怎么选</h3>
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>石墨内容类型</th>
+                                <th>推荐导出格式</th>
+                                <th>迁移到 Obsidian 后的用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>普通文档、方案、笔记</td>
+                                <td>Markdown</td>
+                                <td>作为可编辑笔记，参与搜索、双链和标签管理</td>
+                            </tr>
+                            <tr>
+                                <td>合同、公告、定稿资料</td>
+                                <td>PDF + Markdown</td>
+                                <td>PDF 做原貌归档，Markdown 做检索摘要</td>
+                            </tr>
+                            <tr>
+                                <td>复杂表格、统计清单</td>
+                                <td>Excel</td>
+                                <td>作为附件保存，必要时在笔记中链接引用</td>
+                            </tr>
+                            <tr>
+                                <td>图片很多的教程</td>
+                                <td>Markdown + 本地图片</td>
+                                <td>需要重点检查附件目录和图片相对路径</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a href="document-format-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">格式</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">Markdown vs PDF vs Word：如何选择最适合的文档格式？</div>
+                            <p class="internal-link-desc">如果你的资料类型很混杂，先用格式选择表决定导出策略。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="export-markdown">从石墨批量导出 Markdown</h2>
+
+                    <p>Obsidian 迁移的第一步不是打开 Obsidian，而是先在石墨端把源资料导干净。这里最重要的三个要求是：Markdown 文件完整、文件夹结构完整、图片附件完整。</p>
+
+                    <h3>按文件夹导出并保留目录层级</h3>
+                    <p>如果你手动逐篇导出，最终很容易得到一个平铺的大文件夹。Obsidian 能搜索这些文件，但知识库结构会很混乱。建议按石墨里的项目、团队或知识库目录批量导出，让本地目录和原始目录保持一致。</p>
+
+                    <ol>
+                        <li>先在石墨中确认迁移范围，例如“个人空间/知识库/产品资料”。</li>
+                        <li>把明显过期、重复、无权限的文档先标记出来，不要混进第一批迁移。</li>
+                        <li>使用支持目录层级的批量导出方式，导出格式选择 Markdown。</li>
+                        <li>导出后对比石墨端文件数量和本地 <code>.md</code> 文件数量。</li>
+                        <li>记录失败文件，单独补导或改用 Word/PDF 归档。</li>
+                    </ol>
+
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">导出</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档批量导出基础流程</div>
+                            <p class="internal-link-desc">不熟悉批量导出时，可以先看完整导出教程。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>图片、附件、表格的导出检查</h3>
+                    <p>Markdown 正文出来了，不代表迁移完成。你还要确认图片资源是否在本地、图片路径是否是相对路径、附件链接是否还能打开。对表格较多的文档，先判断它是“说明性小表格”还是“业务数据表”。前者可以留在 Markdown 里，后者建议单独导出 Excel。</p>
+
+                    <div class="warning-box">
+                        <h4>不要急着删除石墨原文档</h4>
+                        <p>Obsidian 中能打开 Markdown，只能说明正文迁移成功。图片、附件、内部链接、表格和重要格式都验收通过后，再考虑归档或清理石墨端资料。</p>
+                    </div>
+
+                    <h2 id="move-to-vault">把 Markdown 放入 Obsidian Vault</h2>
+
+                    <p>Obsidian 的 Vault 就是一个本地文件夹。你可以新建一个空 Vault，再把导出的石墨目录复制进去；也可以直接把导出的根目录作为新的 Vault 打开。两种方式都可行，区别在于后续管理习惯。</p>
+
+                    <h3>新建 Vault 还是复用导出目录</h3>
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>方式</th>
+                                <th>适合场景</th>
+                                <th>注意事项</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>新建 Vault 后复制资料</td>
+                                <td>想重新规划知识库结构</td>
+                                <td>迁移时保留一份原始导出目录，便于回滚</td>
+                            </tr>
+                            <tr>
+                                <td>直接打开导出目录</td>
+                                <td>想最大程度保留石墨原目录</td>
+                                <td>不要马上批量重命名，先完成验收</td>
+                            </tr>
+                            <tr>
+                                <td>放入已有 Vault</td>
+                                <td>已有个人知识库，只想追加石墨资料</td>
+                                <td>建议放到独立顶层目录，避免和旧笔记混杂</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>图片资源目录建议怎么命名</h3>
+                    <p>如果导出工具已经为每篇文档生成同名资源目录，建议先保持原状。不要为了“整洁”马上把图片集中到一个 <code>assets</code> 文件夹，因为这可能破坏 Markdown 中的相对路径。</p>
+
+                    <p>如果你要统一附件目录，建议在 Obsidian 里完成路径替换后再移动。迁移初期的优先级是可用和可回滚，不是目录看起来最漂亮。</p>
+
+                    <h2 id="rebuild-links">迁移后如何修复链接和知识结构</h2>
+
+                    <p>把文件放进 Vault 只是迁移的下半场开始。Obsidian 的价值不在于把文件堆进去，而在于用双链、反向链接、标签和索引页，把原来分散的文档变成可探索的知识网络。</p>
+
+                    <h3>内部链接从石墨链接改成本地双链</h3>
+                    <p>石墨文档中的内部链接通常指向线上 URL。迁移后，如果链接仍然跳回石墨，就会受到账号、权限和网络状态影响。建议把高频引用的石墨链接改成 Obsidian 内部链接。</p>
+
+                    <ol>
+                        <li>先搜索正文里的 <code>shimo.im</code> 链接。</li>
+                        <li>找到对应的本地 Markdown 文件。</li>
+                        <li>把线上链接改为 <code>[[文件名]]</code> 或 <code>[[文件名#标题]]</code>。</li>
+                        <li>对项目首页、知识库首页、会议纪要索引优先处理。</li>
+                    </ol>
+
+                    <h3>标签、目录、MOC 页面重建</h3>
+                    <p>不要试图一次性给所有文档加标签。更现实的做法是先创建 5 到 10 个高层级标签，比如 <code>#项目</code>、<code>#产品</code>、<code>#研发</code>、<code>#会议纪要</code>、<code>#归档</code>。然后为每个重要主题建立一页 MOC，也就是索引页。</p>
+
+                    <p>一个产品团队可以这样组织：</p>
+                    <ul>
+                        <li><code>产品知识库首页.md</code>：链接到路线图、需求池、竞品分析、用户研究。</li>
+                        <li><code>项目A索引.md</code>：链接到需求文档、设计稿说明、会议纪要、上线复盘。</li>
+                        <li><code>团队会议纪要.md</code>：按月份汇总会议记录。</li>
+                    </ul>
+
+                    <h2 id="troubleshooting">常见问题排查</h2>
+
+                    <h3>图片不显示怎么办？</h3>
+                    <p>先检查 Markdown 文件中的图片路径。常见问题有三类：图片目录没有一起复制、路径从相对路径变成了失效的绝对路径、文件名中有特殊字符导致识别失败。最简单的排查方式是把一篇含图文档和它的图片目录放在同一文件夹里测试。</p>
+
+                    <h3>标题层级错乱怎么办？</h3>
+                    <p>石墨中的正文样式和 Markdown 标题并不总是一一对应。迁移后重点处理索引页和高频阅读文档，不必一开始就修复所有旧文档。标题层级的目标是帮助搜索和折叠，不是追求和石墨界面完全一致。</p>
+
+                    <h3>中文文件名乱码怎么办？</h3>
+                    <p>优先确认操作系统和压缩包解压工具是否使用 UTF-8。跨 Windows、macOS、NAS 同步时，中文、空格和特殊符号都可能带来路径问题。团队迁移时建议使用简短中文标题，避免斜杠、冒号、问号等特殊字符。</p>
+
+                    <h2 id="validation">迁移验收清单</h2>
+
+                    <p>正式把 Obsidian 作为主知识库前，建议做一次验收。下面这张表可以直接作为检查清单使用。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>检查项</th>
+                                <th>通过标准</th>
+                                <th>失败时处理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>文件数量</td>
+                                <td>本地 Markdown 数量与迁移清单一致</td>
+                                <td>回到石墨端补导失败文件</td>
+                            </tr>
+                            <tr>
+                                <td>图片显示</td>
+                                <td>断网后抽查图片仍可显示</td>
+                                <td>重新导出图片或修复附件路径</td>
+                            </tr>
+                            <tr>
+                                <td>内部链接</td>
+                                <td>关键索引页能跳到本地笔记</td>
+                                <td>将石墨线上链接改为 Obsidian 双链</td>
+                            </tr>
+                            <tr>
+                                <td>表格资料</td>
+                                <td>重要业务表有 Excel 附件备份</td>
+                                <td>单独从石墨表格导出 xlsx</td>
+                            </tr>
+                            <tr>
+                                <td>备份同步</td>
+                                <td>Vault 已进入本地备份或云盘同步策略</td>
+                                <td>建立定期备份，不只依赖单台电脑</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a href="data-migration-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">验收</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">数据迁移完整检查清单</div>
+                            <p class="internal-link-desc">迁移完成后，数量、完整性和备份策略都要复核。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>石墨文档可以直接导入 Obsidian 吗？</h3>
+                    <p>Obsidian 不像云文档那样需要“导入成在线文档”。它读取本地 Markdown 文件，所以你只需要把石墨文档导出为 Markdown，再把文件夹放进 Vault。</p>
+
+                    <h3>Obsidian 迁移石墨文档应该选 Markdown 还是 Word？</h3>
+                    <p>优先选 Markdown。Word 可以作为排版复杂文档的补充备份，但在 Obsidian 里无法像 Markdown 一样参与双链、标题折叠和文本检索。</p>
+
+                    <h3>石墨文档里的图片迁移到 Obsidian 后会丢吗？</h3>
+                    <p>如果只导出正文，图片可能会丢。正确做法是同步下载图片附件，并保留 Markdown 中指向本地图片的相对路径。迁移后建议断网抽查几篇含图文档。</p>
+
+                    <h3>石墨文档的评论、协作记录能迁移到 Obsidian 吗？</h3>
+                    <p>通常不能完整迁移。评论、历史版本、@提及和协作记录属于石墨平台信息，不是 Markdown 正文内容。重要记录应在迁移前截图或单独整理。</p>
+
+                    <h3>大量石墨文档迁移到 Obsidian 后怎么整理？</h3>
+                    <p>先保留原目录，再逐步建立索引页、标签和双链。不要迁移第一天就批量重命名所有文件，否则图片路径和已有链接更容易出问题。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">迁移实践</span>
+                        </div>
+                        <p class="author-desc">专注于云文档备份、批量导出和跨平台迁移工具开发，长期整理石墨、飞书、Notion、Obsidian 等文档生态的迁移实践。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">Obsidian迁移</a>
+                        <a href="index.html" class="article-tag">Markdown知识库</a>
+                        <a href="index.html" class="article-tag">双链笔记</a>
+                        <a href="index.html" class="article-tag">石墨文档备份</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-export-markdown-guide.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 相关教程</div>
+                            <div class="nav-link-title">石墨文档导出Markdown完整教程</div>
+                        </a>
+                        <a href="shimo-to-notion-migration-guide.html" class="nav-link">
+                            <div class="nav-link-label">下一篇 &rarr;</div>
+                            <div class="nav-link-title">石墨文档迁移到 Notion 完整教程</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

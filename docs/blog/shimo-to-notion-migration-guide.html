@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档迁移到Notion完整教程：批量导出Markdown、Word或Excel，使用Notion导入和ZIP保留目录，处理图片、表格、文件大小限制。">
+    <meta name="keywords" content="石墨文档迁移到Notion,石墨文档导入Notion,石墨文档转Notion,石墨Markdown导入Notion,石墨Word导入Notion,Notion批量导入">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-to-notion-migration-guide.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档迁移到 Notion 完整教程：Markdown、Word、ZIP 导入怎么选？">
+    <meta property="og:description" content="从石墨批量导出到Notion导入，讲清Markdown、Word、ZIP、CSV、数据库整理和导入失败处理。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-to-notion-migration-guide.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-to-notion-migration-guide.webp">
+    <meta property="article:published_time" content="2026-07-15T10:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-15T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档迁移到 Notion 完整教程">
+    <meta name="twitter:description" content="Markdown、Word、ZIP、CSV 怎么选？一篇讲清石墨迁移 Notion 的完整流程。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-to-notion-migration-guide.webp">
+
+    <title>石墨文档迁移到 Notion 完整教程：Markdown、Word、ZIP 导入怎么选？ | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档迁移到 Notion 完整教程：Markdown、Word、ZIP 导入怎么选？",
+      "description": "石墨文档迁移到Notion完整教程：批量导出Markdown、Word或Excel，使用Notion导入和ZIP保留目录，处理图片、表格、文件大小限制。",
+      "image": "https://shimo.toolab.top/images/shimo-to-notion-migration-guide.webp",
+      "author": {"@type": "Organization", "name": "石墨文档导出工具团队"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {"@type": "ImageObject", "url": "https://shimo.toolab.top/images/icon.png"}
+      },
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "wordCount": 3800,
+      "articleSection": "跨平台迁移",
+      "keywords": ["石墨文档迁移到Notion", "石墨文档导入Notion", "Notion批量导入", "Markdown导入Notion"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-to-notion-migration-guide.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "石墨迁移到Notion", "item": "https://shimo.toolab.top/blog/shimo-to-notion-migration-guide.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何把石墨文档迁移到 Notion",
+      "description": "从石墨文档导出Markdown、Word、Excel或CSV，再通过Notion导入功能转换为页面或数据库。",
+      "step": [
+        {"@type": "HowToStep", "name": "选择格式", "text": "普通文档选Markdown或Word，表格选Excel或CSV，大量文件准备ZIP。"},
+        {"@type": "HowToStep", "name": "批量导出", "text": "从石墨按文件夹导出并保留本地目录结构。"},
+        {"@type": "HowToStep", "name": "导入Notion", "text": "在Notion中选择对应导入类型，上传单文件、多文件或ZIP。"},
+        {"@type": "HowToStep", "name": "整理结构", "text": "把页面归入团队空间或数据库，补充标签、负责人和状态属性。"},
+        {"@type": "HowToStep", "name": "验收修复", "text": "检查图片、表格、页面层级、文件大小限制和失败文件。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档能一键迁移到 Notion 吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "通常不能一键完成。推荐先从石墨批量导出为Markdown、Word或Excel，再通过Notion导入功能转换为页面或数据库。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨迁移 Notion 用 Markdown 还是 Word 更好？",
+          "acceptedAnswer": {"@type": "Answer", "text": "知识库和普通文本优先Markdown；复杂排版和内嵌图片较多的文档可选Word；表格应单独导出为Excel或CSV。"}
+        },
+        {
+          "@type": "Question",
+          "name": "Notion 导入后图片丢失怎么办？",
+          "acceptedAnswer": {"@type": "Answer", "text": "先确认导出的Markdown是否包含本地图片资源，再检查ZIP中是否包含图片目录。若使用Word导入，图片通常会随docx一起解析。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨表格能变成 Notion Database 吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "可以把表格导出为CSV或Excel后导入Notion数据库，但公式、跨表引用、复杂格式和权限规则通常需要在Notion中重新设置。"}
+        },
+        {
+          "@type": "Question",
+          "name": "Notion 导入失败通常是什么原因？",
+          "acceptedAnswer": {"@type": "Answer", "text": "常见原因包括单文件超过套餐限制、ZIP过大、文件数量太多、隐藏文件干扰、图片路径不完整和Markdown扩展语法不兼容。"}
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档迁移到 Notion 完整教程：Markdown、Word、ZIP 导入怎么选？</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">14</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月15日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-to-notion-migration-guide.webp" alt="石墨文档迁移到 Notion：Markdown、Word、ZIP 和 CSV 文件导入为页面和数据库" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">迁移路径速览</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>普通石墨文档迁移到 Notion，优先选 Markdown 或 Word</li>
+                                <li>大量 Markdown 文件建议打包 ZIP 导入，有助于保留目录结构</li>
+                                <li>表格不要混在 Markdown 里迁移，建议单独导出 CSV 或 Excel</li>
+                                <li>Notion 导入后要把“文件夹结构”升级成“页面体系”和 Database</li>
+                                <li>文件大小、文件数量、图片资源和隐藏文件是导入失败的高频原因</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>石墨文档迁移到 Notion</strong>不能只靠复制粘贴。更稳妥的流程是：从石墨按文件夹批量导出；普通文档导出为 Markdown 或 Word；表格导出为 Excel/CSV；大量 Markdown 用 ZIP 导入 Notion；导入后再把页面整理成 Notion 的页面层级、数据库和属性体系。Markdown 适合知识库文本，Word 适合复杂排版，CSV/Excel 适合迁移为 Notion Database。</p>
+
+                    <p>旧的跨平台迁移文章已经讲过“石墨到飞书、语雀、Notion”的总思路。本文只讲 Notion 这一条线，重点放在 Notion 官方导入能力、批量导入限制、图片处理和数据库化整理。</p>
+
+                    <div class="info-box">
+                        <h4>官方资料依据</h4>
+                        <p>Notion 官方导入文档列出 Markdown、Word、CSV、HTML、PDF、ZIP 等导入方式，并说明 Markdown 可以单文件导入，也可以用 ZIP 导入整个文件夹；ZIP 有大小和文件数量风险，Markdown/Word 导入还有单文件大小限制。参考：<a href="https://www.notion.com/help/import-data-into-notion" target="_blank" rel="noopener">Notion Import data into Notion</a>。</p>
+                    </div>
+
+                    <a href="shimo-to-feishu-migration.html" class="internal-link-card">
+                        <div class="internal-link-icon">总览</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档跨平台迁移总览</div>
+                            <p class="internal-link-desc">如果你还在比较飞书、语雀和 Notion，可以先看这篇迁移总览。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="best-path">石墨文档迁移 Notion 的最佳路径</h2>
+
+                    <p>Notion 的核心不是“文件夹”，而是页面和数据库。因此，迁移时不要只追求把文件全部导进去，还要想清楚导入后要怎么组织：哪些作为普通页面，哪些变成数据库，哪些只作为附件保留。</p>
+
+                    <h3>普通文档用 Markdown 还是 Word</h3>
+                    <p>如果石墨文档主要是标题、段落、列表、引用和普通图片，Markdown 更适合迁移到 Notion。它更轻量，也更容易和 Notion 的块结构对应。如果文档里有复杂排版、页眉页脚、图片环绕或特殊格式，Word 可能更稳，但导入后仍要检查样式。</p>
+
+                    <h3>表格内容何时转 CSV / 数据库</h3>
+                    <p>石墨表格和石墨文档中的普通表格要分开处理。真正的业务表格，例如客户清单、项目排期、费用统计，应导出为 Excel 或 CSV，再导入 Notion Database。简单说明性表格可以保留在 Markdown 或 Word 中。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>源内容</th>
+                                <th>推荐中间格式</th>
+                                <th>Notion 目标形态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>知识库文章、会议纪要</td>
+                                <td>Markdown</td>
+                                <td>Notion Page</td>
+                            </tr>
+                            <tr>
+                                <td>排版复杂的方案或报告</td>
+                                <td>Word docx</td>
+                                <td>Notion Page，导入后检查样式</td>
+                            </tr>
+                            <tr>
+                                <td>业务表格、项目清单</td>
+                                <td>CSV 或 Excel</td>
+                                <td>Notion Database</td>
+                            </tr>
+                            <tr>
+                                <td>大量 Markdown 文件夹</td>
+                                <td>ZIP</td>
+                                <td>保留层级后转换为页面</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="export-format">从石墨导出适合 Notion 的格式</h2>
+
+                    <h3>Markdown 适合知识库和文本笔记</h3>
+                    <p>当目标是把石墨资料迁移成可编辑的 Notion 页面时，Markdown 是最常见选择。导出时要同时下载图片资源，并保留原文件夹层级。导出完成后，用本地 Markdown 预览工具打开几篇文档，确认标题、列表、图片和表格没有明显缺失。</p>
+
+                    <a href="shimo-export-markdown-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">MD</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">Markdown 导出与图片路径检查</div>
+                            <p class="internal-link-desc">Notion 导入前，先确认 Markdown 和图片资源本身是完整的。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>Word 适合复杂排版和图片</h3>
+                    <p>如果石墨文档里有大量图片、复杂列表、强调样式和嵌入内容，可以尝试导出 Word。Word 的优势是把图片内嵌在 docx 文件中，导入 Notion 时图片丢失概率相对低。缺点是导入后可能出现多余空行、块拆分不理想或样式简化。</p>
+
+                    <h3>表格单独导出为 Excel/CSV</h3>
+                    <p>不要把重要表格夹在 Markdown 迁移流程里。Notion Database 更适合结构化数据，但它不等于 Excel。迁移前要确认哪些列是文本、日期、数字、人员、状态或多选标签。导入后再映射为 Notion 属性。</p>
+
+                    <a href="shimo-spreadsheet-export-excel-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">表格</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨表格导出 Excel 避坑指南</div>
+                            <p class="internal-link-desc">表格迁移到 Notion 前，先把公式、合并单元格和编码问题处理干净。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="import-to-notion">在 Notion 中导入文件</h2>
+
+                    <h3>单文件导入</h3>
+                    <p>少量文档可以在 Notion 中逐个导入。选择对应的导入类型，例如 Markdown、Word 或 CSV，然后上传本地文件。导入后，每个文档会变成一个 Notion 页面，CSV 通常会变成数据库。</p>
+
+                    <h3>多文件批量导入</h3>
+                    <p>Notion 支持一次选择多个同类型文件导入。适合几十篇 Markdown 或 Word 文档。批量导入时，建议每批控制在一个主题或一个项目目录内，便于导入后检查和移动。</p>
+
+                    <h3>ZIP 导入的适用边界</h3>
+                    <p>如果你想保留石墨导出的文件夹层级，可以把 Markdown 文件夹打包成 ZIP 再导入 Notion。根据 Notion 官方说明，ZIP 可用于一次导入多个文件并保留结构，但过大的 ZIP、过多文件、隐藏文件和路径异常都可能导致失败或部分导入。</p>
+
+                    <div class="tip-box">
+                        <h4>ZIP 导入建议</h4>
+                        <p>迁移前先删除 <code>.DS_Store</code>、临时文件和空目录。不要把全公司多年文档一次打成一个巨型 ZIP，按部门、项目或年份分批导入更稳。</p>
+                    </div>
+
+                    <h2 id="organize-notion">导入后如何整理成 Notion 页面体系</h2>
+
+                    <p>Notion 迁移的成败，往往取决于导入后的整理。照搬文件夹结构只能解决“放进去”，不能解决“好不好用”。</p>
+
+                    <h3>文件夹映射为页面层级</h3>
+                    <p>导入后，建议把原石墨顶层目录映射成 Notion 一级页面。例如“产品资料”“研发文档”“运营手册”“客户案例”。每个一级页面下保留原有子目录，再逐步合并重复页面。</p>
+
+                    <h3>把表格整理为 Database</h3>
+                    <p>Notion 的优势是数据库视图。项目排期、需求池、客户清单、内容日历等资料，不建议只作为普通表格页面保存。迁移后可以增加状态、负责人、优先级、截止日期等属性，再切换看板、表格、日历视图。</p>
+
+                    <h3>补充标签、负责人、状态等属性</h3>
+                    <p>从石墨迁移过来的文档，通常只有标题和正文。为了让 Notion 可管理，建议给重要页面补充元信息：文档类型、所属项目、负责人、状态、更新时间和归档标记。</p>
+
+                    <h2 id="limits">格式兼容性与限制</h2>
+
+                    <p>迁移 Notion 时，不要承诺 100% 还原。不同平台的编辑器模型不同，Notion 会把导入内容转换成块和数据库结构，部分格式会被简化。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>问题</th>
+                                <th>常见表现</th>
+                                <th>处理建议</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>图片丢失</td>
+                                <td>Markdown 中图片显示为空或链接失效</td>
+                                <td>确认图片目录在 ZIP 内，或改用 Word 导入</td>
+                            </tr>
+                            <tr>
+                                <td>复杂表格错乱</td>
+                                <td>合并单元格、样式、公式丢失</td>
+                                <td>导出 Excel/CSV 后重建 Database 属性</td>
+                            </tr>
+                            <tr>
+                                <td>批注和历史版本消失</td>
+                                <td>Notion 页面只保留正文</td>
+                                <td>迁移前截图或单独整理关键协作记录</td>
+                            </tr>
+                            <tr>
+                                <td>文件太大</td>
+                                <td>导入失败或部分导入</td>
+                                <td>拆分文档、压缩图片、按批次导入</td>
+                            </tr>
+                            <tr>
+                                <td>文件数量太多</td>
+                                <td>ZIP 导入耗时长或缺页</td>
+                                <td>按项目、部门、年份拆包导入</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="validation">迁移验收清单</h2>
+
+                    <p>迁移完成后，建议按下面的清单做一次验收，尤其是团队知识库迁移。</p>
+
+                    <ol>
+                        <li>核对导出文件数量、导入页面数量和失败文件列表。</li>
+                        <li>抽查至少 10 篇含图片文档，确认图片显示正常。</li>
+                        <li>抽查所有重要数据库，确认日期、数字、状态字段映射正确。</li>
+                        <li>检查旧石墨链接是否仍大量存在，必要时替换为 Notion 页面链接。</li>
+                        <li>确认团队成员拥有正确的 Notion 页面或空间权限。</li>
+                        <li>保留石墨端资料至少 30 天，作为回滚窗口。</li>
+                    </ol>
+
+                    <a href="document-format-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">格式</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">不同导出格式的选择逻辑</div>
+                            <p class="internal-link-desc">Markdown、Word、PDF、Excel 在迁移中的定位不同。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>石墨文档能一键迁移到 Notion 吗？</h3>
+                    <p>通常不能。实际可操作流程是先从石墨导出本地文件，再用 Notion 导入功能转换为页面或数据库。文档量大时，需要分批导入和抽查。</p>
+
+                    <h3>石墨迁移 Notion 用 Markdown 还是 Word 更好？</h3>
+                    <p>普通知识库文章优先 Markdown；图片多、排版复杂的文档可以尝试 Word；表格资料不要混在文档里迁移，应单独导出 Excel 或 CSV。</p>
+
+                    <h3>Notion 导入后图片丢失怎么办？</h3>
+                    <p>先检查导出的 Markdown 是否包含本地图片目录，再确认 ZIP 中包含图片资源。如果图片非常重要，可以改用 Word 格式导入，或在 Notion 中重新上传图片。</p>
+
+                    <h3>石墨表格能变成 Notion Database 吗？</h3>
+                    <p>可以，但不是原样转换。你需要把石墨表格导出为 Excel 或 CSV，再导入 Notion 数据库，并手动设置日期、状态、负责人、多选等属性。</p>
+
+                    <h3>Notion 导入失败通常是什么原因？</h3>
+                    <p>常见原因是文件过大、ZIP 文件过大、文件数量太多、隐藏文件干扰、图片路径不完整或 Markdown 扩展语法不兼容。建议拆小批次导入，并先用一个小目录测试。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">迁移实践</span>
+                        </div>
+                        <p class="author-desc">专注于云文档数据安全与迁移工具开发，持续跟踪 Notion、飞书、Obsidian 等知识管理平台的导入导出能力。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">Notion迁移</a>
+                        <a href="index.html" class="article-tag">Markdown导入</a>
+                        <a href="index.html" class="article-tag">ZIP批量导入</a>
+                        <a href="index.html" class="article-tag">Database整理</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-to-obsidian-migration-guide.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 上一篇</div>
+                            <div class="nav-link-title">石墨文档迁移到 Obsidian 完整教程</div>
+                        </a>
+                        <a href="shimo-to-feishu-docs-migration-guide.html" class="nav-link">
+                            <div class="nav-link-label">下一篇 &rarr;</div>
+                            <div class="nav-link-title">石墨文档迁移到飞书文档完整教程</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

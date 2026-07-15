@@ -100,6 +100,39 @@
           "links_from": ["P", "C2", "E2"]
         },
         {
+          "id": "C3",
+          "title": "石墨文档迁移到 Obsidian 完整教程：Markdown、图片和文件夹结构怎么保留？",
+          "primary_keyword": "石墨文档迁移到Obsidian",
+          "secondary_keywords": ["石墨文档导入Obsidian", "石墨文档转Obsidian Markdown", "石墨文档导出md到Obsidian"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 3600,
+          "links_to": ["P", "E2", "E5", "C4"],
+          "links_from": ["P", "C4", "E5"]
+        },
+        {
+          "id": "C4",
+          "title": "石墨文档迁移到 Notion 完整教程：Markdown、Word、ZIP 导入怎么选？",
+          "primary_keyword": "石墨文档迁移到Notion",
+          "secondary_keywords": ["石墨文档导入Notion", "石墨Markdown导入Notion", "石墨Word导入Notion"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 3800,
+          "links_to": ["P", "C1", "C3", "E5"],
+          "links_from": ["P", "C1", "C3"]
+        },
+        {
+          "id": "C5",
+          "title": "石墨文档迁移到飞书文档完整教程：官方导入入口、文件夹迁移与格式检查",
+          "primary_keyword": "石墨文档导入飞书云文档",
+          "secondary_keywords": ["石墨文档迁移到飞书文档", "石墨文件夹导入飞书", "飞书导入石墨文档本地文件夹"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 3900,
+          "links_to": ["P", "C1", "B2", "A1"],
+          "links_from": ["P", "C1", "B2"]
+        },
+        {
           "id": "C2",
           "title": "2026年在线文档批量导出工具大全（飞书/腾讯/石墨/语雀）",
           "primary_keyword": "在线文档批量导出工具",

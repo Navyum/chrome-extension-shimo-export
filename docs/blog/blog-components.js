@@ -193,28 +193,55 @@
         'shimo-export-markdown-guide.html': {
             title: '石墨文档导出Markdown完整教程：图片、表格、链接怎么保留？',
             related: [
+                'shimo-to-obsidian-migration-guide.html',
+                'shimo-to-notion-migration-guide.html',
                 'document-format-guide.html',
+                'shimo-export-complete-guide.html'
+            ]
+        },
+        'shimo-to-obsidian-migration-guide.html': {
+            title: '石墨文档迁移到 Obsidian 完整教程：Markdown、图片和文件夹结构怎么保留？',
+            related: [
+                'shimo-export-markdown-guide.html',
+                'document-format-guide.html',
+                'data-migration-guide.html',
+                'shimo-to-notion-migration-guide.html'
+            ]
+        },
+        'shimo-to-notion-migration-guide.html': {
+            title: '石墨文档迁移到 Notion 完整教程：Markdown、Word、ZIP 导入怎么选？',
+            related: [
+                'shimo-export-markdown-guide.html',
+                'shimo-spreadsheet-export-excel-guide.html',
+                'document-format-guide.html',
+                'shimo-to-feishu-docs-migration-guide.html'
+            ]
+        },
+        'shimo-to-feishu-docs-migration-guide.html': {
+            title: '石墨文档迁移到飞书文档完整教程：官方导入入口、文件夹迁移与格式检查',
+            related: [
+                'shimo-to-feishu-migration.html',
+                'shimo-team-space-backup-permission-checklist.html',
                 'shimo-export-complete-guide.html',
-                'shimo-export-chrome-plugin-guide.html',
-                'data-migration-guide.html'
+                'shimo-spreadsheet-export-excel-guide.html'
             ]
         },
         'shimo-team-space-backup-permission-checklist.html': {
             title: '石墨团队空间备份权限清单：管理员批量导出前必看',
             related: [
+                'shimo-to-feishu-docs-migration-guide.html',
                 'team-document-management.html',
                 'shimo-export-complete-guide.html',
-                'shimo-export-troubleshooting.html',
-                'why-backup-cloud-documents.html'
+                'shimo-export-troubleshooting.html'
             ]
         },
         'shimo-spreadsheet-export-excel-guide.html': {
             title: '石墨表格导出Excel避坑指南：公式、合并单元格和乱码处理',
             related: [
+                'shimo-to-notion-migration-guide.html',
+                'shimo-to-feishu-docs-migration-guide.html',
                 'document-format-guide.html',
-                'shimo-export-troubleshooting.html',
-                'shimo-export-chrome-plugin-guide.html',
-                'shimo-export-complete-guide.html'
+                'shimo-export-troubleshooting.html'
             ]
         }
     };
@@ -232,7 +259,10 @@
         'shimo-export-troubleshooting.html': '导出问题排查',
         'shimo-export-markdown-guide.html': 'Markdown导出教程',
         'shimo-team-space-backup-permission-checklist.html': '团队空间备份清单',
-        'shimo-spreadsheet-export-excel-guide.html': '表格导出Excel指南'
+        'shimo-spreadsheet-export-excel-guide.html': '表格导出Excel指南',
+        'shimo-to-obsidian-migration-guide.html': '迁移到Obsidian',
+        'shimo-to-notion-migration-guide.html': '迁移到Notion',
+        'shimo-to-feishu-docs-migration-guide.html': '迁移到飞书文档'
     };
 
     // 插入导航栏

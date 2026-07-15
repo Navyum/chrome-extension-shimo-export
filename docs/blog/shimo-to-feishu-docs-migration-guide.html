@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档迁移到飞书文档完整教程：基于飞书官方导入入口，先从石墨批量导出，再导入飞书云文档，保留文件夹结构并检查格式。">
+    <meta name="keywords" content="石墨文档导入飞书云文档,石墨文档迁移到飞书文档,石墨文件夹导入飞书,飞书导入石墨文档,石墨表格导入飞书表格">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-to-feishu-docs-migration-guide.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档迁移到飞书文档完整教程：官方导入入口、文件夹迁移与格式检查">
+    <meta property="og:description" content="从石墨批量导出到飞书云文档导入，讲清Word、Markdown、Excel、文件夹、权限和团队验收。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-to-feishu-docs-migration-guide.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-to-feishu-docs-migration-guide.webp">
+    <meta property="article:published_time" content="2026-07-15T10:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-15T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档迁移到飞书文档完整教程">
+    <meta name="twitter:description" content="官方导入入口、文件夹迁移、格式验收和团队权限重建。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-to-feishu-docs-migration-guide.webp">
+
+    <title>石墨文档迁移到飞书文档完整教程：官方导入入口、文件夹迁移与格式检查 | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档迁移到飞书文档完整教程：官方导入入口、文件夹迁移与格式检查",
+      "description": "石墨文档迁移到飞书文档完整教程：基于飞书官方导入入口，先从石墨批量导出，再导入飞书云文档，保留文件夹结构并检查格式。",
+      "image": "https://shimo.toolab.top/images/shimo-to-feishu-docs-migration-guide.webp",
+      "author": {"@type": "Organization", "name": "石墨文档导出工具团队"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {"@type": "ImageObject", "url": "https://shimo.toolab.top/images/icon.png"}
+      },
+      "datePublished": "2026-07-15",
+      "dateModified": "2026-07-15",
+      "wordCount": 3900,
+      "articleSection": "飞书迁移",
+      "keywords": ["石墨文档导入飞书云文档", "石墨文档迁移到飞书文档", "石墨文件夹导入飞书", "飞书导入石墨文档"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-to-feishu-docs-migration-guide.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "石墨迁移到飞书文档", "item": "https://shimo.toolab.top/blog/shimo-to-feishu-docs-migration-guide.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何把石墨文档迁移到飞书文档",
+      "description": "先从石墨文档批量导出本地文件，再通过飞书云文档导入入口或开放平台导入任务迁移到飞书。",
+      "step": [
+        {"@type": "HowToStep", "name": "确认迁移范围", "text": "确认石墨空间、文件夹、权限、文件数量和团队验收人。"},
+        {"@type": "HowToStep", "name": "导出石墨文件", "text": "普通文档导出Word或Markdown，表格导出Excel，保留文件夹结构。"},
+        {"@type": "HowToStep", "name": "导入飞书", "text": "在飞书云文档中选择导入为在线文档，或上传本地文件夹后转换。"},
+        {"@type": "HowToStep", "name": "检查格式", "text": "核对标题、图片、表格、链接、权限和失败文件。"},
+        {"@type": "HowToStep", "name": "重建权限", "text": "按飞书空间或知识库重新配置成员权限，并保留回滚窗口。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "飞书现在能直接导入石墨文档吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "飞书帮助中心提供将石墨文档导入为云文档的操作说明，但前提通常是先把石墨在线文档下载到本地，再选择能被飞书导入的文件类型。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档迁移飞书用 Word 还是 Markdown？",
+          "acceptedAnswer": {"@type": "Answer", "text": "团队迁移到飞书时，普通文档优先Word，知识库文本也可用Markdown；表格应导出Excel，演示文稿应导出PPTX或PDF。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文件夹导入飞书后目录会保留吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "如果先在本地保留石墨文件夹结构，再按文件夹上传或分批导入飞书，目录更容易保留。导入前应先用一个小文件夹测试。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨表格迁移到飞书会丢公式吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "基础公式通常更容易迁移，复杂公式、跨表引用、条件格式和数据验证规则可能需要在飞书表格中重新检查或重建。"}
+        },
+        {
+          "@type": "Question",
+          "name": "评论和版本历史能迁移到飞书吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "通常不能完整迁移。评论、历史版本、协作记录和部分@提及属于石墨平台协作信息，建议迁移前截图或单独归档。"}
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档迁移到飞书文档完整教程：官方导入入口、文件夹迁移与格式检查</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">14</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月15日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-to-feishu-docs-migration-guide.webp" alt="石墨文档迁移到飞书文档：本地文件夹、Word、Excel、Markdown 导入飞书云文档并完成权限检查" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">团队迁移关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>飞书有官方石墨导入相关说明，但迁移前仍要先把石墨文档下载到本地</li>
+                                <li>普通文档迁移到飞书优先 Word，表格优先 Excel，知识库文本可用 Markdown</li>
+                                <li>团队迁移要先确认权限、范围、失败文件和验收人，不要直接全量开跑</li>
+                                <li>评论、历史版本、协作记录和@提及通常无法完整迁移</li>
+                                <li>大批量迁移建议分批导入，并保留至少 30 天石墨端回滚窗口</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>石墨文档迁移到飞书文档</strong>的稳妥做法是：先确认石墨空间、文件夹、成员权限和导出限制；再把普通文档导出为 Word 或 Markdown、表格导出为 Excel、演示文稿导出为 PPTX/PDF；然后在飞书云文档中选择导入为在线文档或上传本地文件夹；最后检查标题、图片、表格、链接和权限。飞书官方支持导入多种本地文件类型，但团队迁移仍需要分批、验收和回滚计划。</p>
+
+                    <p>这篇文章专门面向“公司要统一到飞书”的迁移场景。和旧的跨平台总览不同，本文会围绕飞书官方入口、文件夹上传、开放平台导入任务和团队验收展开。</p>
+
+                    <div class="info-box">
+                        <h4>官方资料依据</h4>
+                        <p>飞书帮助中心提供“将石墨文档导入为云文档”和“上传或导入本地文件和文件夹”的说明；飞书开放平台也提供创建导入任务接口，可把 Word、TXT、Markdown、Excel 等文件导入为飞书在线云文档。参考：<a href="https://www.feishu.cn/hc/zh-CN/articles/049570101480-%E5%B0%86%E7%9F%B3%E5%A2%A8%E6%96%87%E6%A1%A3%E5%AF%BC%E5%85%A5%E4%B8%BA%E4%BA%91%E6%96%87%E6%A1%A3" target="_blank" rel="noopener">将石墨文档导入为云文档</a>、<a href="https://www.feishu.cn/hc/zh-CN/articles/360033241654-%E4%B8%8A%E4%BC%A0%E6%88%96%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9" target="_blank" rel="noopener">上传或导入本地文件和文件夹</a>、<a href="https://open.feishu.cn/document/server-docs/docs/drive-v1/import_task/import-user-guide?lang=zh-CN" target="_blank" rel="noopener">导入文件概述</a>。</p>
+                    </div>
+
+                    <a href="shimo-to-feishu-migration.html" class="internal-link-card">
+                        <div class="internal-link-icon">总览</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">跨平台迁移总览</div>
+                            <p class="internal-link-desc">如果你还在比较飞书、Notion、语雀的迁移路径，先看这篇总览。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="feishu-support">飞书是否支持导入石墨文档？</h2>
+
+                    <p>支持，但不要理解成“输入石墨账号后一键搬家”。飞书官方文档的前提是，你已经把石墨在线文档下载到本地，并选择飞书可导入的文件类型。也就是说，迁移链路仍然是：石墨导出本地文件，再导入飞书云文档。</p>
+
+                    <h3>官方石墨导入入口适合什么场景</h3>
+                    <p>适合已经整理好本地文件的团队，尤其是 Word、Excel、Markdown、PPTX 等格式明确的资料。对于大批量迁移，建议先用小文件夹测试导入效果，再按部门或项目批量处理。</p>
+
+                    <h3>为什么仍需要先做好石墨批量导出</h3>
+                    <p>飞书导入解决的是“把本地文件转成飞书云文档”，它不负责帮你扫描石墨空间、判断权限、补导失败文件或保留石墨端复杂协作记录。这些工作必须在石墨导出阶段完成。</p>
+
+                    <h2 id="prep">迁移前准备清单</h2>
+
+                    <h3>确认石墨权限、导出范围和文件数量</h3>
+                    <p>团队迁移最怕“导到一半才发现没权限”。迁移前需要确认：个人空间和团队空间分别有多少文件、哪些文件禁止导出、哪些文件属于敏感资料、谁负责补权限、谁负责最终验收。</p>
+
+                    <a href="shimo-team-space-backup-permission-checklist.html" class="internal-link-card">
+                        <div class="internal-link-icon">权限</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">团队空间迁移权限清单</div>
+                            <p class="internal-link-desc">迁移到飞书前，先检查团队空间、成员权限和导出限制。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>团队空间迁移的负责人和验收人</h3>
+                    <p>迁移不是 IT 一个人的工作。推荐每个部门指定一个资料负责人，负责确认目录范围、处理敏感资料、抽查导入结果。IT 或管理员负责工具、权限和批量操作。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>角色</th>
+                                <th>负责内容</th>
+                                <th>关键产出</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>迁移管理员</td>
+                                <td>账号权限、导出工具、飞书空间配置</td>
+                                <td>迁移计划和失败文件清单</td>
+                            </tr>
+                            <tr>
+                                <td>部门负责人</td>
+                                <td>确认迁移范围和敏感资料</td>
+                                <td>目录确认表</td>
+                            </tr>
+                            <tr>
+                                <td>内容验收人</td>
+                                <td>抽查导入后的格式和可读性</td>
+                                <td>验收记录</td>
+                            </tr>
+                            <tr>
+                                <td>飞书管理员</td>
+                                <td>重建知识库、文件夹和成员权限</td>
+                                <td>飞书权限配置表</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="export-from-shimo">从石墨导出到本地</h2>
+
+                    <h3>普通文档导出 Word / Markdown</h3>
+                    <p>迁移到飞书时，普通石墨文档优先考虑 Word，因为飞书对 doc/docx 导入支持明确，图片也会包含在文件中。如果你的资料主要是知识库文本，也可以导出 Markdown，但要特别检查图片路径。</p>
+
+                    <h3>表格导出 Excel</h3>
+                    <p>石墨表格迁移到飞书表格时，应导出为 Excel。不要把业务表格导成 PDF 或图片，否则后续无法编辑。导出后先用 Excel 或 WPS 打开，确认公式、筛选、合并单元格和编码没有明显问题。</p>
+
+                    <a href="shimo-spreadsheet-export-excel-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">Excel</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨表格导出 Excel 避坑指南</div>
+                            <p class="internal-link-desc">表格迁移到飞书前，先排查公式、合并单元格和乱码问题。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>按文件夹保留目录结构</h3>
+                    <p>飞书导入后还要重建空间和知识库结构，所以本地导出目录必须清楚。建议按“部门/项目/文档类型”保留文件夹，不要把所有文件平铺到一个下载目录。</p>
+
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">导出</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档批量导出</div>
+                            <p class="internal-link-desc">从石墨导出到本地时，优先保留文件夹层级和失败记录。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="import-to-feishu">导入飞书云文档</h2>
+
+                    <h3>导入本地文件夹</h3>
+                    <p>飞书支持上传或导入本地文件和文件夹。实际操作时，建议先在飞书中创建目标空间或文件夹，再按部门、项目分批导入。每批导入后立刻抽查，不要等全部完成后才发现格式问题。</p>
+
+                    <h3>Word、Excel、PDF 的处理方式</h3>
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>本地格式</th>
+                                <th>飞书处理建议</th>
+                                <th>迁移后检查</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Word doc/docx</td>
+                                <td>导入为飞书在线文档</td>
+                                <td>标题层级、图片、列表、链接</td>
+                            </tr>
+                            <tr>
+                                <td>Markdown md</td>
+                                <td>导入为在线文档或作为知识库文本</td>
+                                <td>图片路径、代码块、表格</td>
+                            </tr>
+                            <tr>
+                                <td>Excel xlsx</td>
+                                <td>导入为飞书表格或多维表格</td>
+                                <td>公式、日期、筛选、权限</td>
+                            </tr>
+                            <tr>
+                                <td>PDF</td>
+                                <td>作为定稿附件上传</td>
+                                <td>可预览、可搜索、权限正确</td>
+                            </tr>
+                            <tr>
+                                <td>PPTX</td>
+                                <td>导入或上传为演示资料</td>
+                                <td>版式、字体、图片位置</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>开放平台 API 适合什么团队</h3>
+                    <p>如果团队有开发能力，可以研究飞书开放平台的导入任务 API。官方接口是异步任务：先上传文件获取 token，再创建导入任务，最后查询导入结果。它适合做自动化批量迁移，但需要应用权限、文件夹 token、限频控制和失败重试逻辑。</p>
+
+                    <div class="warning-box">
+                        <h4>API 不是无门槛方案</h4>
+                        <p>飞书开放平台导入任务对文件扩展名、文件 token、目标云文档类型、挂载点权限和频率都有要求。普通团队优先使用网页导入；开发团队再考虑 API 自动化。</p>
+                    </div>
+
+                    <h2 id="validation">迁移后格式验收</h2>
+
+                    <p>导入飞书后，不要只看页面数量。要按文档类型抽查，尤其是图片、表格、内部链接和权限。</p>
+
+                    <h3>标题、图片、表格、链接检查</h3>
+                    <ol>
+                        <li>抽查 10 到 20 篇普通文档，确认标题层级和列表样式。</li>
+                        <li>抽查所有关键表格，确认公式结果、日期格式和筛选视图。</li>
+                        <li>搜索旧的 <code>shimo.im</code> 链接，决定是否替换为飞书页面链接。</li>
+                        <li>检查图片是否内嵌成功，尤其是教程、方案和周报。</li>
+                        <li>确认每个部门能看到自己的文件夹，不能看到无关敏感资料。</li>
+                    </ol>
+
+                    <h3>评论、历史版本、@提及的不可迁移项</h3>
+                    <p>石墨中的评论、历史版本、协作记录和@提及通常不会作为正文迁移到飞书。对于审计、客户交付或争议处理相关资料，迁移前应截图或导出关键记录。</p>
+
+                    <h2 id="team-risks">团队迁移避坑</h2>
+
+                    <h3>分批迁移与回滚窗口</h3>
+                    <p>建议先迁移一个低风险项目目录作为试点，再迁移一个部门，最后全量迁移。每一批都要记录开始时间、结束时间、导出数量、导入数量、失败文件和验收人。石墨端资料至少保留 30 天，作为回滚窗口。</p>
+
+                    <h3>迁移完成后的权限重建</h3>
+                    <p>飞书和石墨的权限模型不同，不能假设权限会自然继承。迁移完成后，按飞书空间、知识库或文件夹重新配置成员权限。敏感资料建议先小范围开放，再由负责人确认后扩大访问范围。</p>
+
+                    <a href="shimo-export-troubleshooting.html" class="internal-link-card">
+                        <div class="internal-link-icon">排查</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">导出失败排查</div>
+                            <p class="internal-link-desc">如果石墨端无法导出，优先排查权限、浏览器和网络问题。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>飞书现在能直接导入石墨文档吗？</h3>
+                    <p>飞书有官方石墨导入说明，但前提通常是先把石墨在线文档下载到本地，再选择对应文件类型导入飞书云文档。不要把它理解成无需导出的账号级一键迁移。</p>
+
+                    <h3>石墨文档迁移飞书用 Word 还是 Markdown？</h3>
+                    <p>普通团队迁移优先 Word，因为图片和排版更容易保留；知识库文本可以用 Markdown；表格必须单独导出为 Excel，再导入飞书表格或多维表格。</p>
+
+                    <h3>石墨文件夹导入飞书后目录会保留吗？</h3>
+                    <p>如果本地导出时已经保留文件夹结构，并按文件夹上传或分批导入飞书，目录更容易保留。建议先用一个小目录测试，再迁移全量资料。</p>
+
+                    <h3>石墨表格迁移到飞书会丢公式吗？</h3>
+                    <p>基础公式通常更容易迁移，复杂公式、跨表引用、条件格式和数据验证规则需要重点检查。关键业务表建议由表格负责人逐个验收。</p>
+
+                    <h3>评论和版本历史能迁移到飞书吗？</h3>
+                    <p>通常不能完整迁移。评论、历史版本、协作记录和@提及属于石墨平台协作信息。重要内容应在迁移前截图、导出或整理成单独说明文档。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">团队迁移</span>
+                        </div>
+                        <p class="author-desc">专注于云文档批量导出、团队空间备份和跨平台迁移实践，帮助团队把石墨资料安全迁移到飞书、Notion、Obsidian 等平台。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">飞书文档迁移</a>
+                        <a href="index.html" class="article-tag">团队空间</a>
+                        <a href="index.html" class="article-tag">文件夹导入</a>
+                        <a href="index.html" class="article-tag">格式验收</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-to-notion-migration-guide.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 上一篇</div>
+                            <div class="nav-link-title">石墨文档迁移到 Notion 完整教程</div>
+                        </a>
+                        <a href="shimo-team-space-backup-permission-checklist.html" class="nav-link">
+                            <div class="nav-link-label">相关清单 &rarr;</div>
+                            <div class="nav-link-title">团队空间备份权限清单</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

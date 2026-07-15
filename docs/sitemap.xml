@@ -24,9 +24,43 @@
   <!-- 博客首页 -->
   <url>
     <loc>https://shimo.toolab.top/blog/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- 2026-07 平台迁移实操教程 -->
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-to-obsidian-migration-guide.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-to-obsidian-migration-guide.webp</image:loc>
+      <image:title>石墨文档迁移到Obsidian完整教程</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-to-notion-migration-guide.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-to-notion-migration-guide.webp</image:loc>
+      <image:title>石墨文档迁移到Notion完整教程</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-to-feishu-docs-migration-guide.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-to-feishu-docs-migration-guide.webp</image:loc>
+      <image:title>石墨文档迁移到飞书文档完整教程</image:title>
+    </image:image>
   </url>
 
   <!-- 2026-07 新增长尾专题 -->
