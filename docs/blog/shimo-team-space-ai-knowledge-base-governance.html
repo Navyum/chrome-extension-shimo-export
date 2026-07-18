@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨团队空间做企业AI知识库治理SOP：批量导出前检查权限、敏感信息、版本、目录范围和验收题，避免把过期或越权资料喂给AI。">
+    <meta name="keywords" content="石墨团队空间AI知识库,企业AI知识库治理,石墨文档权限导出,AI知识库权限管理,团队文档RAG治理">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-team-space-ai-knowledge-base-governance.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP">
+    <meta property="og:description" content="把石墨团队空间导入企业AI知识库前，先做好范围确认、权限分层、敏感信息处理、版本更新、验收题和回滚。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-team-space-ai-knowledge-base-governance.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-team-space-ai-knowledge-base-governance.webp">
+    <meta property="article:published_time" content="2026-07-17T11:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-17T11:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨团队空间做企业 AI 知识库 SOP">
+    <meta name="twitter:description" content="团队空间资料进入AI前，先治理权限、敏感信息、版本、验收和回滚。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-team-space-ai-knowledge-base-governance.webp">
+
+    <title>石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP",
+      "description": "石墨团队空间做企业AI知识库治理SOP：批量导出前检查权限、敏感信息、版本、目录范围和验收题，避免把过期或越权资料喂给AI。",
+      "image": "https://shimo.toolab.top/images/shimo-team-space-ai-knowledge-base-governance.webp",
+      "author": {"@type": "Organization", "name": "石墨文档导出工具团队"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {"@type": "ImageObject", "url": "https://shimo.toolab.top/images/icon.png"}
+      },
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "wordCount": 3700,
+      "articleSection": "企业AI知识库治理",
+      "keywords": ["石墨团队空间AI知识库", "企业AI知识库治理", "石墨文档权限导出", "AI知识库权限管理", "团队文档RAG治理"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-team-space-ai-knowledge-base-governance.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "团队空间AI知识库治理", "item": "https://shimo.toolab.top/blog/shimo-team-space-ai-knowledge-base-governance.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "石墨团队空间如何治理后接入企业 AI 知识库",
+      "description": "从团队空间范围确认、批量导出、权限分层、脱敏、上传、验收到更新回滚的企业AI知识库SOP。",
+      "step": [
+        {"@type": "HowToStep", "name": "圈定范围", "text": "按业务线、部门、项目和知识库用途确认需要进入AI的石墨团队空间目录。"},
+        {"@type": "HowToStep", "name": "权限分层", "text": "把资料分为公开、内部、受限、敏感四类，并确认AI平台的访问边界。"},
+        {"@type": "HowToStep", "name": "批量导出", "text": "导出Markdown、PDF、Word、Excel，并保留文件夹结构和导出记录。"},
+        {"@type": "HowToStep", "name": "脱敏清洗", "text": "移除个人信息、密钥、客户敏感字段和过期资料，补充元数据。"},
+        {"@type": "HowToStep", "name": "验收更新", "text": "用标准问题集验收AI回答，建立版本目录、更新频率和回滚方案。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨团队空间可以全部导入企业AI知识库吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不建议全部导入。团队空间通常混有公开资料、内部资料、敏感资料、过期资料和个人草稿，应该先按用途、权限和时效筛选。"}
+        },
+        {
+          "@type": "Question",
+          "name": "企业AI知识库需要保留石墨原始目录吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "需要。原始目录是追踪来源、排查错误回答、做版本回滚和权限复核的重要依据，即使AI平台不会完整识别目录，也应该在本地资料包中保留。"}
+        },
+        {
+          "@type": "Question",
+          "name": "哪些石墨内容不能直接进入AI知识库？",
+          "acceptedAnswer": {"@type": "Answer", "text": "客户个人信息、合同敏感条款、密钥、财务明细、人事资料、未发布战略、过期政策和权限不清的共享文档，都不应直接上传。"}
+        },
+        {
+          "@type": "Question",
+          "name": "企业AI知识库怎么处理历史版本？",
+          "acceptedAnswer": {"@type": "Answer", "text": "建议只让当前生效版本参与问答，历史版本放入归档目录。确需查询历史时，应建立单独知识库并在回答中明确版本和时间。"}
+        },
+        {
+          "@type": "Question",
+          "name": "怎么判断团队AI知识库已经可以上线？",
+          "acceptedAnswer": {"@type": "Answer", "text": "至少要通过权限检查、敏感信息抽检、标准问题集、错误拒答测试、来源引用检查和回滚演练。只完成文件上传不能视为上线。"}
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">13</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月17日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-team-space-ai-knowledge-base-governance.webp" alt="石墨团队空间企业AI知识库治理：权限检查、脱敏归档、更新日历和答案验收" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>团队空间资料进入 AI 知识库前，必须先做范围、权限、敏感信息和版本治理</li>
+                                <li>石墨文档导出工具适合做本地资料底座：批量导出、保留目录、多格式归档</li>
+                                <li>AI 平台不会自动继承石墨权限，上传前要重新定义谁能问、问什么、能看到什么</li>
+                                <li>历史版本、评论、协作记录和审批上下文通常不能完整迁移，需要单独留档</li>
+                                <li>上线标准不是“文件上传成功”，而是权限、来源、拒答、更新和回滚都能通过测试</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>石墨团队空间做企业 AI 知识库</strong>，推荐先把团队空间当成一个需要治理的数据源：按业务用途圈定目录，按公开、内部、受限、敏感给文档分级；用石墨文档导出工具批量导出 Markdown、PDF、Word、Excel，并保留原始文件夹结构；在本地完成脱敏、去重、版本标记和元数据补充；最后把通过审核的资料上传到 ChatGPT Enterprise、Claude Team/Enterprise、Gemini Notebook、Dify、RAGFlow 或自建 RAG 系统。AI 知识库不会自动继承石墨权限，所以权限治理要在上传前完成。</p>
+
+                    <div class="info-box">
+                        <h4>治理资料依据</h4>
+                        <p>NIST AI Risk Management Framework 强调 AI 风险需要被治理、映射、度量和管理；NIST 生成式 AI profile 进一步关注数据隐私、信息完整性和有害输出等风险。参考：<a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI RMF</a>、<a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence" target="_blank" rel="noopener">Generative AI Profile</a>。OWASP Top 10 for LLM Applications 也将提示注入、敏感信息泄露、供应链和过度代理等列为需要管理的风险。参考：<a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">OWASP Top 10 for LLM Applications</a>。这些资料不是石墨官方迁移说明，但适合作为企业知识库治理的风险框架。</p>
+                    </div>
+
+                    <h2 id="why-governance-first">为什么企业 AI 知识库要先治理？</h2>
+
+                    <p>个人把几篇文档上传给 AI，可以边用边改；企业把团队空间接入 AI，不能这么粗放。团队空间里通常同时存在客户资料、内部流程、草稿、历史版本、权限共享文档、离职员工遗留资料和临时表格。只要其中一类资料处理不好，AI 知识库就可能出现错误回答、越权泄露、引用过期制度或无法追责。</p>
+
+                    <p>治理不是为了让流程变慢，而是为了把 AI 知识库变成可维护系统。一个可上线的企业知识库，至少要回答这几个问题：资料从哪里来、谁批准上传、谁能访问、什么时候更新、错误怎么回滚、AI 没依据时是否会拒答。</p>
+
+                    <a href="shimo-team-space-backup-permission-checklist.html" class="internal-link-card">
+                        <div class="internal-link-icon">权限</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨团队空间备份权限清单</div>
+                            <p class="internal-link-desc">做AI知识库前，先把团队空间导出权限和目录范围核清楚。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="scope">第一步：圈定知识库范围</h2>
+
+                    <p>不要从“导出整个团队空间”开始。先定义知识库要服务的场景：客服问答、销售资料、研发规范、HR 制度、产品手册、交付项目库，还是管理层报告查询。不同场景对应不同资料范围和权限边界。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>知识库场景</th>
+                                <th>可优先导入</th>
+                                <th>先排除</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>客服知识库</td>
+                                <td>FAQ、售后流程、政策说明、话术库</td>
+                                <td>客户隐私、未发布政策、财务明细</td>
+                            </tr>
+                            <tr>
+                                <td>研发知识库</td>
+                                <td>架构说明、开发规范、故障复盘、运维手册</td>
+                                <td>密钥、生产凭证、未脱敏日志</td>
+                            </tr>
+                            <tr>
+                                <td>HR制度库</td>
+                                <td>公开制度、入职流程、培训材料</td>
+                                <td>薪酬明细、绩效记录、个人档案</td>
+                            </tr>
+                            <tr>
+                                <td>销售资料库</td>
+                                <td>产品介绍、报价规则、案例材料</td>
+                                <td>客户合同、未授权案例、竞争敏感信息</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="permission-model">第二步：重建 AI 权限模型</h2>
+
+                    <p>石墨里的权限是文档协作权限，AI 知识库里的权限是问答访问权限。两者不能直接等价。一个用户可能不能看原始石墨文档，但如果知识库把内容上传给所有人，他仍然可能通过提问看到摘要。</p>
+
+                    <p>建议用四级分类：</p>
+
+                    <ul>
+                        <li><strong>公开：</strong>官网文档、公开帮助、公开产品说明，可进入对外 AI 助手。</li>
+                        <li><strong>内部：</strong>普通内部流程、培训材料，只给公司成员使用。</li>
+                        <li><strong>受限：</strong>部门政策、项目资料、客户交付资料，只给特定团队使用。</li>
+                        <li><strong>敏感：</strong>个人信息、密钥、财务、人事、合同敏感条款，默认不进入通用 AI 知识库。</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>不要用一个企业知识库装所有资料</h4>
+                        <p>客服、研发、HR、销售的访问边界不同。把所有资料放进一个知识库，再靠提示词约束模型不要回答敏感问题，风险太高。更稳妥的是按业务和权限拆分知识库。</p>
+                    </div>
+
+                    <h2 id="export">第三步：批量导出并保留原始证据</h2>
+
+                    <p>权限和范围确认后，再开始批量导出。导出阶段的目标不是直接喂给 AI，而是建立可审计的本地资料底座。</p>
+
+                    <ol>
+                        <li>按知识库范围导出对应石墨目录，不要混入无关部门资料。</li>
+                        <li>优先导出 Markdown 或 Word 作为文本底稿。</li>
+                        <li>合同、公告、制度定稿同时导出 PDF 留原貌。</li>
+                        <li>表格、台账、排期导出 Excel，避免丢公式和表头。</li>
+                        <li>保留导出日期、导出人、目录范围和失败文件清单。</li>
+                    </ol>
+
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">导出</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档批量导出基础流程</div>
+                            <p class="internal-link-desc">从团队空间导出时，格式和目录层级会影响后续AI知识库治理。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="redaction">第四步：脱敏、清洗和版本标记</h2>
+
+                    <p>企业知识库的清洗要比个人知识库严格。至少要做三类处理：删除不能上传的内容、改写可以脱敏上传的内容、标记当前生效版本。</p>
+
+                    <h3>敏感信息清单</h3>
+                    <p>建议先用人工和自动化规则结合检查这些内容：身份证、手机号、邮箱、客户姓名、合同金额、银行账号、API key、访问 token、数据库连接串、生产日志、员工绩效、薪酬、医疗信息、未发布战略和投融资材料。</p>
+
+                    <h3>历史版本处理</h3>
+                    <p>AI 知识库用于日常问答时，通常只应让当前生效版本参与检索。历史版本可以进入归档目录，但不要和当前版本混在同一个索引里。确实需要问历史政策时，应建立单独知识库，并在回答中明确“这是历史版本”。</p>
+
+                    <h3>元数据要写进文件</h3>
+                    <p>每份进入 AI 的文档都应至少包含：来源路径、负责人、更新时间、权限等级、版本、生效状态。这样后续出现错误回答时，能追到具体源文件。</p>
+
+                    <pre><code>---
+source_path: "团队空间/客服中心/退款政策.md"
+owner: "客服运营"
+permission_level: "internal"
+effective_status: "current"
+updated_at: "2026-07-12"
+reviewer: "运营负责人"
+---
+</code></pre>
+
+                    <h2 id="upload">第五步：按权限拆分上传</h2>
+
+                    <p>上传到 AI 平台时，不建议只按格式拆分，而应按权限和业务拆分。例如：</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>知识库</th>
+                                <th>资料范围</th>
+                                <th>访问对象</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>客服内部知识库</td>
+                                <td>售后政策、FAQ、处理流程</td>
+                                <td>客服和运营</td>
+                            </tr>
+                            <tr>
+                                <td>销售资料知识库</td>
+                                <td>产品介绍、案例、报价口径</td>
+                                <td>销售团队</td>
+                            </tr>
+                            <tr>
+                                <td>研发规范知识库</td>
+                                <td>技术规范、故障复盘、发布流程</td>
+                                <td>研发和运维</td>
+                            </tr>
+                            <tr>
+                                <td>公开帮助知识库</td>
+                                <td>公开帮助、公开FAQ、官网内容</td>
+                                <td>外部用户或官网助手</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>如果使用 RAG 系统，还要确认检索层是否支持权限过滤。否则即使前端隐藏了入口，后端检索仍可能召回不该给某个用户看的 chunk。</p>
+
+                    <a href="shimo-ai-knowledge-base-rag-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">RAG</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档搭建 RAG 知识库指南</div>
+                            <p class="internal-link-desc">自建知识库时，切分、元数据和权限过滤要一起设计。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="acceptance">第六步：上线前验收</h2>
+
+                    <p>企业 AI 知识库上线前，建议至少做一次“红线验收”。不要只测试它能不能答对，还要测试它会不会越权、编造、引用过期资料。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>验收项</th>
+                                <th>测试方式</th>
+                                <th>通过标准</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>权限边界</td>
+                                <td>用不同角色提问受限内容</td>
+                                <td>无权限用户不能得到敏感答案</td>
+                            </tr>
+                            <tr>
+                                <td>敏感信息</td>
+                                <td>搜索手机号、密钥、客户名等模式</td>
+                                <td>不应出现在可问答知识库中</td>
+                            </tr>
+                            <tr>
+                                <td>来源引用</td>
+                                <td>要求回答附来源文件或章节</td>
+                                <td>引用能回到本地导出文件</td>
+                            </tr>
+                            <tr>
+                                <td>过期资料</td>
+                                <td>询问已废止政策和旧流程</td>
+                                <td>AI能区分当前版本和历史版本</td>
+                            </tr>
+                            <tr>
+                                <td>拒答能力</td>
+                                <td>问资料中没有的问题</td>
+                                <td>明确无法确认，不编造</td>
+                            </tr>
+                            <tr>
+                                <td>回滚演练</td>
+                                <td>模拟一次错误导入</td>
+                                <td>能恢复上一版资料包和索引</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="maintenance">第七步：更新、审计和回滚</h2>
+
+                    <p>AI 知识库上线后，每次更新都应有记录。建议用日期或版本号保存资料包，例如 <code>kb-customer-service-2026-07-17</code>。每个版本至少包含原始导出、清洗后文件、元数据表、上传清单、验收结果和问题记录。</p>
+
+                    <p>如果石墨团队空间仍是日常协作源，AI 知识库应该有固定更新节奏。高频变化的客服政策、销售报价、产品说明按周检查；研发规范和 HR 制度可按月或版本发布时更新；历史归档资料只在有纠错时更新。</p>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>石墨团队空间可以全部导入企业AI知识库吗？</h3>
+                    <p>不建议全部导入。团队空间通常混有公开资料、内部资料、敏感资料、过期资料和个人草稿，应该先按用途、权限和时效筛选。</p>
+
+                    <h3>企业AI知识库需要保留石墨原始目录吗？</h3>
+                    <p>需要。原始目录是追踪来源、排查错误回答、做版本回滚和权限复核的重要依据，即使 AI 平台不会完整识别目录，也应该在本地资料包中保留。</p>
+
+                    <h3>哪些石墨内容不能直接进入AI知识库？</h3>
+                    <p>客户个人信息、合同敏感条款、密钥、财务明细、人事资料、未发布战略、过期政策和权限不清的共享文档，都不应直接上传。</p>
+
+                    <h3>企业AI知识库怎么处理历史版本？</h3>
+                    <p>建议只让当前生效版本参与问答，历史版本放入归档目录。确需查询历史时，应建立单独知识库并在回答中明确版本和时间。</p>
+
+                    <h3>怎么判断团队AI知识库已经可以上线？</h3>
+                    <p>至少要通过权限检查、敏感信息抽检、标准问题集、错误拒答测试、来源引用检查和回滚演练。只完成文件上传不能视为上线。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">企业治理</span>
+                        </div>
+                        <p class="author-desc">专注于云文档备份、批量导出和团队空间迁移工具开发，关注企业知识库、RAG 和 AI 助手落地前的数据治理。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">企业AI知识库</a>
+                        <a href="index.html" class="article-tag">团队空间治理</a>
+                        <a href="index.html" class="article-tag">权限管理</a>
+                        <a href="index.html" class="article-tag">石墨文档备份</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-ai-knowledge-base-rag-guide.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 上一篇</div>
+                            <div class="nav-link-title">石墨文档搭建 RAG 知识库指南</div>
+                        </a>
+                        <a href="shimo-team-space-backup-permission-checklist.html" class="nav-link">
+                            <div class="nav-link-label">相关教程 &rarr;</div>
+                            <div class="nav-link-title">石墨团队空间备份权限清单</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

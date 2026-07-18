@@ -1,6 +1,6 @@
 {
   "seed_keyword": "石墨文档导出",
-  "generated_at": "2026-05-16T14:00:00+08:00",
+  "generated_at": "2026-07-17T11:30:00+08:00",
   "existing_posts": [
     {"id": "E1", "title": "云文档数据丢失怎么办？5个真实案例教你避坑", "file": "why-backup-cloud-documents.html", "primary_keyword": "云文档备份"},
     {"id": "E2", "title": "从云文档迁移到本地：完整的数据迁移指南", "file": "data-migration-guide.html", "primary_keyword": "数据迁移指南"},
@@ -18,8 +18,8 @@
     "template": "pillar-page",
     "word_count_target": 3500,
     "cluster": "pillar",
-    "links_to": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1"],
-    "links_from": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1"]
+    "links_to": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1", "AI1", "AI2", "AI3"],
+    "links_from": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1", "AI1", "AI2", "AI3"]
   },
   "clusters": [
     {
@@ -163,19 +163,60 @@
           "links_from": ["P", "C1", "C2"]
         }
       ]
+    },
+    {
+      "name": "Cluster E: AI 知识库与 RAG",
+      "intent": "commercial",
+      "color": "#10b981",
+      "rationale": "AI知识库、RAG和企业资料治理需求增长快，用户需要把石墨导出能力转化为可上传、可检索、可治理的知识库资料包",
+      "posts": [
+        {
+          "id": "AI1",
+          "title": "石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？",
+          "primary_keyword": "石墨文档接入AI知识库",
+          "secondary_keywords": ["石墨文档导入ChatGPT", "石墨文档导入Claude", "石墨文档导入Gemini Notebook", "AI知识库搭建"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 3600,
+          "links_to": ["P", "AI2", "AI3", "E5"],
+          "links_from": ["P", "AI2", "AI3", "E5"]
+        },
+        {
+          "id": "AI2",
+          "title": "石墨文档搭建 RAG 知识库指南：Markdown 清洗、切分、向量检索和验收",
+          "primary_keyword": "石墨文档搭建RAG知识库",
+          "secondary_keywords": ["石墨文档AI知识库", "RAG知识库搭建", "石墨文档导出Markdown RAG", "Dify知识库", "RAGFlow知识库"],
+          "search_volume_estimate": "medium",
+          "template": "technical-how-to",
+          "word_count_target": 3800,
+          "links_to": ["P", "AI1", "AI3", "E5"],
+          "links_from": ["P", "AI1", "AI3", "E5"]
+        },
+        {
+          "id": "AI3",
+          "title": "石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP",
+          "primary_keyword": "石墨团队空间AI知识库",
+          "secondary_keywords": ["企业AI知识库治理", "石墨文档权限导出", "AI知识库权限管理", "团队文档RAG治理"],
+          "search_volume_estimate": "medium",
+          "template": "governance-sop",
+          "word_count_target": 3700,
+          "links_to": ["P", "AI1", "AI2", "E6"],
+          "links_from": ["P", "AI1", "AI2", "E6"]
+        }
+      ]
     }
   ],
-  "total_posts": 8,
-  "total_new_posts": 7,
-  "total_interlinks": 42,
-  "estimated_total_new_words": 13600,
-  "estimated_total_words_with_existing": 26000,
-  "execution_order": ["P", "A1", "B1", "C1", "A2", "B2", "C2", "D1"],
+  "total_posts": 11,
+  "total_new_posts": 10,
+  "total_interlinks": 54,
+  "estimated_total_new_words": 24700,
+  "estimated_total_words_with_existing": 37100,
+  "execution_order": ["P", "A1", "B1", "C1", "A2", "B2", "C2", "D1", "AI1", "AI2", "AI3"],
   "quality_gates": {
-    "clusters": 4,
+    "clusters": 5,
     "min_incoming_links_per_post": 3,
     "cannibalization_check": "pass - all primary keywords unique",
     "intent_diversity": ["informational", "commercial"],
-    "template_diversity": ["pillar-page", "troubleshooting-guide", "how-to-guide", "scenario-guide", "product-tutorial", "comparison-review"]
+    "template_diversity": ["pillar-page", "troubleshooting-guide", "how-to-guide", "scenario-guide", "product-tutorial", "comparison-review", "technical-how-to", "governance-sop"]
   }
 }

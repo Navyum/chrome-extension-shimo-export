@@ -24,9 +24,43 @@
   <!-- 博客首页 -->
   <url>
     <loc>https://shimo.toolab.top/blog/</loc>
-    <lastmod>2026-07-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- 2026-07 AI 知识库专题 -->
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-to-ai-knowledge-base-guide.html</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-to-ai-knowledge-base-guide.webp</image:loc>
+      <image:title>石墨文档接入AI知识库完整指南</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-ai-knowledge-base-rag-guide.html</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-ai-knowledge-base-rag-guide.webp</image:loc>
+      <image:title>石墨文档搭建RAG知识库指南</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-team-space-ai-knowledge-base-governance.html</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-team-space-ai-knowledge-base-governance.webp</image:loc>
+      <image:title>石墨团队空间企业AI知识库治理SOP</image:title>
+    </image:image>
   </url>
 
   <!-- 2026-07 平台迁移实操教程 -->

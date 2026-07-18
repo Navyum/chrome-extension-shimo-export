@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档接入AI知识库完整指南：把石墨文档批量导出为Markdown、PDF、Word和Excel，再整理到ChatGPT、Claude、Gemini Notebook等AI知识库。">
+    <meta name="keywords" content="石墨文档接入AI知识库,石墨文档导入ChatGPT,石墨文档导入Claude,石墨文档导入Gemini Notebook,AI知识库搭建">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-to-ai-knowledge-base-guide.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？">
+    <meta property="og:description" content="从石墨批量导出到AI知识库上传，讲清Markdown、PDF、Word、Excel怎么选，如何处理图片表格、权限、验收和更新。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-to-ai-knowledge-base-guide.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-to-ai-knowledge-base-guide.webp">
+    <meta property="article:published_time" content="2026-07-17T09:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-17T09:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档接入 AI 知识库完整指南">
+    <meta name="twitter:description" content="批量导出石墨文档，整理成适合 ChatGPT、Claude、Gemini Notebook 使用的 AI 知识库资料包。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-to-ai-knowledge-base-guide.webp">
+
+    <title>石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？ | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？",
+      "description": "石墨文档接入AI知识库完整指南：把石墨文档批量导出为Markdown、PDF、Word和Excel，再整理到ChatGPT、Claude、Gemini Notebook等AI知识库。",
+      "image": "https://shimo.toolab.top/images/shimo-to-ai-knowledge-base-guide.webp",
+      "author": {"@type": "Organization", "name": "石墨文档导出工具团队"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {"@type": "ImageObject", "url": "https://shimo.toolab.top/images/icon.png"}
+      },
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "wordCount": 3600,
+      "articleSection": "AI知识库",
+      "keywords": ["石墨文档接入AI知识库", "石墨文档导入ChatGPT", "石墨文档导入Claude", "Gemini Notebook知识库", "AI知识库搭建"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-to-ai-knowledge-base-guide.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "石墨接入AI知识库", "item": "https://shimo.toolab.top/blog/shimo-to-ai-knowledge-base-guide.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何把石墨文档接入 AI 知识库",
+      "description": "先从石墨批量导出本地资料，再按AI知识库平台的文件类型和数量限制整理上传，最后用带出处的问题验收。",
+      "step": [
+        {"@type": "HowToStep", "name": "确定范围", "text": "按项目、部门或主题圈定要进入AI知识库的石墨文档，排除过期和敏感资料。"},
+        {"@type": "HowToStep", "name": "批量导出", "text": "使用石墨文档导出工具导出Markdown、PDF、Word和Excel，并保留文件夹结构。"},
+        {"@type": "HowToStep", "name": "清洗资料", "text": "删除重复文件，统一命名，补充来源路径、负责人和更新时间。"},
+        {"@type": "HowToStep", "name": "上传平台", "text": "按ChatGPT、Claude或Gemini Notebook的文件数量、大小和来源限制分批上传。"},
+        {"@type": "HowToStep", "name": "验收答案", "text": "用事实型、流程型、边界型问题测试AI回答，并检查是否能回到原始来源。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档能直接导入 ChatGPT 或 Claude 当知识库吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "通常不能把石墨空间一键直连为知识库。更稳妥的做法是先把石墨文档批量导出为本地文件，再按平台支持的文件类型上传到GPT知识、Claude Project或Gemini Notebook。"}
+        },
+        {
+          "@type": "Question",
+          "name": "AI知识库应该优先上传 Markdown 还是 PDF？",
+          "acceptedAnswer": {"@type": "Answer", "text": "以问答检索为主时优先用Markdown或清晰的Word文档；需要保留版式、合同原貌和发布稿时同时保留PDF。表格类资料应单独保留Excel。"}
+        },
+        {
+          "@type": "Question",
+          "name": "图片和附件会进入AI知识库吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不同平台对图片、PDF视觉内容和附件的处理不同。不要默认图片一定会被理解，重要图片应配文字说明，附件应保留本地归档并在知识库正文中写清引用关系。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨团队空间资料适合全部上传到AI知识库吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不建议无筛选上传。团队资料应先按权限、敏感级别、时效和业务主题分层，确认可被AI读取的范围后再上传。"}
+        },
+        {
+          "@type": "Question",
+          "name": "AI知识库更新时要重新导出全部石墨文档吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "小规模知识库可以定期全量导出覆盖；团队知识库建议维护变更清单，只更新新增、改动和废弃文件，并保留上一版资料包用于回滚。"}
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">13</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月17日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-to-ai-knowledge-base-guide.webp" alt="石墨文档接入AI知识库：云端文档导出为本地文件后进入问答知识面板" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>石墨文档接入 AI 知识库的核心不是“复制粘贴”，而是先导出、清洗、分组、验收</li>
+                                <li>普通文档优先导出 Markdown 或 Word，定稿和合同补充 PDF，表格单独保留 Excel</li>
+                                <li>ChatGPT、Claude、Gemini Notebook 都支持上传资料，但文件数量、大小、来源和权限模型不同</li>
+                                <li>图片、评论、历史版本、权限信息不会天然迁移，需要迁移前单独处理</li>
+                                <li>真正可用的 AI 知识库必须通过带出处的问题验收，而不是只看文件是否上传成功</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>把石墨文档接入 AI 知识库</strong>，推荐流程是：先用石墨文档导出工具把目标空间批量导出到本地，按用途选择 Markdown、PDF、Word、Excel 等格式，并保留原文件夹层级；再把导出的资料按主题拆分为可上传的知识包；最后分别上传到 ChatGPT 的 GPT 知识或项目文件、Claude Projects、Gemini Notebook 等平台，并用问题集验证 AI 是否能引用正确来源。这个流程不是官方“一键迁移”，而是基于各平台当前支持的文件上传和知识库能力整理出的实用工作流。</p>
+
+                    <div class="info-box">
+                        <h4>官方资料依据</h4>
+                        <p>OpenAI 官方说明，GPT 的 Knowledge 用于上传参考资料，适合文档、指南、手册等内容；文件上传还有大小、token、项目文件数量和存储上限。参考：<a href="https://help.openai.com/en/articles/8554397-creating-and-editing-gpts" target="_blank" rel="noopener">Creating and editing GPTs</a>、<a href="https://help.openai.com/en/articles/8555545-file-uploads-faq" target="_blank" rel="noopener">File Uploads FAQ</a>。Claude 官方将 Projects 描述为带聊天历史和知识库的工作区。参考：<a href="https://support.claude.com/en/articles/9517075-what-are-projects" target="_blank" rel="noopener">What are projects?</a>。Google 官方帮助中，Gemini Notebook 可上传来源并基于来源给出带引用的回答，且有来源数量和大小限制。参考：<a href="https://support.google.com/notebooklm/answer/16164461?hl=en" target="_blank" rel="noopener">Learn about Gemini Notebook</a>、<a href="https://support.google.com/notebooklm/answer/16215270?hl=en" target="_blank" rel="noopener">Add or discover new sources</a>。</p>
+                    </div>
+
+                    <h2 id="what-is-ai-knowledge-base">2026 年的 AI 知识库到底是什么？</h2>
+
+                    <p>现在大家说的 AI 知识库，已经不只是“把文件上传给机器人”。它大致分成四类：第一类是会话里的临时文件分析；第二类是 GPT、Claude Project、Gemini Notebook 这类长期项目知识库；第三类是企业连接器，把 Google Drive、SharePoint、Slack 等外部数据源同步或检索进来；第四类是自己搭建的 RAG 知识库。</p>
+
+                    <p>石墨文档用户最常见的问题是：资料还在石墨空间里，但 AI 平台无法直接理解你的石墨目录、权限和协作上下文。因此第一步不是开一个 AI 工具，而是先把石墨资料转成 AI 平台能稳定读取的本地文件。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>AI知识库类型</th>
+                                <th>适合石墨资料</th>
+                                <th>关键限制</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ChatGPT GPT Knowledge</td>
+                                <td>产品手册、FAQ、流程文档、内部规范</td>
+                                <td>文件数量和大小有限，适合精选资料</td>
+                            </tr>
+                            <tr>
+                                <td>Claude Projects</td>
+                                <td>项目资料包、研究材料、团队写作上下文</td>
+                                <td>按项目组织，仍需控制权限和资料范围</td>
+                            </tr>
+                            <tr>
+                                <td>Gemini Notebook</td>
+                                <td>调研资料、课程材料、报告素材、带引用问答</td>
+                                <td>一个 Notebook 是独立来源集合，不能跨 Notebook 自动检索</td>
+                            </tr>
+                            <tr>
+                                <td>自建 RAG 知识库</td>
+                                <td>大量团队文档、客服知识、研发规范、制度库</td>
+                                <td>需要切分、索引、权限、更新和评测</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="export-first">为什么要先从石墨导出到本地？</h2>
+
+                    <p>AI 知识库最怕三件事：资料不完整、来源不可追踪、权限边界混乱。直接把线上链接扔给 AI，往往会遇到账号不可访问、链接失效、图片缺失、目录丢失等问题。先导出本地文件，可以把知识库建设变成一个可检查、可备份、可回滚的工程流程。</p>
+
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">导出</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">第一次做批量导出时，先确认格式、权限、失败重试和文件夹层级。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>导出时保留文件夹结构</h3>
+                    <p>AI 平台上传文件后，原始目录不一定会被完整理解，但本地目录对你很重要。它是后续拆分知识包、排查错误和回滚版本的依据。建议按“部门/项目/主题/时间”保留石墨原层级，不要一开始就把所有文件放进一个大目录。</p>
+
+                    <h3>导出格式不要只选一种</h3>
+                    <p>AI 问答更偏好清晰的文本结构，但业务归档也需要原貌。普通知识内容用 Markdown 或 Word；需要版式原貌的内容补 PDF；表格和清单用 Excel；图片很多的文档要确保图片有文字说明或本地附件。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>石墨内容</th>
+                                <th>推荐导出格式</th>
+                                <th>进入AI知识库前的处理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>制度、手册、FAQ、教程</td>
+                                <td>Markdown 或 Word</td>
+                                <td>检查标题层级、删除过期段落、补充适用范围</td>
+                            </tr>
+                            <tr>
+                                <td>合同、公告、发布稿</td>
+                                <td>PDF + Markdown摘要</td>
+                                <td>PDF做原貌归档，Markdown写检索摘要</td>
+                            </tr>
+                            <tr>
+                                <td>业务台账、排期、统计表</td>
+                                <td>Excel</td>
+                                <td>保留公式和表头，另写字段说明</td>
+                            </tr>
+                            <tr>
+                                <td>含大量截图的教程</td>
+                                <td>Markdown + 图片附件 + PDF</td>
+                                <td>重要截图下方补文字说明，避免只靠视觉理解</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="prepare-package">上传前怎么整理 AI 知识包？</h2>
+
+                    <p>不要把所有石墨导出结果直接上传。更稳的做法是先做一个“知识包”：每个知识包只回答一个主题，包含必要文件、索引说明、更新时间和负责人。这样无论上传到 ChatGPT、Claude 还是 Gemini Notebook，都能减少检索混乱。</p>
+
+                    <ol>
+                        <li>删除空文件、重复文件、临时草稿和明显过期文档。</li>
+                        <li>把文件名改成可读名称，例如 <code>售后退款流程-2026-06.md</code>。</li>
+                        <li>为每个目录增加一份 <code>README.md</code>，写清用途、适用范围、负责人和更新时间。</li>
+                        <li>把大而杂的文档拆成主题文档，避免一个文件混合多个业务线。</li>
+                        <li>敏感信息先脱敏，再决定是否进入 AI 平台。</li>
+                    </ol>
+
+                    <a href="shimo-export-markdown-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">MD</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出 Markdown 完整教程</div>
+                            <p class="internal-link-desc">AI知识库更依赖清晰文本，Markdown导出质量会直接影响问答效果。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="platform-workflows">ChatGPT、Claude、Gemini Notebook 怎么接？</h2>
+
+                    <h3>ChatGPT：精选资料进 GPT Knowledge 或项目文件</h3>
+                    <p>如果你要做一个固定用途助手，比如“客服政策问答”或“产品手册助手”，可以把精选文件上传到 GPT 的 Knowledge。OpenAI 官方建议把知识文件当作参考资料，行为规则、语气和工作流则放在 instructions 里。也就是说，石墨导出的制度和手册进 Knowledge，回答格式、引用要求和边界规则写进指令。</p>
+
+                    <p>如果只是阶段性分析资料，可以用 ChatGPT 的文件上传或 Projects 文件。注意文件数量、大小、token 和存储限制会随计划变化，正式上线前要查官方帮助中心。</p>
+
+                    <h3>Claude：按项目组织长期上下文</h3>
+                    <p>Claude Projects 更适合一个项目一个资料包，比如“新员工入职手册”“A产品需求池”“投标资料库”。上传前建议保留本地 <code>README.md</code>，把资料背景写清楚，再在 Project Instructions 里要求 Claude 回答时说明来源、不要编造未提供的政策。</p>
+
+                    <h3>Gemini Notebook：适合研究型和带引用问答</h3>
+                    <p>Google 官方帮助把 Gemini Notebook 描述为基于来源的研究助手，支持上传 PDF、网站、YouTube、音频、Google Docs、Google Slides 等来源，并可给出内联引用。石墨资料迁移过去时，适合把一个主题做成一个 Notebook，例如“竞品研究资料”“售后政策资料”“培训手册资料”。</p>
+
+                    <div class="warning-box">
+                        <h4>不要把连接器等同于迁移</h4>
+                        <p>OpenAI 等平台正在强化 apps、sync 和企业连接器能力，但石墨文档不是所有平台的通用直连来源。即使未来有连接器，重要资料仍应保留本地导出副本，避免平台权限、同步延迟和误删影响知识库可用性。</p>
+                    </div>
+
+                    <h2 id="images-tables-permissions">图片、表格、权限和历史版本怎么处理？</h2>
+
+                    <h3>图片和截图要补文字</h3>
+                    <p>如果一篇石墨文档的关键知识藏在截图里，上传后的 AI 可能无法稳定理解，尤其是普通文档上传场景。建议在截图附近补一句文字说明，例如“图中流程为退款审批三步：客服初审、财务复核、运营归档”。</p>
+
+                    <h3>表格不要强行塞进正文</h3>
+                    <p>复杂表格更适合作为 Excel 保留。对于 AI 问答，可以在 Markdown 里写一份字段说明和常见口径，再把 Excel 作为原始附件。这样既方便 AI 回答，又保留业务数据的完整性。</p>
+
+                    <a href="shimo-spreadsheet-export-excel-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">表格</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨表格导出 Excel 避坑指南</div>
+                            <p class="internal-link-desc">业务表进入AI知识库前，先保证公式、合并单元格和编码不出错。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>权限和历史记录不会自动迁移</h3>
+                    <p>AI 知识库通常读取的是上传后的文件内容，不会天然继承石墨里的协作者权限、评论、审批流和历史版本。团队使用时，必须先决定哪些资料可以给 AI 读取，哪些资料只能本地归档，哪些资料需要脱敏后再上传。</p>
+
+                    <h2 id="validation">上线前验收清单</h2>
+
+                    <p>文件上传成功不等于知识库可用。建议准备 20 到 50 个验收问题，覆盖事实、流程、边界、反例和过期内容。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>检查项</th>
+                                <th>通过标准</th>
+                                <th>失败处理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>来源可追踪</td>
+                                <td>AI能指出答案来自哪个文件或章节</td>
+                                <td>补充文件名、标题、目录页和引用规则</td>
+                            </tr>
+                            <tr>
+                                <td>流程问答</td>
+                                <td>能按步骤回答，并区分适用和不适用场景</td>
+                                <td>拆分过长文档，补充流程边界</td>
+                            </tr>
+                            <tr>
+                                <td>表格口径</td>
+                                <td>能解释字段含义，不乱算未知数据</td>
+                                <td>增加字段说明，保留Excel原表</td>
+                            </tr>
+                            <tr>
+                                <td>敏感信息</td>
+                                <td>测试问题不会暴露不该被读取的内容</td>
+                                <td>重新脱敏或从知识包移除</td>
+                            </tr>
+                            <tr>
+                                <td>更新回滚</td>
+                                <td>知道当前资料包版本，并能恢复上一版</td>
+                                <td>建立日期目录和变更记录</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>石墨文档能直接导入 ChatGPT 或 Claude 当知识库吗？</h3>
+                    <p>通常不能把石墨空间一键直连为知识库。更稳妥的做法是先把石墨文档批量导出为本地文件，再按平台支持的文件类型上传到 GPT 知识、Claude Project 或 Gemini Notebook。</p>
+
+                    <h3>AI知识库应该优先上传 Markdown 还是 PDF？</h3>
+                    <p>以问答检索为主时优先用 Markdown 或清晰的 Word 文档；需要保留版式、合同原貌和发布稿时同时保留 PDF。表格类资料应单独保留 Excel。</p>
+
+                    <h3>图片和附件会进入AI知识库吗？</h3>
+                    <p>不同平台对图片、PDF视觉内容和附件的处理不同。不要默认图片一定会被理解，重要图片应配文字说明，附件应保留本地归档并在知识库正文中写清引用关系。</p>
+
+                    <h3>石墨团队空间资料适合全部上传到AI知识库吗？</h3>
+                    <p>不建议无筛选上传。团队资料应先按权限、敏感级别、时效和业务主题分层，确认可被 AI 读取的范围后再上传。</p>
+
+                    <h3>AI知识库更新时要重新导出全部石墨文档吗？</h3>
+                    <p>小规模知识库可以定期全量导出覆盖；团队知识库建议维护变更清单，只更新新增、改动和废弃文件，并保留上一版资料包用于回滚。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">AI知识库</span>
+                        </div>
+                        <p class="author-desc">专注于云文档备份、批量导出和跨平台迁移工具开发，长期整理石墨、Notion、Obsidian、飞书和 AI 知识库的文档工作流。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">AI知识库</a>
+                        <a href="index.html" class="article-tag">ChatGPT知识库</a>
+                        <a href="index.html" class="article-tag">Claude Projects</a>
+                        <a href="index.html" class="article-tag">石墨文档导出</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-to-obsidian-migration-guide.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 相关迁移</div>
+                            <div class="nav-link-title">石墨文档迁移到 Obsidian 完整教程</div>
+                        </a>
+                        <a href="shimo-ai-knowledge-base-rag-guide.html" class="nav-link">
+                            <div class="nav-link-label">下一篇 &rarr;</div>
+                            <div class="nav-link-title">石墨文档搭建 RAG 知识库指南</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

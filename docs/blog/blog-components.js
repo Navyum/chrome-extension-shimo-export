@@ -193,10 +193,10 @@
         'shimo-export-markdown-guide.html': {
             title: '石墨文档导出Markdown完整教程：图片、表格、链接怎么保留？',
             related: [
+                'shimo-to-ai-knowledge-base-guide.html',
                 'shimo-to-obsidian-migration-guide.html',
                 'shimo-to-notion-migration-guide.html',
-                'document-format-guide.html',
-                'shimo-export-complete-guide.html'
+                'document-format-guide.html'
             ]
         },
         'shimo-to-obsidian-migration-guide.html': {
@@ -229,19 +229,46 @@
         'shimo-team-space-backup-permission-checklist.html': {
             title: '石墨团队空间备份权限清单：管理员批量导出前必看',
             related: [
+                'shimo-team-space-ai-knowledge-base-governance.html',
                 'shimo-to-feishu-docs-migration-guide.html',
                 'team-document-management.html',
-                'shimo-export-complete-guide.html',
-                'shimo-export-troubleshooting.html'
+                'shimo-export-complete-guide.html'
             ]
         },
         'shimo-spreadsheet-export-excel-guide.html': {
             title: '石墨表格导出Excel避坑指南：公式、合并单元格和乱码处理',
             related: [
+                'shimo-ai-knowledge-base-rag-guide.html',
                 'shimo-to-notion-migration-guide.html',
                 'shimo-to-feishu-docs-migration-guide.html',
-                'document-format-guide.html',
-                'shimo-export-troubleshooting.html'
+                'document-format-guide.html'
+            ]
+        },
+        'shimo-to-ai-knowledge-base-guide.html': {
+            title: '石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？',
+            related: [
+                'shimo-ai-knowledge-base-rag-guide.html',
+                'shimo-team-space-ai-knowledge-base-governance.html',
+                'shimo-export-markdown-guide.html',
+                'shimo-export-complete-guide.html'
+            ]
+        },
+        'shimo-ai-knowledge-base-rag-guide.html': {
+            title: '石墨文档搭建 RAG 知识库指南：Markdown 清洗、切分、向量检索和验收',
+            related: [
+                'shimo-to-ai-knowledge-base-guide.html',
+                'shimo-team-space-ai-knowledge-base-governance.html',
+                'shimo-export-markdown-guide.html',
+                'shimo-spreadsheet-export-excel-guide.html'
+            ]
+        },
+        'shimo-team-space-ai-knowledge-base-governance.html': {
+            title: '石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP',
+            related: [
+                'shimo-ai-knowledge-base-rag-guide.html',
+                'shimo-to-ai-knowledge-base-guide.html',
+                'shimo-team-space-backup-permission-checklist.html',
+                'team-document-management.html'
             ]
         }
     };
@@ -262,7 +289,10 @@
         'shimo-spreadsheet-export-excel-guide.html': '表格导出Excel指南',
         'shimo-to-obsidian-migration-guide.html': '迁移到Obsidian',
         'shimo-to-notion-migration-guide.html': '迁移到Notion',
-        'shimo-to-feishu-docs-migration-guide.html': '迁移到飞书文档'
+        'shimo-to-feishu-docs-migration-guide.html': '迁移到飞书文档',
+        'shimo-to-ai-knowledge-base-guide.html': '接入AI知识库',
+        'shimo-ai-knowledge-base-rag-guide.html': '搭建RAG知识库',
+        'shimo-team-space-ai-knowledge-base-governance.html': '企业AI知识库治理'
     };
 
     // 插入导航栏

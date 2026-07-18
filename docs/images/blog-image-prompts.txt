@@ -120,3 +120,24 @@ Use case: productivity-visual. Asset type: blog hero image for a Chinese technic
 生成工具：Codex imagegen built-in
 Prompt:
 Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. A polished hero illustration for exporting Shimo spreadsheets to Excel and avoiding issues with formulas, merged cells, images, encoding, and permissions. Modern cloud spreadsheet interface transforming into a local Excel-like workbook archive with validation checks. High-quality 3D editorial illustration, wide 16:9 composition, precise analytical mood, dark neutral background with emerald, cyan, white, orange, and blue accents. No readable text, no logos, no brand names, no watermarks, no people.
+
+18. 石墨文档接入 AI 知识库完整指南：ChatGPT、Claude、Gemini Notebook 怎么准备资料？
+文件名：shimo-to-ai-knowledge-base-guide.webp
+生成工具：Codex imagegen built-in
+风格说明：Google Material Design inspired flat vector illustration，浅色背景，蓝红黄绿点缀，16:9，无品牌标识，无截图，仅保留大字 KNOWLEDGE。
+Prompt:
+Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. Primary request: Google Material Design inspired flat vector illustration about moving exported Shimo cloud documents into AI knowledge bases for ChatGPT, Claude, Gemini, and NotebookLM without using any logos. Scene/backdrop: soft light background with clean workspace and document pipeline. Subject: cloud documents flow into local folders, then into three abstract AI knowledge panels with search, citation, and answer checkmarks. Style/medium: flat vector illustration, Material Design inspired, clean geometric shapes, friendly rounded secondary characters, bright blue red yellow green accents, generous whitespace. Composition/framing: wide 16:9 composition, centered workflow, clear left-to-right migration path. Text (verbatim): "KNOWLEDGE" as one large intentional English keyword only. Constraints: no brand logos, no screenshots, no product names, no small unreadable text, no Chinese interface text, no watermark. Avoid: 3D, photorealism, glassmorphism, dark dashboard, complex background, fake UI labels.
+
+19. 石墨文档搭建 RAG 知识库指南：Markdown 清洗、切分、向量检索和验收
+文件名：shimo-ai-knowledge-base-rag-guide.webp
+生成工具：Codex imagegen built-in
+风格说明：Google Material Design inspired flat vector illustration，浅色背景，管线式构图，蓝红黄绿点缀，16:9，无品牌标识，无截图，仅保留大字 RAG。
+Prompt:
+Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. Primary request: Google Material Design inspired flat vector illustration about preparing Shimo exports for a RAG AI knowledge base. Scene/backdrop: soft light background, clean data preparation workflow. Subject: generic cloud documents, local folders, abstract chunk cards with plain line placeholders, vector network nodes, retrieval magnifier, citation checkmarks, and final answer card. Use only generic file shapes with icons such as image, table grid, paragraph lines, and paperclip; do not use letters on files. Style/medium: flat vector illustration, Material Design inspired, clean geometric shapes, bright blue red yellow green accents, generous whitespace. Composition/framing: wide 16:9, left-to-right pipeline, no realistic UI. Text (verbatim): "RAG" as the only visible word in the entire image. Constraints: absolutely no other letters, numbers, labels, app icons, product logos, screenshots, brand names, Chinese text, small text, watermark, or fake UI labels. Avoid: 3D, photorealism, glassmorphism, dark dashboard, complex background.
+
+20. 石墨团队空间做企业 AI 知识库：权限、脱敏、更新和验收 SOP
+文件名：shimo-team-space-ai-knowledge-base-governance.webp
+生成工具：Codex imagegen built-in
+风格说明：Google Material Design inspired flat vector illustration，浅色背景，治理流程图构图，蓝红黄绿点缀，16:9，无品牌标识，无截图，仅保留大字 GOVERN。
+Prompt:
+Use case: productivity-visual. Asset type: blog hero image for a Chinese technical SEO article. Primary request: Google Material Design inspired flat vector illustration about enterprise teams turning Shimo team-space exports into a governed AI knowledge base. Scene/backdrop: soft light background, clean admin workflow. Subject: generic team-space folder tree, permission shield symbols, redaction blocks, local archive box, update calendar represented by blank squares, and AI answer validation checklist with checkmarks, all connected by simple arrows. Style/medium: flat vector illustration, Material Design inspired, clean geometric shapes, bright blue red yellow green accents, generous whitespace, friendly rounded team members as small secondary figures. Composition/framing: wide 16:9, organized workflow, not a screenshot. Text (verbatim): "GOVERN" as the only visible word in the entire image. Constraints: absolutely no other letters, numbers, labels, app icons, product logos, screenshots, brand names, Chinese text, small text, watermark, or fake UI labels. Avoid: 3D, photorealism, glassmorphism, dark dashboard, complex background.
