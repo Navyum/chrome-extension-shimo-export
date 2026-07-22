@@ -1,6 +1,6 @@
 {
   "seed_keyword": "石墨文档导出",
-  "generated_at": "2026-07-17T11:30:00+08:00",
+  "generated_at": "2026-07-21T12:30:00+08:00",
   "existing_posts": [
     {"id": "E1", "title": "云文档数据丢失怎么办？5个真实案例教你避坑", "file": "why-backup-cloud-documents.html", "primary_keyword": "云文档备份"},
     {"id": "E2", "title": "从云文档迁移到本地：完整的数据迁移指南", "file": "data-migration-guide.html", "primary_keyword": "数据迁移指南"},
@@ -18,8 +18,8 @@
     "template": "pillar-page",
     "word_count_target": 3500,
     "cluster": "pillar",
-    "links_to": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1", "AI1", "AI2", "AI3"],
-    "links_from": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1", "AI1", "AI2", "AI3"]
+    "links_to": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1", "AI1", "AI2", "AI3", "AR1", "AR2", "AR3"],
+    "links_from": ["E1", "E2", "E3", "E4", "E5", "E6", "A1", "A2", "B1", "B2", "C1", "C2", "D1", "AI1", "AI2", "AI3", "AR1", "AR2", "AR3"]
   },
   "clusters": [
     {
@@ -204,19 +204,63 @@
           "links_from": ["P", "AI1", "AI2", "E6"]
         }
       ]
+    },
+    {
+      "name": "Cluster F: 归档与恢复验收",
+      "intent": "informational",
+      "color": "#0ea5e9",
+      "rationale": "PDF归档、Word格式修复和本地恢复演练补齐导出后的验收链路，适合承接强操作意图的长尾搜索",
+      "posts": [
+        {
+          "id": "AR1",
+          "title": "石墨文档导出 PDF 归档指南：合同、制度和审计资料怎么备份",
+          "file": "shimo-export-pdf-archive-guide.html",
+          "primary_keyword": "石墨文档导出PDF",
+          "secondary_keywords": ["石墨PDF归档", "石墨文档合同备份", "石墨文档制度归档", "PDF长期保存"],
+          "search_volume_estimate": "medium",
+          "template": "archive-guide",
+          "word_count_target": 3400,
+          "links_to": ["P", "AR2", "AR3", "E5", "A1"],
+          "links_from": ["P", "AR2", "AR3", "E5"]
+        },
+        {
+          "id": "AR2",
+          "title": "石墨文档导出 Word 后格式乱怎么办：目录、图片、表格和样式修复清单",
+          "file": "shimo-export-word-format-fix.html",
+          "primary_keyword": "石墨文档导出Word格式乱",
+          "secondary_keywords": ["石墨文档导出Word", "DOCX格式修复", "石墨文档目录导出", "Word图片表格错位"],
+          "search_volume_estimate": "medium",
+          "template": "troubleshooting-checklist",
+          "word_count_target": 3300,
+          "links_to": ["P", "AR1", "AR3", "E5", "B2"],
+          "links_from": ["P", "AR1", "AR3", "E5"]
+        },
+        {
+          "id": "AR3",
+          "title": "石墨文档备份到本地硬盘：目录命名、去重、校验和恢复演练",
+          "file": "shimo-local-backup-restore-checklist.html",
+          "primary_keyword": "石墨文档备份到本地硬盘",
+          "secondary_keywords": ["石墨文档本地备份", "石墨文档恢复演练", "云文档备份校验", "石墨文档离线备份"],
+          "search_volume_estimate": "medium",
+          "template": "backup-sop",
+          "word_count_target": 3500,
+          "links_to": ["P", "AR1", "AR2", "B1", "E1"],
+          "links_from": ["P", "AR1", "AR2", "E1"]
+        }
+      ]
     }
   ],
-  "total_posts": 11,
-  "total_new_posts": 10,
-  "total_interlinks": 54,
-  "estimated_total_new_words": 24700,
-  "estimated_total_words_with_existing": 37100,
-  "execution_order": ["P", "A1", "B1", "C1", "A2", "B2", "C2", "D1", "AI1", "AI2", "AI3"],
+  "total_posts": 14,
+  "total_new_posts": 13,
+  "total_interlinks": 69,
+  "estimated_total_new_words": 34900,
+  "estimated_total_words_with_existing": 47300,
+  "execution_order": ["P", "A1", "B1", "C1", "A2", "B2", "C2", "D1", "AI1", "AI2", "AI3", "AR1", "AR2", "AR3"],
   "quality_gates": {
-    "clusters": 5,
+    "clusters": 6,
     "min_incoming_links_per_post": 3,
     "cannibalization_check": "pass - all primary keywords unique",
     "intent_diversity": ["informational", "commercial"],
-    "template_diversity": ["pillar-page", "troubleshooting-guide", "how-to-guide", "scenario-guide", "product-tutorial", "comparison-review", "technical-how-to", "governance-sop"]
+    "template_diversity": ["pillar-page", "troubleshooting-guide", "how-to-guide", "scenario-guide", "product-tutorial", "comparison-review", "technical-how-to", "governance-sop", "archive-guide", "troubleshooting-checklist", "backup-sop"]
   }
 }

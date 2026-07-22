@@ -24,9 +24,43 @@
   <!-- 博客首页 -->
   <url>
     <loc>https://shimo.toolab.top/blog/</loc>
-    <lastmod>2026-07-17</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- 2026-07 归档与本地备份专题 -->
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-export-pdf-archive-guide.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-pdf-archive-guide.webp</image:loc>
+      <image:title>石墨文档导出PDF归档指南</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-export-word-format-fix.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-export-word-format-fix.webp</image:loc>
+      <image:title>石墨文档导出Word格式修复清单</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://shimo.toolab.top/blog/shimo-local-backup-restore-checklist.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://shimo.toolab.top/images/shimo-local-backup-restore-checklist.webp</image:loc>
+      <image:title>石墨文档备份到本地硬盘恢复清单</image:title>
+    </image:image>
   </url>
 
   <!-- 2026-07 AI 知识库专题 -->

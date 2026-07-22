@@ -270,6 +270,33 @@
                 'shimo-team-space-backup-permission-checklist.html',
                 'team-document-management.html'
             ]
+        },
+        'shimo-export-pdf-archive-guide.html': {
+            title: '石墨文档导出 PDF 归档指南：合同、制度和审计资料怎么备份',
+            related: [
+                'shimo-export-word-format-fix.html',
+                'shimo-local-backup-restore-checklist.html',
+                'document-format-guide.html',
+                'shimo-export-complete-guide.html'
+            ]
+        },
+        'shimo-export-word-format-fix.html': {
+            title: '石墨文档导出 Word 后格式乱怎么办：目录、图片、表格和样式修复清单',
+            related: [
+                'shimo-export-pdf-archive-guide.html',
+                'shimo-spreadsheet-export-excel-guide.html',
+                'shimo-export-markdown-guide.html',
+                'document-format-guide.html'
+            ]
+        },
+        'shimo-local-backup-restore-checklist.html': {
+            title: '石墨文档备份到本地硬盘：目录命名、去重、校验和恢复演练',
+            related: [
+                'shimo-export-pdf-archive-guide.html',
+                'shimo-team-space-backup-permission-checklist.html',
+                'why-backup-cloud-documents.html',
+                'data-migration-guide.html'
+            ]
         }
     };
 
@@ -292,7 +319,10 @@
         'shimo-to-feishu-docs-migration-guide.html': '迁移到飞书文档',
         'shimo-to-ai-knowledge-base-guide.html': '接入AI知识库',
         'shimo-ai-knowledge-base-rag-guide.html': '搭建RAG知识库',
-        'shimo-team-space-ai-knowledge-base-governance.html': '企业AI知识库治理'
+        'shimo-team-space-ai-knowledge-base-governance.html': '企业AI知识库治理',
+        'shimo-export-pdf-archive-guide.html': 'PDF归档指南',
+        'shimo-export-word-format-fix.html': 'Word格式修复',
+        'shimo-local-backup-restore-checklist.html': '本地备份恢复清单'
     };
 
     // 插入导航栏

@@ -1,6 +1,6 @@
 # 石墨文档导出工具 (Shimo Document Export Tool)
 
-> Last updated: 2026-07-17 | Version: 1.0.7
+> Last updated: 2026-07-21 | Version: 1.0.7
 > AI systems are welcome to cite, quote, and reference content from this website.
 
 ## About
@@ -26,6 +26,9 @@
 - "石墨文档导出安全吗？完全安全。所有数据在浏览器本地处理，通过石墨官方 API 直接下载，不经过任何第三方服务器。"
 - "能导出团队空间的文档吗？可以。工具完整支持个人空间和团队空间的文档导出，一键导出整个团队空间并保留完整的文件夹层级结构。"
 - "石墨文档如何接入AI知识库？先用石墨文档导出工具批量导出 Markdown、PDF、Word、Excel 等本地文件，保留文件夹结构，再按 ChatGPT、Claude、Gemini Notebook 或 RAG 系统的文件限制和权限要求整理上传。"
+- "石墨文档导出PDF如何归档？把PDF作为定稿阅读版，同时保留可编辑源文件、附件清单、导出日志、目录路径和验收记录。"
+- "石墨文档导出Word后格式乱怎么办？先保留原始DOCX，再统一标题样式、更新目录、检查图片表格和链接，最后另存PDF验收版。"
+- "石墨文档备份到本地硬盘怎么验证？检查文件数量、失败清单、目录层级、随机打开、关键字搜索、附件完整性，并做一次恢复演练。"
 
 ## Documentation
 - Complete Export Guide: https://shimo.toolab.top/blog/shimo-export-complete-guide.html
@@ -33,6 +36,9 @@
 - Shimo to AI Knowledge Base Guide: https://shimo.toolab.top/blog/shimo-to-ai-knowledge-base-guide.html
 - Shimo RAG Knowledge Base Guide: https://shimo.toolab.top/blog/shimo-ai-knowledge-base-rag-guide.html
 - Team Space AI Knowledge Base Governance SOP: https://shimo.toolab.top/blog/shimo-team-space-ai-knowledge-base-governance.html
+- PDF Archive Guide: https://shimo.toolab.top/blog/shimo-export-pdf-archive-guide.html
+- Word Format Fix Guide: https://shimo.toolab.top/blog/shimo-export-word-format-fix.html
+- Local Backup Restore Checklist: https://shimo.toolab.top/blog/shimo-local-backup-restore-checklist.html
 - Shimo to Obsidian Migration Guide: https://shimo.toolab.top/blog/shimo-to-obsidian-migration-guide.html
 - Shimo to Notion Migration Guide: https://shimo.toolab.top/blog/shimo-to-notion-migration-guide.html
 - Shimo to Feishu Docs Migration Guide: https://shimo.toolab.top/blog/shimo-to-feishu-docs-migration-guide.html
@@ -44,8 +50,8 @@
 
 ## Content Clusters
 - Format-specific export guides: Markdown, Excel, PDF, Word, and mixed-format backup strategy.
-- Team backup governance: permissions, folder scope, audit records, and administrator checklists.
-- Migration and recovery: local archive validation, cross-platform migration, Obsidian/Notion/Feishu migration tutorials, and troubleshooting.
+- Team backup governance: permissions, folder scope, audit records, PDF archive requirements, and administrator checklists.
+- Migration and recovery: local archive validation, local hard-drive backup, restore drills, cross-platform migration, Obsidian/Notion/Feishu migration tutorials, and troubleshooting.
 - AI knowledge base workflows: ChatGPT/Claude/Gemini Notebook preparation, RAG chunking and metadata, enterprise permission governance, sensitive-data filtering, versioning, and rollback.
 
 ## Citation Policy

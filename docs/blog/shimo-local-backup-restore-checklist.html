@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档备份到本地硬盘的完整清单：如何批量导出、命名目录、去重、生成校验记录、制作离线副本，并做一次真正能恢复的演练。">
+    <meta name="keywords" content="石墨文档备份到本地硬盘,石墨文档本地备份,石墨文档恢复演练,云文档备份校验,石墨文档离线备份">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-local-backup-restore-checklist.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档备份到本地硬盘：目录命名、去重、校验和恢复演练">
+    <meta property="og:description" content="石墨文档本地备份不只是下载一份文件，还要做目录规范、去重、校验、离线副本和恢复演练。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-local-backup-restore-checklist.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-local-backup-restore-checklist.webp">
+    <meta property="article:published_time" content="2026-07-21T12:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-21T12:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档备份到本地硬盘恢复清单">
+    <meta name="twitter:description" content="从批量导出到恢复演练，建立能真正找回资料的本地备份。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-local-backup-restore-checklist.webp">
+
+    <title>石墨文档备份到本地硬盘：目录命名、去重、校验和恢复演练 | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档备份到本地硬盘：目录命名、去重、校验和恢复演练",
+      "description": "石墨文档备份到本地硬盘的完整清单：如何批量导出、命名目录、去重、生成校验记录、制作离线副本，并做一次真正能恢复的演练。",
+      "image": "https://shimo.toolab.top/images/shimo-local-backup-restore-checklist.webp",
+      "author": {"@type": "Organization", "name": "石墨文档导出工具团队"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {"@type": "ImageObject", "url": "https://shimo.toolab.top/images/icon.png"}
+      },
+      "datePublished": "2026-07-21",
+      "dateModified": "2026-07-21",
+      "wordCount": 3500,
+      "articleSection": "本地备份",
+      "keywords": ["石墨文档备份到本地硬盘", "石墨文档本地备份", "石墨文档恢复演练", "云文档备份校验", "石墨文档离线备份"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-local-backup-restore-checklist.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "本地备份恢复清单", "item": "https://shimo.toolab.top/blog/shimo-local-backup-restore-checklist.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "石墨文档如何备份到本地硬盘并验证能恢复",
+      "description": "从石墨文档批量导出、目录命名、去重、校验、离线副本到恢复演练的备份流程。",
+      "step": [
+        {"@type": "HowToStep", "name": "确定备份范围", "text": "按个人空间、团队空间、项目、部门和重要等级确定要备份的石墨目录。"},
+        {"@type": "HowToStep", "name": "批量导出到本地", "text": "用石墨文档导出工具选择合适格式批量导出，并保留文件夹层级。"},
+        {"@type": "HowToStep", "name": "规范命名和去重", "text": "用日期、空间、批次、负责人命名目录，识别重复文件和历史版本。"},
+        {"@type": "HowToStep", "name": "生成校验记录", "text": "记录文件数量、失败清单、抽检结果和关键文件哈希或校验信息。"},
+        {"@type": "HowToStep", "name": "做恢复演练", "text": "从备份中随机恢复一组文件，验证能打开、能搜索、能找到附件和来源路径。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档备份到本地硬盘后还需要云端备份吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "需要。单个本地硬盘也可能损坏、丢失或被误删。重要资料建议至少保留本地工作副本、离线副本和异地副本。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档本地备份多久做一次？",
+          "acceptedAnswer": {"@type": "Answer", "text": "高频变化的团队空间建议按周或按项目里程碑备份；合同、制度和交付资料在版本确认后立即归档；低频资料可按月或季度备份。"}
+        },
+        {
+          "@type": "Question",
+          "name": "本地备份只保存Markdown够吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不一定。Markdown适合文本和知识库，PDF适合归档版式，Word适合继续编辑，Excel适合表格复算。关键资料建议多格式保存。"}
+        },
+        {
+          "@type": "Question",
+          "name": "怎么知道石墨文档备份成功了？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不能只看下载完成。需要检查文件数量、失败清单、目录层级、随机打开、关键字搜索、附件完整性和恢复演练结果。"}
+        },
+        {
+          "@type": "Question",
+          "name": "重复文件要不要删除？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不要直接删除。先判断是同一文件重复导出、不同版本，还是不同目录下的业务副本。确认后再做去重记录。"}
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档备份到本地硬盘：目录命名、去重、校验和恢复演练</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">12</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月21日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-local-backup-restore-checklist.webp" alt="石墨文档备份到本地硬盘：云文档导出、本地硬盘、离线副本和恢复验收" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>石墨文档备份到本地硬盘，不等于浏览器显示下载完成</li>
+                                <li>可用备份至少要包含目录结构、失败清单、格式策略、附件清单和验收记录</li>
+                                <li>重要资料建议遵循多副本思路：本机、离线介质、异地或独立云端</li>
+                                <li>去重前要区分重复导出、历史版本和业务副本，不要直接批量删除</li>
+                                <li>没有恢复演练的备份，只能算“可能有用”的文件堆</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>石墨文档备份到本地硬盘</strong>，建议按“导出、整理、校验、复制、恢复”五步做：先按个人空间或团队空间圈定备份范围，用石墨文档导出工具批量导出并保留文件夹层级；再按日期、空间、项目和负责人命名目录；对重复文件、失败文件、附件和外链做清单；把备份复制到离线硬盘或异地位置；最后随机恢复一组文件，确认能打开、能搜索、能找到附件和原始路径。</p>
+
+                    <div class="info-box">
+                        <h4>资料依据</h4>
+                        <p>石墨官方帮助中心包含 <a href="https://shimo.im/help/articles/AVKF2HXMABOGO" target="_blank" rel="noopener">如何将文档下载到本地</a>、<a href="https://shimo.im/help/articles/AWT3GBRDACRR6" target="_blank" rel="noopener">APP 本地备份</a>、<a href="https://shimo.im/help/articles/AWT46HKYABTK6" target="_blank" rel="noopener">APP 如何导出文件</a> 等入口。备份策略层面，CISA 的 <a href="https://www.cisa.gov/stopransomware/ransomware-guide" target="_blank" rel="noopener">Ransomware Guide</a> 强调要维护离线、加密的数据备份并定期测试。本文把这些原则落到石墨文档本地备份场景。</p>
+                    </div>
+
+                    <h2 id="scope">第一步：确定备份范围</h2>
+
+                    <p>先分清楚你要备份的是个人资料、团队资料、项目资料，还是离职交接资料。范围不同，权限、格式和验收人也不同。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>场景</th>
+                                <th>重点目录</th>
+                                <th>验收人</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>个人资料备份</td>
+                                <td>个人空间、收藏、常用项目</td>
+                                <td>本人</td>
+                            </tr>
+                            <tr>
+                                <td>团队空间备份</td>
+                                <td>部门制度、项目资料、共享文件夹</td>
+                                <td>管理员和业务负责人</td>
+                            </tr>
+                            <tr>
+                                <td>项目归档</td>
+                                <td>合同、需求、交付、验收、复盘</td>
+                                <td>项目经理或交付负责人</td>
+                            </tr>
+                            <tr>
+                                <td>离职交接</td>
+                                <td>本人负责的工作文档和交接清单</td>
+                                <td>接收人和直属负责人</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a href="shimo-team-space-backup-permission-checklist.html" class="internal-link-card">
+                        <div class="internal-link-icon">权限</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨团队空间备份权限清单</div>
+                            <p class="internal-link-desc">团队空间备份前，先确认导出权限、目录范围和敏感资料边界。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="format">第二步：按用途选择导出格式</h2>
+
+                    <p>本地备份不是只能选一个格式。对同一批资料，可以按用途保留多种格式。</p>
+
+                    <ul>
+                        <li><strong>Markdown：</strong>适合知识库、搜索、AI/RAG、开发文档和长期可读文本。</li>
+                        <li><strong>PDF：</strong>适合合同、制度、纪要、公告和审计快照。</li>
+                        <li><strong>Word：</strong>适合继续编辑、对外交付和需要批注修订的文档。</li>
+                        <li><strong>Excel：</strong>适合公式、台账、统计表和需要复算的数据。</li>
+                        <li><strong>JPG：</strong>适合长图、视觉快照和需要快速查看的材料。</li>
+                    </ul>
+
+                    <a href="document-format-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">格式</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">Markdown vs PDF vs Word：格式选择指南</div>
+                            <p class="internal-link-desc">导出前选错格式，会让备份恢复阶段出现大量返工。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="naming">第三步：建立本地目录命名规范</h2>
+
+                    <p>本地备份最怕“下载了一堆文件，但三个月后没人知道哪个是最新”。建议用日期、空间、范围和批次命名顶层目录。</p>
+
+                    <pre><code>shimo-backup/
+├── 2026-07-21_team-space_product_full/
+├── 2026-07-21_personal_haijun_incremental/
+├── 2026-07-21_project-alpha_archive/
+└── 2026-07-21_restore-test/
+</code></pre>
+
+                    <p>每个批次目录里放一份 <code>README.md</code> 或 <code>backup-notes.txt</code>，记录导出人、导出时间、空间范围、格式、失败文件、敏感资料处理方式和验收人。</p>
+
+                    <h2 id="dedupe">第四步：谨慎去重</h2>
+
+                    <p>看到重复文件名，不代表可以删除。云文档里常见三类“重复”：</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>重复类型</th>
+                                <th>判断方式</th>
+                                <th>处理建议</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>重复导出</td>
+                                <td>同路径、同时间、同大小</td>
+                                <td>保留一个，记录删除依据</td>
+                            </tr>
+                            <tr>
+                                <td>历史版本</td>
+                                <td>文件名或更新时间不同</td>
+                                <td>保留，放入历史版本目录</td>
+                            </tr>
+                            <tr>
+                                <td>业务副本</td>
+                                <td>不同部门或项目目录各有一份</td>
+                                <td>通常保留，避免破坏业务上下文</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="warning-box">
+                        <h4>不要用“文件名相同”做唯一去重依据</h4>
+                        <p>同名文件可能是不同项目下的交付件，也可能是历史版本。去重必须结合路径、大小、更新时间、内容和业务负责人确认。</p>
+                    </div>
+
+                    <h2 id="checksum">第五步：做校验记录</h2>
+
+                    <p>校验不是必须做复杂系统，但至少要能回答四个问题：导出了多少、失败了多少、随机抽检是否能打开、关键文件是否被改过。对重要资料，可以生成哈希清单。</p>
+
+                    <pre><code># macOS 示例：为当前目录下文件生成 SHA-256 清单
+find . -type f -print0 | xargs -0 shasum -a 256 > checksum.txt
+</code></pre>
+
+                    <p>如果团队成员不熟悉命令，也可以先从最简单的验收表开始：文件数量、目录数量、失败文件、抽检文件、抽检结果、处理人、处理日期。</p>
+
+                    <h2 id="copies">第六步：制作离线和异地副本</h2>
+
+                    <p>本地硬盘备份解决的是“云端误删或账号问题”，但不能解决“电脑丢失、硬盘损坏、勒索软件加密”。重要资料建议至少保留三类副本：</p>
+
+                    <ol>
+                        <li>本机工作副本，用于日常查找。</li>
+                        <li>离线硬盘或 NAS 副本，用于防误删和防账号风险。</li>
+                        <li>异地或独立云端副本，用于防设备损坏和办公室事故。</li>
+                    </ol>
+
+                    <p>副本越多，权限管理越重要。含有客户资料、合同、人事、财务的备份目录，应加密存储并限制访问。</p>
+
+                    <a href="why-backup-cloud-documents.html" class="internal-link-card">
+                        <div class="internal-link-icon">备份</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">为什么云文档必须备份？</div>
+                            <p class="internal-link-desc">云端协作并不等于永远安全，关键资料需要独立备份策略。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="restore">第七步：做一次恢复演练</h2>
+
+                    <p>恢复演练是最容易被省略、也最能发现问题的一步。建议每个大批次备份后，随机抽一组文件做恢复测试。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>恢复测试</th>
+                                <th>通过标准</th>
+                                <th>失败信号</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>随机打开文件</td>
+                                <td>PDF、DOCX、MD、XLSX可正常打开</td>
+                                <td>文件损坏、空文件、乱码</td>
+                            </tr>
+                            <tr>
+                                <td>路径追溯</td>
+                                <td>能从本地路径看出源团队和项目</td>
+                                <td>文件混在同一目录，无法定位来源</td>
+                            </tr>
+                            <tr>
+                                <td>关键字搜索</td>
+                                <td>能搜到合同号、项目名、制度名</td>
+                                <td>只保存图片或扫描PDF，无法检索</td>
+                            </tr>
+                            <tr>
+                                <td>附件匹配</td>
+                                <td>正文提到的附件能在本地找到</td>
+                                <td>附件仍指向云端链接</td>
+                            </tr>
+                            <tr>
+                                <td>跨设备恢复</td>
+                                <td>换一台电脑也能打开和查找</td>
+                                <td>依赖本机路径或专有软件</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="failure">常见问题处理</h2>
+
+                    <ul>
+                        <li><strong>文件太多：</strong>先按部门、项目和重要等级分批导出，不要一次性混合所有空间。</li>
+                        <li><strong>失败文件多：</strong>先检查登录、权限和网络，再对失败清单逐个重试。</li>
+                        <li><strong>目录太乱：</strong>以石墨原始目录为主，本地只在顶层增加日期和批次。</li>
+                        <li><strong>文件打不开：</strong>重新导出该文件，并记录原始链接和失败原因。</li>
+                        <li><strong>恢复找不到附件：</strong>建立附件目录，给每份主文档补附件清单。</li>
+                    </ul>
+
+                    <a href="shimo-export-troubleshooting.html" class="internal-link-card">
+                        <div class="internal-link-icon">排查</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档无法导出？常见问题解决方案</div>
+                            <p class="internal-link-desc">备份失败时，先按登录、权限、格式、网络和浏览器问题排查。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>石墨文档备份到本地硬盘后还需要云端备份吗？</h3>
+                    <p>需要。单个本地硬盘也可能损坏、丢失或被误删。重要资料建议至少保留本地工作副本、离线副本和异地副本。</p>
+
+                    <h3>石墨文档本地备份多久做一次？</h3>
+                    <p>高频变化的团队空间建议按周或按项目里程碑备份；合同、制度和交付资料在版本确认后立即归档；低频资料可按月或季度备份。</p>
+
+                    <h3>本地备份只保存Markdown够吗？</h3>
+                    <p>不一定。Markdown 适合文本和知识库，PDF 适合归档版式，Word 适合继续编辑，Excel 适合表格复算。关键资料建议多格式保存。</p>
+
+                    <h3>怎么知道石墨文档备份成功了？</h3>
+                    <p>不能只看下载完成。需要检查文件数量、失败清单、目录层级、随机打开、关键字搜索、附件完整性和恢复演练结果。</p>
+
+                    <h3>重复文件要不要删除？</h3>
+                    <p>不要直接删除。先判断是同一文件重复导出、不同版本，还是不同目录下的业务副本。确认后再做去重记录。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">本地备份</span>
+                        </div>
+                        <p class="author-desc">专注于石墨文档批量导出、团队空间备份、本地归档和恢复验收流程，帮助个人和团队把云端资料变成可恢复资产。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">石墨文档本地备份</a>
+                        <a href="index.html" class="article-tag">恢复演练</a>
+                        <a href="index.html" class="article-tag">离线备份</a>
+                        <a href="index.html" class="article-tag">备份校验</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-export-word-format-fix.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 上一篇</div>
+                            <div class="nav-link-title">石墨文档导出 Word 后格式修复清单</div>
+                        </a>
+                        <a href="shimo-team-space-backup-permission-checklist.html" class="nav-link">
+                            <div class="nav-link-label">相关教程 &rarr;</div>
+                            <div class="nav-link-title">石墨团队空间备份权限清单</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

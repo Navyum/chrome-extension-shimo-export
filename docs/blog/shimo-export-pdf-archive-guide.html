@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="石墨文档导出PDF归档指南：合同、制度、会议纪要和审计资料如何批量备份到本地，如何命名、保留目录、校验文件、处理图片附件并做长期保存。">
+    <meta name="keywords" content="石墨文档导出PDF,石墨PDF归档,石墨文档合同备份,石墨文档制度归档,PDF长期保存">
+    <meta name="author" content="石墨文档导出工具团队">
+    <link rel="canonical" href="https://shimo.toolab.top/blog/shimo-export-pdf-archive-guide.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="石墨文档导出 PDF 归档指南：合同、制度和审计资料怎么备份">
+    <meta property="og:description" content="把石墨文档导出PDF做本地归档时，重点不是只下载成功，而是保留目录、版本、证据链、附件清单和验收记录。">
+    <meta property="og:url" content="https://shimo.toolab.top/blog/shimo-export-pdf-archive-guide.html">
+    <meta property="og:site_name" content="石墨文档导出工具">
+    <meta property="og:image" content="https://shimo.toolab.top/images/shimo-export-pdf-archive-guide.webp">
+    <meta property="article:published_time" content="2026-07-21T10:00:00+08:00">
+    <meta property="article:modified_time" content="2026-07-21T10:00:00+08:00">
+    <meta property="article:author" content="石墨文档导出工具团队">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="石墨文档导出 PDF 归档指南">
+    <meta name="twitter:description" content="合同、制度、纪要和审计资料导出PDF后的命名、目录、校验和长期保存清单。">
+    <meta name="twitter:image" content="https://shimo.toolab.top/images/shimo-export-pdf-archive-guide.webp">
+
+    <title>石墨文档导出 PDF 归档指南：合同、制度和审计资料怎么备份 | 石墨文档导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+
+    <script src="blog-components.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "石墨文档导出 PDF 归档指南：合同、制度和审计资料怎么备份",
+      "description": "石墨文档导出PDF归档指南：合同、制度、会议纪要和审计资料如何批量备份到本地，如何命名、保留目录、校验文件、处理图片附件并做长期保存。",
+      "image": "https://shimo.toolab.top/images/shimo-export-pdf-archive-guide.webp",
+      "author": {"@type": "Organization", "name": "石墨文档导出工具团队"},
+      "publisher": {
+        "@type": "Organization",
+        "name": "石墨文档导出工具",
+        "logo": {"@type": "ImageObject", "url": "https://shimo.toolab.top/images/icon.png"}
+      },
+      "datePublished": "2026-07-21",
+      "dateModified": "2026-07-21",
+      "wordCount": 3400,
+      "articleSection": "PDF归档",
+      "keywords": ["石墨文档导出PDF", "石墨PDF归档", "石墨文档合同备份", "石墨文档制度归档", "PDF长期保存"],
+      "mainEntityOfPage": "https://shimo.toolab.top/blog/shimo-export-pdf-archive-guide.html"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首页", "item": "https://shimo.toolab.top/"},
+        {"@type": "ListItem", "position": 2, "name": "博客", "item": "https://shimo.toolab.top/blog/"},
+        {"@type": "ListItem", "position": 3, "name": "石墨PDF归档指南", "item": "https://shimo.toolab.top/blog/shimo-export-pdf-archive-guide.html"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "石墨文档如何导出 PDF 并做本地归档",
+      "description": "从石墨文档范围确认、PDF导出、目录命名、附件处理、文件校验到长期保存的归档流程。",
+      "step": [
+        {"@type": "HowToStep", "name": "确认归档范围", "text": "按合同、制度、纪要、项目交付和审计资料圈定需要导出PDF的石墨目录。"},
+        {"@type": "HowToStep", "name": "选择PDF导出", "text": "用石墨文档导出工具批量导出PDF，或对单篇文档使用石墨打印预览导出PDF。"},
+        {"@type": "HowToStep", "name": "保留目录和命名", "text": "保留原始文件夹结构，并在文件名或目录中写入日期、版本、负责人和归档批次。"},
+        {"@type": "HowToStep", "name": "补附件清单", "text": "检查图片、链接、附件和表格是否在PDF中完整呈现，不能内嵌的资料单独入附件目录。"},
+        {"@type": "HowToStep", "name": "验收和备份", "text": "抽检页面、页码、目录、签章、图片和可打开性，并保存校验清单、离线副本和恢复记录。"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "石墨文档导出PDF适合长期归档吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "适合保存最终阅读版和审计快照，但建议同时保留可编辑格式和附件清单。普通PDF不等于PDF/A，重要归档还要做长期保存策略。"}
+        },
+        {
+          "@type": "Question",
+          "name": "合同和制度只保存PDF够吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "不够稳妥。PDF适合留版式和证据，但可编辑源文件、审批记录、附件、签署版本和导出日志也应一起归档。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨文档导出PDF后图片不清楚怎么办？",
+          "acceptedAnswer": {"@type": "Answer", "text": "先检查原文图片分辨率和页面缩放，再对关键图片单独保存原图或导出Word/Markdown核对。不要只看PDF缩略图判断质量。"}
+        },
+        {
+          "@type": "Question",
+          "name": "石墨表格适合导出PDF归档吗？",
+          "acceptedAnswer": {"@type": "Answer", "text": "表格定稿、报表快照和签批材料可以导出PDF，但需要继续保留Excel文件，用于复核公式、筛选、隐藏列和计算结果。"}
+        },
+        {
+          "@type": "Question",
+          "name": "PDF归档后怎么验收？",
+          "acceptedAnswer": {"@type": "Answer", "text": "至少抽检文件数量、目录层级、可打开性、首页末页、图片表格、链接附件、版本日期和随机关键字搜索。重要资料还要记录校验结果。"}
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list"></ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">石墨文档导出 PDF 归档指南：合同、制度和审计资料怎么备份</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span class="reading-time">11</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            2026年7月21日
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <img src="../images/shimo-export-pdf-archive-guide.webp" alt="石墨文档导出PDF归档流程：云文档转PDF、归档盒、校验清单和本地文件夹" class="article-image" style="margin-top: 0; margin-bottom: 2rem;">
+
+                    <div class="aeo-summary">
+                        <div class="aeo-summary-title">关键结论</div>
+                        <div class="aeo-summary-content">
+                            <ul>
+                                <li>PDF 适合保存合同、制度、会议纪要、公告和审计快照的固定版式</li>
+                                <li>真正可复核的归档包要同时包含 PDF、可编辑源文件、附件清单和导出记录</li>
+                                <li>石墨文档导出 PDF 时要保留原始目录，否则后续很难追溯来源和责任人</li>
+                                <li>表格、图片、链接、附件和签署页是 PDF 归档最容易漏验的部分</li>
+                                <li>普通 PDF 不等于长期保存标准，重要资料建议建立离线副本和恢复演练</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="answer-block"><strong>石墨文档导出PDF归档</strong>，推荐把 PDF 当作“定稿阅读版”和“审计快照”，而不是唯一备份。实操上先圈定需要留存的石墨目录，用石墨文档导出工具批量导出 PDF 并保留文件夹层级；对合同、制度、公告和纪要写清导出日期、版本和负责人；再把不能完整进入 PDF 的图片原图、附件、外链材料、Excel 表格和审批记录放入同批次附件目录。最后用数量、目录、页面、图片、表格、链接和随机抽样打开测试做验收。</p>
+
+                    <div class="info-box">
+                        <h4>资料依据</h4>
+                        <p>石墨官方帮助中心提供了 <a href="https://shimo.im/help/articles/AWT46HKYABTK6" target="_blank" rel="noopener">APP 如何导出文件</a>、<a href="https://shimo.im/help/articles/AWVG3HGEACTNE" target="_blank" rel="noopener">打印预览导出 PDF</a>、<a href="https://shimo.im/help/articles/AVKF2HXMABOGO" target="_blank" rel="noopener">文档下载到本地</a> 等入口。长期保存层面，ISO 19005 是 PDF/A 的标准族；参考 <a href="https://www.iso.org/standard/64599.html" target="_blank" rel="noopener">ISO 19005-1</a>。这些资料说明了方向，但企业归档仍要按自己的合规、审计和备份要求制定验收标准。</p>
+                    </div>
+
+                    <h2 id="when-pdf">哪些石墨内容适合导出 PDF？</h2>
+
+                    <p>PDF 的核心价值是“固定版式”。它适合保存某个时间点的阅读效果，方便给审计、法务、客户或内部归档人员复核。只要你的目标是证明“当时这份文档长什么样、有哪些正文和图片、页眉页脚是否存在”，PDF 就比 Markdown 或 Word 更稳定。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>资料类型</th>
+                                <th>PDF是否适合</th>
+                                <th>同时保留什么</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>合同、报价单、盖章版说明</td>
+                                <td>适合</td>
+                                <td>签署版、附件、审批记录、可编辑底稿</td>
+                            </tr>
+                            <tr>
+                                <td>制度、公告、SOP</td>
+                                <td>适合</td>
+                                <td>当前生效版本、历史版本、发布记录</td>
+                            </tr>
+                            <tr>
+                                <td>会议纪要、项目周报</td>
+                                <td>适合</td>
+                                <td>责任人、会议日期、关联任务链接</td>
+                            </tr>
+                            <tr>
+                                <td>表格台账、财务报表</td>
+                                <td>只适合快照</td>
+                                <td>Excel、公式说明、筛选条件、数据来源</td>
+                            </tr>
+                            <tr>
+                                <td>知识库草稿、持续编辑文档</td>
+                                <td>不适合作为唯一备份</td>
+                                <td>Markdown 或 Word、图片和附件目录</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="workflow">石墨文档导出PDF归档流程</h2>
+
+                    <h3>第一步：先定归档口径</h3>
+                    <p>不要一上来全量导出 PDF。先把资料分成“必须归档”“可选归档”“不应归档”三类。合同、制度、审计证据、客户交付件通常属于必须归档；个人草稿、临时讨论、无效副本不应混入正式归档包。</p>
+
+                    <h3>第二步：批量导出并保留目录</h3>
+                    <p>使用石墨文档导出工具时，选择 PDF 格式并保留文件夹层级。这样后续看到一个 PDF 文件时，可以通过路径知道它来自哪个团队空间、项目、客户或部门目录。路径本身就是证据链的一部分。</p>
+
+                    <a href="shimo-export-complete-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">导出</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档导出完全指南</div>
+                            <p class="internal-link-desc">需要先了解批量导出、格式选择和失败重试流程，可以从这篇总览开始。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h3>第三步：建立统一命名</h3>
+                    <p>归档文件名不一定要很长，但必须能看出版本。建议至少包含资料名、日期和状态，例如：</p>
+
+                    <pre><code>客户合同/2026-07/客户A_服务合同_v3_已签署_20260721.pdf
+制度归档/HR/休假制度_当前生效_20260721.pdf
+项目归档/交付验收/项目B_验收纪要_20260721.pdf
+</code></pre>
+
+                    <p>如果原石墨文件名已经包含日期，可以避免重复；如果没有日期，建议在导出设置里追加文件时间戳，或者在归档批次目录里写清导出时间。</p>
+
+                    <h2 id="validation">PDF归档验收清单</h2>
+
+                    <p>PDF 文件能打开，不代表已经归档成功。建议按批次生成一张验收表，记录抽检结果、失败文件和返工动作。</p>
+
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>验收项</th>
+                                <th>检查方法</th>
+                                <th>不通过时怎么处理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>文件数量</td>
+                                <td>对比石墨目录清单和本地PDF数量</td>
+                                <td>重试失败文件，记录无法导出的原因</td>
+                            </tr>
+                            <tr>
+                                <td>目录层级</td>
+                                <td>检查本地目录是否和团队空间一致</td>
+                                <td>重新按源目录导出，不要手工混放</td>
+                            </tr>
+                            <tr>
+                                <td>页面完整性</td>
+                                <td>抽检首页、目录页、签章页、末页</td>
+                                <td>重新导出或改用Word/PDF双格式保留</td>
+                            </tr>
+                            <tr>
+                                <td>图片和表格</td>
+                                <td>放大查看关键图表和宽表格</td>
+                                <td>单独保存原图，表格另存Excel</td>
+                            </tr>
+                            <tr>
+                                <td>链接和附件</td>
+                                <td>打开PDF中的链接，核对附件目录</td>
+                                <td>把外链页面、附件源文件放入同批次目录</td>
+                            </tr>
+                            <tr>
+                                <td>可检索性</td>
+                                <td>搜索关键合同号、人名或条款</td>
+                                <td>保留可编辑版本，必要时做OCR副本</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="warning-box">
+                        <h4>不要把 PDF 当成万能备份</h4>
+                        <p>PDF 很适合阅读和留版式，但不适合还原协作历史、评论、权限、公式、筛选状态和外部附件。归档要求越高，越需要多格式保存。</p>
+                    </div>
+
+                    <h2 id="attachments">图片、附件和外链怎么处理？</h2>
+
+                    <p>PDF 归档最容易漏掉的是“正文之外”的材料。很多团队文档里会嵌入图片、表格截图、外部网盘链接、附件链接或跨文档引用。导出 PDF 后，正文可以看见，但链接目标和附件源文件不一定已经进入本地归档包。</p>
+
+                    <ol>
+                        <li>关键图片保留原图文件，不只依赖 PDF 内的缩略展示。</li>
+                        <li>外部链接打开并另存快照，至少记录链接、访问日期和用途。</li>
+                        <li>合同附件、报价附件、验收附件放入 <code>attachments/</code> 子目录。</li>
+                        <li>宽表格和计算型表格同时保存 Excel，避免 PDF 裁切后无法复算。</li>
+                        <li>跨文档引用要把被引用文档纳入同一批次或记录缺口。</li>
+                    </ol>
+
+                    <a href="shimo-spreadsheet-export-excel-guide.html" class="internal-link-card">
+                        <div class="internal-link-icon">Excel</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨表格导出 Excel 避坑指南</div>
+                            <p class="internal-link-desc">表格资料不要只归档PDF，公式、合并单元格和乱码需要单独验收。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="long-term">长期保存建议</h2>
+
+                    <p>普通 PDF 只是文件格式，长期保存还涉及可打开性、备份介质、校验记录、权限交接和恢复演练。对重要归档，可以在本地形成这样的结构：</p>
+
+                    <pre><code>archive-2026-07-21/
+├── pdf/
+├── editable/
+├── attachments/
+├── export-log/
+├── checksum.txt
+└── acceptance-checklist.xlsx
+</code></pre>
+
+                    <p>如果你的组织有档案或法务要求，可以进一步考虑 PDF/A、只读存储、离线副本和定期校验。注意：把一个普通 PDF 放进文件夹，不会自动变成 PDF/A 或合规档案。</p>
+
+                    <h2 id="failure">常见失败处理</h2>
+
+                    <ul>
+                        <li><strong>导出失败：</strong>先确认登录状态、文档权限和网络，再重试单个失败文件。</li>
+                        <li><strong>页面被裁切：</strong>检查原文宽表格和图片位置，必要时把表格改存 Excel。</li>
+                        <li><strong>图片不清晰：</strong>保留原图，或用 Word/Markdown 版本核对图片资产。</li>
+                        <li><strong>链接打不开：</strong>记录链接地址和访问日期，把关键目标页面另存为本地证据。</li>
+                        <li><strong>版本不清：</strong>回到石墨源目录确认当前生效版本，再重新导出。</li>
+                    </ul>
+
+                    <a href="shimo-export-troubleshooting.html" class="internal-link-card">
+                        <div class="internal-link-icon">排查</div>
+                        <div class="internal-link-content">
+                            <div class="internal-link-title">石墨文档无法导出？常见问题解决方案</div>
+                            <p class="internal-link-desc">遇到权限、登录、格式或网络问题时，先按排查清单缩小原因。</p>
+                        </div>
+                        <div class="internal-link-icon" style="font-size: 1.2rem; color: #666;">&rarr;</div>
+                    </a>
+
+                    <h2 id="faq">常见问题</h2>
+
+                    <h3>石墨文档导出PDF适合长期归档吗？</h3>
+                    <p>适合保存最终阅读版和审计快照，但建议同时保留可编辑格式和附件清单。普通 PDF 不等于 PDF/A，重要归档还要做长期保存策略。</p>
+
+                    <h3>合同和制度只保存PDF够吗？</h3>
+                    <p>不够稳妥。PDF 适合留版式和证据，但可编辑源文件、审批记录、附件、签署版本和导出日志也应一起归档。</p>
+
+                    <h3>石墨文档导出PDF后图片不清楚怎么办？</h3>
+                    <p>先检查原文图片分辨率和页面缩放，再对关键图片单独保存原图或导出 Word/Markdown 核对。不要只看 PDF 缩略图判断质量。</p>
+
+                    <h3>石墨表格适合导出PDF归档吗？</h3>
+                    <p>表格定稿、报表快照和签批材料可以导出 PDF，但需要继续保留 Excel 文件，用于复核公式、筛选、隐藏列和计算结果。</p>
+
+                    <h3>PDF归档后怎么验收？</h3>
+                    <p>至少抽检文件数量、目录层级、可打开性、首页末页、图片表格、链接附件、版本日期和随机关键字搜索。重要资料还要记录校验结果。</p>
+                </div>
+
+                <div class="author-bio">
+                    <img src="../images/icon.png" alt="石墨文档导出工具团队" class="author-avatar">
+                    <div class="author-info">
+                        <div class="author-name">
+                            石墨文档导出工具团队
+                            <span class="author-badge">PDF归档</span>
+                        </div>
+                        <p class="author-desc">专注于云文档批量导出、格式转换、团队空间备份和本地归档流程，帮助团队把在线协作资料转成可验收的本地资产。</p>
+                        <div class="author-social">
+                            <a href="https://github.com/nicekwell/shimo-doc" aria-label="Github">Github</a>
+                            <a href="mailto:support@toolab.top" aria-label="Email">Email</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <a href="index.html" class="article-tag">石墨文档导出PDF</a>
+                        <a href="index.html" class="article-tag">PDF归档</a>
+                        <a href="index.html" class="article-tag">文档备份</a>
+                        <a href="index.html" class="article-tag">长期保存</a>
+                    </div>
+
+                    <div class="article-navigation">
+                        <a href="shimo-spreadsheet-export-excel-guide.html" class="nav-link">
+                            <div class="nav-link-label">&larr; 相关教程</div>
+                            <div class="nav-link-title">石墨表格导出 Excel 避坑指南</div>
+                        </a>
+                        <a href="shimo-export-word-format-fix.html" class="nav-link">
+                            <div class="nav-link-label">下一篇 &rarr;</div>
+                            <div class="nav-link-title">石墨文档导出 Word 后格式修复清单</div>
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right"></aside>
+    </div>
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>
