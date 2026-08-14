@@ -29,6 +29,7 @@ const EXPORT_SUPPORT_MATRIX = {
 };
 
 const UNSUPPORTED_TYPES = ['table', 'board', 'form'];
+const DIRECT_DOWNLOAD_TYPES = ['pdf', 'zip'];
 
 // 通用请求函数，添加必要的头部
 async function makeRequest(url, options = {}) {
@@ -431,6 +432,13 @@ async function getAllFiles() {
             id: file.guid,
             title: file.name,
             type: file.type,
+            url: file.url || '',
+            isCloudFile: Boolean(file.isCloudFile),
+            nodeType: file.nodeType || null,
+            subType: file.subType || '',
+            downloadUrl: getFileDirectDownloadUrl(file),
+            downloadable: getFileDownloadable(file),
+            fileSize: file.fileSize || null,
             folderPath: currentPath,
             createdAt: file.createdAt || null,
             updatedAt: file.updatedAt || null
@@ -461,6 +469,26 @@ async function getAllFiles() {
 function sanitizePathComponent(name) {
   if (!name) return '';
   return name.replace(/[\\/<>:"|?*]/g, '_').trim().replace(/^\.+|\.+$/g, '');
+}
+
+function normalizeShimoUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+  if (/^https?:\/\//i.test(url)) return url;
+  if (url.startsWith('/')) return `https://shimo.im${url}`;
+  return `https://shimo.im/${url}`;
+}
+
+function getFileDownloadable(file) {
+  if (file?.permissions && typeof file.permissions.downloadable === 'boolean') {
+    return file.permissions.downloadable;
+  }
+
+  const canDownload = file?.permissionsAndReasons?.canDownload;
+  if (canDownload && typeof canDownload.value === 'boolean') {
+    return canDownload.value;
+  }
+
+  return undefined;
 }
 
 function formatFileTimestamp(timestamp, format = DEFAULT_TIMESTAMP_FORMAT) {
@@ -499,6 +527,25 @@ async function exportFiles() {
       sendLog(`(进度 ${i + 1}/${totalCount}) 开始处理: ${file.title}`);
 
       try {
+        if (isDirectDownloadFile(file)) {
+          const originalDownloadUrl = getFileDirectDownloadUrl(file);
+          if (!originalDownloadUrl) {
+            throw new Error('未获取到原文件下载地址');
+          }
+
+          file.downloadUrl = originalDownloadUrl;
+          file.actualExportType = getOriginalFileExtension(file) || file.subType || file.type || '';
+          file.isOriginalDownload = true;
+          const redirectUrls = await getDownloadRedirectUrls(originalDownloadUrl, file);
+          await downloadFile(originalDownloadUrl, file, redirectUrls);
+          file.status = 'success';
+          file.endTime = Date.now();
+          file.duration = file.endTime - file.startTime;
+          sendLog(`原文件下载完成: ${file.title} (耗时: ${(file.duration/1000).toFixed(2)}s)`);
+          sendProgress();
+          continue;
+        }
+
         const type = getFileExportType(file);
         if (!type) {
           file.status = 'success';
@@ -636,6 +683,83 @@ function getFileExportType(file) {
   }
 }
 
+function isDirectDownloadFile(file) {
+  if (!file) return false;
+  if (file.downloadable === false) return false;
+  return Boolean(getFileDirectDownloadUrl(file));
+}
+
+function getFileDirectDownloadUrl(file) {
+  if (!file) return '';
+  if (!isOriginalDownloadFile(file)) return '';
+
+  const explicitUrl = normalizeShimoUrl(file.downloadUrl || '');
+  if (explicitUrl) return explicitUrl;
+  const fileGuid = file.guid || file.id;
+  if (!fileGuid) return '';
+
+  return `https://shimo.im/lizard-api/files/${encodeURIComponent(fileGuid)}/download`;
+}
+
+function isOriginalDownloadFile(file) {
+  return Boolean(file?.isCloudFile || file?.nodeType === 3 || DIRECT_DOWNLOAD_TYPES.includes(file?.type) || file?.subType);
+}
+
+function getOriginalFileExtension(file) {
+  const name = file?.title || '';
+  const match = name.match(/\.([^.\/\\]+)$/);
+  if (match) return match[1].toLowerCase();
+  return '';
+}
+
+function stripKnownExtension(name, extension) {
+  if (!name || !extension) return name;
+  const escaped = extension.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return name.replace(new RegExp(`\\.${escaped}$`, 'i'), '');
+}
+
+async function getDownloadRedirectUrls(downloadUrl, file) {
+  if (!downloadUrl || !downloadUrl.startsWith('https://shimo.im/')) {
+    return [];
+  }
+
+  try {
+    const response = await makeRequest(downloadUrl, { redirect: 'manual' });
+    cancelResponseBody(response);
+
+    if (response.status === 0 || response.type === 'opaqueredirect') {
+      sendLog(`无法读取原文件跳转地址，继续使用石墨下载入口: ${file?.title || downloadUrl}`);
+      return [];
+    }
+
+    if (response.status >= 300 && response.status < 400) {
+      const location = response.headers.get('Location');
+      if (!location) {
+        sendLog(`原文件下载接口未返回可读跳转地址，继续使用石墨下载入口: ${file?.title || downloadUrl}`);
+        return [];
+      }
+      return [new URL(location, downloadUrl).href];
+    }
+
+    if (!response.ok) {
+      throw new Error(`获取原文件下载地址失败: HTTP ${response.status}`);
+    }
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
+    sendLog(`读取原文件跳转地址失败，继续使用石墨下载入口: ${error.message}`);
+  }
+
+  return [];
+}
+
+function cancelResponseBody(response) {
+  try {
+    response?.body?.cancel?.();
+  } catch (error) {
+    // 忽略取消响应流失败
+  }
+}
+
 async function waitForExportComplete(taskId, file) {
   const maxAttempts = 5;
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -668,16 +792,11 @@ async function waitForExportComplete(taskId, file) {
 }
 
 // 下载文件
-async function downloadFile(downloadUrl, file) {
+async function downloadFile(downloadUrl, file, downloadUrlAliases = []) {
   let finalDownloadPath = '';
   let downloadId = null;
+  let pendingDownloadUrls = [];
   try {
-    let baseName = sanitizePathComponent(file.title) || '无标题';
-    if (exportState.preserveFileTimes && exportState.fileTimeSource !== 'off') {
-      const formatted = formatFileTimestamp(file[exportState.fileTimeSource], exportState.fileTimeFormat);
-      if (formatted) baseName = `${baseName}__${formatted}`;
-    }
-
     let type = file.actualExportType;
     if (!type || type === 'auto') {
       type = exportState.exportType === 'auto' ? 'md' : exportState.exportType;
@@ -685,18 +804,29 @@ async function downloadFile(downloadUrl, file) {
     // 确保 type 绝对不会是 'auto'
     if (type === 'auto') type = 'md';
 
-    const fileName = `${baseName}.${type}`;
+    let baseName = sanitizePathComponent(file.title) || '无标题';
+    if (file.isOriginalDownload) {
+      baseName = stripKnownExtension(baseName, type) || baseName;
+    }
+
+    if (exportState.preserveFileTimes && exportState.fileTimeSource !== 'off') {
+      const formatted = formatFileTimestamp(file[exportState.fileTimeSource], exportState.fileTimeFormat);
+      if (formatted) baseName = `${baseName}__${formatted}`;
+    }
+
+    const fileName = type ? `${baseName}.${type}` : baseName;
     const relativeFolderPath = file.folderPath || '';
     const rootSubfolder = sanitizePathComponent(exportState.subfolder);
 
     finalDownloadPath = fileName;
     if (relativeFolderPath) finalDownloadPath = `${relativeFolderPath}/${finalDownloadPath}`;
     if (rootSubfolder) finalDownloadPath = `${rootSubfolder}/${finalDownloadPath}`;
-    
+
     finalDownloadPath = finalDownloadPath.replace(/^[/\\]+/, '');
 
     sendLog(`开始下载: ${finalDownloadPath}`);
-    enqueuePendingDownloadPath(downloadUrl, finalDownloadPath);
+    pendingDownloadUrls = Array.from(new Set([downloadUrl, ...downloadUrlAliases].filter(Boolean)));
+    pendingDownloadUrls.forEach(url => enqueuePendingDownloadPath(url, finalDownloadPath));
 
     downloadId = await browser.downloads.download({
       url: downloadUrl,
@@ -708,15 +838,17 @@ async function downloadFile(downloadUrl, file) {
     trackActiveDownloadId(downloadId);
     await saveState();
     sendLog(`下载任务已创建 (ID: ${downloadId})`);
+
     await waitForDownloadCompletion(downloadId);
     untrackActiveDownloadId(downloadId);
 
     const actualFilename = await getDownloadedFilename(downloadId);
     sendLog(`下载已完成: ${actualFilename || finalDownloadPath}`);
+    pendingDownloadUrls.forEach(url => removePendingDownloadPath(url, finalDownloadPath));
 
   } catch (error) {
-    if (downloadUrl && finalDownloadPath) {
-      removePendingDownloadPath(downloadUrl, finalDownloadPath);
+    if (finalDownloadPath) {
+      pendingDownloadUrls.forEach(url => removePendingDownloadPath(url, finalDownloadPath));
     }
     if (downloadId !== null) {
       untrackActiveDownloadId(downloadId);
@@ -764,6 +896,8 @@ function removePendingDownloadPath(url, filename) {
 function waitForDownloadCompletion(downloadId) {
   return new Promise((resolve, reject) => {
     const signal = abortController.signal;
+    let pollTimer = null;
+
     const settle = (fn, value) => {
       const waiter = activeDownloadWaiters.get(downloadId);
       if (!waiter) return;
@@ -771,6 +905,26 @@ function waitForDownloadCompletion(downloadId) {
       waiter.cleanup?.();
       fn(value);
     };
+
+    const checkDownloadState = async () => {
+      try {
+        const items = await browser.downloads.search({ id: downloadId });
+        const item = items && items[0];
+        if (!item) return;
+
+        if (item.error || item.state === 'interrupted') {
+          settle(reject, new Error(item.error || '下载被中断'));
+          return;
+        }
+
+        if (item.state === 'complete') {
+          settle(resolve);
+        }
+      } catch (error) {
+        // 保持等待 onChanged 或下一轮轮询。
+      }
+    };
+
     const handleAbort = () => {
       settle(reject, new Error(`下载已取消 (ID: ${downloadId})`));
     };
@@ -784,22 +938,14 @@ function waitForDownloadCompletion(downloadId) {
     activeDownloadWaiters.set(downloadId, {
       resolve,
       reject,
-      cleanup: () => signal.removeEventListener('abort', handleAbort)
+      cleanup: () => {
+        signal.removeEventListener('abort', handleAbort);
+        if (pollTimer) clearInterval(pollTimer);
+      }
     });
 
-    browser.downloads.search({ id: downloadId }).then((items) => {
-      const item = items && items[0];
-      if (!item) return;
-      if (item.error || item.state === 'interrupted') {
-        settle(reject, new Error(item.error || '下载被中断'));
-        return;
-      }
-      if (item.state === 'complete') {
-        settle(resolve);
-      }
-    }).catch(() => {
-      // Ignore search errors and wait for onChanged.
-    });
+    checkDownloadState();
+    pollTimer = setInterval(checkDownloadState, 3000);
   });
 }
 
@@ -843,15 +989,24 @@ async function cancelTrackedDownloads() {
 
 async function recoverInterruptedDownloadState() {
   let shouldSave = false;
+  let completedDownloadIds = [];
 
   if (Array.isArray(exportState.activeDownloadIds) && exportState.activeDownloadIds.length > 0) {
-    await cancelTrackedDownloads();
+    completedDownloadIds = await settleTrackedDownloads();
     shouldSave = true;
   }
 
   if (Array.isArray(exportState.fileList)) {
-    exportState.fileList.forEach(file => {
+    exportState.fileList.forEach((file, index) => {
       if (file.status === 'in_progress') {
+        if (completedDownloadIds.length > 0 && index === exportState.currentFileIndex) {
+          file.status = 'success';
+          file.endTime = Date.now();
+          file.duration = file.startTime ? file.endTime - file.startTime : file.duration;
+          shouldSave = true;
+          return;
+        }
+
         file.status = 'pending';
         delete file.startTime;
         delete file.endTime;
@@ -864,6 +1019,36 @@ async function recoverInterruptedDownloadState() {
   if (shouldSave) {
     await saveState();
   }
+}
+
+async function settleTrackedDownloads() {
+  const downloadIds = new Set([
+    ...(Array.isArray(exportState.activeDownloadIds) ? exportState.activeDownloadIds : []),
+    ...activeDownloadWaiters.keys()
+  ]);
+  const completedIds = [];
+
+  for (const downloadId of downloadIds) {
+    try {
+      const items = await browser.downloads.search({ id: downloadId });
+      const item = items && items[0];
+      if (!item) continue;
+
+      if (item.state === 'complete') {
+        completedIds.push(downloadId);
+        continue;
+      }
+
+      if (item.state === 'in_progress') {
+        await browser.downloads.cancel(downloadId);
+      }
+    } catch (error) {
+      // 忽略缺失或已结束的下载。
+    }
+  }
+
+  exportState.activeDownloadIds = [];
+  return completedIds;
 }
 
 async function getDownloadedFilename(downloadId) {
