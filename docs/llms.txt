@@ -7,7 +7,8 @@
 石墨文档导出工具是一个免费的浏览器扩展，帮助用户从石墨文档(shimo.im)批量导出文件到本地。支持 Markdown、PDF、Word、JPG 等格式，完美保留文件夹层级结构。
 
 ## Key Facts
-- 完全免费、开源
+- 代码公开，采用 PolyForm Noncommercial 1.0.0，供许可证允许的非商业用途免费使用；不授予商业用途许可
+- 授权范围：https://github.com/Navyum/chrome-extension-shimo-export/blob/main/LICENSE 与 https://github.com/Navyum/chrome-extension-shimo-export/blob/main/NOTICE
 - 支持 Chrome、Edge、Firefox
 - 数据本地处理，不经过第三方服务器
 - 支持个人空间和团队空间批量导出

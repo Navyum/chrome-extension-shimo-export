@@ -21,14 +21,27 @@
   <meta name="theme-color" content="#8b5cf6">
   
   <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="export-format-select.css">
 </head>
 <body>
   
   <div class="container" tabindex="-1" autofocus>
     <!-- 登录按钮 -->
-  <button id="login-btn" class="top-right-btn login-btn" title="前往登录">
-    <img src="assets/login.svg" alt="登录" class="login-icon">
+  <button id="login-btn" type="button" class="top-right-btn login-btn" title="查看石墨账号" aria-label="查看石墨账号" aria-haspopup="dialog" aria-controls="account-panel" aria-expanded="false">
+    <img src="assets/login.svg" alt="" class="login-icon">
+    <img id="account-avatar" class="account-avatar" alt="" referrerpolicy="no-referrer" hidden>
+    <span id="account-initial" class="account-initial" aria-hidden="true" hidden></span>
   </button>
+  <section id="account-panel" class="account-panel" role="dialog" aria-label="石墨账号" tabindex="-1" hidden>
+    <div class="account-caption">石墨账号</div>
+    <div id="account-name" class="account-name" hidden></div>
+    <p id="account-status" role="status"></p>
+    <div class="account-panel-actions">
+      <button id="account-retry" type="button" hidden>刷新账号</button>
+      <button id="account-login" type="button" hidden>前往登录</button>
+      <button id="account-home" type="button" hidden>打开石墨</button>
+    </div>
+  </section>
 
   <!-- 赞助按钮 -->
   <button id="sponsor-btn" class="top-right-btn sponsor-btn" title="赞助支持">
@@ -101,9 +114,10 @@
     </section>
     
     <section class="form-group action-buttons">
-      <button id="startExport" type="button" class="btn btn-start" aria-label="开始导出文件">
-        <span>🚀 开始导出</span>
+      <button id="startExport" type="button" class="btn btn-start" aria-label="全量导出文件">
+        <span>全量导出</span>
       </button>
+      <button id="selectExportContent" type="button" class="btn btn-select-export"><span>选择导出</span></button>
       <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;" aria-label="暂停导出">
         <span>⏸️ 暂停导出</span>
       </button>
@@ -121,6 +135,7 @@
       <div class="progress-text" id="progressText" aria-live="polite">0/0</div>
     </div>
     
+    <p id="taskScope" class="task-scope" hidden></p>
     <div id="status" class="status" style="display: none;" role="status" aria-live="polite" aria-atomic="true"></div>
     
     <section class="log-container" id="logContainer" aria-label="操作日志">
@@ -178,7 +193,7 @@
       <div class="sponsor-modal-body">
         <div class="qr-code-wrapper">
           <div class="reward-badge">💖 赞助开发者</div>
-          <img src="assets/sp.jpeg" alt="微信支付赞助二维码" class="sponsor-qr" width="200" height="200">
+          <img src="assets/weixin.jpeg" alt="微信支付赞助二维码" class="sponsor-qr" width="200" height="200">
         </div>
         <p class="sponsor-tip">长按或扫描二维码，金额随意，感谢支持！</p>
       </div>

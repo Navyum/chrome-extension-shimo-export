@@ -6,7 +6,7 @@
   "browser_specific_settings": {
       "gecko": {
         "id": "shimo-export@navyum.io",
-        "strict_min_version": "109.0",
+        "strict_min_version": "113.0",
         "data_collection_permissions": {
           "required": [
             "none"
@@ -17,10 +17,12 @@
   "permissions": [
     "cookies",
     "storage",
-    "downloads"
+    "downloads",
+    "declarativeNetRequestWithHostAccess"
   ],
   "host_permissions": [
-    "https://*.shimo.im/*"
+    "https://*.shimo.im/*",
+    "https://oavatar.shimonote.com/*"
   ],
   "background": {
     "scripts": ["browser.js", "background.js"]

@@ -6,7 +6,7 @@
  * 2. 在终端运行: node debug_team_spaces.js
  */
 
-const SHIMO_SID = 's%3A57c8421aa79f4589897d9b88dcd2c158.JvxspM9V8X172udT6SmQ9BwpkUM9uvrYvZw5noAgRuU';
+const SHIMO_SID = '';
 
 const SHIMO_API = {
   SPACE: 'https://shimo.im/panda-api/file/spaces?orderBy=updatedAt',

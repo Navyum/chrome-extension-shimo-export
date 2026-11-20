@@ -1,0 +1,219 @@
+.select-container {
+  position: relative;
+  width: 100%;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.select-container.is-enhanced select {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.select-container select {
+  padding-left: 16px;
+}
+
+.select-container.has-icon select {
+  padding-left: 64px;
+}
+
+.select-container:not(.has-icon) select {
+  padding-left: 16px;
+}
+
+.select-container:not(.has-icon) .select-trigger {
+  padding-left: 16px;
+}
+
+.select-container.is-open {
+  z-index: 200;
+}
+
+.select-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 3;
+  object-fit: contain;
+}
+
+.select-icon.is-visible {
+  opacity: 1;
+}
+
+.select-trigger {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 40px 12px 64px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  z-index: 2;
+  gap: 8px;
+}
+
+.select-container.is-enhanced .select-trigger {
+  display: flex;
+}
+
+.select-trigger:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.select-trigger-text {
+  font-size: 14px;
+}
+
+.select-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(15, 15, 35, 0.95);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+  padding: 8px 0;
+  margin: 0;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+  display: none;
+  z-index: 20;
+  backdrop-filter: blur(14px);
+}
+
+.select-options::-webkit-scrollbar {
+  width: 6px;
+}
+
+.select-options::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+.select-options::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.select-options::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+.select-container.is-open .select-options {
+  display: block;
+}
+
+.select-option-item + .select-option-item {
+  margin-top: 2px;
+}
+
+.select-option-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.select-option-button img {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  object-fit: contain;
+  background: transparent;
+  padding: 0;
+}
+
+.select-option-item.is-active .select-option-button,
+.select-option-button:hover {
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--text-primary);
+}
+
+.select-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--primary-color);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+  z-index: 3;
+}
+
+.select-container:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.select-container:focus-within::after {
+  transform: translateY(-50%) rotate(180deg);
+  opacity: 1;
+}
+
+/* 下拉框打开时的动画效果 */
+.select-container:focus-within {
+  transform: scale(1.02);
+}
+
+/* 添加涟漪效果 */
+.select-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.select-container:hover::before {
+  opacity: 1;
+}
+
+/* 选中状态的视觉反馈 */
+.select-container.has-selection select {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.1));
+  border-color: var(--primary-color);
+}
+
+
+.select-container.is-enhanced { border: 1px solid var(--primary-color); border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(139, 92, 246, .05), rgba(139, 92, 246, .1)); }
+.select-trigger:disabled { opacity: .5; cursor: not-allowed; }
+.select-container .select-icon[hidden] { display: none; }

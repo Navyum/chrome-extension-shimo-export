@@ -55,20 +55,20 @@
             <div class="carousel-container">
                 <div class="carousel-slides">
                     <div class="carousel-slide active">
-                        <img src="../images/feat1.webp" alt="一键批量导出" loading="lazy">
-                        <p class="carousel-caption">一键批量导出所有文档</p>
+                        <img src="../images/feat1.webp" alt="多格式导出" loading="lazy">
+                        <p class="carousel-caption">Markdown、PDF、Word 等格式</p>
                     </div>
                     <div class="carousel-slide">
-                        <img src="../images/feat2.webp" alt="保留文件夹结构" loading="lazy">
-                        <p class="carousel-caption">完整保留文件夹层级</p>
+                        <img src="../images/feat2.webp" alt="选择导出并保留文件夹结构" loading="lazy">
+                        <p class="carousel-caption">按需勾选，保留目录层级</p>
                     </div>
                     <div class="carousel-slide">
-                        <img src="../images/feat3.webp" alt="多格式支持" loading="lazy">
-                        <p class="carousel-caption">支持多种导出格式</p>
+                        <img src="../images/feat3.webp" alt="下载目录与文件时间设置" loading="lazy">
+                        <p class="carousel-caption">自定义下载目录与文件时间</p>
                     </div>
                     <div class="carousel-slide">
-                        <img src="../images/feat4.webp" alt="团队空间支持" loading="lazy">
-                        <p class="carousel-caption">团队空间一键导出</p>
+                        <img src="../images/feat4.webp" alt="导出状态与下载耗时" loading="lazy">
+                        <p class="carousel-caption">查看导出状态与下载耗时</p>
                     </div>
                 </div>
                 <button class="carousel-prev" aria-label="上一张">‹</button>

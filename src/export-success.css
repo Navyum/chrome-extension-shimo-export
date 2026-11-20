@@ -1,0 +1,104 @@
+/* 选择导出成功反馈，沿用幕布项目的视觉与动效。 */
+
+.export-success {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  max-width: none; max-height: none; margin: 0; padding: 24px;
+  border: 0; background: transparent; color: var(--text-primary);
+  font: inherit; overflow: auto; color-scheme: dark;
+}
+.export-success[open] { display: grid; align-items: safe center; justify-items: center; }
+.export-success::backdrop { background: rgba(8, 10, 24, .64); backdrop-filter: blur(4px); }
+.export-success-card {
+  position: relative; width: min(100%, 440px); padding: 38px 32px 26px;
+  border: 1px solid var(--border-primary); border-radius: 22px;
+  background: var(--bg-secondary); box-shadow: 0 24px 80px rgba(0, 0, 0, .35);
+  text-align: center;
+}
+.export-success-mark {
+  display: grid; place-items: center; width: 68px; height: 68px; margin: 0 auto 22px;
+  border-radius: 50%; background: rgba(16, 185, 129, .12); color: var(--secondary-hover);
+}
+.export-success-mark svg { width: 44px; height: 44px; }
+.export-success-card h2 { margin: 0 0 12px; font-size: 26px; font-weight: 650; letter-spacing: -.5px; }
+.export-success-summary { margin: 0; font-size: 15px; color: var(--text-primary); }
+.export-success-hint { margin: 7px 0 26px; font-size: 13px; color: var(--text-secondary); }
+.export-success-savings { margin: -8px 0 24px; padding: 14px 12px; border-radius: 12px; background: rgba(16, 185, 129, .07); }
+.export-success-savings[hidden] { display: none; }
+.export-success-savings p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--text-secondary); }
+.export-success-savings strong { margin: 0 3px; font-size: 22px; font-weight: 650; color: var(--secondary-hover); font-variant-numeric: tabular-nums; }
+.export-success-done {
+  width: 100%; padding: 12px 20px; border: 1px solid var(--primary-color); border-radius: 10px;
+  background: var(--primary-color); color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+}
+.export-success-done:hover { background: var(--primary-hover); }
+.export-success-review { margin-top: 8px; }
+.export-success-review [hidden] { display: none; }
+.export-success-stars { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--border-secondary); display: flex; justify-content: center; gap: 7px; color: var(--primary-hover); }
+.export-success-stars svg { width: 21px; height: 21px; overflow: visible; }
+.export-success-stars path {
+  fill: currentColor; fill-opacity: 1; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round;
+  transform-origin: center;
+}
+.export-success.is-celebrating .export-success-stars path {
+  animation-name: success-star-fill; animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1); animation-fill-mode: both;
+}
+.export-success-stars svg:nth-child(1) path { animation-delay: 80ms; }
+.export-success-stars svg:nth-child(2) path { animation-delay: 190ms; }
+.export-success-stars svg:nth-child(3) path { animation-delay: 300ms; }
+.export-success-stars svg:nth-child(4) path { animation-delay: 410ms; }
+.export-success-stars svg:nth-child(5) path { animation-delay: 520ms; }
+@keyframes success-star-fill {
+  0% { fill-opacity: 0; transform: scale(1); }
+  65% { fill-opacity: 1; transform: scale(1.06); }
+  100% { fill-opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .export-success.is-celebrating .export-success-stars path { animation: none; fill-opacity: 1; }
+}
+.export-success-review p { margin: 8px 0 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+.export-success-review-actions { display: flex; justify-content: center; align-items: center; gap: 22px; flex-wrap: wrap; }
+.export-success-review-actions button {
+  border: 0; background: transparent; font: inherit; font-size: 12px; color: var(--text-secondary); cursor: pointer; padding: 5px 0;
+}
+#export-success-rate { color: var(--primary-light); }
+.export-success-review-actions button:hover { text-decoration: underline; }
+.export-success button:focus-visible { outline: 2px solid var(--primary-hover); outline-offset: 4px; }
+.export-success-error { margin: 12px 0 0; color: var(--warning-color); font-size: 12px; }
+.export-success-error:empty { display: none; }
+@media (max-width: 480px) {
+  .export-success { padding: 16px; }
+  .export-success-card { padding: 32px 22px 24px; }
+  .export-success-card h2 { font-size: 23px; }
+}
+
+/* 撒花庆祝效果 */
+.export-confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.export-confetti {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  opacity: 0;
+  animation: exportConfettiFall 3s ease-in forwards;
+}
+
+.export-confetti:nth-child(odd) { border-radius: 50%; }
+.export-confetti:nth-child(even) { border-radius: 2px; }
+
+@keyframes exportConfettiFall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(calc(100vh + 20px)) rotate(720deg) scale(0.3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .export-confetti-container { display: none; }
+}

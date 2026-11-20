@@ -1,3 +1,6 @@
+const { isOriginalDownloadFile, hasDownloadRestriction } = require('./file-access');
+const { EXPORT_FORMATS, emptyCatalog, entryKey, normalizeSelection, buildTaskFiles } = require('./selection-model');
+
 // 引入浏览器兼容层
 // Firefox (Manifest V3 with scripts): browser.js 通过 manifest.json 的 scripts 数组加载
 // Chrome/Edge (Manifest V3 with service_worker): 使用 importScripts 加载
@@ -29,7 +32,6 @@ const EXPORT_SUPPORT_MATRIX = {
 };
 
 const UNSUPPORTED_TYPES = ['table', 'board', 'form'];
-const DIRECT_DOWNLOAD_TYPES = ['pdf', 'zip'];
 
 // 通用请求函数，添加必要的头部
 async function makeRequest(url, options = {}) {
@@ -59,6 +61,8 @@ async function makeRequest(url, options = {}) {
 let exportState = {
   isExporting: false,
   isPaused: false,
+  scope: 'all',
+  taskId: null,
   totalFiles: 0,
   currentFileIndex: 0,
   fileList: [], // Each file will now have a 'status' property: pending, in_progress, success, failed
@@ -71,6 +75,11 @@ let exportState = {
   activeDownloadIds: [],
   logs: [],
 };
+let catalog = emptyCatalog();
+let selectionDraft = { catalogRevision: null, selectedIds: [] };
+let isScanning = false;
+let runningExport = null;
+let mutationQueue = Promise.resolve();
 let abortController = new AbortController();
 const pendingDownloadPathsByUrl = new Map();
 const downloadFilenameOverrides = new Map();
@@ -81,23 +90,34 @@ const defaultState = JSON.parse(JSON.stringify(exportState));
 // --- 状态管理 ---
 async function saveState() {
   await browser.storage.local.set({ exportState });
-  if (exportState.fileList && exportState.fileList.length > 0) {
-    await browser.storage.local.set({
-      fileInfo: {
-        totalFiles: exportState.totalFiles,
-        fileList: exportState.fileList
-      },
-      totalFiles: exportState.totalFiles
-    });
+  sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
+}
+
+function getUiState() {
+  return { ...exportState, isScanning,
+    catalogTotal: catalog.revision ? catalog.files.length : exportState.fileList.length,
+    catalogTeamTotal: catalog.revision ? catalog.files.filter(file => file.folderPath.startsWith('团队空间/')).length : null,
+    failedFiles: exportState.fileList.filter(file => file.status === 'failed') };
+}
+
+function runExport() {
+  if (!runningExport) {
+    runningExport = exportFiles().finally(() => { runningExport = null; });
   }
+  return runningExport;
 }
 
 async function loadState() {
   try {
-    const result = await browser.storage.local.get(['exportState', 'fileInfo', 'totalFiles']);
+    const result = await browser.storage.local.get(['exportState', 'fileInfo', 'totalFiles', 'catalog', 'selectionDraft']);
+    if (result.catalog?.revision && Array.isArray(result.catalog.files) && Array.isArray(result.catalog.folders)) {
+      catalog = result.catalog;
+      selectionDraft = { catalogRevision: catalog.revision,
+        selectedIds: normalizeSelection(catalog, result.selectionDraft?.selectedIds || []) };
+    }
     if (result.exportState) {
       Object.assign(exportState, result.exportState);
-      if ((!exportState.fileList || exportState.fileList.length === 0) && result.fileInfo) {
+      if (!catalog.revision && !exportState.taskId && (!exportState.fileList || exportState.fileList.length === 0) && result.fileInfo) {
         exportState.fileList = result.fileInfo.fileList;
         exportState.totalFiles = result.fileInfo.totalFiles;
       }
@@ -109,12 +129,12 @@ async function loadState() {
 }
 
 // 初始化
-(async () => {
+const stateReady = (async () => {
   await loadState();
   await recoverInterruptedDownloadState();
   if (exportState.isExporting && !exportState.isPaused) {
     sendLog('检测到中断的导出任务，正在恢复...');
-    exportFiles();
+    runExport();
   }
 })();
 
@@ -152,12 +172,16 @@ browser.downloads.onDeterminingFilename.addListener((downloadItem) => {
   return { filename: targetPath, conflictAction: 'uniquify' };
 });
 
+const { normalizeAvatarUrl } = require('./account-model');
+const { createAvatarRequestSetup } = require('./avatar-request');
+const prepareAvatarRequest = createAvatarRequestSetup(browser);
+
 // 获取用户信息
 async function getUserInfo() {
   try {
     const response = await makeRequest('https://shimo.im/lizard-api/users/me');
     if (!response.ok) {
-      return { success: false, error: `HTTP ${response.status}` };
+      return { success: false, status: response.status, error: `HTTP ${response.status}` };
     }
     const userData = await response.json();
 
@@ -168,12 +192,18 @@ async function getUserInfo() {
       };
     }
     
+    // 头像会跳转到防盗链 CDN，需先准备本扩展专用的图片来源头。
+    if (userData.avatar) {
+      try { await prepareAvatarRequest(); }
+      catch { console.warn('头像请求规则配置失败，将使用昵称首字回退'); }
+    }
     return {
       success: true,
       data: {
         id: userData.id,
         name: userData.name,
-        email: userData.email
+        email: userData.email,
+        avatarUrl: normalizeAvatarUrl(userData.avatar)
       }
     };
   } catch (error) {
@@ -182,31 +212,36 @@ async function getUserInfo() {
 }
 
 // 监听来自 popup 的消息
-browser.runtime.onMessage.addListener((message, sender) => {
-  switch (message.action) {
-    case 'getFileInfo':
-      sendLog('后台收到 getFileInfo 请求');
-      return handleGetFileInfo();
-    case 'startExport':
-      sendLog('后台收到 startExport 请求');
-      return handleStartExport(message.data);
-    case 'togglePause':
-      sendLog('后台收到 togglePause 请求');
-      handleTogglePause(message.data);
-      return { success: true };
-    case 'getUiState':
-      return { success: true, data: exportState };
-    case 'retryFailedFiles':
-      sendLog('后台收到 retryFailedFiles 请求');
-      return handleRetryFailedFiles();
-    case 'resetExport':
-      sendLog('后台收到 resetExport 请求');
-      return handleResetExport();
-    case 'getUserInfo':
-      return getUserInfo();
-    default:
-      return { success: false, error: 'Unknown action' };
+browser.runtime.onMessage.addListener(async (message) => {
+  await stateReady;
+  if (message.action === 'getUiState') return { success: true, data: getUiState() };
+  if (message.action === 'getSelectionState') {
+    return { success: true, data: { catalog, selectionDraft, task: getUiState() } };
   }
+  if (message.action === 'getUserInfo') return getUserInfo();
+  const actions = {
+    getFileInfo: () => handleGetFileInfo(),
+    startExport: () => handleStartExport(message.data),
+    togglePause: async () => { await handleTogglePause(message.data); return { success: true }; },
+    retryFailedFiles: () => handleRetryFailedFiles(),
+    resetExport: () => handleResetExport(),
+    saveSelection: async () => {
+      if (message.data?.catalogRevision !== catalog.revision || !catalog.revision) {
+        throw new Error('文件列表已变化，请刷新后重新选择。');
+      }
+      if (!Array.isArray(message.data.selectedIds)) throw new Error('选择范围无效。');
+      const next = { catalogRevision: catalog.revision, selectedIds: normalizeSelection(catalog, message.data.selectedIds) };
+      await browser.storage.local.set({ selectionDraft: next });
+      selectionDraft = next;
+      return { success: true, data: selectionDraft };
+    }
+  };
+  if (!actions[message.action]) return undefined;
+  // 多窗口请求按顺序修改状态；导出队列本身独立运行。
+  const operation = mutationQueue.then(actions[message.action]);
+  mutationQueue = operation.catch(() => {});
+  try { return await operation; }
+  catch (error) { return { success: false, error: error.message }; }
 });
 
 // 处理取消并重置任务的请求
@@ -226,11 +261,12 @@ async function handleResetExport() {
     waiter.reject(new Error(`下载已取消 (ID: ${downloadId})`));
   }
   activeDownloadWaiters.clear();
+  if (runningExport) await runningExport;
 
   exportState = JSON.parse(JSON.stringify(defaultState));
-  await browser.storage.local.set({ exportState });
+  await saveState();
   
-  return { success: true, data: exportState };
+  return { success: true, data: getUiState() };
 }
 
 // 同步 cookie
@@ -276,6 +312,9 @@ async function syncAllShimoCookies() {
 
 // 处理获取文件信息的请求
 async function handleGetFileInfo() {
+  if (exportState.isExporting) return { success: false, error: '请先完成或取消当前导出任务。' };
+  isScanning = true;
+  sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
   try {
     sendLog('步骤 1: 开始同步 Cookies...');
     await syncAllShimoCookies();
@@ -285,22 +324,21 @@ async function handleGetFileInfo() {
     if (!sidCookie) {
       throw new Error('未能获取 shimo_sid，请确保已登录石墨。');
     }
-    sendLog(`步骤 2: 获取到 shimo_sid: ${sidCookie.value}`);
+    sendLog('步骤 2: 已获取登录凭据');
 
     sendLog('步骤 3: 开始获取文件列表 (同时验证登录状态)...');
-    const rawFileList = await getAllFiles();
-    if (rawFileList.length === 0) {
-      throw new Error('获取文件列表失败，请确保已登录石墨。');
-    }
+    const nextCatalog = await getAllFiles();
+    const nextDraft = { catalogRevision: nextCatalog.revision,
+      selectedIds: normalizeSelection(nextCatalog, selectionDraft.selectedIds) };
+    const nextTask = { ...JSON.parse(JSON.stringify(defaultState)), logs: exportState.logs };
+    await browser.storage.local.set({ catalog: nextCatalog, selectionDraft: nextDraft, exportState: nextTask,
+      fileInfo: { totalFiles: nextCatalog.files.length, fileList: nextCatalog.files }, totalFiles: nextCatalog.files.length });
+    catalog = nextCatalog;
+    selectionDraft = nextDraft;
+    exportState = nextTask;
+    sendLog(`步骤 3: 成功获取 ${catalog.files.length} 个文件。`);
+    return { success: true, data: { ...getUiState(), isScanning: false } };
 
-    exportState.fileList = rawFileList.map(file => ({ ...file, status: 'pending' }));
-    exportState.totalFiles = exportState.fileList.length;
-    exportState.currentFileIndex = 0;
-
-    await saveState();
-    sendLog(`步骤 3: 成功获取 ${exportState.totalFiles} 个文件。`);
-
-    return { success: true, data: exportState };
   } catch (error) {
     let errorMessage = `后台错误: ${error.message}`;
     if (error.message.includes('401')) errorMessage = '登录凭据无效或已过期，请重新登录石墨。';
@@ -309,40 +347,37 @@ async function handleGetFileInfo() {
     
     sendLog(`获取文件信息时出错: ${error.stack}`);
     return { success: false, error: errorMessage };
+  } finally {
+    isScanning = false;
+    sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
   }
 }
 
 // 处理开始导出的请求
-async function handleStartExport(data) {
-  if (exportState.fileList.length === 0) {
-    return { success: false, error: '文件列表为空，请先获取文件信息。' };
-  }
-  
+async function handleStartExport(data = {}) {
+  if (exportState.isExporting || runningExport) return { success: false, error: '当前有任务在进行中。' };
+  if (!EXPORT_FORMATS.includes(data.exportType)) throw new Error('不支持的导出格式。');
+  const scope = data.scope || 'all';
+  // 旧版本任务仍可全量导出；选择导出必须使用新扫描得到的目录。
+  const source = catalog.revision ? catalog : { revision: 'legacy', files: exportState.fileList, folders: [] };
+  if (scope === 'selected' && !catalog.revision) throw new Error('请先刷新文件列表，再选择导出内容。');
+  const files = buildTaskFiles(source, { ...data, scope });
   const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']);
-
-  exportState.isExporting = true;
-  exportState.isPaused = false;
-  exportState.currentFileIndex = 0;
-  exportState.exportType = data.exportType;
-  exportState.typeExportSettings = settings.typeExportSettings || {};
-  exportState.subfolder = typeof settings.subfolder === 'string' ? settings.subfolder : DEFAULT_SUBFOLDER;
-  exportState.activeDownloadIds = [];
-  
   const fileTimeSource = settings.fileTimeSource || 'off';
-  exportState.preserveFileTimes = Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off';
-  exportState.fileTimeFormat = settings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;
-  exportState.fileTimeSource = fileTimeSource !== 'off' ? fileTimeSource : 'createdAt';
-  exportState.logs = [];
-  
-  exportState.fileList.forEach(file => {
-    if (file.status !== 'success') file.status = 'pending';
-  });
-
-  await saveState();
-  
+  const next = { ...JSON.parse(JSON.stringify(defaultState)),
+    taskId: crypto.randomUUID(), scope, catalogRevision: source.revision,
+    fileList: files, totalFiles: files.length, isExporting: true,
+    exportType: data.exportType, typeExportSettings: settings.typeExportSettings || {},
+    subfolder: typeof settings.subfolder === 'string' ? settings.subfolder : DEFAULT_SUBFOLDER,
+    preserveFileTimes: Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off',
+    fileTimeFormat: settings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT,
+    fileTimeSource: fileTimeSource !== 'off' ? fileTimeSource : 'createdAt'
+  };
+  await browser.storage.local.set({ exportState: next });
+  exportState = next;
   abortController = new AbortController();
-  exportFiles();
-  
+  sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
+  runExport();
   return { success: true };
 }
 
@@ -352,14 +387,22 @@ async function handleTogglePause(data) {
     sendComplete();
     return;
   }
-  exportState.isPaused = data.isPaused;
+  const next = { ...exportState, isPaused: Boolean(data?.isPaused) };
+  await browser.storage.local.set({ exportState: next });
+  if (!exportState.isExporting) return;
+  exportState.isPaused = next.isPaused;
   sendLog(exportState.isPaused ? '导出已暂停' : '导出已继续');
-  await saveState();
+  sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
+  if (!exportState.isPaused) runExport();
 }
 
 // 获取所有文件列表
 async function getAllFiles() {
   const allFiles = [];
+  const folders = [{ id: 'personal', parentId: null, name: '个人空间' }, { id: 'teams', parentId: null, name: '团队空间' }];
+  const seenFiles = new Set();
+  const seenFolders = new Set(['personal', 'teams']);
+  const issues = [];
   const teamSpacePrefix = '团队空间';
   
   async function getTeamSpaces() {
@@ -367,10 +410,14 @@ async function getAllFiles() {
     
     // 1. 获取普通团队空间列表
     let nextUrl = SHIMO_API.SPACE;
+    const visitedPages = new Set();
     while (nextUrl) {
       try {
+        if (visitedPages.has(nextUrl)) throw new Error('团队空间分页存在循环');
+        visitedPages.add(nextUrl);
         const response = await makeRequest(nextUrl);
         if (!response.ok) {
+          issues.push(`团队空间列表: HTTP ${response.status}`);
           sendLog(`获取团队空间列表失败: HTTP ${response.status}，继续尝试获取置顶空间...`);
           break;
         }
@@ -382,8 +429,10 @@ async function getAllFiles() {
             }
           });
         }
+        if (!Array.isArray(data.spaces)) throw new Error('团队空间列表格式无效');
         nextUrl = data.next ? (data.next.startsWith('http') ? data.next : `https://shimo.im${data.next}`) : '';
       } catch (error) {
+        issues.push(error.message);
         sendLog(`获取团队空间列表时出错: ${error.message}，继续尝试获取置顶空间...`);
         break;
       }
@@ -402,10 +451,13 @@ async function getAllFiles() {
           });
           sendLog(`从置顶空间接口获取到 ${pinnedData.spaces.length} 个空间`);
         }
+        if (!Array.isArray(pinnedData.spaces)) throw new Error('置顶空间列表格式无效');
       } else {
+        issues.push(`置顶空间列表: HTTP ${pinnedResponse.status}`);
         sendLog(`获取置顶空间列表失败: HTTP ${pinnedResponse.status}`);
       }
     } catch (error) {
+      issues.push(error.message);
       sendLog(`获取置顶空间列表时出错: ${error.message}`);
     }
     
@@ -415,20 +467,29 @@ async function getAllFiles() {
     return uniqueSpaces;
   }
   
-  async function fetchFiles(folderId = '', currentPath = '') {
-    const url = folderId ? SHIMO_API.LIST.replace('%s', folderId) : SHIMO_API.ROOT;
+  async function fetchFiles(folderId = '', currentPath = '', parentId = 'personal', ancestors = new Set()) {
+    const url = folderId ? SHIMO_API.LIST.replace('%s', encodeURIComponent(folderId)) : SHIMO_API.ROOT;
     try {
       const response = await makeRequest(url);
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       const files = await response.json();
-      
+      if (!Array.isArray(files)) throw new Error('文件列表格式无效');
       for (const file of files) {
+        if (!file.guid || typeof file.name !== 'string' || typeof file.type !== 'string') throw new Error('文件信息缺少 ID、名称或类型');
         const sanitizedName = sanitizePathComponent(file.name);
+        const key = entryKey(parentId, file.guid);
         if (file.type === 'folder') {
           const newPath = currentPath ? `${currentPath}/${sanitizedName}` : sanitizedName;
-          await fetchFiles(file.guid, newPath);
+          if (ancestors.has(file.guid)) throw new Error('目录存在循环引用');
+          if (seenFolders.has(key)) continue;
+          seenFolders.add(key);
+          folders.push({ id: key, parentId, name: file.name });
+          await fetchFiles(file.guid, newPath, key, new Set([...ancestors, file.guid]));
         } else {
+          if (seenFiles.has(key)) continue;
+          seenFiles.add(key);
           allFiles.push({
+            selectionId: key, folderId: parentId,
             id: file.guid,
             title: file.name,
             type: file.type,
@@ -446,6 +507,7 @@ async function getAllFiles() {
         }
       }
     } catch (error) {
+      issues.push(`${currentPath || "个人空间"}: ${error.message}`);
       sendLog(`获取文件夹内容失败 (ID: ${folderId}): ${error.message}`);
       if (error.message.includes('401') || error.message.includes('403') || error.message.includes('未登录')) {
         throw new Error('未能获取 shimo_sid，请确保已登录石墨。');
@@ -459,10 +521,13 @@ async function getAllFiles() {
   const teamSpaces = await getTeamSpaces();
   for (const space of teamSpaces) {
     const sanitizedSpaceName = sanitizePathComponent(space.name) || space.guid || '团队空间';
-    await fetchFiles(space.guid, `${teamSpacePrefix}/${sanitizedSpaceName}`);
+    const key = entryKey('teams', space.guid);
+    folders.push({ id: key, parentId: 'teams', name: space.name || space.guid });
+    await fetchFiles(space.guid, `${teamSpacePrefix}/${sanitizedSpaceName}`, key, new Set([space.guid]));
   }
 
-  return allFiles;
+  if (issues.length) throw new Error(`扫描未完成，已保留原列表。${issues[0]}`);
+  return { revision: crypto.randomUUID(), files: allFiles, folders };
 }
 
 // 文件名处理
@@ -514,8 +579,9 @@ async function exportFiles() {
     const totalCount = filesToProcess.length;
 
     for (let i = exportState.currentFileIndex; i < totalCount; i++) {
+      while (exportState.isPaused && exportState.isExporting) await new Promise(resolve => setTimeout(resolve, 200));
       if (!exportState.isExporting) return;
-      
+
       const file = filesToProcess[i];
       exportState.currentFileIndex = i;
 
@@ -527,6 +593,7 @@ async function exportFiles() {
       sendLog(`(进度 ${i + 1}/${totalCount}) 开始处理: ${file.title}`);
 
       try {
+        if (hasDownloadRestriction(file)) throw new Error('没有原文件下载权限');
         if (isDirectDownloadFile(file)) {
           const originalDownloadUrl = getFileDirectDownloadUrl(file);
           if (!originalDownloadUrl) {
@@ -598,6 +665,7 @@ async function exportFiles() {
       await new Promise(r => setTimeout(r, 3000 + Math.random() * 2000));
     }
     
+    if (!exportState.isExporting) return;
     exportState.isExporting = false;
     const failedCount = exportState.fileList.filter(f => f.status === 'failed').length;
     if (failedCount > 0) sendLog(`导出流程完成，但有 ${failedCount} 个文件失败。`);
@@ -685,7 +753,7 @@ function getFileExportType(file) {
 
 function isDirectDownloadFile(file) {
   if (!file) return false;
-  if (file.downloadable === false) return false;
+  if (hasDownloadRestriction(file)) return false;
   return Boolean(getFileDirectDownloadUrl(file));
 }
 
@@ -699,10 +767,6 @@ function getFileDirectDownloadUrl(file) {
   if (!fileGuid) return '';
 
   return `https://shimo.im/lizard-api/files/${encodeURIComponent(fileGuid)}/download`;
-}
-
-function isOriginalDownloadFile(file) {
-  return Boolean(file?.isCloudFile || file?.nodeType === 3 || DIRECT_DOWNLOAD_TYPES.includes(file?.type) || file?.subType);
 }
 
 function getOriginalFileExtension(file) {
@@ -1091,7 +1155,7 @@ function sendComplete() {
 
 // 处理重试失败文件的请求
 async function handleRetryFailedFiles() {
-    if (exportState.isExporting) {
+    if (exportState.isExporting || runningExport) {
         return { success: false, error: '当前有任务在进行中，请稍后再试。' };
     }
 
@@ -1100,28 +1164,17 @@ async function handleRetryFailedFiles() {
         return { success: false, error: '没有失败的文件可以重试。' };
     }
 
+    const next = {
+      ...exportState,
+      fileList: exportState.fileList.map(file => file.status === 'failed' ? { ...file, status: 'pending' } : { ...file }),
+      isExporting: true, isPaused: false, currentFileIndex: 0, activeDownloadIds: [], logs: []
+    };
+    await browser.storage.local.set({ exportState: next });
+    exportState = next;
     sendLog(`准备重试 ${failedFiles.length} 个失败的文件...`);
-    exportState.fileList.forEach(file => {
-      if (file.status === 'failed') file.status = 'pending';
-    });
-
-    exportState.isExporting = true;
-    exportState.isPaused = false;
-    exportState.currentFileIndex = 0;
-    
-    const settings = await browser.storage.local.get(['subfolder', 'preserveFileTimes', 'fileTimeFormat', 'fileTimeSource', 'typeExportSettings']);
-    exportState.subfolder = typeof settings.subfolder === 'string' ? settings.subfolder : DEFAULT_SUBFOLDER;
-    exportState.typeExportSettings = settings.typeExportSettings || {};
-    exportState.activeDownloadIds = [];
-    const fileTimeSource = settings.fileTimeSource || 'off';
-    exportState.preserveFileTimes = Boolean(settings.preserveFileTimes) && fileTimeSource !== 'off';
-    exportState.fileTimeFormat = settings.fileTimeFormat || DEFAULT_TIMESTAMP_FORMAT;
-    exportState.fileTimeSource = fileTimeSource !== 'off' ? fileTimeSource : 'createdAt';
-    exportState.logs = [];
-    
     abortController = new AbortController();
-    await saveState();
-    exportFiles();
-    
+    sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
+    runExport();
+
     return { success: true };
 }

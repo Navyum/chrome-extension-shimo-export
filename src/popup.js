@@ -1,3 +1,6 @@
+const { initAccountPanel } = require('./account-panel');
+const { enhanceSelectInteraction } = require('./export-format-select');
+const { REVIEW_URL, isSuccessfulTask } = require('./export-success-model');
 // 引入浏览器兼容层
 const browser = browserCompat;
 
@@ -6,8 +9,8 @@ let isExporting = false;
 let isPaused = false;
 let fileInfo = null; // 存储从后台获取的文件信息
 let totalFiles = 0; // 缓存文件总数
-const START_BUTTON_DEFAULT_TEXT = '🚀 开始导出';
-const START_BUTTON_DONE_TEXT = '🎉导出完成';
+const START_BUTTON_DEFAULT_TEXT = '全量导出';
+const START_BUTTON_DONE_TEXT = '再次全量导出';
 
 // DOM 元素 (在 DOMContentLoaded 中分配)
 let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, teamFilesSpan, startBtn, pauseBtn, 
@@ -63,24 +66,16 @@ document.addEventListener('DOMContentLoaded', async function() {
   // 绑定事件
   getInfoBtn.addEventListener('click', handleGetFileInfo);
   startBtn.addEventListener('click', handleStart);
+  document.getElementById('selectExportContent').addEventListener('click', () => {
+    browser.tabs.create({ url: browser.runtime.getURL('settings.html#select-export') });
+  });
   pauseBtn.addEventListener('click', handlePause);
   exportTypeSelect.addEventListener('change', saveSettings);
   resetBtn.addEventListener('click', handleReset);
   settingsBtn.addEventListener('click', () => {
     browser.runtime.openOptionsPage();
   });
-  loginBtn.addEventListener('click', async () => {
-    try {
-      const response = await browser.runtime.sendMessage({ action: 'getUserInfo' });
-      if (response && response.success) {
-        browser.tabs.create({ url: 'https://shimo.im' });
-      } else {
-        browser.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
-      }
-    } catch (error) {
-      browser.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
-    }
-  });
+  initAccountPanel(browser);
   if (sponsorBtn) {
     sponsorBtn.addEventListener('click', () => toggleSponsorModal(true));
     sponsorBtn.addEventListener('mouseenter', handleSponsorHoverEnter);
@@ -108,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
   
   // 增强下拉框交互效果
-  enhanceSelectInteraction();
+  enhanceSelectInteraction(exportTypeSelect);
   initRatingModal();
 });
 
@@ -119,18 +114,16 @@ function syncUiWithState(state) {
   isPaused = state.isPaused;
   totalFiles = state.totalFiles;
 
-  if (state.fileList && state.fileList.length > 0) {
-    fileInfo = { totalFiles: state.totalFiles, fileList: state.fileList };
-    totalFilesSpan.textContent = state.totalFiles;
-    updateTeamFilesCount(state.fileList);
-    fileInfoDiv.style.display = 'block';
-  } else {
-    fileInfo = null;
-    updateTeamFilesCount([]);
-    fileInfoDiv.style.display = 'none';
-  }
-  
-  getInfoBtn.disabled = isExporting;
+  const catalogTotal = state.catalogTotal ?? state.fileList?.length ?? 0;
+  fileInfo = catalogTotal ? { totalFiles: catalogTotal } : null;
+  totalFilesSpan.textContent = catalogTotal;
+  if (state.catalogTeamTotal !== null && state.catalogTeamTotal !== undefined) teamFilesSpan.textContent = state.catalogTeamTotal;
+  else updateTeamFilesCount(state.fileList);
+  fileInfoDiv.style.display = catalogTotal ? 'block' : 'none';
+  const taskScope = document.getElementById('taskScope');
+  taskScope.hidden = !state.taskId;
+  taskScope.textContent = state.taskId ? `当前任务：${state.scope === 'selected' ? '选择导出' : '全量导出'} ${state.totalFiles} 个文档` : '';
+  getInfoBtn.disabled = isExporting || state.isScanning;
   exportTypeSelect.disabled = isExporting;
 
   if (isExporting) {
@@ -151,7 +144,7 @@ function syncUiWithState(state) {
   } else {
     startBtn.style.display = 'inline-block';
     pauseBtn.style.display = 'none';
-    startBtn.disabled = !fileInfo;
+    startBtn.disabled = !fileInfo || state.isScanning;
 
     if (state.failedFiles && state.failedFiles.length > 0) {
       retrySection.style.display = 'block';
@@ -197,7 +190,7 @@ async function handleGetFileInfo() {
     const response = await browser.runtime.sendMessage({ action: 'getFileInfo' });
     if (response && response.success) {
       showStatus('文件信息获取成功！', 'success');
-      addLog(`成功找到 ${response.data.totalFiles} 个文件。`);
+      addLog(`成功找到 ${response.data.catalogTotal ?? response.data.totalFiles} 个文件。`);
       syncUiWithState({ ...response.data, isExporting: false, isPaused: false });
       setStartButtonLabel(START_BUTTON_DEFAULT_TEXT);
       // 恢复按钮
@@ -229,7 +222,7 @@ async function handleGetFileInfo() {
 }
 
 async function handleStart() {
-  if (!fileInfo || fileInfo.fileList.length === 0) {
+  if (!fileInfo || fileInfo.totalFiles === 0) {
     showStatus('请先获取文件信息', 'error');
     return;
   }
@@ -241,6 +234,7 @@ async function handleStart() {
     const response = await browser.runtime.sendMessage({
       action: 'startExport',
       data: { 
+        scope: 'all',
         exportType: exportTypeSelect.value
       }
     });
@@ -277,7 +271,7 @@ function resetUiToIdle() {
     
     startBtn.style.display = 'inline-block';
     pauseBtn.style.display = 'none';
-    startBtn.disabled = !(fileInfo && fileInfo.fileList.length > 0);
+    startBtn.disabled = !(fileInfo && fileInfo.totalFiles > 0);
 
     progressBar.style.display = 'none';
 }
@@ -395,11 +389,11 @@ async function handleRetryFailed() {
   retryFailedBtn.textContent = '重试中...';
   
   try {
-    const response = await chrome.runtime.sendMessage({ action: 'retryFailedFiles' });
+    const response = await browser.runtime.sendMessage({ action: 'retryFailedFiles' });
     if (response && response.success) {
       addLog('开始重试失败的文件...');
       // 重新同步UI到导出状态
-      const newState = await chrome.runtime.sendMessage({ action: 'getUiState' });
+      const newState = await browser.runtime.sendMessage({ action: 'getUiState' });
       syncUiWithState(newState.data);
     } else {
       throw new Error(response.error || '未知的重试错误');
@@ -464,6 +458,9 @@ function addLog(message) {
 // 监听来自 background script 的消息
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.action) {
+    case 'taskStateChanged':
+      if (startBtn) syncUiWithState(message.data);
+      break;
     case 'exportProgress':
       const exportedFiles = message.data.exportedFiles;
       totalFiles = message.data.totalFiles; // 确保totalFiles也同步
@@ -473,18 +470,22 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       
     case 'exportComplete':
       addLog('导出流程完成。');
-      showStatus('导出完成！', 'success');
-      showRatingModalAfterExport();
       setStartButtonLabel(START_BUTTON_DONE_TEXT);
-      isExporting = false;
-      // 从后台获取最终状态，以显示可能的失败文件
       browser.runtime.sendMessage({ action: 'getUiState' }).then(response => {
-        if (response && response.success) {
-          syncUiWithState(response.data);
+        if (response?.success) {
+          const state = response.data;
+          syncUiWithState(state);
+          if (isSuccessfulTask(state)) {
+            showStatus('导出完成！', 'success');
+            // 选择导出在设置页反馈，避免两个窗口重复邀请评价。
+            if (state.scope !== 'selected') showRatingModalAfterExport(state.taskId);
+          } else {
+            showStatus('导出已结束，请检查任务结果。', 'info');
+          }
         }
-      });
+      }).catch(error => showStatus(`获取任务结果失败：${error.message}`, 'error'));
       break;
-      
+
     case 'exportError':
       addLog(`错误: ${message.data.error}`);
       showStatus('导出出错: ' + message.data.error, 'error');
@@ -551,245 +552,20 @@ function toggleSponsorModal(shouldShow) {
   }
 }
 
-// 增强下拉框交互效果
-let customSelectInitialized = false;
-
-function enhanceSelectInteraction() {
-  const selectContainer = document.querySelector('.select-container');
-  const select = document.getElementById('exportType');
-  const selectTrigger = document.getElementById('exportTypeTrigger');
-  const selectOptionsList = document.getElementById('exportTypeOptions');
-  const selectIcon = document.getElementById('exportTypeIcon');
-  const selectLabel = document.getElementById('exportTypeSelectedValue');
-  
-  if (!selectContainer || !select) return;
-
-  const updateSelectionState = () => {
-    if (select.value) {
-      selectContainer.classList.add('has-selection');
-    } else {
-      selectContainer.classList.remove('has-selection');
-    }
-    updateExportTypeIcon();
-  };
-
-  const updateExportTypeIcon = () => {
-    if (!select) return;
-    const selectedOption = select.selectedOptions?.[0] || select.options[select.selectedIndex];
-    const iconSrc = selectedOption?.dataset?.icon;
-    const optionText = selectedOption?.textContent?.trim() || '导出格式';
-
-    if (selectIcon) {
-      if (iconSrc) {
-        selectIcon.src = iconSrc;
-        selectIcon.alt = `${optionText} 图标`;
-        selectIcon.classList.add('is-visible');
-        selectIcon.style.display = '';
-      } else {
-        selectIcon.classList.remove('is-visible');
-        selectIcon.style.display = 'none';
-      }
-    }
-
-    if (selectContainer) {
-      selectContainer.classList.toggle('has-icon', Boolean(iconSrc));
-    }
-
-    if (selectLabel && selectedOption) {
-      selectLabel.textContent = optionText;
-    }
-
-    updateCustomOptionsState();
-  };
-
-  const updateCustomOptionsState = () => {
-    if (!selectOptionsList || !select) return;
-    const currentValue = select.value;
-    selectOptionsList.querySelectorAll('.select-option-item').forEach(item => {
-      const isActive = item.dataset.value === currentValue;
-      item.classList.toggle('is-active', isActive);
-      const button = item.querySelector('.select-option-button');
-      if (button) {
-        button.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      }
-    });
-  };
-
-  const buildCustomSelectOptions = () => {
-    if (!select || !selectOptionsList) return;
-    selectOptionsList.innerHTML = '';
-    const fragment = document.createDocumentFragment();
-
-    Array.from(select.options).forEach(option => {
-      const li = document.createElement('li');
-      li.className = 'select-option-item';
-      li.dataset.value = option.value;
-
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'select-option-button';
-      button.dataset.value = option.value;
-      button.setAttribute('role', 'option');
-      button.tabIndex = -1;
-
-      if (option.dataset.icon) {
-        const img = document.createElement('img');
-        img.src = option.dataset.icon;
-        img.alt = '';
-        img.setAttribute('aria-hidden', 'true');
-        img.onerror = function() {
-          this.style.display = 'none';
-        };
-        button.appendChild(img);
-      }
-
-      const text = document.createElement('span');
-      text.textContent = option.textContent.trim();
-      button.appendChild(text);
-
-      button.addEventListener('click', () => {
-        if (select.value !== option.value) {
-          select.value = option.value;
-          select.dispatchEvent(new Event('change', { bubbles: true }));
-        } else {
-          updateExportTypeIcon();
-        }
-        closeCustomDropdown({ restoreFocus: true });
-      });
-
-      li.appendChild(button);
-      fragment.appendChild(li);
-    });
-
-    selectOptionsList.appendChild(fragment);
-    updateCustomOptionsState();
-  };
-
-  const toggleCustomDropdown = () => {
-    if (!selectContainer) return;
-    if (selectContainer.classList.contains('is-open')) {
-      closeCustomDropdown({ restoreFocus: true });
-    } else {
-      openCustomDropdown();
-    }
-  };
-
-  const openCustomDropdown = () => {
-    if (!selectContainer || !selectTrigger || !selectOptionsList) return;
-    if (selectContainer.classList.contains('is-open')) return;
-    selectContainer.classList.add('is-open');
-    selectContainer.closest('.form-group')?.classList.add('is-select-open');
-    selectTrigger.setAttribute('aria-expanded', 'true');
-    const activeBtn =
-      selectOptionsList.querySelector('.select-option-item.is-active .select-option-button') ||
-      selectOptionsList.querySelector('.select-option-button');
-    setTimeout(() => {
-      activeBtn?.focus();
-    }, 0);
-  };
-
-  const closeCustomDropdown = ({ restoreFocus = false } = {}) => {
-    if (!selectContainer || !selectTrigger) return;
-    const wasOpen = selectContainer.classList.contains('is-open');
-    selectContainer.classList.remove('is-open');
-    selectContainer.closest('.form-group')?.classList.remove('is-select-open');
-    selectTrigger.setAttribute('aria-expanded', 'false');
-    if (restoreFocus && wasOpen) {
-      selectTrigger.focus();
-    }
-  };
-
-  const handleSelectOutsideClick = (event) => {
-    if (!selectContainer?.classList.contains('is-open')) return;
-    if (!selectContainer.contains(event.target)) {
-      closeCustomDropdown();
-    }
-  };
-
-  const handleTriggerKeydown = (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      toggleCustomDropdown();
-    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault();
-      openCustomDropdown();
-      focusRelativeOption(event.key === 'ArrowDown' ? 1 : -1);
-    } else if (event.key === 'Escape') {
-      event.preventDefault();
-      closeCustomDropdown({ restoreFocus: true });
-    }
-  };
-
-  const handleOptionsKeydown = (event) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeCustomDropdown({ restoreFocus: true });
-      return;
-    }
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      event.preventDefault();
-      focusRelativeOption(event.key === 'ArrowDown' ? 1 : -1);
-    }
-  };
-
-  const focusRelativeOption = (step) => {
-    if (!selectOptionsList) return;
-    const buttons = Array.from(selectOptionsList.querySelectorAll('.select-option-button'));
-    if (!buttons.length) return;
-    const focusedIndex = buttons.indexOf(document.activeElement);
-    let nextIndex = focusedIndex;
-    if (nextIndex === -1) {
-      const active =
-        selectOptionsList.querySelector('.select-option-item.is-active .select-option-button') || buttons[0];
-      nextIndex = buttons.indexOf(active);
-    }
-    nextIndex = (nextIndex + step + buttons.length) % buttons.length;
-    buttons[nextIndex].focus();
-  };
-
-  if (!selectTrigger || !selectOptionsList) {
-    updateSelectionState();
-    return;
-  }
-
-  if (customSelectInitialized) {
-    updateSelectionState();
-    updateCustomOptionsState();
-    return;
-  }
-  customSelectInitialized = true;
-
-  selectTrigger.removeAttribute('hidden');
-  selectOptionsList.removeAttribute('hidden');
-  selectContainer.classList.add('is-enhanced');
-
-  updateSelectionState();
-  buildCustomSelectOptions();
-
-  selectTrigger.addEventListener('click', (event) => {
-    event.preventDefault();
-    toggleCustomDropdown();
-  });
-  selectTrigger.addEventListener('keydown', handleTriggerKeydown);
-  selectOptionsList.addEventListener('keydown', handleOptionsKeydown);
-  document.addEventListener('click', handleSelectOutsideClick);
-
-  select.addEventListener('change', () => {
-    updateSelectionState();
-    closeCustomDropdown();
-  });
-}
-
 // ── Rating Modal ──
 
-const REVIEW_URL = 'https://chromewebstore.google.com/detail/jdipfhjpijkdjbefbaehnimligdldhdp/reviews';
 const RATING_SHOW_DELAY_MS = 2500;
 
-function showRatingModalAfterExport() {
+function showRatingModalAfterExport(taskId) {
   setTimeout(async () => {
-    const { ratingDismissed } = await browser.storage.local.get('ratingDismissed');
-    if (ratingDismissed) return;
-    toggleRatingModal(true);
+    try {
+      const { ratingDismissed } = await browser.storage.local.get('ratingDismissed');
+      const response = await browser.runtime.sendMessage({ action: 'getUiState' });
+      if (ratingDismissed || !response?.success || response.data.taskId !== taskId || !isSuccessfulTask(response.data)) return;
+      toggleRatingModal(true);
+    } catch {
+      // 评价邀请失败不影响导出结果。
+    }
   }, RATING_SHOW_DELAY_MS);
 }
 
@@ -802,18 +578,26 @@ function initRatingModal() {
   const ratingSponsorLink = document.getElementById('ratingSponsorLink');
 
   if (!ratingModal) return;
+  browser.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && changes.ratingDismissed?.newValue) toggleRatingModal(false);
+  });
 
   if (ratingReviewBtn) {
-    ratingReviewBtn.addEventListener('click', () => {
-      browser.tabs.create({ url: REVIEW_URL });
-      toggleRatingModal(false);
+    ratingReviewBtn.addEventListener('click', async () => {
+      try {
+        await browser.tabs.create({ url: REVIEW_URL });
+        await browser.storage.local.set({ ratingDismissed: true });
+        toggleRatingModal(false);
+      } catch { showStatus('打开评价页面或保存偏好失败，请稍后重试。', 'error'); }
     });
   }
 
   if (ratingDismissBtn) {
-    ratingDismissBtn.addEventListener('click', () => {
-      browser.storage.local.set({ ratingDismissed: true });
-      toggleRatingModal(false);
+    ratingDismissBtn.addEventListener('click', async () => {
+      try {
+        await browser.storage.local.set({ ratingDismissed: true });
+        toggleRatingModal(false);
+      } catch { showStatus('保存评价偏好失败，请稍后重试。', 'error'); }
     });
   }
 

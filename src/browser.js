@@ -20,9 +20,21 @@ const api = isFirefox ? (typeof browser !== 'undefined' ? browser : chrome) : ch
 var browserCompat = {
   browserType,
   isFirefox,
+
+  declarativeNetRequest: {
+    updateSessionRules: (options) => {
+      if (isFirefox) return api.declarativeNetRequest.updateSessionRules(options);
+      return new Promise((resolve, reject) => api.declarativeNetRequest.updateSessionRules(options, () => {
+        const error = api.runtime.lastError;
+        if (error) reject(new Error(error.message));
+        else resolve();
+      }));
+    }
+  },
   
   // 1. 存储：统一返回 Promise
   storage: {
+    onChanged: api.storage.onChanged,
     local: {
       get: (keys) => {
         if (isFirefox) return api.storage.local.get(keys);
@@ -30,7 +42,11 @@ var browserCompat = {
       },
       set: (items) => {
         if (isFirefox) return api.storage.local.set(items);
-        return new Promise(resolve => api.storage.local.set(items, resolve));
+        return new Promise((resolve, reject) => api.storage.local.set(items, () => {
+          const error = api.runtime.lastError;
+          if (error) reject(new Error(error.message));
+          else resolve();
+        }));
       },
       remove: (keys) => {
         if (isFirefox) return api.storage.local.remove(keys);
@@ -178,7 +194,11 @@ var browserCompat = {
   tabs: {
     create: (options) => {
       if (isFirefox) return api.tabs.create(options);
-      return new Promise(resolve => api.tabs.create(options, resolve));
+      return new Promise((resolve, reject) => api.tabs.create(options, tab => {
+        const error = api.runtime.lastError;
+        if (error) reject(new Error(error.message));
+        else resolve(tab);
+      }));
     }
   }
 };

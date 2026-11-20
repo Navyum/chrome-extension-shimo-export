@@ -19,10 +19,14 @@ module.exports = {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
+        { from: 'LICENSE', to: 'LICENSE', toType: 'file' },
+        { from: 'NOTICE', to: 'NOTICE', toType: 'file' },
         { from: 'src/popup.html', to: 'popup.html' },
         { from: 'src/popup.css', to: 'popup.css' },
         { from: 'src/settings.html', to: 'settings.html' },
         { from: 'src/settings.css', to: 'settings.css' },
+        { from: 'src/export-format-select.css', to: 'export-format-select.css' },
+        { from: 'src/export-success.css', to: 'export-success.css' },
         { from: 'src/browser.js', to: 'browser.js' },
         { from: 'src/icons', to: 'icons', noErrorOnMissing: true },
         { from: 'src/assets', to: 'assets', noErrorOnMissing: true }

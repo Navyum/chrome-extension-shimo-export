@@ -1,0 +1,37 @@
+石墨文档导出工具 / Shimo Document Export Tool
+
+Required Notice: Project source: https://github.com/Navyum/chrome-extension-shimo-export
+Required Notice: Project code is licensed under the PolyForm Noncommercial License 1.0.0: https://polyformproject.org/licenses/noncommercial/1.0.0
+Required Notice: This is an independent third-party project, not an official Shimo product. Attribution does not imply endorsement of a modified version by the original maintainers or Shimo.
+Required Notice: This code license does not grant rights to third-party services, APIs, trademarks, document contents, or excluded image assets.
+
+授权范围
+
+LICENSE 适用于本项目权利人有权授权的程序源代码、HTML/CSS 界面代码、
+构建脚本及其编译后的代码，但不替代第三方代码或依赖已有的许可证。
+各作者保留各自贡献的权利；本声明不主张拥有第三方的知识产权。
+
+图片与品牌资源
+
+以下非代码资源不自动纳入本项目的 PolyForm 代码许可：
+- src/icons/、src/assets/ 下的图标、SVG、截图及其他图片；
+- docs/images/ 下的图片，以及 docs/ 下的 favicon 和应用图标；
+- 第三方品牌标识、产品截图、赞赏码及其他标识性图片。
+
+构建产物中的 icons/、assets/ 对应上述 src/ 资源，同样适用此范围说明。
+这些资源的来源和再分发权限尚未全部核实；本文件不作统一授权保证。
+若某项资源已有明确许可，按该许可使用；否则发布修改版或安装包前，
+请核实权利、取得所需授权，或替换为自己有权使用的素材。
+商标及品牌权利不因源代码许可或图片文件的存在而自动授予。
+
+平台与维护关系
+
+本项目许可仅涉及权利人能够授予的代码权利，不代表石墨许可第三方
+调用其接口，也不授予用户对他人文档的访问、导出或再分发权利。
+第三方修改版由其发布者独立维护，来源署名不表示原作者为其背书。
+无担保和责任限制以 LICENSE 为准，并仅在适用法律允许的范围内生效。
+
+版本范围
+
+本声明随包含本 LICENSE 的代码版本提供，不主张追溯撤销历史版本
+可能已经有效授予的许可，也不变更第三方既有权利。

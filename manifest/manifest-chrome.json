@@ -6,10 +6,12 @@
   "permissions": [
     "cookies",
     "storage",
-    "downloads"
+    "downloads",
+    "declarativeNetRequestWithHostAccess"
   ],
   "host_permissions": [
-    "https://*.shimo.im/*"
+    "https://*.shimo.im/*",
+    "https://oavatar.shimonote.com/*"
   ],
   "background": {
     "service_worker": "background.js"

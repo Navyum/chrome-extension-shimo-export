@@ -24,7 +24,7 @@ Primary stack:
 - `docs/`: static website, documentation, and blog content.
 - `docs/blog/`: blog pages and blog-related scripts.
 - `docs/images/`: documentation and blog images.
-- `images/`: store and promotional assets.
+- `src/assets/`: extension assets and shared donation QR codes referenced by README.
 - `dist/`, `.build-temp/`, `build/`: generated build/package outputs.
 
 Do not edit generated outputs directly.

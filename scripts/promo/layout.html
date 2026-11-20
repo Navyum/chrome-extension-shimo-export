@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>石墨文档导出 · 展示图</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;color:#24203f;background:#f3f1fc}
+body::before{content:'';position:absolute;width:800px;height:800px;right:-360px;top:-410px;border-radius:50%;background:radial-gradient(circle,#e0d6ff,transparent 70%)}body::after{content:'';position:absolute;width:1000px;height:500px;right:-300px;bottom:-250px;transform:rotate(-24deg);border-radius:200px;background:linear-gradient(110deg,#d8e7ff,#ddd4ff);z-index:-1}
+.brand{position:absolute;left:56px;top:32px;display:flex;align-items:center;gap:12px;font-size:19px;font-weight:600;letter-spacing:1px}.brand img{width:35px;height:35px;border-radius:10px}.top-note{position:absolute;right:56px;top:42px;font-size:12px;color:#7d7594;letter-spacing:2px}.headline{position:absolute;left:56px;top:89px;margin:0;font-size:39px;letter-spacing:-1px;line-height:1.3;font-weight:700}.headline em{color:#7950d5;font-style:normal}.subtitle{position:absolute;right:56px;top:105px;font-size:17px;color:#736b87;margin:0}
+.window{position:absolute;left:56px;top:157px;width:1168px;height:598px;overflow:hidden;border-radius:16px;border:1px solid #d5cceb;background:#161429;box-shadow:0 22px 55px #35235424}.bar{height:30px;background:#252039;color:#b2a9cc;display:flex;align-items:center;padding:0 12px;gap:6px;font-size:10px}.bar i{width:7px;height:7px;border-radius:50%;background:#615773}.bar span{margin-left:13px;letter-spacing:1px}iframe{border:0;display:block;width:1440px;height:700px;transform:scale(.81);transform-origin:top left;background:#111124}.foot{position:absolute;left:58px;bottom:17px;font-size:11px;color:#8d859e;letter-spacing:1px}.number{position:absolute;right:57px;bottom:16px;font-size:12px;color:#8d859e}
+.copy{display:none}.popup .headline{top:214px;font-size:58px;width:620px;line-height:1.28}.popup .headline em{display:block}.popup .subtitle{left:58px;top:391px;right:auto;font-size:23px;line-height:1.8}.popup .window{left:782px;top:101px;width:402px;height:632px;border-radius:19px}.popup iframe{width:400px;height:600px;transform:none}.popup .copy{display:flex;position:absolute;left:58px;top:525px;gap:10px;flex-wrap:wrap;width:620px}.tag{padding:12px 18px;border-radius:12px;background:#fff9;border:1px solid #ddd5f0;color:#675587;font-size:17px}.popup .top-note{right:96px}
+.banner .brand{top:50px;left:64px}.banner .headline{left:64px;top:151px;font-size:58px;line-height:1.35}.banner .headline em{display:block}.banner .subtitle{left:66px;top:328px;font-size:23px;right:auto}.banner .copy{display:flex;position:absolute;left:66px;top:411px;gap:12px}.banner .window{left:948px;top:44px;width:302px;height:474px;transform:rotate(3deg)}.banner iframe{width:400px;height:600px;transform:scale(.75)}.banner .bar{height:22px}.banner .foot{left:66px;bottom:30px}.banner .top-note,.banner .number{display:none}
+.small .brand{left:26px;top:23px;font-size:15px;gap:9px}.small .brand img{width:28px;height:28px}.small .headline{left:26px;top:78px;font-size:33px;line-height:1.3;letter-spacing:0}.small .headline em{display:block}.small .subtitle{left:27px;top:182px;font-size:14px;right:auto}.small .copy{display:flex;position:absolute;left:26px;top:223px;gap:8px}.small .tag{padding:5px 9px;font-size:11px;border-radius:8px}.small .window,.small .foot,.small .number,.small .top-note{display:none}
+</style></head><body>
+<div class="brand"><img src="/icons/icon48.png" alt=""><span>石墨文档导出</span></div><div class="top-note">CHROME · FIREFOX · EDGE</div>
+<h1 class="headline"></h1><p class="subtitle"></p><div class="copy"></div>
+<div class="window"><div class="bar"><i></i><i></i><i></i><span>石墨文档导出 · 扩展界面</span></div><iframe title="插件界面"></iframe></div>
+<div class="foot">当前版本界面 · 示例文档与演示数据</div><span class="number"></span>
+<script>
+const asset=new URLSearchParams(location.search).get('asset')||'feat1';
+const config={
+ feat1:{mode:'popup',title:'文档导出，<em>格式随你选。</em>',sub:'Markdown、PDF、Word、图片<br>全量备份，也能只导出所需内容。',tags:['Markdown','PDF','Word','JPG'],url:'/popup.html',num:'01 / 04'},
+ feat2:{title:'按需勾选，<em>保留目录层级。</em>',sub:'文件夹或单篇文档 · 选择自动记忆',url:'/settings.html#select-export',num:'02 / 04'},
+ feat3:{title:'备份习惯，<em>由你设置。</em>',sub:'下载子文件夹 · 文件时间 · 各类型导出格式',url:'/settings.html#general',num:'03 / 04'},
+ feat4:{title:'导出结果，<em>清楚可查。</em>',sub:'按状态筛选 · 查看失败文件与下载耗时',url:'/settings.html#performance',num:'04 / 04'},
+ 'banner-L':{mode:'banner',title:'把石墨文档，<em>安心留在本地。</em>',sub:'全量备份 / 选择导出 / 保留目录层级',tags:['多格式导出','团队空间','本地备份'],url:'/popup.html'},
+ 'banner-S':{mode:'small',title:'石墨文档，<em>导出到本地。</em>',sub:'按需选择 · 保留目录 · 多种格式',tags:['Chrome','Firefox','Edge']}
+}[asset];
+document.body.className=config.mode||'';document.querySelector('.headline').innerHTML=config.title;document.querySelector('.subtitle').innerHTML=config.sub;document.querySelector('.number').textContent=config.num||'';document.querySelector('.copy').innerHTML=(config.tags||[]).map(t=>'<span class="tag">'+t+'</span>').join('');
+const frame=document.querySelector('iframe');
+if(config.url){frame.src=config.url;frame.addEventListener('load',async()=>{
+ const win=frame.contentWindow;const doc=win.document;await new Promise(r=>setTimeout(r,300));
+ const style=doc.createElement('style');style.textContent='*,*::before,*::after{animation-duration:0.001ms!important;animation-delay:0s!important;transition:none!important}';doc.head.append(style);
+ // 取消页面入场动画后恢复原本的可见状态。
+ if(config.url.startsWith('/popup')) {doc.querySelectorAll('.container,.form-group,.top-right-btn,.header').forEach(n=>n.style.opacity='1');if(asset==='feat1')doc.getElementById('exportTypeTrigger').click();}
+ if(asset==='feat2'){for(const name of ['个人空间','项目资料']){doc.querySelector('[aria-label="展开或折叠 '+name+'"]')?.click();}}
+ if(asset==='feat4'){doc.querySelectorAll('.file-tree-folder > span').forEach(n=>n.click());}
+ if(asset==='feat3'){
+  // 设置宣传图只展示相关控件，省略下载提示与反馈区；生产页面保持原样。
+  const extra=doc.createElement('style');extra.textContent='#general .form-group:has(#openDownloadsBtn),#general .form-group:has(#feedbackBtn),#general .status{display:none}';doc.head.append(extra);
+  document.querySelector('.foot').textContent='当前版本界面局部 · 示例设置';
+ }
+ win.scrollTo(0,0);await new Promise(r=>setTimeout(r,100));document.fonts.ready.then(()=>{document.querySelector('.window').scrollTop=0;window.scrollTo(0,0);document.body.dataset.ready='true';});
+});}else document.fonts.ready.then(()=>{document.querySelector('.window').scrollTop=0;window.scrollTo(0,0);document.body.dataset.ready='true';});
+</script></body></html>
