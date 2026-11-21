@@ -1,0 +1,121 @@
+{
+  "generator": "built-in image_gen",
+  "referencePrompts": [
+    "../chrome-extension-mubu-export/docs/images/store-screenshots-1280x800/prompts.json",
+    "../chrome-extension-mubu-export/docs/images/store-screen/mubu-exporter-marquee-1400x560.prompt.txt",
+    "../chrome-extension-mubu-export/docs/images/store-screen/mubu-exporter-small-promo-440x280.prompt.txt"
+  ],
+  "finishing": "sips resize to exact dimensions; feature PNG/WebP q92; banner JPEG q96 and native-resolution PNG masters; no QR codes or donation UI",
+  "images": [
+    {
+      "name": "feat1",
+      "width": 1280,
+      "height": 800,
+      "prompt": "Use case: precise-object-edit / compositing. Image 1 is the approved artwork to edit. Image 2 is the EXACT original application logo to insert: a charcoal rounded square with stylized WHITE Chinese \"石墨\" lettering. Replace ONLY the TWO generic document-and-down-arrow brand icons in image 1: the upper-left brand lockup icon and the small icon at top of the dark panel. Use image 2 exactly as supplied, retaining its charcoal background, white lettering and rounded shape, correctly scaled to fit each existing icon location. Keep their positions and sizes, optionally retaining the surrounding white tile margin. Do NOT redraw, reinterpret or typeset the logo. These are the only two replacements. Preserve ALL other pixels, text, spelling, font size, line wraps, menu file icons, layout, background geometry, palette, shadows and dimensions as closely as possible. No QR codes or new content. The previously approved generic file icons INSIDE the format menu are not brand icons and must stay untouched. Return the full finished original-ratio artwork.",
+      "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-b1093335-ee33-4b12-8c8a-e6e220bcf23d.png",
+      "references": [
+        "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-98b6e528-8a7c-498d-a221-ca3d5e5c6ce6.png",
+        "src/icons/icon.png"
+      ],
+      "initialGeneration": {
+        "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-98b6e528-8a7c-498d-a221-ca3d5e5c6ce6.png",
+        "prompt": "Use case: ads-marketing. Generate a finished Chinese software promotional raster image for \"石墨文档导出\". Match the reference campaign's premium productivity design: almost-white pale lavender background, small soft pink upper-right corner, pastel blue diagonal sweep at lower right, very bold deep ink-purple Chinese typography, vivid violet second headline line with a graceful curved underline, deep navy-purple rounded product panel, delicate shadow, clean alignment and generous whitespace. Use a simple generic outlined document-and-download icon inside a white rounded square beside the brand; DO NOT copy the reference Mubu branching logo or Mubu name. All Chinese text crisp, correctly spelled, readable. Functional panel is a simplified promotional illustration of real features, not a dense full screenshot. STRICT: absolutely NO QR codes, barcodes, payment imagery, donation/sponsor panels, hearts, account/avatar/login information, watermarks, ratings, store badges, unsupported features, decorative people or 3D. No words about dimensions. Only render explicitly specified copy.\n\nLandscape 16:10, target 1280x800. Brand top left \"石墨文档导出\". Left text occupies 45%, right UI 45%, margins 60px. Exact headline two lines \"多种格式\" / \"自由导出\". Supporting text \"文档、表格、演示，按需选择\". Below four small chips \".md\", \".pdf\", \".docx\", \".jpg\". Right large elegant dark panel headed \"导出格式\", with FIVE spacious menu rows exactly \"自动检测\", \"Markdown (.md)\", \"PDF (.pdf)\", \"Word (.docx)\", \"图片 (.jpg)\". Highlight 自动检测 in violet. Small simple file line icons. Complete menu visible, no clipping. Do not claim every document supports every format.",
+        "references": [
+          "../chrome-extension-mubu-export/docs/images/feat1.png"
+        ]
+      }
+    },
+    {
+      "name": "feat2",
+      "width": 1280,
+      "height": 800,
+      "prompt": "Use case: precise-object-edit / compositing. Image 1 is the approved artwork to edit. Image 2 is the EXACT original application logo to insert: a charcoal rounded square with stylized WHITE Chinese \"石墨\" lettering. Replace ONLY the TWO generic document-and-down-arrow brand icons in image 1: the upper-left brand lockup icon and the small icon at top of the dark panel. Use image 2 exactly as supplied, retaining its charcoal background, white lettering and rounded shape, correctly scaled to fit each existing icon location. Keep their positions and sizes, optionally retaining the surrounding white tile margin. Do NOT redraw, reinterpret or typeset the logo. These are the only two replacements. Preserve ALL other pixels, text, spelling, font size, line wraps, menu file icons, layout, background geometry, palette, shadows and dimensions as closely as possible. No QR codes or new content. The previously approved generic file icons INSIDE the format menu are not brand icons and must stay untouched. Return the full finished original-ratio artwork.",
+      "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-ce991259-728f-49fd-9ad4-afe80e4aa8aa.png",
+      "references": [
+        "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-3004c5f2-6551-4035-a2c6-8e7601ed1acb.png",
+        "src/icons/icon.png"
+      ],
+      "initialGeneration": {
+        "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-3004c5f2-6551-4035-a2c6-8e7601ed1acb.png",
+        "prompt": "Use case: ads-marketing. Generate a finished Chinese software promotional raster image for \"石墨文档导出\". Match the reference campaign's premium productivity design: almost-white pale lavender background, small soft pink upper-right corner, pastel blue diagonal sweep at lower right, very bold deep ink-purple Chinese typography, vivid violet second headline line with a graceful curved underline, deep navy-purple rounded product panel, delicate shadow, clean alignment and generous whitespace. Use a simple generic outlined document-and-download icon inside a white rounded square beside the brand; DO NOT copy the reference Mubu branching logo or Mubu name. All Chinese text crisp, correctly spelled, readable. Functional panel is a simplified promotional illustration of real features, not a dense full screenshot. STRICT: absolutely NO QR codes, barcodes, payment imagery, donation/sponsor panels, hearts, account/avatar/login information, watermarks, ratings, store badges, unsupported features, decorative people or 3D. No words about dimensions. Only render explicitly specified copy.\n\nLandscape 16:10 target 1280x800. Brand top left \"石墨文档导出\". Left text 40%, right panel 52%, margins 56px. Exact headline \"按需选择\" / \"轻松导出\". Support on two lines \"勾选文件夹或单篇文档\" / \"保留原有目录层级\". Bottom subtle pill \"只导出需要的内容\". Right dark panel heading \"选择导出内容\". A top small toolbar with \"全选\", \"清空\", \"刷新文件列表\". Spacious inset directory tree: \"个人空间\" expanded, nested checked folder \"工作笔记\", its two checked children \"项目计划\" and \"会议记录\"; below an unchecked folder \"学习笔记\". Show proper indentation, folder/file icons and violet checkboxes, with clear empty checkbox for unselected folder. Bottom label \"导出格式\", dropdown \"自动检测\", and large violet button \"导出所选文档\". No statistics or progress added.\nThe supplied image is the approved STYLE reference. Match its icon, palette, typography and polish, but replace ALL feature content with the requested selection interface.",
+        "references": [
+          "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-98b6e528-8a7c-498d-a221-ca3d5e5c6ce6.png"
+        ]
+      }
+    },
+    {
+      "name": "feat3",
+      "width": 1280,
+      "height": 800,
+      "prompt": "Use case: precise-object-edit / compositing. Image 1 is the approved artwork to edit. Image 2 is the EXACT original application logo to insert: a charcoal rounded square with stylized WHITE Chinese \"石墨\" lettering. Replace ONLY the TWO generic document-and-down-arrow brand icons in image 1: the upper-left brand lockup icon and the small icon at top of the dark panel. Use image 2 exactly as supplied, retaining its charcoal background, white lettering and rounded shape, correctly scaled to fit each existing icon location. Keep their positions and sizes, optionally retaining the surrounding white tile margin. Do NOT redraw, reinterpret or typeset the logo. These are the only two replacements. Preserve ALL other pixels, text, spelling, font size, line wraps, menu file icons, layout, background geometry, palette, shadows and dimensions as closely as possible. No QR codes or new content. The previously approved generic file icons INSIDE the format menu are not brand icons and must stay untouched. Return the full finished original-ratio artwork.",
+      "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-cd55e60e-106b-41fa-93af-e7a7dd491a1c.png",
+      "references": [
+        "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-9bd2065c-1ba1-4354-b9c1-317e51435e84.png",
+        "src/icons/icon.png"
+      ],
+      "initialGeneration": {
+        "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-9bd2065c-1ba1-4354-b9c1-317e51435e84.png",
+        "prompt": "Use case: ads-marketing. Generate a finished Chinese software promotional raster image for \"石墨文档导出\". Match the reference campaign's premium productivity design: almost-white pale lavender background, small soft pink upper-right corner, pastel blue diagonal sweep at lower right, very bold deep ink-purple Chinese typography, vivid violet second headline line with a graceful curved underline, deep navy-purple rounded product panel, delicate shadow, clean alignment and generous whitespace. Use a simple generic outlined document-and-download icon inside a white rounded square beside the brand; DO NOT copy the reference Mubu branching logo or Mubu name. All Chinese text crisp, correctly spelled, readable. Functional panel is a simplified promotional illustration of real features, not a dense full screenshot. STRICT: absolutely NO QR codes, barcodes, payment imagery, donation/sponsor panels, hearts, account/avatar/login information, watermarks, ratings, store badges, unsupported features, decorative people or 3D. No words about dimensions. Only render explicitly specified copy.\n\nLandscape 16:10 target 1280x800. Brand top left \"石墨文档导出\". Left text 38%, right dark settings panel 54%, margins 56px. Headline \"备份目录\" / \"自己定义\". Supporting two lines \"自定义下载子文件夹\" / \"保留原有目录层级\". Subtle pill \"文件归档更有条理\". Right panel heading \"通用设置\". Content title \"下载子文件夹\", field \"我的石墨备份\", helper \"保存在浏览器的下载目录内\". Beneath separate inset panel \"目录示意\", elegant folder tree \"下载\" > \"我的石墨备份\" > two folders \"工作笔记\" and \"学习笔记\". Bottom outlined button \"打开下载设置\". No arbitrary absolute paths, browse-folder chooser, scheduled backups or cloud sync. Simplify to this single content pane, NO sponsorship sidebar.\nReference is STYLE only: match its generic document icon, campaign typography, palette and finish; replace content with requested backup settings composition.",
+        "references": [
+          "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-98b6e528-8a7c-498d-a221-ca3d5e5c6ce6.png"
+        ]
+      }
+    },
+    {
+      "name": "feat4",
+      "width": 1280,
+      "height": 800,
+      "prompt": "Use case: precise-object-edit / compositing. Image 1 is the approved artwork to edit. Image 2 is the EXACT original application logo to insert: a charcoal rounded square with stylized WHITE Chinese \"石墨\" lettering. Replace ONLY the TWO generic document-and-down-arrow brand icons in image 1: the upper-left brand lockup icon and the small icon at top of the dark panel. Use image 2 exactly as supplied, retaining its charcoal background, white lettering and rounded shape, correctly scaled to fit each existing icon location. Keep their positions and sizes, optionally retaining the surrounding white tile margin. Do NOT redraw, reinterpret or typeset the logo. These are the only two replacements. Preserve ALL other pixels, text, spelling, font size, line wraps, menu file icons, layout, background geometry, palette, shadows and dimensions as closely as possible. No QR codes or new content. The previously approved generic file icons INSIDE the format menu are not brand icons and must stay untouched. Return the full finished original-ratio artwork.",
+      "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-d32c8e7a-0e77-4217-946e-b41543ac5e78.png",
+      "references": [
+        "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-8893d018-e820-40cb-bd3c-dc0b563329df.png",
+        "src/icons/icon.png"
+      ],
+      "initialGeneration": {
+        "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-8893d018-e820-40cb-bd3c-dc0b563329df.png",
+        "prompt": "Use case: ads-marketing. Generate a finished Chinese software promotional raster image for \"石墨文档导出\". Match the reference campaign's premium productivity design: almost-white pale lavender background, small soft pink upper-right corner, pastel blue diagonal sweep at lower right, very bold deep ink-purple Chinese typography, vivid violet second headline line with a graceful curved underline, deep navy-purple rounded product panel, delicate shadow, clean alignment and generous whitespace. Use a simple generic outlined document-and-download icon inside a white rounded square beside the brand; DO NOT copy the reference Mubu branching logo or Mubu name. All Chinese text crisp, correctly spelled, readable. Functional panel is a simplified promotional illustration of real features, not a dense full screenshot. STRICT: absolutely NO QR codes, barcodes, payment imagery, donation/sponsor panels, hearts, account/avatar/login information, watermarks, ratings, store badges, unsupported features, decorative people or 3D. No words about dimensions. Only render explicitly specified copy.\n\nLandscape 16:10 target 1280x800. Brand top left \"石墨文档导出\". Left text 37%, right panel 55%, margins 52px. Headline \"导出进度\" / \"一目了然\". Supporting two lines \"按状态筛选文件\" / \"查看下载耗时详情\". Small subdued label \"界面示意\". Right dark panel heading \"性能监控\". First inset section \"下载详情\", filter tabs \"全部\", \"成功\", \"失败\", \"处理中\", 全部 selected. Folder \"工作笔记\", indented files \"项目计划.md\" with green check and \"成功\", \"会议记录.md\" with orange warning and \"失败\", \"学习笔记.md\" with small progress circle and \"处理中\". Second inset section \"耗时详情\", two aligned rows \"项目计划.md\" and \"会议记录.md\" with understated violet horizontal duration bars. NO invented timing values, percentages, speed guarantees, CPU charts or analytics. No sponsorship sidebar.\nReference is STYLE only: match its generic document icon, typography, palette and polish; replace content with requested export status composition.",
+        "references": [
+          "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-98b6e528-8a7c-498d-a221-ca3d5e5c6ce6.png"
+        ]
+      }
+    },
+    {
+      "name": "banner-L",
+      "width": 1400,
+      "height": 560,
+      "prompt": "Use case: precise-object-edit / compositing. Image 1 is the approved artwork to edit. Image 2 is the EXACT original application logo to insert: a charcoal rounded square with stylized WHITE Chinese \"石墨\" lettering. Replace ONLY the TWO generic document-and-down-arrow brand icons in image 1: the upper-left brand lockup icon and the small icon at top of the dark panel. Use image 2 exactly as supplied, retaining its charcoal background, white lettering and rounded shape, correctly scaled to fit each existing icon location. Keep their positions and sizes, optionally retaining the surrounding white tile margin. Do NOT redraw, reinterpret or typeset the logo. These are the only two replacements. Preserve ALL other pixels, text, spelling, font size, line wraps, menu file icons, layout, background geometry, palette, shadows and dimensions as closely as possible. No QR codes or new content. The previously approved generic file icons INSIDE the format menu are not brand icons and must stay untouched. Return the full finished original-ratio artwork.",
+      "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-c0216cf9-6b4d-4829-9782-9f06750c973c.png",
+      "references": [
+        "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-2ee861f3-5f5b-4e05-8ab5-56692870d6be.png",
+        "src/icons/icon.png"
+      ],
+      "initialGeneration": {
+        "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-2ee861f3-5f5b-4e05-8ab5-56692870d6be.png",
+        "prompt": "Use case: ads-marketing. Generate a finished Chinese software promotional raster image for \"石墨文档导出\". Match the reference campaign's premium productivity design: almost-white pale lavender background, small soft pink upper-right corner, pastel blue diagonal sweep at lower right, very bold deep ink-purple Chinese typography, vivid violet second headline line with a graceful curved underline, deep navy-purple rounded product panel, delicate shadow, clean alignment and generous whitespace. Use a simple generic outlined document-and-download icon inside a white rounded square beside the brand; DO NOT copy the reference Mubu branching logo or Mubu name. All Chinese text crisp, correctly spelled, readable. Functional panel is a simplified promotional illustration of real features, not a dense full screenshot. STRICT: absolutely NO QR codes, barcodes, payment imagery, donation/sponsor panels, hearts, account/avatar/login information, watermarks, ratings, store badges, unsupported features, decorative people or 3D. No words about dimensions. Only render explicitly specified copy.\n\nCreate one wide marquee banner, aspect ratio EXACTLY 2.5:1, target 1400x560, high-resolution sharp polished output. Left 58% editorial copy, right 34% dark export-format card, 50px safe margins. Brand upper left \"石墨文档导出\". Large headline on two lines \"石墨文档\" / \"一键导出\". Support \"批量导出 · 自由选择 · 保留目录\". Beneath four tasteful chips \"Markdown\", \"PDF\", \"Word\", \"图片\". Right card header \"导出格式\"; five complete spacious rows \"自动检测\", \"Markdown (.md)\", \"PDF (.pdf)\", \"Word (.docx)\", \"图片 (.jpg)\". First row violet. Menu is visual focus, NOT a mini screenshot with unreadable controls. No install button or extra copy. Render at high native detail for exact downscaling.\nImage 1 is STYLE reference for this Shimo campaign. Image 2 is WIDE LAYOUT reference from another product only: use its spacious 2.5:1 composition, never its Mubu name, branching logo or format list. Use Shimo copy and 5 rows specified above.",
+        "references": [
+          "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-98b6e528-8a7c-498d-a221-ca3d5e5c6ce6.png",
+          "../chrome-extension-mubu-export/docs/images/store-screen/mubu-exporter-marquee-1400x560.png"
+        ]
+      }
+    },
+    {
+      "name": "banner-S",
+      "width": 440,
+      "height": 280,
+      "prompt": "Use case: precise-object-edit / compositing. Image 1 is the approved artwork to edit. Image 2 is the EXACT original application logo to insert: a charcoal rounded square with stylized WHITE Chinese \"石墨\" lettering. Replace ONLY the TWO generic document-and-down-arrow brand icons in image 1: the upper-left brand lockup icon and the small icon at top of the dark panel. Use image 2 exactly as supplied, retaining its charcoal background, white lettering and rounded shape, correctly scaled to fit each existing icon location. Keep their positions and sizes, optionally retaining the surrounding white tile margin. Do NOT redraw, reinterpret or typeset the logo. These are the only two replacements. Preserve ALL other pixels, text, spelling, font size, line wraps, menu file icons, layout, background geometry, palette, shadows and dimensions as closely as possible. No QR codes or new content. The previously approved generic file icons INSIDE the format menu are not brand icons and must stay untouched. Return the full finished original-ratio artwork.",
+      "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-8244a22e-553c-424a-bbe6-fde2d37be850.png",
+      "references": [
+        "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-db93a600-079b-4507-8a29-a64e3bdb4fd1.png",
+        "src/icons/icon.png"
+      ],
+      "initialGeneration": {
+        "source": "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-db93a600-079b-4507-8a29-a64e3bdb4fd1.png",
+        "prompt": "Use case: ads-marketing. Generate a finished Chinese software promotional raster image for \"石墨文档导出\". Match the reference campaign's premium productivity design: almost-white pale lavender background, small soft pink upper-right corner, pastel blue diagonal sweep at lower right, very bold deep ink-purple Chinese typography, vivid violet second headline line with a graceful curved underline, deep navy-purple rounded product panel, delicate shadow, clean alignment and generous whitespace. Use a simple generic outlined document-and-download icon inside a white rounded square beside the brand; DO NOT copy the reference Mubu branching logo or Mubu name. All Chinese text crisp, correctly spelled, readable. Functional panel is a simplified promotional illustration of real features, not a dense full screenshot. STRICT: absolutely NO QR codes, barcodes, payment imagery, donation/sponsor panels, hearts, account/avatar/login information, watermarks, ratings, store badges, unsupported features, decorative people or 3D. No words about dimensions. Only render explicitly specified copy.\n\nCreate a SMALL promotional banner composed specifically for 11:7 landscape aspect, target final 440x280 but render at high native detail for downsampling. Do not crop or squeeze a wide banner. Copy must remain legible at 440px wide. Compact 55% left / 40% right split, 16px final margins. Brand \"石墨文档导出\" at upper left, simple small document icon. Large bold two-line headline \"石墨文档\" / \"一键导出\". One short support line \"按需导出 · 保留目录\". Right clean dark rounded menu headed \"导出格式\", FIVE rows only \"自动检测\", \"Markdown\", \"PDF\", \"Word\", \"图片\". Violet highlight on 自动检测, simple file icons. No extra format chips, captions or tiny text. Polished visual composition with large readable headline.\nReference is same campaign's wide banner. Recompose and simplify for the requested 11:7 SMALL tile; preserve document icon and visual identity. No bottom chips. Ensure small-size legibility.",
+        "references": [
+          "/Users/haijun_yang/.codex/generated_images/01a1f41e-6fb4-75d1-9b80-0a11382ec995/exec-2ee861f3-5f5b-4e05-8ab5-56692870d6be.png"
+        ]
+      }
+    }
+  ],
+  "logoPolicy": "Use the original src/icons/icon.png at both brand icon positions. Never replace the application logo with a generic document symbol. Initial generation prompts are historical only; final logo-edit prompt takes precedence."
+}

@@ -63,8 +63,8 @@
                         <p class="carousel-caption">按需勾选，保留目录层级</p>
                     </div>
                     <div class="carousel-slide">
-                        <img src="../images/feat3.webp" alt="下载目录与文件时间设置" loading="lazy">
-                        <p class="carousel-caption">自定义下载目录与文件时间</p>
+                        <img src="../images/feat3.webp" alt="自定义下载子文件夹并保留目录层级" loading="lazy">
+                        <p class="carousel-caption">自定义备份目录，保留文件层级</p>
                     </div>
                     <div class="carousel-slide">
                         <img src="../images/feat4.webp" alt="导出状态与下载耗时" loading="lazy">
